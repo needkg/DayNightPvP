@@ -10,6 +10,7 @@ import com.needkg.daynightpvp.metrics.Metrics;
 import com.needkg.daynightpvp.placeholder.RegisterPlaceHolder;
 import com.needkg.daynightpvp.service.DnpService;
 import com.needkg.daynightpvp.utils.ConsoleUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class DayNightPvP extends JavaPlugin {
@@ -22,7 +23,7 @@ public class DayNightPvP extends JavaPlugin {
         plugin = this;
 
         consoleUtils = new ConsoleUtils();
-        consoleUtils.sendMessage(consoleUtils.STARTUP_MESSAGE);
+        consoleUtils.sendStartMessage(this);
 
         StartupFiles startupFiles = new StartupFiles();
         startupFiles.startConfigFile(this);
@@ -45,19 +46,19 @@ public class DayNightPvP extends JavaPlugin {
         registerCommands.register(this);
 
         RegisterEvents registerEvents = new RegisterEvents();
-        registerEvents.register();
+        registerEvents.registerJoinEvent();
+        registerEvents.registerEntityEvent();
 
         RegisterPlaceHolder registerPlaceHolder = new RegisterPlaceHolder();
         registerPlaceHolder.register();
 
         new Metrics(this, 19067);
 
-        consoleUtils.sendMessage(consoleUtils.STARTUP_END_MESSAGE);
+        //consoleUtils.sendMessage(consoleUtils.STARTUP_END_MESSAGE);
     }
 
     @Override
     public void onDisable() {
-        consoleUtils.sendMessage(consoleUtils.SHUTDOWN_MESSAGE);
     }
 
 }
