@@ -15,7 +15,7 @@ public class RegisterPlaceHolder {
 
     public void register() {
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            consoleUtils.sendWarning("PlaceholderAPI detected, starting compatibility.");
+            consoleUtils.sendMessage("PlaceholderAPI detected, starting compatibility...");
             pvpStatus.register();
         }
     }

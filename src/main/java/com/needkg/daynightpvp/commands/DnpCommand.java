@@ -20,7 +20,7 @@ public class DnpCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (!sender.hasPermission("dnp.admin")) {
-            sender.sendMessage("§8[§e☀§8] §3DayNightPvP §8- §7v" + DayNightPvP.plugin.getDescription().getVersion());
+            sender.sendMessage("§8[§e☀§8] §aDayNightPvP §8- §7v" + DayNightPvP.plugin.getDescription().getVersion());
             return true;
         }
         if (args.length >= 1) {

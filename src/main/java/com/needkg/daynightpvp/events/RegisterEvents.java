@@ -34,7 +34,7 @@ public class RegisterEvents {
 
         if (griefpreventionPvpProtection) {
             if (Bukkit.getPluginManager().getPlugin("GriefPrevention") != null) {
-                consoleUtils.sendWarning("GriefPrevention detected, starting compatibility.");
+                consoleUtils.sendMessage("GriefPrevention detected, starting compatibility...");
                 pluginManager.registerEvents(new EntityEvent(), DayNightPvP.plugin);
             }
         }
