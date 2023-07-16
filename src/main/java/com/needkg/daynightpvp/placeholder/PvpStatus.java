@@ -43,7 +43,6 @@ public class PvpStatus extends PlaceholderExpansion {
                 return pvpEnabled ? LangManager.onMessage : LangManager.offMessage;
             }
         }
-
         return null;
     }
 
