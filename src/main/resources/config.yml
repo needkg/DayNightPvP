@@ -1,0 +1,42 @@
+# This is the file version, DO NOT MODIFY
+fileVersion: 6
+
+updateChecker: true
+
+# en-US, pt-BR, es-ES
+lang: en-US
+
+# If you have capital letters in the world name, write it in capital letters.
+worlds:
+  - world
+  - worldNameExample
+  - MiningWorld
+
+compatibility:
+  # Setting it to true means that PvP in griefprevention territories will remain disabled even during nighttime.
+  griefpreventionPvpProtection: true
+
+# dayEnd 0 - 24000
+# Difficulty: peaceful, easy, normal, hard
+pvp:
+  dayEnd: 12900
+  dayDifficulty: normal
+  nightDifficulty: normal
+
+# list of sounds: https://pastebin.com/raw/PqFKnKU2
+# volume/pitch min/max 0.0/1.0
+playSound:
+  day:
+    enabled: true
+    sound: ENTITY_CHICKEN_AMBIENT
+    volume: 1.0
+    pitch: 1.0
+  night:
+    enabled: true
+    sound: ENTITY_GHAST_AMBIENT
+    volume: 1.0
+    pitch: 1.0
+
+messages:
+  pvpAlert: true
+  warnPvpControl: true

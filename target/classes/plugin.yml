@@ -1,0 +1,9 @@
+name: DayNightPvP
+version: '1.1.9'
+main: com.needkg.daynightpvp.DayNightPvP
+api-version: '1.20'
+softdepend: [PlaceholderAPI, GriefPrevention]
+commands:
+  daynightpvp:
+    description: "Show all commands."
+    aliases: [ dnp ]
