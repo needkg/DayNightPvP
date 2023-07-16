@@ -22,7 +22,7 @@ public class FilesManager {
         configManager = new ConfigManager();
         consoleUtils = new ConsoleUtils();
         startupFiles = new StartupFiles();
-        configVersion = "6";
+        configVersion = "7";
         langVersion = "6";
     }
 

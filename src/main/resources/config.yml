@@ -1,5 +1,5 @@
 # This is the file version, DO NOT MODIFY
-fileVersion: 6
+fileVersion: 7
 
 updateChecker: true
 
@@ -14,7 +14,8 @@ worlds:
 
 compatibility:
   # Setting it to true means that PvP in griefprevention territories will remain disabled even during nighttime.
-  griefpreventionPvpProtection: true
+  griefPreventionPvpProtection: true
+  placeholdersApi: true
 
 # dayEnd 0 - 24000
 # Difficulty: peaceful, easy, normal, hard

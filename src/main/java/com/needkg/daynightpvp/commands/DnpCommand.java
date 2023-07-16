@@ -5,17 +5,27 @@ import com.needkg.daynightpvp.config.ConfigManager;
 import com.needkg.daynightpvp.config.FilesManager;
 import com.needkg.daynightpvp.config.LangManager;
 import com.needkg.daynightpvp.events.RegisterEvents;
+import com.needkg.daynightpvp.placeholder.RegisterPlaceHolder;
 import com.needkg.daynightpvp.service.ControlService;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.HandlerList;
 
 public class DnpCommand implements CommandExecutor {
 
-    private final ControlService controlService = new ControlService();
-    private final FilesManager filesManager = new FilesManager();
-    private final RegisterEvents registerEvents = new RegisterEvents();
+    private final ControlService controlService;
+    private final FilesManager filesManager;
+    private final RegisterEvents registerEvents;
+    private final RegisterPlaceHolder registerPlaceHolder;
+
+    public DnpCommand() {
+        controlService = new ControlService();
+        filesManager = new FilesManager();
+        registerEvents = new RegisterEvents();
+        registerPlaceHolder = new RegisterPlaceHolder();
+    }
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -28,6 +38,7 @@ public class DnpCommand implements CommandExecutor {
                 filesManager.reloadAllFiles(DayNightPvP.plugin);
                 sender.sendMessage(LangManager.reloadedConfig);
                 registerEvents.register();
+                registerPlaceHolder.register();
                 return true;
             }
             if (args.length == 1 && args[0].equalsIgnoreCase("perms")) {

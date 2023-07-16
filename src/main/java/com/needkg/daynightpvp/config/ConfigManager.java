@@ -42,8 +42,8 @@ public class ConfigManager {
         nightPitch = Float.valueOf(getValue("playSound.night.pitch"));
         pvpAlert = Boolean.parseBoolean(getValue("messages.pvpAlert"));
         warnPvpControl = Boolean.parseBoolean(getValue("messages.warnPvpControl"));
-        griefPreventionPvpProtection = Boolean.parseBoolean(getValue("compatibility.griefpreventionPvpProtection"));
-        enablePlaceholders = Boolean.parseBoolean(getValue("compatibility.enablePlaceholders"));
+        griefPreventionPvpProtection = Boolean.parseBoolean(getValue("compatibility.griefPreventionPvpProtection"));
+        enablePlaceholders = Boolean.parseBoolean(getValue("compatibility.placeholdersApi"));
     }
 
     private String getValue(String path) {

@@ -22,19 +22,25 @@ public class RegisterEvents {
     }
 
     public void register() {
-        HandlerList.unregisterAll(joinEvent);
-        HandlerList.unregisterAll(entityEvent);
+        HandlerList.unregisterAll(DayNightPvP.plugin);
+        registerJoinEvent();
+        registerEntityEvent();
+    }
 
+    public void registerJoinEvent() {
         boolean updateChecker = ConfigManager.updateChecker;
-        boolean griefpreventionPvpProtection = ConfigManager.griefPreventionPvpProtection;
 
         if (updateChecker) {
             pluginManager.registerEvents(new JoinEvent(), DayNightPvP.plugin);
         }
+    }
+
+    public void registerEntityEvent() {
+        boolean griefpreventionPvpProtection = ConfigManager.griefPreventionPvpProtection;
 
         if (griefpreventionPvpProtection) {
             if (Bukkit.getPluginManager().getPlugin("GriefPrevention") != null) {
-                consoleUtils.sendMessage("GriefPrevention detected, starting compatibility...");
+                consoleUtils.sendMessage("[DayNightPvP] GriefPrevention detected, starting compatibility...");
                 pluginManager.registerEvents(new EntityEvent(), DayNightPvP.plugin);
             }
         }

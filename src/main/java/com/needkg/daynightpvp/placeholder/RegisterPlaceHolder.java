@@ -1,5 +1,6 @@
 package com.needkg.daynightpvp.placeholder;
 
+import com.needkg.daynightpvp.config.ConfigManager;
 import com.needkg.daynightpvp.utils.ConsoleUtils;
 import org.bukkit.Bukkit;
 
@@ -14,8 +15,12 @@ public class RegisterPlaceHolder {
     }
 
     public void register() {
-        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            consoleUtils.sendMessage("PlaceholderAPI detected, starting compatibility...");
+        pvpStatus.unregister();
+        registerPvpStatus();
+    }
+    public void registerPvpStatus() {
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null && ConfigManager.enablePlaceholders) {
+            consoleUtils.sendMessage("[DayNightPvP] PlaceholderAPI detected, starting compatibility...");
             pvpStatus.register();
         }
     }
