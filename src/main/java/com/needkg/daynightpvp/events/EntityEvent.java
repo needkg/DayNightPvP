@@ -20,8 +20,6 @@ public class EntityEvent implements Listener {
         if (GriefPrevention.instance.dataStore.getClaimAt(damagedPlayer.getLocation(), true, null) != null ||
                 GriefPrevention.instance.dataStore.getClaimAt(damager.getLocation(), true, null) != null) {
             event.setCancelled(true);
-
-            damager.sendMessage("teste");
         }
     }
 
