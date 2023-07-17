@@ -1,8 +1,11 @@
 package com.needkg.daynightpvp.config;
 
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class LangManager {
+
+    public static FileConfiguration currentLangFile;
 
     private final StartupFiles startupFiles;
     public static String fileVersion;
@@ -23,6 +26,7 @@ public class LangManager {
     public static String statusManual;
     public static String updateFoundMessage;
     public static String updateFoundClick;
+    public static String langSelected;
     public static String dnpCommandPermissions;
     public static String dnpCommandPermissionDNPADMIN;
     public static String dnpCommandMessage;
@@ -41,7 +45,7 @@ public class LangManager {
 
     public void updateLangs(JavaPlugin plugin) {
 
-        startupFiles.selectLangFile(plugin);
+        selectLangFile(plugin);
 
         fileVersion = getString("fileVersion");
         onMessage = getString("onMessage");
@@ -61,6 +65,7 @@ public class LangManager {
         statusManual = getString("statusManual");
         updateFoundMessage = getString("updateFoundMessage");
         updateFoundClick = getString("updateFoundClick");
+        langSelected = getString("langSelected");
 
         dnpCommandPermissions = getString("dnpCommandPermissions");
         dnpCommandPermissionDNPADMIN = getString("dnpCommandPermissionDNPADMIN");
@@ -76,11 +81,16 @@ public class LangManager {
     }
 
     public static String getString(String path) {
-        String resultado = StartupFiles.currentLangFile.getString(path);
+        String resultado = currentLangFile.getString(path);
         if (resultado != null) {
             resultado = resultado.replaceAll("&", "§");
         }
         return resultado;
+    }
+
+    public void selectLangFile(JavaPlugin plugin) {
+        String pathLangFile = "lang/" + ConfigManager.lang + ".yml";
+        LangManager.currentLangFile = StartupFiles.loadConfigFile(plugin, pathLangFile);
     }
 
 }

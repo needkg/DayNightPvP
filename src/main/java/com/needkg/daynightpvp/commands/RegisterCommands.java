@@ -6,5 +6,7 @@ public class RegisterCommands {
     public void register(JavaPlugin plugin) {
         plugin.getCommand("daynightpvp").setExecutor(new DnpCommand());
         plugin.getCommand("daynightpvp").setTabCompleter(new DnpTabCompleter());
+
+        plugin.getCommand("new").setExecutor(new NewCommand());
     }
 }

@@ -7,3 +7,4 @@ commands:
   daynightpvp:
     description: "Show all commands."
     aliases: [ dnp ]
+  new:

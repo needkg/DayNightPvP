@@ -25,6 +25,11 @@ public class RegisterEvents {
         HandlerList.unregisterAll(DayNightPvP.plugin);
         registerJoinEvent();
         registerEntityEvent();
+        registerInventoryEvent();
+    }
+
+    public void registerInventoryEvent() {
+        pluginManager.registerEvents(new InventoryEvent(), DayNightPvP.plugin);
     }
 
     public void registerJoinEvent() {

@@ -23,11 +23,11 @@ public class FilesManager {
         consoleUtils = new ConsoleUtils();
         startupFiles = new StartupFiles();
         configVersion = "7";
-        langVersion = "6";
+        langVersion = "7";
     }
 
     public void verifyConfigVersion(JavaPlugin plugin) {
-        String currentVersion = StartupFiles.configFileConfig.getString("fileVersion");
+        String currentVersion = ConfigManager.configFileConfig.getString("fileVersion");
         if (!configVersion.equals(currentVersion)) {
             String configPath = "config.yml";
             DayNightPvP.plugin.saveResource(configPath, true);
@@ -54,7 +54,7 @@ public class FilesManager {
         startupFiles.startConfigFile(plugin);
         startupFiles.startLangsFile(plugin);
         configManager.updateConfigs();
-        startupFiles.selectLangFile(plugin);
+        langManager.selectLangFile(plugin);
         langManager.updateLangs(plugin);
     }
 

@@ -11,9 +11,6 @@ import java.util.List;
 
 public class StartupFiles {
 
-    public static File configFile;
-    public static FileConfiguration configFileConfig;
-    public static FileConfiguration currentLangFile;
     public static List<String> langFiles = new ArrayList<>();
 
     public StartupFiles() {
@@ -21,11 +18,11 @@ public class StartupFiles {
     }
 
     public void startConfigFile(JavaPlugin plugin) {
-        configFile = new File(plugin.getDataFolder(), "config.yml");
-        if (!configFile.exists()) {
+        ConfigManager.configFile = new File(plugin.getDataFolder(), "config.yml");
+        if (!ConfigManager.configFile.exists()) {
             plugin.saveResource("config.yml", false);
         }
-        configFileConfig = YamlConfiguration.loadConfiguration(configFile);
+        ConfigManager.configFileConfig = YamlConfiguration.loadConfiguration(ConfigManager.configFile);
     }
 
     public void startLangsFile(JavaPlugin plugin) {
@@ -34,11 +31,6 @@ public class StartupFiles {
                 plugin.saveResource(fileName, false);
             }
         }
-    }
-
-    public void selectLangFile(JavaPlugin plugin) {
-        String pathLangFile = "lang/" + ConfigManager.lang + ".yml";
-        currentLangFile = loadConfigFile(plugin, pathLangFile);
     }
 
     public static FileConfiguration loadConfigFile(JavaPlugin plugin, String path) {

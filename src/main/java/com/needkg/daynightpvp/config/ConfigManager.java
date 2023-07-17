@@ -1,8 +1,16 @@
 package com.needkg.daynightpvp.config;
 
 import org.bukkit.Sound;
+import org.bukkit.configuration.file.FileConfiguration;
+
+import java.io.File;
+import java.io.IOException;
 
 public class ConfigManager {
+
+    public static File configFile;
+    public static FileConfiguration configFileConfig;
+
 
     public static String version;
     public static Boolean updateChecker;
@@ -47,7 +55,7 @@ public class ConfigManager {
     }
 
     private String getValue(String path) {
-        return StartupFiles.configFileConfig.getString(path);
+        return configFileConfig.getString(path);
     }
 
     private String[] getWorldList() {
@@ -56,6 +64,14 @@ public class ConfigManager {
                 .replace("]", "")
                 .replace(",", "")
                 .split(" ");
+    }
+
+    public void saveConfig() {
+        try {
+            configFileConfig.save(configFile);
+        } catch (Exception e) {
+
+        }
     }
 
 }
