@@ -9,6 +9,8 @@ import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
+import java.util.List;
+
 public class DnpService {
 
 
@@ -21,7 +23,7 @@ public class DnpService {
     }
 
     public void listWorlds() {
-        String[] worldsList = ConfigManager.worlds;
+        List<String> worldsList = ConfigManager.worlds;
         World[] worlds = getWorlds(worldsList);
 
         for (World world : worlds) {
@@ -29,10 +31,10 @@ public class DnpService {
         }
     }
 
-    private World[] getWorlds(String[] worldsList) {
-        World[] worlds = new World[worldsList.length];
-        for (int i = 0; i < worldsList.length; i++) {
-            worlds[i] = Bukkit.getWorld(worldsList[i]);
+    private World[] getWorlds(List<String> worldsList) {
+        World[] worlds = new World[worldsList.size()];
+        for (int i = 0; i < worldsList.size(); i++) {
+            worlds[i] = Bukkit.getWorld(worldsList.get(i));
         }
         return worlds;
     }

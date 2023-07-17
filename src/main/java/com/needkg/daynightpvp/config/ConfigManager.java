@@ -5,6 +5,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 
 public class ConfigManager {
 
@@ -15,7 +17,8 @@ public class ConfigManager {
     public static String version;
     public static Boolean updateChecker;
     public static String lang;
-    public static String[] worlds;
+    public static List<String> worlds;
+    public static List<String> listWorld;
     public static int dayEnd;
     public static String dayDifficulty;
     public static String nightDifficulty;
@@ -52,18 +55,20 @@ public class ConfigManager {
         warnPvpControl = Boolean.parseBoolean(getValue("messages.warnPvpControl"));
         griefPreventionPvpProtection = Boolean.parseBoolean(getValue("compatibility.griefPreventionPvpProtection"));
         enablePlaceholders = Boolean.parseBoolean(getValue("compatibility.placeholdersApi"));
+
+        listWorld = getListWorld();
     }
 
     private String getValue(String path) {
         return configFileConfig.getString(path);
     }
 
-    private String[] getWorldList() {
-        return getValue("worlds")
-                .replace("[", "")
-                .replace("]", "")
-                .replace(",", "")
-                .split(" ");
+    private List<String> getWorldList() {
+        return configFileConfig.getStringList("worlds");
+    }
+
+    private List<String> getListWorld() {
+        return Collections.singletonList(getValue("worlds"));
     }
 
     public void saveConfig() {
