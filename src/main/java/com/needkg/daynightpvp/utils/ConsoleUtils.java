@@ -7,13 +7,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class ConsoleUtils {
 
-    public final String FILE_OUTDATED = "[DayNightPvP] The {0} file was an outdated version. it has been replaced by the new version.";
+    public static final String FILE_OUTDATED = "[DayNightPvP] The {0} file was an outdated version. it has been replaced by the new version.";
 
     public void sendMessage(String message) {
         Bukkit.getConsoleSender().sendMessage(message);
     }
 
-    public void sendWarning(String warning) {
+    public static void sendWarning(String warning) {
         Bukkit.getLogger().warning(warning);
     }
 

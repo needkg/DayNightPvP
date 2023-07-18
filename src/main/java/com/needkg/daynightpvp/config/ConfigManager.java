@@ -1,5 +1,6 @@
 package com.needkg.daynightpvp.config;
 
+import com.needkg.daynightpvp.utils.ConsoleUtils;
 import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -13,12 +14,9 @@ public class ConfigManager {
     public static File configFile;
     public static FileConfiguration configFileConfig;
 
-
-    public static String version;
     public static Boolean updateChecker;
     public static String lang;
     public static List<String> worlds;
-    public static List<String> listWorld;
     public static int dayEnd;
     public static String dayDifficulty;
     public static String nightDifficulty;
@@ -31,12 +29,16 @@ public class ConfigManager {
     public static Float nightVolume;
     public static Float nightPitch;
     public static Boolean pvpAlert;
-    public static Boolean warnPvpControl;
     public static Boolean griefPreventionPvpProtection;
     public static Boolean enablePlaceholders;
+    public static Boolean vaultEnabled;
+    public static Boolean loseMoneyEnabled;
+    public static Boolean loseMoneyOnlyNight;
+    public static Boolean loseMoneyOnlyConfiguredWorlds;
+    public static Boolean loseMoneyKillerWinMoney;
 
     public void updateConfigs() {
-        version = getValue("fileVersion");
+
         updateChecker = Boolean.parseBoolean(getValue("updateChecker"));
         lang = getValue("lang");
         worlds = getWorldList();
@@ -51,12 +53,14 @@ public class ConfigManager {
         nightSound = Sound.valueOf(getValue("playSound.night.sound"));
         nightVolume = Float.valueOf(getValue("playSound.night.volume"));
         nightPitch = Float.valueOf(getValue("playSound.night.pitch"));
-        pvpAlert = Boolean.parseBoolean(getValue("messages.pvpAlert"));
-        warnPvpControl = Boolean.parseBoolean(getValue("messages.warnPvpControl"));
+        pvpAlert = Boolean.parseBoolean(getValue("pvpAlert"));
         griefPreventionPvpProtection = Boolean.parseBoolean(getValue("compatibility.griefPreventionPvpProtection"));
         enablePlaceholders = Boolean.parseBoolean(getValue("compatibility.placeholdersApi"));
-
-        listWorld = getListWorld();
+        vaultEnabled = Boolean.parseBoolean(getValue("compatibility.vault"));
+        loseMoneyEnabled = Boolean.parseBoolean(getValue("loseMoneyOnDeath.enabled"));
+        loseMoneyOnlyNight = Boolean.parseBoolean(getValue("loseMoneyOnDeath.onlyNight"));
+        loseMoneyOnlyConfiguredWorlds = Boolean.parseBoolean(getValue("loseMoneyOnDeath.onlyConfiguredWorlds"));
+        loseMoneyKillerWinMoney = Boolean.parseBoolean(getValue("loseMoneyOnDeath.killerWinMoney"));
     }
 
     private String getValue(String path) {

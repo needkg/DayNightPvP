@@ -16,6 +16,17 @@ compatibility:
   # Setting it to true means that PvP in griefprevention territories will remain disabled even during nighttime.
   griefPreventionPvpProtection: true
   placeholdersApi: true
+  vault: true
+
+# To configure the amount of money to lose using the permission "dnp.losemoney.<percentage>"
+# dnp.losemoney.10 = Configure the amount with a 10% loss(min 1, max 100)
+loseMoneyOnDeath:
+  enabled: true
+  onlyNight: true
+  onlyConfiguredWorlds: true
+  # The killer will earn the same amount of money that the deceased player lost.
+  killerWinMoney: true
+
 
 # dayEnd 0 - 24000
 # Difficulty: peaceful, easy, normal, hard
@@ -38,6 +49,5 @@ playSound:
     volume: 1.0
     pitch: 1.0
 
-messages:
-  pvpAlert: true
-  warnPvpControl: true
+# To alert the players in the game world when it becomes day/night.
+pvpAlert: true

@@ -20,7 +20,6 @@ public class RegisterPlaceHolder {
     }
     public void registerPvpStatus() {
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null && ConfigManager.enablePlaceholders) {
-            consoleUtils.sendMessage("[DayNightPvP] PlaceholderAPI detected, starting compatibility...");
             pvpStatus.register();
         }
     }

@@ -49,6 +49,7 @@ public class DayNightPvP extends JavaPlugin {
         registerEvents.registerJoinEvent();
         registerEvents.registerEntityEvent();
         registerEvents.registerInventoryEvent();
+        registerEvents.registerPlayerEvent();
 
         RegisterPlaceHolder registerPlaceHolder = new RegisterPlaceHolder();
         registerPlaceHolder.register();

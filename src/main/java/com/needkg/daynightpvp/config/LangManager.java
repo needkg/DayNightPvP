@@ -1,83 +1,96 @@
 package com.needkg.daynightpvp.config;
 
+import com.needkg.daynightpvp.utils.ConsoleUtils;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.checkerframework.checker.units.qual.C;
 
 public class LangManager {
 
     public static FileConfiguration currentLangFile;
 
-    private final StartupFiles startupFiles;
-    public static String fileVersion;
     public static String onMessage;
     public static String offMessage;
     public static String dayMessage;
     public static String nightMessage;
     public static String reloadedConfig;
-    public static String pvpSetOn;
-    public static String pvpSetOff;
-    public static String warnPvpControl;
-    public static String warnPvpControl2;
-    public static String currentStatusPvpControl;
-    public static String currentStatusPvp;
-    public static String setPvpControlAuto;
-    public static String setPvpControlManual;
-    public static String statusAutomatic;
-    public static String statusManual;
-    public static String updateFoundMessage;
     public static String updateFoundClick;
     public static String langSelected;
-    public static String dnpCommandPermissions;
-    public static String dnpCommandPermissionDNPADMIN;
-    public static String dnpCommandMessage;
-    public static String dnpCommandDnp;
-    public static String dnpCommandReload;
-    public static String dnpCommandPerms;
-    public static String dnpCommandPvpControl;
-    public static String dnpCommandPvp;
-    public static String dnpCommandDayNight;
-    public static String dnpCommandPvpControlAlreadyDisabled;
-    public static String dnpCommandPvpControlAlreadyEnabled;
-
-    public LangManager() {
-        startupFiles = new StartupFiles();
-    }
+    public static String loseMoneyMessage;
+    public static String winMoneyMessage;
+    public static String updateFoundMessage;
+    public static String langButton;
+    public static String portugueseButton;
+    public static String englishButton;
+    public static String spanishButton;
+    public static String langButtonDescription1;
+    public static String langButtonDescription2;
+    public static String reloadButton;
+    public static String reloadButtonDescription;
+    public static String worldsButton;
+    public static String worldsButtonDescription;
+    public static String dayButton;
+    public static String dayButtonDescription;
+    public static String nightButton;
+    public static String worldButtonDescriptionNotSupported;
+    public static String nightButtonDescription;
+    public static String worldButtonDescriptionLine1;
+    public static String worldButtonDescriptionLine2;
+    public static String worldButtonDescriptionWorldType;
+    public static String worldButtonDescriptionLine3;
+    public static String settingsButton1;
+    public static String settingsButton2;
+    public static String settingsButtonDescription1;
+    public static String settingsButtonDescription2;
+    public static String backButton;
+    public static String backButtonDescription1;
+    public static String backButtonDescription2;
+    public static String exitButton;
+    public static String exitButtonDescription;
 
     public void updateLangs(JavaPlugin plugin) {
 
         selectLangFile(plugin);
 
-        fileVersion = getString("fileVersion");
         onMessage = getString("onMessage");
         offMessage = getString("offMessage");
         dayMessage = getString("dayMessage");
         nightMessage = getString("nightMessage");
         reloadedConfig = getString("reloadedConfig");
-        pvpSetOn = getString("pvpSetOn");
-        pvpSetOff = getString("pvpSetOff");
-        warnPvpControl = getString("warnPvpControl");
-        warnPvpControl2 = getString("warnPvpControl2");
-        currentStatusPvpControl = getString("currentStatusPvpControl");
-        currentStatusPvp = getString("currentStatusPvp");
-        setPvpControlAuto = getString("setPvpControlAuto");
-        setPvpControlManual = getString("setPvpControlManual");
-        statusAutomatic = getString("statusAutomatic");
-        statusManual = getString("statusManual");
         updateFoundMessage = getString("updateFoundMessage");
         updateFoundClick = getString("updateFoundClick");
         langSelected = getString("langSelected");
+        loseMoneyMessage = getString("loseMoneyMessage");
+        winMoneyMessage = getString("winMoneyMessage");
 
-        dnpCommandPermissions = getString("dnpCommandPermissions");
-        dnpCommandPermissionDNPADMIN = getString("dnpCommandPermissionDNPADMIN");
-        dnpCommandMessage = getString("dnpCommandMessage");
-        dnpCommandDnp = getString("dnpCommandDnp");
-        dnpCommandReload = getString("dnpCommandReload");
-        dnpCommandPerms = getString("dnpCommandPerms");
-        dnpCommandPvpControl = getString("dnpCommandPvpControl");
-        dnpCommandPvp = getString("dnpCommandPvp");
-        dnpCommandDayNight = getString("dnpCommandDayNight");
-        dnpCommandPvpControlAlreadyDisabled = getString("dnpCommandPvpControlAlreadyDisabled");
-        dnpCommandPvpControlAlreadyEnabled = getString("dnpCommandPvpControlAlreadyEnabled");
+        langButton = getString("langButton");
+        portugueseButton = getString("portugueseButton");
+        englishButton = getString("englishButton");
+        spanishButton = getString("spanishButton");
+        langButtonDescription1 = getString("langButtonDescription1");
+        langButtonDescription2 = getString("langButtonDescription2");
+        reloadButton = getString("reloadButton");
+        reloadButtonDescription = getString("reloadButtonDescription");
+        worldsButton = getString("worldsButton");
+        worldsButtonDescription = getString("worldsButtonDescription");
+        dayButton = getString("dayButton");
+        dayButtonDescription = getString("dayButtonDescription");
+        nightButton = getString("nightButton");
+        worldButtonDescriptionNotSupported = getString("worldButtonDescriptionNotSupported");
+        nightButtonDescription = getString("nightButtonDescription");
+        worldButtonDescriptionLine1 = getString("worldButtonDescriptionLine1");
+        worldButtonDescriptionLine2 = getString("worldButtonDescriptionLine2");
+        worldButtonDescriptionWorldType = getString("worldButtonDescriptionWorldType");
+        worldButtonDescriptionLine3 = getString("worldButtonDescriptionLine3");
+        settingsButton1 = getString("settingsButton1");
+        settingsButton2 = getString("settingsButton2");
+        settingsButtonDescription1 = getString("settingsButtonDescription1");
+        settingsButtonDescription2 = getString("settingsButtonDescription2");
+        backButton = getString("backButton");
+        backButtonDescription1 = getString("backButtonDescription1");
+        backButtonDescription2 = getString("backButtonDescription2");
+        exitButton = getString("exitButton");
+        exitButtonDescription = getString("exitButtonDescription");
     }
 
     public static String getString(String path) {

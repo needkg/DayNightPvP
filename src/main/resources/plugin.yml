@@ -2,9 +2,8 @@ name: DayNightPvP
 version: '${project.version}'
 main: com.needkg.daynightpvp.DayNightPvP
 api-version: '1.20'
-softdepend: [PlaceholderAPI, GriefPrevention]
+softdepend: [PlaceholderAPI, GriefPrevention, Vault]
 commands:
   daynightpvp:
-    description: "Show all commands."
+    description: "Open the gui."
     aliases: [ dnp ]
-  new:

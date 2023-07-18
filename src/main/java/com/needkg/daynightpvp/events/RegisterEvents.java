@@ -10,15 +10,9 @@ import org.bukkit.plugin.PluginManager;
 public class RegisterEvents {
 
     private final PluginManager pluginManager;
-    private final ConsoleUtils consoleUtils;
-    private final JoinEvent joinEvent;
-    private final EntityEvent entityEvent;
 
     public RegisterEvents() {
         this.pluginManager = Bukkit.getPluginManager();
-        this.consoleUtils = new ConsoleUtils();
-        this.joinEvent = new JoinEvent();
-        this.entityEvent = new EntityEvent();
     }
 
     public void register() {
@@ -26,6 +20,7 @@ public class RegisterEvents {
         registerJoinEvent();
         registerEntityEvent();
         registerInventoryEvent();
+        registerPlayerEvent();
     }
 
     public void registerInventoryEvent() {
@@ -34,7 +29,6 @@ public class RegisterEvents {
 
     public void registerJoinEvent() {
         boolean updateChecker = ConfigManager.updateChecker;
-
         if (updateChecker) {
             pluginManager.registerEvents(new JoinEvent(), DayNightPvP.plugin);
         }
@@ -42,12 +36,16 @@ public class RegisterEvents {
 
     public void registerEntityEvent() {
         boolean griefpreventionPvpProtection = ConfigManager.griefPreventionPvpProtection;
-
-        if (griefpreventionPvpProtection) {
-            if (Bukkit.getPluginManager().getPlugin("GriefPrevention") != null) {
-                consoleUtils.sendMessage("[DayNightPvP] GriefPrevention detected, starting compatibility...");
+        if (griefpreventionPvpProtection && Bukkit.getPluginManager().getPlugin("GriefPrevention") != null) {
                 pluginManager.registerEvents(new EntityEvent(), DayNightPvP.plugin);
-            }
+        }
+    }
+
+    public void registerPlayerEvent() {
+        boolean vaultEnabled = ConfigManager.vaultEnabled;
+        boolean loseMoneyEnabled = ConfigManager.loseMoneyEnabled;
+        if (vaultEnabled && loseMoneyEnabled && Bukkit.getPluginManager().getPlugin("Vault") != null) {
+            pluginManager.registerEvents(new PlayerEvent(), DayNightPvP.plugin);
         }
     }
 

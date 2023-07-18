@@ -44,12 +44,11 @@ public class UpdateChecker {
             String latestVersion = verifyPluginVersion("https://api.spigotmc.org/legacy/update.php?resource=102250&t=" + random);
 
             if (!currentVersion.equals(latestVersion)) {
-                String updateFoundMessage = LangManager.getString("updateFoundMessage");
 
                 TextComponent link = new TextComponent(LangManager.updateFoundClick);
                 link.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.spigotmc.org/resources/daynightpvp-dynamic-pvp-for-day-night.102250/updates"));
 
-                event.getPlayer().sendMessage(updateFoundMessage);
+                event.getPlayer().sendMessage(LangManager.updateFoundMessage);
                 event.getPlayer().spigot().sendMessage(link);
             }
         } catch (IOException ex) {

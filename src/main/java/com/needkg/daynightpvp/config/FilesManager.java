@@ -12,7 +12,6 @@ public class FilesManager {
 
     private final LangManager langManager;
     private final ConfigManager configManager;
-    private final ConsoleUtils consoleUtils;
     private final StartupFiles startupFiles;
     private final String configVersion;
     private final String langVersion;
@@ -20,7 +19,6 @@ public class FilesManager {
     public FilesManager() {
         langManager = new LangManager();
         configManager = new ConfigManager();
-        consoleUtils = new ConsoleUtils();
         startupFiles = new StartupFiles();
         configVersion = "7";
         langVersion = "7";
@@ -31,8 +29,8 @@ public class FilesManager {
         if (!configVersion.equals(currentVersion)) {
             String configPath = "config.yml";
             DayNightPvP.plugin.saveResource(configPath, true);
-            consoleUtils.sendWarning(consoleUtils.FILE_OUTDATED.replace("{0}", configPath));
-            reloadAllFiles(plugin);
+            ConsoleUtils.sendWarning(ConsoleUtils.FILE_OUTDATED.replace("{0}", configPath));
+            reloadPlugin(plugin);
         }
     }
 
@@ -44,13 +42,13 @@ public class FilesManager {
 
             if (!langVersion.equals(currentVersion)) {
                 plugin.saveResource("lang/" + langFile.getName(), true);
-                consoleUtils.sendWarning(consoleUtils.FILE_OUTDATED.replace("{0}", "lang/" + langFile.getName()));
-                reloadAllFiles(plugin);
+                ConsoleUtils.sendWarning(ConsoleUtils.FILE_OUTDATED.replace("{0}", "lang/" + langFile.getName()));
+                reloadPlugin(plugin);
             }
         }
     }
 
-    public void reloadAllFiles(JavaPlugin plugin) {
+    public void reloadPlugin(JavaPlugin plugin) {
         startupFiles.startConfigFile(plugin);
         startupFiles.startLangsFile(plugin);
         configManager.updateConfigs();
