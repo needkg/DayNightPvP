@@ -1,7 +1,6 @@
 # This is the file version, DO NOT MODIFY
-fileVersion: 7
-
-updateChecker: true
+version: 7
+update-checker: true
 
 # en-US, pt-BR, es-ES
 lang: en-US
@@ -12,42 +11,43 @@ worlds:
   - worldNameExample
   - MiningWorld
 
-compatibility:
-  # Setting it to true means that PvP in griefprevention territories will remain disabled even during nighttime.
-  griefPreventionPvpProtection: true
-  placeholdersApi: true
-  vault: true
+vault:
+  # To configure the amount of money to lose using the permission "dnp.losemoney.<percentage>"
+  # dnp.losemoney.10 = Configure the amount with a 10% loss(min 1, max 100)
+  lose-money-on-death:
+    enabled: true
+    only-at-night: true
+    only-in-configured-worlds: true
+    # The killer will earn the same amount of money that the deceased player lost.
+    killer-reward-money: true
 
-# To configure the amount of money to lose using the permission "dnp.losemoney.<percentage>"
-# dnp.losemoney.10 = Configure the amount with a 10% loss(min 1, max 100)
-loseMoneyOnDeath:
-  enabled: true
-  onlyNight: true
-  onlyConfiguredWorlds: true
-  # The killer will earn the same amount of money that the deceased player lost.
-  killerWinMoney: true
+grief-prevention:
+  pvp-in-land: false
 
+placeholder-api:
+  placeholders: true
 
-# dayEnd 0 - 24000
-# Difficulty: peaceful, easy, normal, hard
-pvp:
-  dayEnd: 12900
-  dayDifficulty: normal
-  nightDifficulty: normal
+automatic-pvp:
+  # 0 - 24000
+  day-end: 12900
+  # peaceful, easy, normal, hard
+  day-difficulty: normal
+  night-difficulty: normal
+  # To alert the players in the game world when it becomes day/night.
+  alert-players:
+    chat: true
+    title: true
 
 # list of sounds: https://pastebin.com/raw/PqFKnKU2
 # volume/pitch min/max 0.0/1.0
-playSound:
-  day:
+play-sound:
+  pvp-off:
     enabled: true
     sound: ENTITY_CHICKEN_AMBIENT
     volume: 1.0
     pitch: 1.0
-  night:
+  pvp-on:
     enabled: true
     sound: ENTITY_GHAST_AMBIENT
     volume: 1.0
     pitch: 1.0
-
-# To alert the players in the game world when it becomes day/night.
-pvpAlert: true

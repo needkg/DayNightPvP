@@ -76,7 +76,7 @@ public class GuiManager {
             String worldName = world.getName();
             String dnpServiceStatus;
             String pvpStatus;
-            GuiManager.worldsDNPServiceOn = ConfigManager.worlds;
+            GuiManager.worldsDNPServiceOn = ConfigManager.worldList;
             if (searchUtils.stringInList(GuiManager.worldsDNPServiceOn, worldName)) {
                 dnpServiceStatus = LangManager.onMessage;
             } else {

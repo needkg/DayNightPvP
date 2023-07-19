@@ -25,7 +25,7 @@ public class FilesManager {
     }
 
     public void verifyConfigVersion(JavaPlugin plugin) {
-        String currentVersion = ConfigManager.configFileConfig.getString("fileVersion");
+        String currentVersion = ConfigManager.configFileConfig.getString("version");
         if (!configVersion.equals(currentVersion)) {
             String configPath = "config.yml";
             DayNightPvP.plugin.saveResource(configPath, true);
@@ -38,7 +38,7 @@ public class FilesManager {
         for (String fileName : StartupFiles.langFiles) {
             File langFile = new File(plugin.getDataFolder(), fileName);
             FileConfiguration langFileConfig = YamlConfiguration.loadConfiguration(langFile);
-            String currentVersion = langFileConfig.getString("fileVersion");
+            String currentVersion = langFileConfig.getString("version");
 
             if (!langVersion.equals(currentVersion)) {
                 plugin.saveResource("lang/" + langFile.getName(), true);

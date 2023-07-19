@@ -20,7 +20,7 @@ public class DnpService {
     }
 
     public void listWorlds() {
-        List<String> worldsList = ConfigManager.worlds;
+        List<String> worldsList = ConfigManager.worldList;
         World[] worlds = getWorlds(worldsList);
 
         for (World world : worlds) {
@@ -45,25 +45,31 @@ public class DnpService {
         boolean currentWorldStatus = world.getPVP();
 
         if (currentWorldStatus) {
-            if (currentWorldTime < ConfigManager.dayEnd) {
+            if (currentWorldTime < ConfigManager.autoPvpDayEnd) {
                 world.setPVP(false);
-                world.setDifficulty(Difficulty.valueOf(ConfigManager.dayDifficulty.toUpperCase()));
-                if (ConfigManager.pvpAlert) {
-                    PlayerInteract.broadcastMessageToPlayers(world, LangManager.dayMessage);
+                world.setDifficulty(Difficulty.valueOf(ConfigManager.autoPvpDayDifficulty.toUpperCase()));
+                if (ConfigManager.alertPlayersChat) {
+                    PlayerInteract.sendMessageToPlayers(world, LangManager.dayChatMessage);
                 }
-                if (ConfigManager.dayEnabled) {
-                    PlayerInteract.playSoundToAllPlayers(world, ConfigManager.daySound, ConfigManager.dayVolume, ConfigManager.dayPitch);
+                if (ConfigManager.alertPlayersTitle) {
+                    PlayerInteract.sendTitleToPlayers(world, LangManager.dayTitleMessage, LangManager.daySubTitleMessage);
+                }
+                if (ConfigManager.playSoundPvpOff) {
+                    PlayerInteract.playSoundToAllPlayers(world, ConfigManager.playSoundPvpOffSound, ConfigManager.playSoundPvpOffVolume, ConfigManager.playSoundPvpOffPitch);
                 }
             }
-        } else if (currentWorldTime >= ConfigManager.dayEnd) {
-            world.setDifficulty(Difficulty.valueOf(ConfigManager.nightDifficulty.toUpperCase()));
+        } else if (currentWorldTime >= ConfigManager.autoPvpDayEnd) {
+            world.setDifficulty(Difficulty.valueOf(ConfigManager.autoPvpNightDifficulty.toUpperCase()));
             world.setPVP(true);
 
-            if (ConfigManager.pvpAlert) {
-                PlayerInteract.broadcastMessageToPlayers(world, LangManager.nightMessage);
+            if (ConfigManager.alertPlayersChat) {
+                PlayerInteract.sendMessageToPlayers(world, LangManager.nightChatMessage);
             }
-            if (ConfigManager.nightEnabled) {
-                PlayerInteract.playSoundToAllPlayers(world, ConfigManager.nightSound, ConfigManager.nightVolume, ConfigManager.nightPitch);
+            if (ConfigManager.alertPlayersTitle) {
+                PlayerInteract.sendTitleToPlayers(world, LangManager.nightTitleMessage, LangManager.nightSubTitleMessage);
+            }
+            if (ConfigManager.playSoundPvpOn) {
+                PlayerInteract.playSoundToAllPlayers(world, ConfigManager.playSoundPvpOnSound, ConfigManager.playSoundPvpOnVolume, ConfigManager.playSoundPvpOnPitch);
             }
         }
     }

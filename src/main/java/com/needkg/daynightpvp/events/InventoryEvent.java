@@ -40,7 +40,6 @@ public class InventoryEvent implements Listener {
     private final WorldsGui worldsGui;
     private final SearchUtils searchUtils;
     private final LangManager langManager;
-    private final ItemUtils itemUtils;
 
     public InventoryEvent() {
         guiManager = new GuiManager();
@@ -54,7 +53,6 @@ public class InventoryEvent implements Listener {
         worldsGui = new WorldsGui();
         searchUtils = new SearchUtils();
         langManager = new LangManager();
-        itemUtils = new ItemUtils();
     }
 
     @EventHandler
@@ -81,7 +79,7 @@ public class InventoryEvent implements Listener {
                     filesManager.reloadPlugin(DayNightPvP.plugin);
                     player.sendMessage(LangManager.reloadedConfig);
                     registerEvents.register();
-                    registerPlaceHolder.register();
+                    registerPlaceHolder.reload();
                     break;
                 case "langSelector":
                     langGui.open(player);
@@ -97,7 +95,7 @@ public class InventoryEvent implements Listener {
                     PlayerInteract.playSoundToPlayer(player, Sound.BLOCK_NOTE_BLOCK_HAT, 1, 1);
                     break;
                 case "night":
-                    Bukkit.getWorld(worldName).setTime(ConfigManager.dayEnd+20);
+                    Bukkit.getWorld(worldName).setTime(ConfigManager.autoPvpDayEnd);
                     PlayerInteract.playSoundToPlayer(player, Sound.BLOCK_NOTE_BLOCK_HAT, 1, 1);
                     break;
                 case "dnpServiceOn":
@@ -135,6 +133,16 @@ public class InventoryEvent implements Listener {
         }
     }
 
+    @EventHandler
+    public void onInventoryClose(InventoryCloseEvent event) {
+        String title = event.getView().getTitle();
+        if (title.equals(GuiManager.guiWorldTitle)) {
+            updateWorldGUITask.cancel();
+        }
+        if (title.equals(GuiManager.guiWorldsTitle)) {
+            updateWorldsGUITask.cancel();
+        }
+    }
 
     private BukkitTask updateWorldGUITask;
     private void updateWorldGUI(String world, Inventory inventory) {
@@ -154,17 +162,6 @@ public class InventoryEvent implements Listener {
                 guiManager.updateWorldsGui(inventory);
             }
         }.runTaskTimer(DayNightPvP.plugin, 0L, 20L);
-    }
-
-    @EventHandler
-    public void onInventoryClose(InventoryCloseEvent event) {
-        String title = event.getView().getTitle();
-        if (title.equals(GuiManager.guiWorldTitle)) {
-            updateWorldGUITask.cancel();
-        }
-        if (title.equals(GuiManager.guiWorldsTitle)) {
-            updateWorldsGUITask.cancel();
-        }
     }
 
     private void setPvP(String worldName, boolean pvp) {

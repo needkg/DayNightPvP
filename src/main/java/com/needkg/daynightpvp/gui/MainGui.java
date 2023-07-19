@@ -30,7 +30,7 @@ public class MainGui {
     public void open(Player player) {
         Inventory mainGui = Bukkit.createInventory(null, 9, GuiManager.guiTitle);
 
-        String langSelected = ConfigManager.lang;
+        String langSelected = ConfigManager.selectedLang;
         ItemStack langSelector = itemUtils.createCustomHead(LangManager.langButton, "langSelector", LangManager.langButtonDescription1, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzdlYTJmODk0NzNhMWM0ZmRiOWE5YjQ5ZTI0MTJjZDk0YmRlZWQzMjc0MjdlZGVmNDQwZmY5MjRlOGRiOTA4OCJ9fX0=");
 
         for (String head : langHeads) {
@@ -40,9 +40,9 @@ public class MainGui {
             }
         }
 
-        ItemStack reload = itemUtils.createCustomHead(LangManager.reloadButton, "reload", LangManager.reloadButtonDescription, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzA1ZWI3ZTA0ODg2ODMyNTRlZGI2NzgyYzVkYjhkMjdjZDA3OGU3ODRkZTJkY2RjZDI1Y2UwODY0ZGZhYmQzOCJ9fX0=");
+        ItemStack reload = itemUtils.createCustomHead(LangManager.reloadButton, "reload", LangManager.reloadButtonDescription, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjk3ZDZkN2JlOTg1ZDA2MjJhNDhlOTA2OThlOTA3M2Y3ZmY4ODEzMjkyODEyZWJkMTczMGRiYTBlMDFjZjE4ZiJ9fX0=");
         ItemStack worlds = itemUtils.createCustomHead(LangManager.worldsButton, "worlds", LangManager.worldsButtonDescription, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDM4Y2YzZjhlNTRhZmMzYjNmOTFkMjBhNDlmMzI0ZGNhMTQ4NjAwN2ZlNTQ1Mzk5MDU1NTI0YzE3OTQxZjRkYyJ9fX0=");
-        ItemStack exit = itemUtils.createCustomHead(LangManager.exitButton, "exit", LangManager.exitButtonDescription, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWQwYTE0MjA4NDRjZTIzN2E0NWQyZTdlNTQ0ZDEzNTg0MWU5ZjgyZDA5ZTIwMzI2N2NmODg5NmM4NTE1ZTM2MCJ9fX0=");
+        ItemStack exit = itemUtils.createCustomHead(LangManager.exitButton, "exit", LangManager.exitButtonDescription, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTkxOWQxNTk0YmY4MDlkYjdiNDRiMzc4MmJmOTBhNjlmNDQ5YTg3Y2U1ZDE4Y2I0MGViNjUzZmRlYzI3MjIifX19");
         ItemStack panel = itemUtils.createItem(ChatColor.RED +"###", "nada", " ", Material.GRAY_STAINED_GLASS_PANE);
 
         mainGui.setItem(0, worlds);

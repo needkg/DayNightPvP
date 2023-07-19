@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 
 public class PlayerInteract {
 
-    public static void broadcastMessageToPlayers(World world, String message) {
+    public static void sendMessageToPlayers(World world, String message) {
         for (Player player : world.getPlayers()) {
             player.sendMessage(message);
         }
@@ -20,5 +20,11 @@ public class PlayerInteract {
 
     public static void playSoundToPlayer(Player player, Sound sound, float volume, float pitch) {
         player.playSound(player.getLocation(), sound, volume, pitch);
+    }
+
+    public static void sendTitleToPlayers(World world, String title, String subTitle) {
+        for (Player player : world.getPlayers()) {
+            player.sendTitle(title, subTitle);
+        }
     }
 }

@@ -2,7 +2,6 @@ package com.needkg.daynightpvp.events;
 
 import com.needkg.daynightpvp.DayNightPvP;
 import com.needkg.daynightpvp.config.ConfigManager;
-import com.needkg.daynightpvp.utils.ConsoleUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.PluginManager;
@@ -35,17 +34,18 @@ public class RegisterEvents {
     }
 
     public void registerEntityEvent() {
-        boolean griefpreventionPvpProtection = ConfigManager.griefPreventionPvpProtection;
-        if (griefpreventionPvpProtection && Bukkit.getPluginManager().getPlugin("GriefPrevention") != null) {
-                pluginManager.registerEvents(new EntityEvent(), DayNightPvP.plugin);
+        boolean pvpInLand = ConfigManager.griefPreventionPvpInLand;
+        if (!pvpInLand) {
+            if (Bukkit.getPluginManager().getPlugin("GriefPrevention") != null) {
+                pluginManager.registerEvents(new DamageEvent(), DayNightPvP.plugin);
+            }
         }
     }
 
     public void registerPlayerEvent() {
-        boolean vaultEnabled = ConfigManager.vaultEnabled;
-        boolean loseMoneyEnabled = ConfigManager.loseMoneyEnabled;
-        if (vaultEnabled && loseMoneyEnabled && Bukkit.getPluginManager().getPlugin("Vault") != null) {
-            pluginManager.registerEvents(new PlayerEvent(), DayNightPvP.plugin);
+        boolean loseMoneyOnDeath = ConfigManager.vaultLoseMoneyOnDeath;
+        if (loseMoneyOnDeath && Bukkit.getPluginManager().getPlugin("Vault") != null) {
+            pluginManager.registerEvents(new DeathEvent(), DayNightPvP.plugin);
         }
     }
 
