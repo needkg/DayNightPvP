@@ -23,7 +23,7 @@ public class Vault {
 
         Economy economy = Bukkit.getServicesManager().getRegistration(Economy.class).getProvider();
         if (economy != null && killed != null && !percentage.isEmpty() && percentage.matches("[1-9][0-9]?|100")) {
-            boolean withdraw = false;
+            boolean shouldWithdraw = false;
             double currentBalance = economy.getBalance(killed);
             int parsedPercentage = Integer.parseInt(percentage);
             double amount = currentBalance * (parsedPercentage / 100.0);
@@ -34,27 +34,27 @@ public class Vault {
                     if (onlyConfiguredWorlds) {
                         if (searchUtils.stringInList(worldList, world)) {
                             economy.withdrawPlayer(killed, amountRounded);
-                            withdraw = true;
+                            shouldWithdraw = true;
                             // noite e configurado
                         }
                     } else {
-                        withdraw = true;
+                        shouldWithdraw = true;
                         economy.withdrawPlayer(killed, amountRounded);
                         // noite e qualquer mundo
                     }
                 }
             } else if (onlyConfiguredWorlds) {
                 if (searchUtils.stringInList(worldList, world)) {
-                    withdraw = true;
+                    shouldWithdraw = true;
                     economy.withdrawPlayer(killed, amountRounded);
                     // dia/noite e configurado
                 }
             } else {
-                withdraw = true;
+                shouldWithdraw = true;
                 economy.withdrawPlayer(killed, amountRounded);
                 // dia/noite e qualquer
             }
-            if (withdraw) {
+            if (shouldWithdraw) {
                 String money = Double.toString(amountRounded);
                 String killedName = killed.getName();
                 String killerName = killed.getName();

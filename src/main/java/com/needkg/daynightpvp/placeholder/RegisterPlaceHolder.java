@@ -1,31 +1,18 @@
 package com.needkg.daynightpvp.placeholder;
 
 import com.needkg.daynightpvp.config.ConfigManager;
-import org.bukkit.Bukkit;
-import org.bukkit.plugin.Plugin;
+import com.needkg.daynightpvp.utils.PluginUtils;
 
 public class RegisterPlaceHolder {
 
-    private PvpStatus pvpStatus;
-
-    public void reload() {
-        pvpStatus = new PvpStatus();
-        pvpStatus.unregister();
-        registerPvpStatus();
-    }
-    public void registerPvpStatus() {
-        boolean placeholders = ConfigManager.placeholderPlaceholders;
-        if (isPlaceholderAPIInstalled()) {
-            if (placeholders) {
-                pvpStatus = new PvpStatus();
+    public void register() {
+    if (PluginUtils.isPluginInstalled("PlaceholderAPI", ConfigManager.placeholderPlaceholders)) {
+            if (ConfigManager.placeholderPlaceholders) {
+                PvpStatus pvpStatus = new PvpStatus();
+                pvpStatus.unregister();
                 pvpStatus.register();
             }
         }
-    }
-
-    public boolean isPlaceholderAPIInstalled() {
-        Plugin placeholderAPI = Bukkit.getPluginManager().getPlugin("PlaceholderAPI");
-        return placeholderAPI != null && placeholderAPI.isEnabled();
     }
 
 }

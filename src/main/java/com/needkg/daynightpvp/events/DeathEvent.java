@@ -21,7 +21,7 @@ public class DeathEvent implements Listener {
         Player killed = event.getEntity();
         Player killer = event.getEntity().getKiller();
         String world = event.getEntity().getWorld().getName();
-        List<String> worldList = ConfigManager.configFileConfig.getStringList("worlds");
+        List<String> worldList = ConfigManager.worldList;
 
         if (killer != null) {
             if (killed.hasPermission("dnp.losemoney.")) {

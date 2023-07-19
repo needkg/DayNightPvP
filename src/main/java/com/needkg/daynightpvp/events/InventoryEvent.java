@@ -4,14 +4,9 @@ import com.needkg.daynightpvp.DayNightPvP;
 import com.needkg.daynightpvp.config.ConfigManager;
 import com.needkg.daynightpvp.config.FilesManager;
 import com.needkg.daynightpvp.config.LangManager;
-import com.needkg.daynightpvp.config.StartupFiles;
 import com.needkg.daynightpvp.gui.*;
-import com.needkg.daynightpvp.placeholder.RegisterPlaceHolder;
-import com.needkg.daynightpvp.utils.ItemUtils;
-import com.needkg.daynightpvp.utils.PlayerInteract;
-import com.needkg.daynightpvp.utils.SearchUtils;
+import com.needkg.daynightpvp.utils.*;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -19,53 +14,37 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
-
-import java.util.List;
 
 public class InventoryEvent implements Listener {
 
-    private final GuiManager guiManager;
     private final FilesManager filesManager;
-    private final ConfigManager configManager;
-    private final RegisterEvents registerEvents;
-    private final RegisterPlaceHolder registerPlaceHolder;
     private final LangGui langGui;
     private final MainGui mainGui;
     private final WorldGui worldGui;
     private final WorldsGui worldsGui;
-    private final SearchUtils searchUtils;
-    private final LangManager langManager;
+    private final GuiManager guiManager;
 
     public InventoryEvent() {
-        guiManager = new GuiManager();
         filesManager = new FilesManager();
-        configManager = new ConfigManager();
-        registerEvents = new RegisterEvents();
-        registerPlaceHolder = new RegisterPlaceHolder();
         langGui = new LangGui();
         mainGui = new MainGui();
         worldGui = new WorldGui();
         worldsGui = new WorldsGui();
-        searchUtils = new SearchUtils();
-        langManager = new LangManager();
+        guiManager = new GuiManager();
     }
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
-        String title = event.getView().getTitle();
         ItemStack clickedItem = event.getCurrentItem();
-        if ((title.equals(GuiManager.guiTitle) || title.equals(GuiManager.guiWorldTitle) || title.equals(GuiManager.guiWorldsTitle)) && clickedItem != null) {
+        String title = event.getView().getTitle();
+        if (title.equals(GuiManager.guiTitle) || title.equals(GuiManager.guiWorldsTitle) || title.equals(GuiManager.guiWorldTitle) && clickedItem != null) {
+
             event.setCancelled(true);
             ItemMeta itemMeta = clickedItem.getItemMeta();
             String itemID = itemMeta.getLocalizedName();
-            if (itemID.equals("")) {
-                itemID = "null";
-            }
+            assert !itemID.equals("");
             Player player = (Player) event.getWhoClicked();
             String worldName = event.getInventory().getItem(4).getItemMeta().getDisplayName();
 
@@ -73,13 +52,11 @@ public class InventoryEvent implements Listener {
                 case "worlds":
                 case "backToWorlds":
                     worldsGui.open(player);
-                    updateWorldsGUI(WorldsGui.worldsGui);
+                    guiManager.updateWorldsGUI(WorldsGui.worldsGui);
                     break;
                 case "reload":
+                    PlayerUtils.sendMessageToPlayer(player, LangManager.reloadedConfig);
                     filesManager.reloadPlugin(DayNightPvP.plugin);
-                    player.sendMessage(LangManager.reloadedConfig);
-                    registerEvents.register();
-                    registerPlaceHolder.reload();
                     break;
                 case "langSelector":
                     langGui.open(player);
@@ -91,44 +68,48 @@ public class InventoryEvent implements Listener {
                     player.closeInventory();
                     break;
                 case "day":
-                    Bukkit.getWorld(worldName).setTime(1000);
-                    PlayerInteract.playSoundToPlayer(player, Sound.BLOCK_NOTE_BLOCK_HAT, 1, 1);
+                    WorldUtils.setTime(worldName, 1000);
+                    PlayerUtils.playSoundToPlayer(player, Sound.BLOCK_NOTE_BLOCK_HAT);
                     break;
                 case "night":
-                    Bukkit.getWorld(worldName).setTime(ConfigManager.autoPvpDayEnd);
-                    PlayerInteract.playSoundToPlayer(player, Sound.BLOCK_NOTE_BLOCK_HAT, 1, 1);
+                    WorldUtils.setTime(worldName, ConfigManager.autoPvpDayEnd);
+                    PlayerUtils.playSoundToPlayer(player, Sound.BLOCK_NOTE_BLOCK_HAT);
                     break;
                 case "dnpServiceOn":
-                    addWorld(worldName);
-                    PlayerInteract.playSoundToPlayer(player, Sound.BLOCK_NOTE_BLOCK_HAT, 1, 1);
+                    ConfigUtils.addWorldToList(worldName);
+                    filesManager.reloadPlugin(DayNightPvP.plugin);
+                    PlayerUtils.playSoundToPlayer(player, Sound.BLOCK_NOTE_BLOCK_HAT);
                     GuiManager.worldsDNPServiceOn.add(worldName);
                     break;
                 case "dnpServiceOff":
-                    removeWorld(worldName);
-                    PlayerInteract.playSoundToPlayer(player, Sound.BLOCK_NOTE_BLOCK_HAT, 1, 1);
+                    ConfigUtils.removeWorldToList(worldName);
+                    filesManager.reloadPlugin(DayNightPvP.plugin);
+                    PlayerUtils.playSoundToPlayer(player, Sound.BLOCK_NOTE_BLOCK_HAT);
                     GuiManager.worldsDNPServiceOn.remove(worldName);
                     break;
                 case "pvpManyallyOff":
-                    PlayerInteract.playSoundToPlayer(player, Sound.BLOCK_NOTE_BLOCK_HAT, 1, 1);
-                    setPvP(worldName, false);
+                    PlayerUtils.playSoundToPlayer(player, Sound.BLOCK_NOTE_BLOCK_HAT);
+                    setPvpManually(worldName, false);
                     break;
                 case "pvpManyallyOn":
-                    PlayerInteract.playSoundToPlayer(player, Sound.BLOCK_NOTE_BLOCK_HAT, 1, 1);
-                    setPvP(worldName, true);
+                    PlayerUtils.playSoundToPlayer(player, Sound.BLOCK_NOTE_BLOCK_HAT);
+                    setPvpManually(worldName, true);
                     break;
             }
-            if (searchUtils.stringInList(StartupFiles.langFiles, "lang/" + itemID + ".yml")) {
-                PlayerInteract.playSoundToPlayer(player, Sound.BLOCK_NOTE_BLOCK_HAT, 1, 1);
-                ConfigManager.configFileConfig.set("lang", itemID);
-                configManager.saveConfig();
-                langManager.selectLangFile(DayNightPvP.plugin);
+            if (SearchUtils.stringInList(FilesManager.langFiles, "lang/" + itemID + ".yml")) {
+                PlayerUtils.playSoundToPlayer(player, Sound.BLOCK_NOTE_BLOCK_HAT);
+                ConfigUtils.setValue(ConfigManager.configFileConfig, "lang", itemID);
+                ConfigUtils.updateConfig();
+                LangUtils.selectLangFile(DayNightPvP.plugin);
                 filesManager.reloadPlugin(DayNightPvP.plugin);
                 player.sendMessage(LangManager.langSelected.replace("{0}", itemID));
                 mainGui.open(player);
             }
-            if (searchUtils.worldExistsInList(Bukkit.getWorlds(), itemID)) {
-                worldGui.open(player, itemID);
-                updateWorldGUI(itemID, WorldGui.worldGui);
+            if (SearchUtils.worldExistsInList(Bukkit.getWorlds(), itemID)) {
+                World world = Bukkit.getWorld(itemID);
+                assert world != null;
+                worldGui.open(player, world);
+                guiManager.updateWorldGUI(world, WorldGui.worldGui);
             }
         }
     }
@@ -137,60 +118,20 @@ public class InventoryEvent implements Listener {
     public void onInventoryClose(InventoryCloseEvent event) {
         String title = event.getView().getTitle();
         if (title.equals(GuiManager.guiWorldTitle)) {
-            updateWorldGUITask.cancel();
+            GuiManager.updateWorldGUITask.cancel();
         }
         if (title.equals(GuiManager.guiWorldsTitle)) {
-            updateWorldsGUITask.cancel();
+            GuiManager.updateWorldsGUITask.cancel();
         }
     }
 
-    private BukkitTask updateWorldGUITask;
-    private void updateWorldGUI(String world, Inventory inventory) {
-        updateWorldGUITask = new BukkitRunnable() {
-            @Override
-            public void run() {
-                guiManager.updateWorldGui(inventory, world);
-            }
-        }.runTaskTimer(DayNightPvP.plugin, 0L, 20L);
-    }
-
-    private BukkitTask updateWorldsGUITask;
-    private void updateWorldsGUI(Inventory inventory) {
-        updateWorldsGUITask = new BukkitRunnable() {
-            @Override
-            public void run() {
-                guiManager.updateWorldsGui(inventory);
-            }
-        }.runTaskTimer(DayNightPvP.plugin, 0L, 20L);
-    }
-
-    private void setPvP(String worldName, boolean pvp) {
+    private void setPvpManually(String worldName, boolean pvp) {
         GuiManager.worldsPvpManually.add(worldName);
-        Bukkit.getWorld(worldName).setPVP(pvp);
+        World world = Bukkit.getWorld(worldName);
+        assert world != null;
+        world.setPVP(pvp);
         GuiManager.worldsDNPServiceOn.removeAll(GuiManager.worldsPvpManually);
-        setWorlds(GuiManager.worldsDNPServiceOn);
-        guiManager.updateWorldGui(WorldGui.worldGui, worldName);
-    }
-
-    private void addWorld(String world) {
-        List<String> worldList = ConfigManager.configFileConfig.getStringList("worlds");
-        worldList.add(world);
-        ConfigManager.configFileConfig.set("worlds", worldList);
-        configManager.saveConfig();
-        filesManager.reloadPlugin(DayNightPvP.plugin);
-    }
-
-    private void removeWorld(String world) {
-        List<String> worldList = ConfigManager.configFileConfig.getStringList("worlds");
-        worldList.remove(world);
-        ConfigManager.configFileConfig.set("worlds", worldList);
-        configManager.saveConfig();
-        filesManager.reloadPlugin(DayNightPvP.plugin);
-    }
-
-    private void setWorlds(List<String> list) {
-        ConfigManager.configFileConfig.set("worlds", list);
-        configManager.saveConfig();
+        ConfigUtils.setWorlds(GuiManager.worldsDNPServiceOn);
         filesManager.reloadPlugin(DayNightPvP.plugin);
     }
 

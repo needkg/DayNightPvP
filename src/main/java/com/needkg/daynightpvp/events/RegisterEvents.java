@@ -2,6 +2,7 @@ package com.needkg.daynightpvp.events;
 
 import com.needkg.daynightpvp.DayNightPvP;
 import com.needkg.daynightpvp.config.ConfigManager;
+import com.needkg.daynightpvp.utils.PluginUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.PluginManager;
@@ -11,40 +12,35 @@ public class RegisterEvents {
     private final PluginManager pluginManager;
 
     public RegisterEvents() {
-        this.pluginManager = Bukkit.getPluginManager();
+        pluginManager = Bukkit.getPluginManager();
     }
 
     public void register() {
         HandlerList.unregisterAll(DayNightPvP.plugin);
         registerJoinEvent();
         registerEntityEvent();
-        registerInventoryEvent();
         registerPlayerEvent();
+        registerInventoryEvent();
     }
 
-    public void registerInventoryEvent() {
+    private void registerInventoryEvent() {
         pluginManager.registerEvents(new InventoryEvent(), DayNightPvP.plugin);
     }
 
-    public void registerJoinEvent() {
-        boolean updateChecker = ConfigManager.updateChecker;
-        if (updateChecker) {
+    private void registerJoinEvent() {
+        if (ConfigManager.updateChecker) {
             pluginManager.registerEvents(new JoinEvent(), DayNightPvP.plugin);
         }
     }
 
-    public void registerEntityEvent() {
-        boolean pvpInLand = ConfigManager.griefPreventionPvpInLand;
-        if (!pvpInLand) {
-            if (Bukkit.getPluginManager().getPlugin("GriefPrevention") != null) {
-                pluginManager.registerEvents(new DamageEvent(), DayNightPvP.plugin);
-            }
+    private void registerEntityEvent() {
+        if (PluginUtils.isPluginInstalled("GriefPrevention", ConfigManager.griefPreventionPvpInLand)) {
+            pluginManager.registerEvents(new DamageEvent(), DayNightPvP.plugin);
         }
     }
 
-    public void registerPlayerEvent() {
-        boolean loseMoneyOnDeath = ConfigManager.vaultLoseMoneyOnDeath;
-        if (loseMoneyOnDeath && Bukkit.getPluginManager().getPlugin("Vault") != null) {
+    private void registerPlayerEvent() {
+        if(PluginUtils.isPluginInstalled("Vault", ConfigManager.vaultLoseMoneyOnDeath)) {
             pluginManager.registerEvents(new DeathEvent(), DayNightPvP.plugin);
         }
     }

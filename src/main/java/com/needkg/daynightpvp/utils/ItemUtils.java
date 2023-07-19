@@ -19,7 +19,7 @@ import java.util.UUID;
 
 public class ItemUtils {
 
-    public ItemStack createCustomHead(String name, String id, String description, String url) {
+    public static ItemStack createCustomHead(String name, String id, String description, String url) {
         ItemStack item = getHead(url);
         ItemMeta itemMeta = item.getItemMeta();
         itemMeta.setDisplayName(name);
@@ -36,7 +36,7 @@ public class ItemUtils {
         return item;
     }
 
-    public ItemStack createItem(String name, String id, String description, Material material) {
+    public static ItemStack createItem(String name, String id, String description, Material material) {
         ItemStack item = new ItemStack(material);
         ItemMeta itemMeta = item.getItemMeta();
         itemMeta.setDisplayName(name);
@@ -53,7 +53,7 @@ public class ItemUtils {
         return item;
     }
 
-    public ItemStack createCustomBanner(String name, String id, String description, ItemStack item) {
+    public static ItemStack createCustomBanner(String name, String id, String description, ItemStack item) {
         ItemMeta itemMeta = item.getItemMeta();
         itemMeta.setDisplayName(name);
         List<String> itemLore = new ArrayList<>();
@@ -70,7 +70,7 @@ public class ItemUtils {
         return item;
     }
 
-    private ItemStack getHead(String value) {
+    private static ItemStack getHead(String value) {
         try {
             if (value == null) return null;
 
@@ -92,7 +92,7 @@ public class ItemUtils {
         return null;
     }
 
-    public ItemStack getBanner(String banner)
+    public static ItemStack getBanner(String banner)
     {
         List<Pattern> patterns = new ArrayList<>();
 

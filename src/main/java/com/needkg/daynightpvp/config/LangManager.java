@@ -1,5 +1,6 @@
 package com.needkg.daynightpvp.config;
 
+import com.needkg.daynightpvp.utils.LangUtils;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -7,6 +8,7 @@ public class LangManager {
 
     public static FileConfiguration currentLangFile;
 
+    public static String version;
     public static String onMessage;
     public static String offMessage;
     public static String dayChatMessage;
@@ -50,66 +52,52 @@ public class LangManager {
     public static String exitButton;
     public static String exitButtonDescription;
 
-    public void updateLangs(JavaPlugin plugin) {
+    public static void updateLangs(JavaPlugin plugin) {
+        LangUtils.selectLangFile(plugin);
 
-        selectLangFile(plugin);
+        onMessage = LangUtils.getString("on-message");
+        offMessage = LangUtils.getString("off-message");
+        dayChatMessage = LangUtils.getString("day-chat-message");
+        nightChatMessage = LangUtils.getString("night-chat-message");
+        dayTitleMessage = LangUtils.getString("day-title-message");
+        daySubTitleMessage = LangUtils.getString("day-sub-title-message");
+        nightTitleMessage = LangUtils.getString("night-title-message");
+        nightSubTitleMessage = LangUtils.getString("night-sub-title-message");
+        reloadedConfig = LangUtils.getString("reloaded-config");
+        updateFoundMessage = LangUtils.getString("update-found-message");
+        updateFoundClick = LangUtils.getString("update-found-click");
+        langSelected = LangUtils.getString("lang-selected");
+        loseMoneyMessage = LangUtils.getString("lose-money-message");
+        winMoneyMessage = LangUtils.getString("win-money-message");
 
-        onMessage = getString("on-message");
-        offMessage = getString("off-message");
-        dayChatMessage = getString("day-chat-message");
-        nightChatMessage = getString("night-chat-message");
-        dayTitleMessage = getString("day-title-message");
-        daySubTitleMessage = getString("day-sub-title-message");
-        nightTitleMessage = getString("night-title-message");
-        nightSubTitleMessage = getString("night-sub-title-message");
-        reloadedConfig = getString("reloaded-config");
-        updateFoundMessage = getString("update-found-message");
-        updateFoundClick = getString("update-found-click");
-        langSelected = getString("lang-selected");
-        loseMoneyMessage = getString("lose-money-message");
-        winMoneyMessage = getString("win-money-message");
-
-        langButton = getString("lang-button");
-        portugueseButton = getString("portuguese-button");
-        englishButton = getString("english-button");
-        spanishButton = getString("spanish-button");
-        langButtonDescription1 = getString("lang-button-description1");
-        langButtonDescription2 = getString("lang-button-description2");
-        reloadButton = getString("reload-button");
-        reloadButtonDescription = getString("reload-button-description");
-        worldsButton = getString("worlds-button");
-        worldsButtonDescription = getString("worlds-button-description");
-        dayButton = getString("day-button");
-        dayButtonDescription = getString("day-button-description");
-        nightButton = getString("night-button");
-        worldButtonDescriptionNotSupported = getString("world-button-description-not-supported");
-        nightButtonDescription = getString("night-button-description");
-        worldButtonDescriptionLine1 = getString("world-button-description-line1");
-        worldButtonDescriptionLine2 = getString("world-button-description-line2");
-        worldButtonDescriptionWorldType = getString("world-button-description-world-type");
-        worldButtonDescriptionLine3 = getString("world-button-description-line3");
-        settingsButton1 = getString("settings-button1");
-        settingsButton2 = getString("settings-button2");
-        settingsButtonDescription1 = getString("settings-button-description1");
-        settingsButtonDescription2 = getString("settings-button-description2");
-        backButton = getString("back-button");
-        backButtonDescription1 = getString("back-button-description1");
-        backButtonDescription2 = getString("back-button-description2");
-        exitButton = getString("exit-button");
-        exitButtonDescription = getString("exit-button-description");
-    }
-
-    public static String getString(String path) {
-        String resultado = currentLangFile.getString(path);
-        if (resultado != null) {
-            resultado = resultado.replaceAll("&", "§");
-        }
-        return resultado;
-    }
-
-    public void selectLangFile(JavaPlugin plugin) {
-        String pathLangFile = "lang/" + ConfigManager.selectedLang + ".yml";
-        LangManager.currentLangFile = StartupFiles.loadConfigFile(plugin, pathLangFile);
+        langButton = LangUtils.getString("lang-button");
+        portugueseButton = LangUtils.getString("portuguese-button");
+        englishButton = LangUtils.getString("english-button");
+        spanishButton = LangUtils.getString("spanish-button");
+        langButtonDescription1 = LangUtils.getString("lang-button-description1");
+        langButtonDescription2 = LangUtils.getString("lang-button-description2");
+        reloadButton = LangUtils.getString("reload-button");
+        reloadButtonDescription = LangUtils.getString("reload-button-description");
+        worldsButton = LangUtils.getString("worlds-button");
+        worldsButtonDescription = LangUtils.getString("worlds-button-description");
+        dayButton = LangUtils.getString("day-button");
+        dayButtonDescription = LangUtils.getString("day-button-description");
+        nightButton = LangUtils.getString("night-button");
+        worldButtonDescriptionNotSupported = LangUtils.getString("world-button-description-not-supported");
+        nightButtonDescription = LangUtils.getString("night-button-description");
+        worldButtonDescriptionLine1 = LangUtils.getString("world-button-description-line1");
+        worldButtonDescriptionLine2 = LangUtils.getString("world-button-description-line2");
+        worldButtonDescriptionWorldType = LangUtils.getString("world-button-description-world-type");
+        worldButtonDescriptionLine3 = LangUtils.getString("world-button-description-line3");
+        settingsButton1 = LangUtils.getString("settings-button1");
+        settingsButton2 = LangUtils.getString("settings-button2");
+        settingsButtonDescription1 = LangUtils.getString("settings-button-description1");
+        settingsButtonDescription2 = LangUtils.getString("settings-button-description2");
+        backButton = LangUtils.getString("back-button");
+        backButtonDescription1 = LangUtils.getString("back-button-description1");
+        backButtonDescription2 = LangUtils.getString("back-button-description2");
+        exitButton = LangUtils.getString("exit-button");
+        exitButtonDescription = LangUtils.getString("exit-button-description");
     }
 
 }

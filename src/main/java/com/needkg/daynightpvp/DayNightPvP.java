@@ -10,22 +10,20 @@ import com.needkg.daynightpvp.metrics.Metrics;
 import com.needkg.daynightpvp.placeholder.RegisterPlaceHolder;
 import com.needkg.daynightpvp.service.DnpService;
 import com.needkg.daynightpvp.utils.ConsoleUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class DayNightPvP extends JavaPlugin {
 
     public static JavaPlugin plugin;
-    private ConsoleUtils consoleUtils;
+    private StartupFiles startupFiles;
 
     @Override
     public void onEnable() {
         plugin = this;
 
-        consoleUtils = new ConsoleUtils();
-        consoleUtils.sendStartMessage(this);
+        ConsoleUtils.startMessage(this);
 
-        StartupFiles startupFiles = new StartupFiles();
+        startupFiles = new StartupFiles();
         startupFiles.startConfigFile(this);
         startupFiles.startLangsFile(this);
 
@@ -33,11 +31,9 @@ public class DayNightPvP extends JavaPlugin {
         filesManager.verifyConfigVersion(this);
         filesManager.verfiyLangsVersion(this);
 
-        ConfigManager configManager = new ConfigManager();
-        configManager.updateConfigs();
+        ConfigManager.updateConfigs();
 
-        LangManager langManager = new LangManager();
-        langManager.updateLangs(this);
+        LangManager.updateLangs(this);
 
         DnpService dnpService = new DnpService();
         dnpService.startService();
@@ -46,17 +42,12 @@ public class DayNightPvP extends JavaPlugin {
         registerCommands.register(this);
 
         RegisterEvents registerEvents = new RegisterEvents();
-        registerEvents.registerJoinEvent();
-        registerEvents.registerEntityEvent();
-        registerEvents.registerInventoryEvent();
-        registerEvents.registerPlayerEvent();
+        registerEvents.register();
 
         RegisterPlaceHolder registerPlaceHolder = new RegisterPlaceHolder();
-        registerPlaceHolder.registerPvpStatus();
+        registerPlaceHolder.register();
 
         new Metrics(this, 19067);
-
-        //consoleUtils.sendMessage(consoleUtils.STARTUP_END_MESSAGE);
     }
 
     @Override

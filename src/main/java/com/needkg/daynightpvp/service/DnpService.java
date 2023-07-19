@@ -3,7 +3,7 @@ package com.needkg.daynightpvp.service;
 import com.needkg.daynightpvp.DayNightPvP;
 import com.needkg.daynightpvp.config.ConfigManager;
 import com.needkg.daynightpvp.config.LangManager;
-import com.needkg.daynightpvp.utils.PlayerInteract;
+import com.needkg.daynightpvp.utils.PlayerUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
 import org.bukkit.World;
@@ -14,12 +14,10 @@ public class DnpService {
 
 
     public void startService() {
-        Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(DayNightPvP.plugin, () -> {
-            listWorlds();
-        }, 20L, 20L);
+        Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(DayNightPvP.plugin, this::listWorlds, 20L, 20L);
     }
 
-    public void listWorlds() {
+    private void listWorlds() {
         List<String> worldsList = ConfigManager.worldList;
         World[] worlds = getWorlds(worldsList);
 
@@ -36,7 +34,7 @@ public class DnpService {
         return worlds;
     }
 
-    public void checkTime(World world) {
+    private void checkTime(World world) {
         if (world == null) {
             return;
         }
@@ -49,13 +47,13 @@ public class DnpService {
                 world.setPVP(false);
                 world.setDifficulty(Difficulty.valueOf(ConfigManager.autoPvpDayDifficulty.toUpperCase()));
                 if (ConfigManager.alertPlayersChat) {
-                    PlayerInteract.sendMessageToPlayers(world, LangManager.dayChatMessage);
+                    PlayerUtils.sendMessageToAllPlayers(world, LangManager.dayChatMessage);
                 }
                 if (ConfigManager.alertPlayersTitle) {
-                    PlayerInteract.sendTitleToPlayers(world, LangManager.dayTitleMessage, LangManager.daySubTitleMessage);
+                    PlayerUtils.sendTitleToAllPlayers(world, LangManager.dayTitleMessage, LangManager.daySubTitleMessage);
                 }
                 if (ConfigManager.playSoundPvpOff) {
-                    PlayerInteract.playSoundToAllPlayers(world, ConfigManager.playSoundPvpOffSound, ConfigManager.playSoundPvpOffVolume, ConfigManager.playSoundPvpOffPitch);
+                    PlayerUtils.playSoundToAllPlayers(world, ConfigManager.playSoundPvpOffSound, ConfigManager.playSoundPvpOffVolume, ConfigManager.playSoundPvpOffPitch);
                 }
             }
         } else if (currentWorldTime >= ConfigManager.autoPvpDayEnd) {
@@ -63,13 +61,13 @@ public class DnpService {
             world.setPVP(true);
 
             if (ConfigManager.alertPlayersChat) {
-                PlayerInteract.sendMessageToPlayers(world, LangManager.nightChatMessage);
+                PlayerUtils.sendMessageToAllPlayers(world, LangManager.nightChatMessage);
             }
             if (ConfigManager.alertPlayersTitle) {
-                PlayerInteract.sendTitleToPlayers(world, LangManager.nightTitleMessage, LangManager.nightSubTitleMessage);
+                PlayerUtils.sendTitleToAllPlayers(world, LangManager.nightTitleMessage, LangManager.nightSubTitleMessage);
             }
             if (ConfigManager.playSoundPvpOn) {
-                PlayerInteract.playSoundToAllPlayers(world, ConfigManager.playSoundPvpOnSound, ConfigManager.playSoundPvpOnVolume, ConfigManager.playSoundPvpOnPitch);
+                PlayerUtils.playSoundToAllPlayers(world, ConfigManager.playSoundPvpOnSound, ConfigManager.playSoundPvpOnVolume, ConfigManager.playSoundPvpOnPitch);
             }
         }
     }

@@ -2,7 +2,6 @@ package com.needkg.daynightpvp.gui;
 
 import com.needkg.daynightpvp.config.LangManager;
 import com.needkg.daynightpvp.utils.ItemUtils;
-import org.apache.commons.codec.language.bm.Lang;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -12,24 +11,24 @@ import org.bukkit.inventory.ItemStack;
 
 public class LangGui {
 
-    private final ItemUtils itemUtils;
+    private final ItemStack ptBr;
+    private final ItemStack enUs;
+    private final ItemStack esEs;
+    private final ItemStack back;
+    private final ItemStack exit;
+    private final ItemStack panel;
 
     public LangGui() {
-        itemUtils = new ItemUtils();
+        ptBr = ItemUtils.createCustomBanner(LangManager.portugueseButton, "pt-BR", LangManager.langButtonDescription2.replace("{0}", "pt-BR"), ItemUtils.getBanner("brazilianBanner"));
+        enUs = ItemUtils.createCustomBanner(LangManager.englishButton, "en-US", LangManager.langButtonDescription2.replace("{0}", "en-US"), ItemUtils.getBanner("euaBanner"));
+        esEs = ItemUtils.createCustomBanner(LangManager.spanishButton, "es-ES", LangManager.langButtonDescription2.replace("{0}", "es-ES"), ItemUtils.getBanner("spanishBanner"));
+        back = ItemUtils.createCustomHead(LangManager.backButton, "back", LangManager.backButtonDescription1, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmIwZjZlOGFmNDZhYzZmYWY4ODkxNDE5MWFiNjZmMjYxZDY3MjZhNzk5OWM2MzdjZjJlNDE1OWZlMWZjNDc3In19fQ==");
+        exit = ItemUtils.createCustomHead(LangManager.exitButton, "exit", LangManager.exitButtonDescription, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTkxOWQxNTk0YmY4MDlkYjdiNDRiMzc4MmJmOTBhNjlmNDQ5YTg3Y2U1ZDE4Y2I0MGViNjUzZmRlYzI3MjIifX19");
+        panel = ItemUtils.createItem(ChatColor.RED +"###", "nada", " ", Material.GRAY_STAINED_GLASS_PANE);
     }
 
     public void open(Player player) {
         Inventory langGui = Bukkit.createInventory(null, 9, GuiManager.guiTitle);
-
-        ItemStack ptBr = itemUtils.createCustomBanner(LangManager.portugueseButton, "pt-BR", LangManager.langButtonDescription2.replace("{0}", "pt-BR"), itemUtils.getBanner("brazilianBanner"));
-        //ItemStack ptBr = itemUtils.createCustomHead(LangManager.portugueseButton, "pt-BR", LangManager.langButtonDescription2.replace("{0}", "pt-BR"), "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOWE0NjQ3NWQ1ZGNjODE1ZjZjNWYyODU5ZWRiYjEwNjExZjNlODYxYzBlYjE0ZjA4ODE2MWIzYzBjY2IyYjBkOSJ9fX0=");
-        //ItemStack enUs = itemUtils.createCustomHead(LangManager.englishButton, "en-US", LangManager.langButtonDescription2.replace("{0}", "en-US"), "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODM3ZmM4NDFhZDIwNjA4ZTc2MWQ0MTMxOTEyM2NkYjU1ODU2YTBlYmMzODA0NzAzODU2ZTVkODZhMTM1MzQ1In19fQ==");
-        ItemStack enUs = itemUtils.createCustomBanner(LangManager.englishButton, "en-US", LangManager.langButtonDescription2.replace("{0}", "en-US"), itemUtils.getBanner("euaBanner"));
-        //ItemStack esEs = itemUtils.createCustomHead(LangManager.spanishButton, "es-ES", LangManager.langButtonDescription2.replace("{0}", "es-ES"), "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTUyNzAxYzY4NzFiYWUwM2MxYzM3NzA1ZDQzNDlmZTA4OGNhOTcwOWJmZGUwN2NhMGYyNzMwNDY5Y2I0ZTQifX19");
-        ItemStack esEs = itemUtils.createCustomBanner(LangManager.spanishButton, "es-ES", LangManager.langButtonDescription2.replace("{0}", "es-ES"), itemUtils.getBanner("spanishBanner"));
-        ItemStack back = itemUtils.createCustomHead(LangManager.backButton, "back", LangManager.backButtonDescription1, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmIwZjZlOGFmNDZhYzZmYWY4ODkxNDE5MWFiNjZmMjYxZDY3MjZhNzk5OWM2MzdjZjJlNDE1OWZlMWZjNDc3In19fQ==");
-        ItemStack exit = itemUtils.createCustomHead(LangManager.exitButton, "exit", LangManager.exitButtonDescription, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTkxOWQxNTk0YmY4MDlkYjdiNDRiMzc4MmJmOTBhNjlmNDQ5YTg3Y2U1ZDE4Y2I0MGViNjUzZmRlYzI3MjIifX19");
-        ItemStack panel = itemUtils.createItem(ChatColor.RED +"###", "nada", " ", Material.GRAY_STAINED_GLASS_PANE);
 
         langGui.setItem(0, ptBr);
         langGui.setItem(1, enUs);

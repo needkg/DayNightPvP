@@ -6,22 +6,23 @@ import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 public class PvpStatus extends PlaceholderExpansion {
 
 
     @Override
-    public String getIdentifier() {
+    public @NotNull String getIdentifier() {
         return "dnp";
     }
 
     @Override
-    public String getAuthor() {
+    public @NotNull String getAuthor() {
         return "needkg";
     }
 
     @Override
-    public String getVersion() {
+    public @NotNull String getVersion() {
         return DayNightPvP.plugin.getDescription().getVersion();
     }
 
@@ -29,15 +30,13 @@ public class PvpStatus extends PlaceholderExpansion {
     public String onPlaceholderRequest(Player player, String params) {
 
         if (params.equalsIgnoreCase("current_world_pvpstatus")) {
-            World world = player.getWorld();
-            boolean pvpEnabled = world.getPVP();
+            boolean pvpEnabled = player.getWorld().getPVP();
             return pvpEnabled ? LangManager.onMessage : LangManager.offMessage;
         }
 
         if (params.startsWith("pvpstatus_")) {
             String worldName = params.substring("pvpstatus_".length());
             World world = Bukkit.getWorld(worldName);
-
             if (world != null) {
                 boolean pvpEnabled = world.getPVP();
                 return pvpEnabled ? LangManager.onMessage : LangManager.offMessage;

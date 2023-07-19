@@ -14,6 +14,25 @@ import java.net.URL;
 
 public class UpdateChecker {
 
+    public void checkUpdate(PlayerJoinEvent event) {
+        try {
+            long random = (long) Math.floor(Math.random() * (Long.MAX_VALUE - 1 + 1) + 1);
+            String currentVersion = DayNightPvP.plugin.getDescription().getVersion();
+            String latestVersion = verifyPluginVersion("https://api.spigotmc.org/legacy/update.php?resource=102250&t=" + random);
+
+            if (!currentVersion.equals(latestVersion)) {
+
+                TextComponent link = new TextComponent(LangManager.updateFoundClick);
+                link.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.spigotmc.org/resources/daynightpvp-dynamic-pvp-for-day-night.102250/updates"));
+
+                event.getPlayer().sendMessage(LangManager.updateFoundMessage);
+                event.getPlayer().spigot().sendMessage(link);
+            }
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
     private String verifyPluginVersion(String url) throws IOException {
 
         URL urlForGetRequest = new URL(url);
@@ -34,25 +53,6 @@ public class UpdateChecker {
             return response.toString();
         } else {
             return "GET NOT WORKED";
-        }
-    }
-
-    public void checkUpdate(PlayerJoinEvent event) {
-        try {
-            long random = (long) Math.floor(Math.random() * (Long.MAX_VALUE - 1 + 1) + 1);
-            String currentVersion = DayNightPvP.plugin.getDescription().getVersion();
-            String latestVersion = verifyPluginVersion("https://api.spigotmc.org/legacy/update.php?resource=102250&t=" + random);
-
-            if (!currentVersion.equals(latestVersion)) {
-
-                TextComponent link = new TextComponent(LangManager.updateFoundClick);
-                link.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.spigotmc.org/resources/daynightpvp-dynamic-pvp-for-day-night.102250/updates"));
-
-                event.getPlayer().sendMessage(LangManager.updateFoundMessage);
-                event.getPlayer().spigot().sendMessage(link);
-            }
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
         }
     }
 
