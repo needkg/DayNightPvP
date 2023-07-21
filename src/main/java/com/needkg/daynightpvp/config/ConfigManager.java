@@ -12,8 +12,6 @@ public class ConfigManager {
     public static File configFile;
     public static FileConfiguration configFileConfig;
 
-    public static String version;
-
     public static Boolean updateChecker;
 
     public static String selectedLang;
@@ -28,6 +26,9 @@ public class ConfigManager {
     public static Boolean griefPreventionPvpInLand;
 
     public static Boolean placeholderPlaceholders;
+
+
+    public static boolean keepInventoryWhenKilledByPlayer;
 
     public static int autoPvpDayEnd;
     public static String autoPvpDayDifficulty;
@@ -45,7 +46,6 @@ public class ConfigManager {
     public static Float playSoundPvpOnPitch;
 
     public static void updateConfigs() {
-        version = ConfigUtils.getValue("version");
 
         updateChecker = Boolean.parseBoolean(ConfigUtils.getValue("update-checker"));
 
@@ -61,6 +61,8 @@ public class ConfigManager {
         griefPreventionPvpInLand = ConfigUtils.getBoolean("grief-prevention.pvp-in-land");
 
         placeholderPlaceholders = ConfigUtils.getBoolean("placeholder-api.placeholders");
+
+        keepInventoryWhenKilledByPlayer = ConfigUtils.getBoolean("pvp.keep-inventory-when-killed-by-player");
 
         autoPvpDayEnd = Integer.parseInt(ConfigUtils.getValue("automatic-pvp.day-end"));
         autoPvpDayDifficulty = ConfigUtils.getValue("automatic-pvp.night-difficulty");

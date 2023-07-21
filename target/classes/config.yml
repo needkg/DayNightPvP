@@ -1,5 +1,5 @@
 # This is the file version, DO NOT MODIFY
-version: 7
+version: 8
 update-checker: true
 
 # en-US, pt-BR, es-ES
@@ -26,6 +26,10 @@ grief-prevention:
 
 placeholder-api:
   placeholders: true
+
+pvp:
+  # This option will keep the player's inventory if they are killed by another player in a configured world.
+  keep-inventory-when-killed-by-player: false
 
 automatic-pvp:
   # 0 - 24000

@@ -7,6 +7,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.PluginManager;
 
+import java.rmi.ConnectIOException;
+
 public class RegisterEvents {
 
     private final PluginManager pluginManager;
@@ -40,7 +42,10 @@ public class RegisterEvents {
     }
 
     private void registerPlayerEvent() {
-        if(PluginUtils.isPluginInstalled("Vault", ConfigManager.vaultLoseMoneyOnDeath)) {
+        boolean vaultIsInstalled = PluginUtils.isPluginInstalled("Vault", ConfigManager.vaultLoseMoneyOnDeath);
+        boolean keepInventoryWhenKilledByPlayer = PluginUtils.isPluginInstalled("Vault", ConfigManager.vaultLoseMoneyOnDeath);
+
+        if(vaultIsInstalled || keepInventoryWhenKilledByPlayer) {
             pluginManager.registerEvents(new DeathEvent(), DayNightPvP.plugin);
         }
     }

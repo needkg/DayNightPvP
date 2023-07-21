@@ -34,7 +34,7 @@ public class FilesManager {
     }
 
     public void verifyConfigVersion(JavaPlugin plugin) {
-        if (!configVersion.equals(ConfigManager.version)) {
+        if (!configVersion.equals(ConfigManager.configFileConfig.getString("version"))) {
             DayNightPvP.plugin.saveResource("config.yml", true);
             ConsoleUtils.warning(fileOutdated.replace("{0}", "config.yml"));
             reloadPlugin(plugin);

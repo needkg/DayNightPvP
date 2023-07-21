@@ -6,7 +6,7 @@
 
     <groupId>com.needkg</groupId>
     <artifactId>DayNightPvP</artifactId>
-    <version>1.2.0.3</version>
+    <version>1.2.1.1</version>
     <packaging>jar</packaging>
 
     <name>DayNightPvP</name>
@@ -38,6 +38,7 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
+                            <outputDirectory>D:\Tranqueiras\Minecraft\Servidores\Debug\DayNightPvP Debug\plugins</outputDirectory>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                         </configuration>
                     </execution>
@@ -75,11 +76,6 @@
         <repository>
             <id>destroystokyo-repo</id>
             <url>https://repo.destroystokyo.com/repository/maven-public//</url>
-        </repository>
-
-        <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
         </repository>
     </repositories>
 

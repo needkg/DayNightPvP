@@ -141,6 +141,24 @@ public class ItemUtils {
 
             return yellowBanner;
         }
+        if (banner.equals("customLanguageBanner")) {
+            ItemStack whiteBanner = new ItemStack(Material.WHITE_BANNER, 1);
+            BannerMeta whiteBannerMeta = (BannerMeta)whiteBanner.getItemMeta();
+
+
+            patterns.add(new Pattern(DyeColor.BLACK, PatternType.STRIPE_TOP));
+            patterns.add(new Pattern(DyeColor.WHITE, PatternType.RHOMBUS_MIDDLE));
+            patterns.add(new Pattern(DyeColor.BLACK, PatternType.STRIPE_DOWNLEFT));
+            patterns.add(new Pattern(DyeColor.WHITE, PatternType.STRIPE_BOTTOM));
+            patterns.add(new Pattern(DyeColor.BLACK, PatternType.TRIANGLES_BOTTOM));
+            patterns.add(new Pattern(DyeColor.WHITE, PatternType.CURLY_BORDER));
+            patterns.add(new Pattern(DyeColor.WHITE, PatternType.CURLY_BORDER));
+            whiteBannerMeta.setPatterns(patterns);
+
+            whiteBanner.setItemMeta(whiteBannerMeta);
+
+            return whiteBanner;
+        }
         return null;
     }
 

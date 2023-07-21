@@ -39,12 +39,18 @@ public class InventoryEvent implements Listener {
     public void onInventoryClick(InventoryClickEvent event) {
         ItemStack clickedItem = event.getCurrentItem();
         String title = event.getView().getTitle();
-        if (title.equals(GuiManager.guiTitle) || title.equals(GuiManager.guiWorldsTitle) || title.equals(GuiManager.guiWorldTitle) && clickedItem != null) {
+        if (title.equals(GuiManager.guiTitle) || title.equals(GuiManager.guiWorldsTitle) || title.equals(GuiManager.guiWorldTitle)) {
+
+            if (clickedItem == null){
+                return;
+            }
 
             event.setCancelled(true);
             ItemMeta itemMeta = clickedItem.getItemMeta();
             String itemID = itemMeta.getLocalizedName();
-            assert !itemID.equals("");
+
+
+
             Player player = (Player) event.getWhoClicked();
             String worldName = event.getInventory().getItem(4).getItemMeta().getDisplayName();
 
