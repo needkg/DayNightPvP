@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="DayNightPvP:jar">
-    <output-path>D:/Tranqueiras/Minecraft/Servidores/Debug/DayNightPvP Debug/plugins</output-path>
-    <root id="archive" name="DayNightPvP.jar">
-      <element id="module-output" name="DayNightPvP" />
-    </root>
-  </artifact>
-</component>
