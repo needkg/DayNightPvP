@@ -28,16 +28,15 @@ public class FilesManager {
         registerPlaceHolder = new RegisterPlaceHolder();
         fileOutdated = "[DayNightPvP] The {0} file was an outdated version. it has been replaced by the new version.";
 
-        configVersion = "7";
+        configVersion = "8";
         langVersion = "7";
         langFiles = Arrays.asList("lang/en-US.yml", "lang/pt-BR.yml", "lang/es-ES.yml");
     }
 
-    public void verifyConfigVersion(JavaPlugin plugin) {
+    public void verifyConfigVersion() {
         if (!configVersion.equals(ConfigManager.configFileConfig.getString("version"))) {
             DayNightPvP.plugin.saveResource("config.yml", true);
             ConsoleUtils.warning(fileOutdated.replace("{0}", "config.yml"));
-            reloadPlugin(plugin);
         }
     }
 
@@ -50,9 +49,9 @@ public class FilesManager {
             if (!langVersion.equals(currentVersion)) {
                 plugin.saveResource("lang/" + langFile.getName(), true);
                 ConsoleUtils.warning(fileOutdated.replace("{0}", "lang/" + langFile.getName()));
-                reloadPlugin(plugin);
             }
         }
+        reloadPlugin(plugin);
     }
 
     public void reloadPlugin(JavaPlugin plugin) {

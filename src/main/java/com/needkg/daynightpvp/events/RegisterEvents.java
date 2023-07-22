@@ -7,8 +7,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.PluginManager;
 
-import java.rmi.ConnectIOException;
-
 public class RegisterEvents {
 
     private final PluginManager pluginManager;
@@ -36,16 +34,18 @@ public class RegisterEvents {
     }
 
     private void registerEntityEvent() {
-        if (PluginUtils.isPluginInstalled("GriefPrevention", ConfigManager.griefPreventionPvpInLand)) {
-            pluginManager.registerEvents(new DamageEvent(), DayNightPvP.plugin);
+        if (PluginUtils.isPluginInstalled("GriefPrevention")) {
+            if (!ConfigManager.griefPreventionPvpInLand) {
+                pluginManager.registerEvents(new DamageEvent(), DayNightPvP.plugin);
+            }
         }
     }
 
     private void registerPlayerEvent() {
-        boolean vaultIsInstalled = PluginUtils.isPluginInstalled("Vault", ConfigManager.vaultLoseMoneyOnDeath);
-        boolean keepInventoryWhenKilledByPlayer = PluginUtils.isPluginInstalled("Vault", ConfigManager.vaultLoseMoneyOnDeath);
+        boolean vaultLoseMoneyOnDeath = ConfigManager.vaultLoseMoneyOnDeath;
+        boolean keepInventoryWhenKilledByPlayer = ConfigManager.keepInventoryWhenKilledByPlayer;
 
-        if(vaultIsInstalled || keepInventoryWhenKilledByPlayer) {
+        if(vaultLoseMoneyOnDeath || keepInventoryWhenKilledByPlayer) {
             pluginManager.registerEvents(new DeathEvent(), DayNightPvP.plugin);
         }
     }

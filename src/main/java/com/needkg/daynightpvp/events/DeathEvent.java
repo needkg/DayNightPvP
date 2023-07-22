@@ -2,6 +2,7 @@ package com.needkg.daynightpvp.events;
 
 import com.needkg.daynightpvp.DayNightPvP;
 import com.needkg.daynightpvp.config.ConfigManager;
+import com.needkg.daynightpvp.utils.PluginUtils;
 import com.needkg.daynightpvp.utils.SearchUtils;
 import com.needkg.daynightpvp.vault.Vault;
 import org.bukkit.Bukkit;
@@ -14,12 +15,6 @@ import org.bukkit.permissions.PermissionAttachmentInfo;
 import java.util.List;
 
 public class DeathEvent implements Listener {
-
-    private final Vault vault;
-
-    public DeathEvent() {
-        vault = new Vault();
-    }
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
@@ -37,7 +32,7 @@ public class DeathEvent implements Listener {
         }
 
         Bukkit.getScheduler().runTaskAsynchronously(DayNightPvP.plugin, () -> {
-            if (ConfigManager.vaultLoseMoneyOnDeath) {
+            if (ConfigManager.vaultLoseMoneyOnDeath && PluginUtils.isPluginInstalled("Vault")) {
                 if (killer != null) {
                     for (PermissionAttachmentInfo permission : event.getEntity().getEffectivePermissions()) {
                         if (permission.getPermission().startsWith("dnp.losemoney")) {
@@ -46,7 +41,7 @@ public class DeathEvent implements Listener {
                                     .findFirst()
                                     .map(perm -> perm.getPermission().replace("dnp.losemoney.", ""))
                                     .orElse("");
-                            vault.loseMoneyOnDeath(killed, killer, world, worldList, porcetage);
+                            Vault.loseMoneyOnDeath(killed, killer, world, worldList, porcetage);
                         }
                     }
                 }

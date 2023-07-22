@@ -11,18 +11,12 @@ import java.util.List;
 
 public class Vault {
 
-    private final SearchUtils searchUtils;
-
-    public Vault() {
-        searchUtils = new SearchUtils();
-    }
-
-    public void loseMoneyOnDeath(Player killed, Player killer, String world, List<String> worldList, String percentage) {
+    public static void loseMoneyOnDeath(Player killed, Player killer, String world, List<String> worldList, String percentage) {
         boolean onlyNight = ConfigManager.loseMoneyOnlyAtNight;
         boolean onlyConfiguredWorlds = ConfigManager.loseMoneyOnlyInConfiguredWorlds;
 
         Economy economy = Bukkit.getServicesManager().getRegistration(Economy.class).getProvider();
-        if (economy != null && killed != null && !percentage.isEmpty() && percentage.matches("[1-9][0-9]?|100")) {
+        if (killed != null && !percentage.isEmpty() && percentage.matches("[1-9][0-9]?|100")) {
             boolean shouldWithdraw = false;
             double currentBalance = economy.getBalance(killed);
             int parsedPercentage = Integer.parseInt(percentage);
@@ -32,7 +26,7 @@ public class Vault {
             if (onlyNight) {
                 if (Bukkit.getWorld(world).getPVP()) {
                     if (onlyConfiguredWorlds) {
-                        if (searchUtils.stringInList(worldList, world)) {
+                        if (SearchUtils.stringInList(worldList, world)) {
                             economy.withdrawPlayer(killed, amountRounded);
                             shouldWithdraw = true;
                             // noite e configurado
@@ -44,7 +38,7 @@ public class Vault {
                     }
                 }
             } else if (onlyConfiguredWorlds) {
-                if (searchUtils.stringInList(worldList, world)) {
+                if (SearchUtils.stringInList(worldList, world)) {
                     shouldWithdraw = true;
                     economy.withdrawPlayer(killed, amountRounded);
                     // dia/noite e configurado

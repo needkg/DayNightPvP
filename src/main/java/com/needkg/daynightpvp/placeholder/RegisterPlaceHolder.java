@@ -6,7 +6,7 @@ import com.needkg.daynightpvp.utils.PluginUtils;
 public class RegisterPlaceHolder {
 
     public void register() {
-    if (PluginUtils.isPluginInstalled("PlaceholderAPI", ConfigManager.placeholderPlaceholders)) {
+    if (PluginUtils.isPluginInstalled("PlaceholderAPI")) {
             if (ConfigManager.placeholderPlaceholders) {
                 PvpStatus pvpStatus = new PvpStatus();
                 pvpStatus.unregister();

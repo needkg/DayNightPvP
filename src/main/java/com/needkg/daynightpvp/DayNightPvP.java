@@ -15,7 +15,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class DayNightPvP extends JavaPlugin {
 
     public static JavaPlugin plugin;
-    private StartupFiles startupFiles;
 
     @Override
     public void onEnable() {
@@ -23,12 +22,11 @@ public class DayNightPvP extends JavaPlugin {
 
         ConsoleUtils.startMessage(this);
 
-        startupFiles = new StartupFiles();
-        startupFiles.startConfigFile(this);
-        startupFiles.startLangsFile(this);
+        StartupFiles.startConfigFile(this);
+        StartupFiles.startLangsFile(this);
 
         FilesManager filesManager = new FilesManager();
-        filesManager.verifyConfigVersion(this);
+        filesManager.verifyConfigVersion();
         filesManager.verfiyLangsVersion(this);
 
         ConfigManager.updateConfigs();

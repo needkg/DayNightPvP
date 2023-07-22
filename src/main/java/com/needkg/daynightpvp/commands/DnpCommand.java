@@ -1,7 +1,6 @@
 package com.needkg.daynightpvp.commands;
 
 import com.needkg.daynightpvp.DayNightPvP;
-import com.needkg.daynightpvp.events.RegisterEvents;
 import com.needkg.daynightpvp.gui.MainGui;
 import com.needkg.daynightpvp.utils.PlayerUtils;
 import org.bukkit.command.Command;
@@ -13,10 +12,8 @@ import org.jetbrains.annotations.NotNull;
 public class DnpCommand implements CommandExecutor {
 
     private final MainGui mainGui;
-    private final RegisterEvents registerEvents;
 
     public DnpCommand() {
-        registerEvents = new RegisterEvents();
         mainGui = new MainGui();
     }
     @Override
