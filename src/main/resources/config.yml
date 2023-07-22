@@ -1,0 +1,60 @@
+# This is the file version, DO NOT MODIFY
+version: 8
+update-checker: true
+
+# en-US, pt-BR, es-ES
+lang: en-US
+
+# If you have capital letters in the world name, write it in capital letters.
+worlds:
+  - world
+  - worldNameExample
+  - MiningWorld
+
+vault:
+  # To configure the amount of money to lose using the permission "dnp.losemoney.<percentage>"
+  # dnp.losemoney.10 = Configure the amount with a 10% loss(min 1, max 100)
+  lose-money-on-death:
+    enabled: true
+    only-at-night: true
+    only-in-configured-worlds: true
+    # The killer will earn the same amount of money that the deceased player lost.
+    killer-reward-money: true
+
+grief-prevention:
+  # Using this option as TRUE does not mean that PvP will always be active in GriefPrevention territories
+    # but only that if the combat is initiated outside the territory and the player runs inside the territory
+    # the combat may continue.
+  pvp-in-land: false
+
+placeholder-api:
+  placeholders: true
+
+pvp:
+  # This option will keep the player's inventory if they are killed by another player in a configured world.
+  keep-inventory-when-killed-by-player: false
+
+automatic-pvp:
+  # 0 - 24000
+  day-end: 12900
+  # peaceful, easy, normal, hard
+  day-difficulty: normal
+  night-difficulty: normal
+  # To alert the players in the game world when it becomes day/night.
+  alert-players:
+    chat: true
+    title: true
+
+# list of sounds: https://pastebin.com/raw/PqFKnKU2
+# volume/pitch min/max 0.0/1.0
+play-sound:
+  pvp-off:
+    enabled: true
+    sound: ENTITY_CHICKEN_AMBIENT
+    volume: 1.0
+    pitch: 1.0
+  pvp-on:
+    enabled: true
+    sound: ENTITY_GHAST_AMBIENT
+    volume: 1.0
+    pitch: 1.0
