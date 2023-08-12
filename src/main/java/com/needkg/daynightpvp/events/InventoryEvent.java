@@ -17,6 +17,8 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.concurrent.ExecutionException;
+
 public class InventoryEvent implements Listener {
 
     private final FilesManager filesManager;
@@ -61,8 +63,9 @@ public class InventoryEvent implements Listener {
                     guiManager.updateWorldsGUI(WorldsGui.worldsGui);
                     break;
                 case "reload":
-                    PlayerUtils.sendMessageToPlayer(player, LangManager.reloadedConfig);
                     filesManager.reloadPlugin(DayNightPvP.plugin);
+                    mainGui.open(player);
+                    PlayerUtils.sendMessageToPlayer(player, LangManager.reloadedConfig);
                     break;
                 case "langSelector":
                     langGui.open(player);
@@ -104,11 +107,14 @@ public class InventoryEvent implements Listener {
             }
             if (SearchUtils.stringInList(FilesManager.langFiles, "lang/" + itemID + ".yml")) {
                 PlayerUtils.playSoundToPlayer(player, Sound.BLOCK_NOTE_BLOCK_HAT);
+
                 ConfigUtils.setValue(ConfigManager.configFileConfig, "lang", itemID);
-                ConfigUtils.updateConfig();
-                LangUtils.selectLangFile(DayNightPvP.plugin);
+                ConfigUtils.saveConfig();
+
                 filesManager.reloadPlugin(DayNightPvP.plugin);
+
                 player.sendMessage(LangManager.langSelected.replace("{0}", itemID));
+
                 mainGui.open(player);
             }
             if (SearchUtils.worldExistsInList(Bukkit.getWorlds(), itemID)) {

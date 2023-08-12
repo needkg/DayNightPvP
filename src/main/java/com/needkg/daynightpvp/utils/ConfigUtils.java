@@ -1,5 +1,6 @@
 package com.needkg.daynightpvp.utils;
 
+import com.needkg.daynightpvp.DayNightPvP;
 import com.needkg.daynightpvp.config.ConfigManager;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -19,10 +20,10 @@ public class ConfigUtils {
         return ConfigManager.configFileConfig.getStringList("worlds");
     }
 
-    public static void updateConfig() {
+    public static void saveConfig() {
         try {
             ConfigManager.configFileConfig.save(ConfigManager.configFile);
-        } catch (Exception ignored) {
+        } catch (Exception ignore) {
 
         }
     }
@@ -31,19 +32,19 @@ public class ConfigUtils {
         List<String> worldList = ConfigManager.worldList;
         worldList.add(world);
         ConfigManager.configFileConfig.set("worlds", worldList);
-        updateConfig();
+        saveConfig();
     }
 
     public static void removeWorldToList(String world) {
         List<String> worldList = ConfigManager.worldList;
         worldList.remove(world);
         ConfigManager.configFileConfig.set("worlds", worldList);
-        updateConfig();
+        saveConfig();
     }
 
     public static void setWorlds(List<String> list) {
         ConfigManager.configFileConfig.set("worlds", list);
-        updateConfig();
+        saveConfig();
     }
 
     public static void setValue(FileConfiguration file,String path, String value) {

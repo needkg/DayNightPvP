@@ -4,7 +4,6 @@ import com.needkg.daynightpvp.DayNightPvP;
 import com.needkg.daynightpvp.events.RegisterEvents;
 import com.needkg.daynightpvp.placeholder.RegisterPlaceHolder;
 import com.needkg.daynightpvp.utils.ConsoleUtils;
-import com.needkg.daynightpvp.utils.LangUtils;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -41,7 +40,7 @@ public class FilesManager {
     }
 
     public void verfiyLangsVersion(JavaPlugin plugin) {
-        for (String fileName : FilesManager.langFiles) {
+        for (String fileName : langFiles) {
             File langFile = new File(plugin.getDataFolder(), fileName);
             FileConfiguration langFileConfig = YamlConfiguration.loadConfiguration(langFile);
             String currentVersion = langFileConfig.getString("version");
@@ -55,13 +54,33 @@ public class FilesManager {
     }
 
     public void reloadPlugin(JavaPlugin plugin) {
-        StartupFiles.startConfigFile(plugin);
-        StartupFiles.startLangsFile(plugin);
+        createFiles(plugin);
         ConfigManager.updateConfigs();
-        LangUtils.selectLangFile(plugin);
         LangManager.updateLangs(plugin);
         registerEvents.register();
         registerPlaceHolder.register();
+    }
+
+    public static void createFiles(JavaPlugin plugin) {
+        ConfigManager.configFile = new File(plugin.getDataFolder(), "config.yml");
+        if (!ConfigManager.configFile.exists()) {
+            plugin.saveResource("config.yml", false);
+        }
+        ConfigManager.configFileConfig = YamlConfiguration.loadConfiguration(ConfigManager.configFile);
+
+        for (String fileName : langFiles) {
+            if (!new File(plugin.getDataFolder(), fileName).exists()) {
+                plugin.saveResource(fileName, false);
+            }
+        }
+    }
+
+    public static FileConfiguration loadConfigFile(JavaPlugin plugin, String path) {
+        File file = new File(plugin.getDataFolder(), path);
+        if (!file.exists()) {
+            plugin.saveResource(path, false);
+        }
+        return YamlConfiguration.loadConfiguration(file);
     }
 
 }
