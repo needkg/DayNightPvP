@@ -4,7 +4,6 @@ import com.needkg.daynightpvp.commands.RegisterCommands;
 import com.needkg.daynightpvp.config.ConfigManager;
 import com.needkg.daynightpvp.config.FilesManager;
 import com.needkg.daynightpvp.config.LangManager;
-import com.needkg.daynightpvp.config.StartupFiles;
 import com.needkg.daynightpvp.events.RegisterEvents;
 import com.needkg.daynightpvp.metrics.Metrics;
 import com.needkg.daynightpvp.placeholder.RegisterPlaceHolder;
@@ -22,15 +21,13 @@ public class DayNightPvP extends JavaPlugin {
 
         ConsoleUtils.startMessage(this);
 
-        StartupFiles.startConfigFile(this);
-        StartupFiles.startLangsFile(this);
+        FilesManager.createFiles(this);
 
         FilesManager filesManager = new FilesManager();
         filesManager.verifyConfigVersion();
         filesManager.verfiyLangsVersion(this);
 
         ConfigManager.updateConfigs();
-
         LangManager.updateLangs(this);
 
         DnpService dnpService = new DnpService();
