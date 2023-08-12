@@ -12,7 +12,7 @@
     <name>DayNightPvP</name>
 
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -38,8 +38,8 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>D:\Tranqueiras\Minecraft\Servidores\Debug\DayNightPvP Debug\plugins</outputDirectory>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <outputDirectory>D:\Tranqueiras\Minecraft\Servidores\Debug\DayNightPvP Debug\plugins</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
@@ -83,7 +83,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.20.1-R0.1-SNAPSHOT</version>
+            <version>1.17-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 
