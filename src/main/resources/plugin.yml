@@ -1,7 +1,7 @@
 name: DayNightPvP
 version: '${project.version}'
 main: com.needkg.daynightpvp.DayNightPvP
-api-version: '1.17'
+api-version: '1.16'
 softdepend: [PlaceholderAPI, GriefPrevention, Vault]
 commands:
   daynightpvp:
