@@ -1,7 +1,9 @@
 package com.needkg.daynightpvp.placeholder;
 
 import com.needkg.daynightpvp.DayNightPvP;
+import com.needkg.daynightpvp.config.FilesManager;
 import com.needkg.daynightpvp.config.LangManager;
+import com.needkg.daynightpvp.utils.PluginUtils;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -24,6 +26,11 @@ public class PvpStatus extends PlaceholderExpansion {
     @Override
     public @NotNull String getVersion() {
         return DayNightPvP.plugin.getDescription().getVersion();
+    }
+
+    @Override
+    public boolean persist() {
+        return true; // This is required or else PlaceholderAPI will unregister the Expansion on reload
     }
 
     @Override
