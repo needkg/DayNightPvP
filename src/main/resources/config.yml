@@ -1,5 +1,5 @@
 # This is the file version, DO NOT MODIFY
-version: 8
+version: 9
 update-checker: true
 
 # en-US, pt-BR, es-ES
@@ -37,9 +37,11 @@ pvp:
 automatic-pvp:
   # 0 - 24000
   day-end: 12900
-  # peaceful, easy, normal, hard
-  day-difficulty: normal
-  night-difficulty: normal
+  automatic-difficulty:
+    enabled: false
+    # peaceful, easy, normal, hard
+    day: normal
+    night: normal
   # To alert the players in the game world when it becomes day/night.
   alert-players:
     chat: true
