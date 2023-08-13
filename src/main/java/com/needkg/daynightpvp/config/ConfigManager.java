@@ -31,8 +31,9 @@ public class ConfigManager {
     public static boolean keepInventoryWhenKilledByPlayer;
 
     public static int autoPvpDayEnd;
-    public static String autoPvpDayDifficulty;
-    public static String autoPvpNightDifficulty;
+    public static boolean automaticDifficulty;
+    public static String automaticDifficultyDay;
+    public static String automaticDifficultyNight;
     public static Boolean alertPlayersChat;
     public static Boolean alertPlayersTitle;
 
@@ -65,8 +66,9 @@ public class ConfigManager {
         keepInventoryWhenKilledByPlayer = ConfigUtils.getBoolean("pvp.keep-inventory-when-killed-by-player");
 
         autoPvpDayEnd = Integer.parseInt(ConfigUtils.getValue("automatic-pvp.day-end"));
-        autoPvpDayDifficulty = ConfigUtils.getValue("automatic-pvp.night-difficulty");
-        autoPvpNightDifficulty = ConfigUtils.getValue("automatic-pvp.day-difficulty");
+        automaticDifficulty = ConfigUtils.getBoolean("automatic-pvp.automatic-difficulty.enabled");
+        automaticDifficultyNight = ConfigUtils.getValue("automatic-pvp.automatic-difficulty.night");
+        automaticDifficultyDay = ConfigUtils.getValue("automatic-pvp.automatic-difficulty.day");
         alertPlayersChat = ConfigUtils.getBoolean("automatic-pvp.alert-players.chat");
         alertPlayersTitle = ConfigUtils.getBoolean("automatic-pvp.alert-players.title");
 

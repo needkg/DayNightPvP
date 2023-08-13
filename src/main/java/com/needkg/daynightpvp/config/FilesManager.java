@@ -27,7 +27,7 @@ public class FilesManager {
         registerPlaceHolder = new RegisterPlaceHolder();
         fileOutdated = "[DayNightPvP] The {0} file was an outdated version. it has been replaced by the new version.";
 
-        configVersion = "8";
+        configVersion = "9";
         langVersion = "7";
         langFiles = Arrays.asList("lang/en-US.yml", "lang/pt-BR.yml", "lang/es-ES.yml");
     }

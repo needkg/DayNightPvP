@@ -44,8 +44,12 @@ public class DnpService {
 
         if (currentWorldStatus) {
             if (currentWorldTime < ConfigManager.autoPvpDayEnd) {
+
                 world.setPVP(false);
-                world.setDifficulty(Difficulty.valueOf(ConfigManager.autoPvpDayDifficulty.toUpperCase()));
+
+                if (ConfigManager.automaticDifficulty) {
+                    world.setDifficulty(Difficulty.valueOf(ConfigManager.automaticDifficultyDay.toUpperCase()));
+                }
                 if (ConfigManager.alertPlayersChat) {
                     PlayerUtils.sendMessageToAllPlayers(world, LangManager.dayChatMessage);
                 }
@@ -57,9 +61,11 @@ public class DnpService {
                 }
             }
         } else if (currentWorldTime >= ConfigManager.autoPvpDayEnd) {
-            world.setDifficulty(Difficulty.valueOf(ConfigManager.autoPvpNightDifficulty.toUpperCase()));
             world.setPVP(true);
 
+            if (ConfigManager.automaticDifficulty) {
+                world.setDifficulty(Difficulty.valueOf(ConfigManager.automaticDifficultyNight.toUpperCase()));
+            }
             if (ConfigManager.alertPlayersChat) {
                 PlayerUtils.sendMessageToAllPlayers(world, LangManager.nightChatMessage);
             }
