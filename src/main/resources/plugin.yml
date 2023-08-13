@@ -4,6 +4,9 @@ main: com.needkg.daynightpvp.DayNightPvP
 api-version: '1.16'
 softdepend: [PlaceholderAPI, GriefPrevention, Vault]
 commands:
-  daynightpvp:
+  dnp:
     description: "Open the gui."
-    aliases: [ dnp ]
+    aliases: [ daynightpvp ]
+  dnp reload:
+    description: "Reload plugin"
+    aliases: [ daynightpvp reload]

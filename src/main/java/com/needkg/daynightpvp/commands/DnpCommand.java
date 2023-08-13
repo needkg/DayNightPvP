@@ -1,6 +1,8 @@
 package com.needkg.daynightpvp.commands;
 
 import com.needkg.daynightpvp.DayNightPvP;
+import com.needkg.daynightpvp.config.FilesManager;
+import com.needkg.daynightpvp.config.LangManager;
 import com.needkg.daynightpvp.gui.MainGui;
 import com.needkg.daynightpvp.utils.PlayerUtils;
 import org.bukkit.command.Command;
@@ -12,19 +14,29 @@ import org.jetbrains.annotations.NotNull;
 public class DnpCommand implements CommandExecutor {
 
     private final MainGui mainGui;
+    private final FilesManager filesManager;
 
     public DnpCommand() {
         mainGui = new MainGui();
+        filesManager = new FilesManager();
     }
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
             if (sender.hasPermission("dnp.admin")) {
-                mainGui.open(player);
+                if (args.length == 0) {
+                    mainGui.open(player);
+                }
+                if (args.length == 1) {
+                    if (args[0].equals("reload")) {
+                        filesManager.reloadPlugin(DayNightPvP.plugin);
+                        PlayerUtils.sendMessageToPlayer(player, LangManager.reloadedConfig);
+                    }
+                }
                 return true;
             } else {
-                PlayerUtils.sendMessageToPlayer(player, "§8[§e☀§8] §x§2§4§f§f§0§0D§x§2§0§f§f§1§8a§x§1§d§f§f§3§0y§x§1§9§f§e§4§7N§x§1§6§f§e§5§fi§x§1§2§f§e§7§7g§x§0§e§f§e§8§fh§x§0§b§f§e§a§7t§x§0§7§f§d§b§eP§x§0§4§f§d§d§6v§x§0§0§f§d§e§eP §8- §7v" + DayNightPvP.plugin.getDescription().getVersion());
+                PlayerUtils.sendMessageToPlayer(player, "§8[§e☀§8] §9DayNightPvP §8- §7v" + DayNightPvP.plugin.getDescription().getVersion());
                 return false;
             }
         } else {
