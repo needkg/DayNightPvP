@@ -37,6 +37,7 @@ Need assistance or have a suggestion? Join our Discord community: [click here](d
 
 # Commands
     /dnp → Open the GUI
+    /dnp reload → Reload the plugin
 
 # Permissions
     dnp.admin -> /dnp command access.
