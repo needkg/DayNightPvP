@@ -23,11 +23,13 @@ public class DeathEvent implements Listener {
         String world = event.getEntity().getWorld().getName();
         List<String> worldList = ConfigManager.worldList;
 
-        if (ConfigManager.keepInventoryWhenKilledByPlayer){
-            if (SearchUtils.stringInList(worldList, world)) {
-                event.setKeepInventory(true);
-                event.getDrops().clear();
-                event.setKeepLevel(true);
+        if (ConfigManager.keepInventoryWhenKilledByPlayer) {
+            if (killer != null) {
+                if (SearchUtils.stringInList(worldList, world)) {
+                    event.setKeepInventory(true);
+                    event.getDrops().clear();
+                    event.setKeepLevel(true);
+                }
             }
         }
 
