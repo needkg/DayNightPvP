@@ -50,7 +50,6 @@ public class FilesManager {
                 ConsoleUtils.warning(fileOutdated.replace("{0}", "lang/" + langFile.getName()));
             }
         }
-        reloadPlugin(plugin);
     }
 
     public void reloadPlugin(JavaPlugin plugin) {
