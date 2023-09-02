@@ -1,5 +1,6 @@
 name: DayNightPvP
 version: '${project.version}'
+author: 'needkg'
 main: com.needkg.daynightpvp.DayNightPvP
 api-version: '1.16'
 softdepend: [PlaceholderAPI, GriefPrevention, Vault]
