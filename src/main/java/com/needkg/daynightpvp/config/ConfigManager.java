@@ -12,20 +12,20 @@ public class ConfigManager {
     public static File configFile;
     public static FileConfiguration configFileConfig;
 
-    public static Boolean updateChecker;
+    public static boolean updateChecker;
 
     public static String selectedLang;
 
     public static List<String> worldList;
 
-    public static Boolean vaultLoseMoneyOnDeath;
-    public static Boolean loseMoneyOnlyAtNight;
-    public static Boolean loseMoneyOnlyInConfiguredWorlds;
-    public static Boolean loseMoneyKillerReward;
+    public static boolean vaultLoseMoneyOnDeath;
+    public static boolean loseMoneyOnlyAtNight;
+    public static boolean loseMoneyOnlyInConfiguredWorlds;
+    public static boolean loseMoneyKillerReward;
 
-    public static Boolean griefPreventionPvpInLand;
+    public static boolean griefPreventionPvpInLand;
 
-    public static Boolean placeholderPlaceholders;
+    public static boolean placeholderPlaceholders;
 
 
     public static boolean keepInventoryWhenKilledByPlayer;
@@ -34,17 +34,20 @@ public class ConfigManager {
     public static boolean automaticDifficulty;
     public static String automaticDifficultyDay;
     public static String automaticDifficultyNight;
-    public static Boolean alertPlayersChat;
-    public static Boolean alertPlayersTitle;
+    public static boolean alertPlayersChat;
+    public static boolean alertPlayersTitle;
+    public static int alertPlayersFadeIn;
+    public static int alertPlayersStay;
+    public static int alertPlayersFadeOut;
 
-    public static Boolean playSoundPvpOff;
+    public static boolean playSoundPvpOff;
     public static Sound playSoundPvpOffSound;
-    public static Float playSoundPvpOffVolume;
-    public static Float playSoundPvpOffPitch;
-    public static Boolean playSoundPvpOn;
+    public static float playSoundPvpOffVolume;
+    public static float playSoundPvpOffPitch;
+    public static boolean playSoundPvpOn;
     public static Sound playSoundPvpOnSound;
-    public static Float playSoundPvpOnVolume;
-    public static Float playSoundPvpOnPitch;
+    public static float playSoundPvpOnVolume;
+    public static float playSoundPvpOnPitch;
 
     public static void updateConfigs() {
 
@@ -70,16 +73,19 @@ public class ConfigManager {
         automaticDifficultyNight = ConfigUtils.getValue("automatic-pvp.automatic-difficulty.night");
         automaticDifficultyDay = ConfigUtils.getValue("automatic-pvp.automatic-difficulty.day");
         alertPlayersChat = ConfigUtils.getBoolean("automatic-pvp.alert-players.chat");
-        alertPlayersTitle = ConfigUtils.getBoolean("automatic-pvp.alert-players.title");
+        alertPlayersTitle = ConfigUtils.getBoolean("automatic-pvp.alert-players.title.enabled");
+        alertPlayersFadeIn = Integer.parseInt(ConfigUtils.getValue("automatic-pvp.alert-players.title.fade-in"));
+        alertPlayersStay = Integer.parseInt(ConfigUtils.getValue("automatic-pvp.alert-players.title.stay"));
+        alertPlayersFadeOut = Integer.parseInt(ConfigUtils.getValue("automatic-pvp.alert-players.title.fade-out"));
 
         playSoundPvpOff = ConfigUtils.getBoolean("play-sound.pvp-off.enabled");
         playSoundPvpOffSound = Sound.valueOf(ConfigUtils.getValue("play-sound.pvp-off.sound"));
-        playSoundPvpOffVolume = Float.valueOf(ConfigUtils.getValue("play-sound.pvp-off.volume"));
-        playSoundPvpOffPitch = Float.valueOf(ConfigUtils.getValue("play-sound.pvp-off.pitch"));
+        playSoundPvpOffVolume = Float.parseFloat(ConfigUtils.getValue("play-sound.pvp-off.volume"));
+        playSoundPvpOffPitch = Float.parseFloat(ConfigUtils.getValue("play-sound.pvp-off.pitch"));
         playSoundPvpOn = ConfigUtils.getBoolean("play-sound.pvp-on.enabled");
         playSoundPvpOnSound = Sound.valueOf(ConfigUtils.getValue("play-sound.pvp-on.sound"));
-        playSoundPvpOnVolume = Float.valueOf(ConfigUtils.getValue("play-sound.pvp-on.volume"));
-        playSoundPvpOnPitch = Float.valueOf(ConfigUtils.getValue("play-sound.pvp-on.pitch"));
+        playSoundPvpOnVolume = Float.parseFloat(ConfigUtils.getValue("play-sound.pvp-on.volume"));
+        playSoundPvpOnPitch = Float.parseFloat(ConfigUtils.getValue("play-sound.pvp-on.pitch"));
     }
 
 }
