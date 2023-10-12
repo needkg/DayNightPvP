@@ -39,7 +39,7 @@
                         </goals>
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
-                            <outputDirectory>D:\Tranqueiras\Minecraft\Servidores\Debug\DayNightPvP Debug\plugins</outputDirectory>
+                            <outputDirectory>D:\Tranqueiras\Minecraft\Servidores\Debug\plugins</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>

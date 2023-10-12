@@ -1,5 +1,6 @@
 package com.needkg.daynightpvp.utils;
 
+import com.needkg.daynightpvp.config.ConfigManager;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -28,7 +29,7 @@ public class PlayerUtils {
 
     public static void sendTitleToAllPlayers(World world, String title, String subTitle) {
         for (Player player : world.getPlayers()) {
-            player.sendTitle(title, subTitle);
+            player.sendTitle(title, subTitle, ConfigManager.alertPlayersFadeIn, ConfigManager.alertPlayersStay, ConfigManager.alertPlayersFadeOut);
         }
     }
 }
