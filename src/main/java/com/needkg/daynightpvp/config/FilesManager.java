@@ -34,8 +34,9 @@ public class FilesManager {
 
     public void verifyConfigVersion() {
         if (!configVersion.equals(ConfigManager.configFileConfig.getString("version"))) {
-            DayNightPvP.plugin.saveResource("config.yml", true);
+            resetFile("config.yml");
             ConsoleUtils.warning(fileOutdated.replace("{0}", "config.yml"));
+            ConfigManager.configFileConfig = YamlConfiguration.loadConfiguration(ConfigManager.configFile);
         }
     }
 
@@ -46,10 +47,14 @@ public class FilesManager {
             String currentVersion = langFileConfig.getString("version");
 
             if (!langVersion.equals(currentVersion)) {
-                plugin.saveResource("lang/" + langFile.getName(), true);
+                resetFile("lang/" + langFile.getName());
                 ConsoleUtils.warning(fileOutdated.replace("{0}", "lang/" + langFile.getName()));
             }
         }
+    }
+
+    public void resetFile(String path) {
+        DayNightPvP.plugin.saveResource(path, true);
     }
 
     public void reloadPlugin(JavaPlugin plugin) {
@@ -60,7 +65,7 @@ public class FilesManager {
         registerPlaceHolder.register();
     }
 
-    public static void createFiles(JavaPlugin plugin) {
+    public void createFiles(JavaPlugin plugin) {
         ConfigManager.configFile = new File(plugin.getDataFolder(), "config.yml");
         if (!ConfigManager.configFile.exists()) {
             plugin.saveResource("config.yml", false);
