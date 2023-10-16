@@ -2,6 +2,7 @@ package com.needkg.daynightpvp.utils;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
+import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
@@ -21,6 +22,7 @@ public class ItemUtils {
 
     public static ItemStack createCustomHead(String name, String id, String description, String url) {
         ItemStack item = getHead(url);
+
         ItemMeta itemMeta = item.getItemMeta();
         itemMeta.setDisplayName(name);
         List<String> itemLore = new ArrayList<>();
@@ -77,7 +79,7 @@ public class ItemUtils {
             ItemStack head = new ItemStack(Material.PLAYER_HEAD);
             SkullMeta hMeta = (SkullMeta) head.getItemMeta();
 
-            GameProfile profile = new GameProfile(UUID.randomUUID(), null);
+            GameProfile profile = new GameProfile(UUID.randomUUID(), "head");
             profile.getProperties().put("textures", new Property("textures", value));
             Method mtd = hMeta.getClass().getDeclaredMethod("setProfile", GameProfile.class);
             mtd.setAccessible(true);
@@ -86,7 +88,7 @@ public class ItemUtils {
             head.setItemMeta(hMeta);
             return head;
         } catch (Exception e) {
-            // handle error
+            // ignore
         }
 
         return null;
