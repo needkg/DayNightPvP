@@ -7,7 +7,7 @@ Download release: [spigotmc.org](https://www.spigotmc.org/resources/daynightpvp-
 
 # Support
 
-Need assistance or have a suggestion? Join our Discord community: [click here](discord.needkg.online)
+Need assistance or have a suggestion? Join our Discord community: [click here](https://discord.needkg.online)
 
 # Features
 
