@@ -1,12 +1,15 @@
 name: DayNightPvP
 version: '${project.version}'
-main: com.needkg.daynightpvp.DayNightPvP
+author: 'needkg'
+main: org.callvdois.daynightpvp.DayNightPvP
 api-version: '1.16'
-softdepend: [PlaceholderAPI, GriefPrevention, Vault]
+softdepend: [PlaceholderAPI, GriefPrevention, Vault, WorldGuard]
 commands:
   dnp:
     description: "Open the gui."
     aliases: [ daynightpvp ]
+    permission: dnp.admin
   dnp reload:
     description: "Reload plugin"
     aliases: [ daynightpvp reload]
+    permission: dnp.admin

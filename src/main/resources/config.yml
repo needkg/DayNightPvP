@@ -1,8 +1,8 @@
 # This is the file version, DO NOT MODIFY
-version: 9
+version: 10
 update-checker: true
 
-# en-US, pt-BR, es-ES
+# en-US, pt-BR, es-ES, ru-RU
 lang: en-US
 
 # If you have capital letters in the world name, write it in capital letters.
@@ -45,7 +45,11 @@ automatic-pvp:
   # To alert the players in the game world when it becomes day/night.
   alert-players:
     chat: true
-    title: true
+    title:
+      enabled: true
+      fade-in: 20
+      stay: 20
+      fade-out: 20
 
 # list of sounds: https://pastebin.com/raw/PqFKnKU2
 # volume/pitch min/max 0.0/1.0
