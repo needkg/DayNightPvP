@@ -2,7 +2,7 @@
 version: 10
 update-checker: true
 
-# en-US, pt-BR, es-ES
+# en-US, pt-BR, es-ES, ru-RU
 lang: en-US
 
 # If you have capital letters in the world name, write it in capital letters.
