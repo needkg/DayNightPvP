@@ -1,12 +1,13 @@
 package org.callvdois.daynightpvp;
 
 import org.bukkit.plugin.java.JavaPlugin;
-import org.callvdois.daynightpvp.commands.RegisterCommands;
+import org.callvdois.daynightpvp.commands.RegisterCommand;
 import org.callvdois.daynightpvp.config.ConfigManager;
 import org.callvdois.daynightpvp.config.FilesManager;
 import org.callvdois.daynightpvp.config.LangManager;
 import org.callvdois.daynightpvp.events.RegisterEvents;
 import org.callvdois.daynightpvp.metrics.Metrics;
+import org.callvdois.daynightpvp.metrics.RegisterMetrics;
 import org.callvdois.daynightpvp.placeholder.RegisterPlaceHolder;
 import org.callvdois.daynightpvp.service.DnpService;
 import org.callvdois.daynightpvp.utils.ConsoleUtils;
@@ -22,20 +23,22 @@ public class DayNightPvP extends JavaPlugin {
     private static DayNightPvP instance;
     private final FilesManager filesManager;
     private final DnpService dnpService;
-    private final RegisterCommands registerCommands;
+    private final RegisterCommand registerCommand;
     private final RegisterEvents registerEvents;
     private final RegisterPlaceHolder registerPlaceHolder;
     private final RegisterCustomFlag registerCustomFlag;
+    private final RegisterMetrics registerMetrics;
 
     public DayNightPvP() {
         instance = this;
 
         filesManager = new FilesManager();
         dnpService = new DnpService();
-        registerCommands = new RegisterCommands();
+        registerCommand = new RegisterCommand();
         registerEvents = new RegisterEvents();
         registerPlaceHolder = new RegisterPlaceHolder();
         registerCustomFlag = new RegisterCustomFlag();
+        registerMetrics = new RegisterMetrics();
     }
 
     public static DayNightPvP getInstance() {
@@ -44,17 +47,13 @@ public class DayNightPvP extends JavaPlugin {
 
     @Override
     public void onLoad() {
-
         load();
-
     }
 
     @Override
     public void onEnable() {
-
         enable();
-
-        registerMetrics();
+        registerMetrics.register();
     }
 
     public void load() {
@@ -78,15 +77,15 @@ public class DayNightPvP extends JavaPlugin {
 
         dnpService.startService();
 
-        registerCommands.register();
+        registerCommand.register();
 
         registerEvents.register();
 
         registerPlaceHolder.register();
     }
 
-    private void registerMetrics() {
-        new Metrics(this, 19067);
+    public void restart() {
+
     }
 
     private void verifyCompabilityPlugins() {

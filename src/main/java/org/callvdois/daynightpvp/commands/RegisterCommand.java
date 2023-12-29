@@ -2,7 +2,7 @@ package org.callvdois.daynightpvp.commands;
 
 import org.callvdois.daynightpvp.DayNightPvP;
 
-public class RegisterCommands {
+public class RegisterCommand {
     public void register() {
 
         DayNightPvP.getInstance().getCommand("daynightpvp").setExecutor(new DnpCommand());

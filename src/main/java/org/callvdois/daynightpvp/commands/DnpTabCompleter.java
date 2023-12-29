@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class DnpTabCompleter implements TabCompleter {
-    @Nullable
+
     @Override
     public List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
         return Collections.emptyList();
