@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class Vault {
+public class LoseMoneyOnDeath {
 
     public static void loseMoneyOnDeath(Player killed, Player killer, String world, List<String> worldList, String percentage) {
         boolean onlyNight = ConfigManager.loseMoneyOnlyAtNight;

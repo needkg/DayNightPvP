@@ -3,7 +3,7 @@ package org.callvdois.daynightpvp.events;
 import org.callvdois.daynightpvp.DayNightPvP;
 import org.callvdois.daynightpvp.config.ConfigManager;
 import org.callvdois.daynightpvp.utils.SearchUtils;
-import org.callvdois.daynightpvp.vault.Vault;
+import org.callvdois.daynightpvp.vault.LoseMoneyOnDeath;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -42,7 +42,7 @@ public class DeathEvent implements Listener {
                                     .findFirst()
                                     .map(perm -> perm.getPermission().replace("dnp.losemoney.", ""))
                                     .orElse("");
-                            Vault.loseMoneyOnDeath(killed, killer, world, worldList, porcetage);
+                            LoseMoneyOnDeath.loseMoneyOnDeath(killed, killer, world, worldList, porcetage);
                         }
                     }
                 }
