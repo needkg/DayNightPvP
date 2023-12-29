@@ -10,7 +10,7 @@ import org.callvdois.daynightpvp.placeholder.RegisterPlaceHolder;
 import org.callvdois.daynightpvp.service.DnpService;
 import org.callvdois.daynightpvp.utils.ConsoleUtils;
 import org.callvdois.daynightpvp.utils.PluginUtils;
-import org.callvdois.daynightpvp.worldguard.RegisterCustomFlags;
+import org.callvdois.daynightpvp.worldguard.RegisterCustomFlag;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class DayNightPvP extends JavaPlugin {
@@ -22,7 +22,7 @@ public class DayNightPvP extends JavaPlugin {
     private final RegisterCommands registerCommands;
     private final RegisterEvents registerEvents;
     private final RegisterPlaceHolder registerPlaceHolder;
-    private final RegisterCustomFlags registerCustomFlags;
+    private final RegisterCustomFlag registerCustomFlag;
 
     public static boolean vaultIsPresent;
     public static boolean griefIsPresent;
@@ -37,7 +37,7 @@ public class DayNightPvP extends JavaPlugin {
         registerCommands = new RegisterCommands();
         registerEvents = new RegisterEvents();
         registerPlaceHolder = new RegisterPlaceHolder();
-        registerCustomFlags = new RegisterCustomFlags();
+        registerCustomFlag = new RegisterCustomFlag();
     }
 
     public static DayNightPvP getInstance() {
@@ -64,7 +64,7 @@ public class DayNightPvP extends JavaPlugin {
         verifyCompabilityPlugins();
 
         if (worldGuardIsPresent) {
-            registerCustomFlags.run();
+            registerCustomFlag.run();
         }
     }
 

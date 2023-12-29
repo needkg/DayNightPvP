@@ -3,10 +3,8 @@ package org.callvdois.daynightpvp.events;
 import org.callvdois.daynightpvp.DayNightPvP;
 import org.callvdois.daynightpvp.config.ConfigManager;
 import org.callvdois.daynightpvp.griefprevention.GriefManager;
-import org.callvdois.daynightpvp.service.DnpService;
-import org.callvdois.daynightpvp.utils.SearchUtils;
 import org.callvdois.daynightpvp.utils.WorldUtils;
-import org.callvdois.daynightpvp.worldguard.CustomFlag;
+import org.callvdois.daynightpvp.worldguard.AllowPvpOnDayFlag;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -20,11 +18,11 @@ import org.bukkit.potion.PotionEffectType;
 public class DamageEvent implements Listener {
 
     private final GriefManager griefManager;
-    private final CustomFlag customFlag;
+    private final AllowPvpOnDayFlag allowPvpOnDayFlag;
 
     public DamageEvent() {
         griefManager = new GriefManager();
-        customFlag = new CustomFlag();
+        allowPvpOnDayFlag = new AllowPvpOnDayFlag();
     }
 
     @EventHandler
@@ -86,7 +84,7 @@ public class DamageEvent implements Listener {
     }
 
     private boolean checkHooks(Player damagedPlayer,Player damager) {
-        if (DayNightPvP.worldGuardIsPresent && customFlag.checkState(damagedPlayer) && customFlag.checkState(damager)) {
+        if (DayNightPvP.worldGuardIsPresent && allowPvpOnDayFlag.checkState(damagedPlayer) && allowPvpOnDayFlag.checkState(damager)) {
             return false;
         }
         if (DayNightPvP.griefIsPresent && !ConfigManager.griefPreventionPvpInLand && griefManager.verify(damagedPlayer, damager)) {

@@ -12,7 +12,7 @@ import com.sk89q.worldguard.protection.regions.RegionContainer;
 import com.sk89q.worldguard.protection.regions.RegionQuery;
 import org.bukkit.entity.Player;
 
-public class CustomFlag {
+public class AllowPvpOnDayFlag {
 
     public static StateFlag allowPvpOnDay;
 
