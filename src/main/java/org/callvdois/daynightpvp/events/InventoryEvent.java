@@ -43,14 +43,13 @@ public class InventoryEvent implements Listener {
         String title = event.getView().getTitle();
         if (title.equals(GuiManager.guiTitle) || title.equals(GuiManager.guiWorldsTitle) || title.equals(GuiManager.guiWorldTitle)) {
 
-            if (clickedItem == null){
+            if (clickedItem == null) {
                 return;
             }
 
             event.setCancelled(true);
             ItemMeta itemMeta = clickedItem.getItemMeta();
             String itemID = itemMeta.getLocalizedName();
-
 
 
             Player player = (Player) event.getWhoClicked();

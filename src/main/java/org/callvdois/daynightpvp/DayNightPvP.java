@@ -15,19 +15,17 @@ import org.callvdois.daynightpvp.worldguard.RegisterCustomFlag;
 
 public class DayNightPvP extends JavaPlugin {
 
+    public static boolean vaultIsPresent;
+    public static boolean griefIsPresent;
+    public static boolean worldGuardIsPresent;
+    public static boolean placeHolderIsPresent;
     private static DayNightPvP instance;
-
     private final FilesManager filesManager;
     private final DnpService dnpService;
     private final RegisterCommands registerCommands;
     private final RegisterEvents registerEvents;
     private final RegisterPlaceHolder registerPlaceHolder;
     private final RegisterCustomFlag registerCustomFlag;
-
-    public static boolean vaultIsPresent;
-    public static boolean griefIsPresent;
-    public static boolean worldGuardIsPresent;
-    public static boolean placeHolderIsPresent;
 
     public DayNightPvP() {
         instance = this;

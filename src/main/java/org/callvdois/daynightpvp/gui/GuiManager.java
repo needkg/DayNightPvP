@@ -25,7 +25,7 @@ public class GuiManager {
     public static BukkitTask updateWorldGUITask;
     public static List<String> worldsPvpManually = new ArrayList<>();
     public static List<String> worldsDNPServiceOn = new ArrayList<>();
-
+    public static BukkitTask updateWorldsGUITask;
     private ItemStack dnpServicePanel;
     private ItemStack worldPvpManuallyPanel;
     private ItemStack worldItem;
@@ -49,8 +49,6 @@ public class GuiManager {
             }
         }.runTaskTimer(DayNightPvP.getInstance(), 0L, 20L);
     }
-
-    public static BukkitTask updateWorldsGUITask;
 
     public void updateWorldsGUI(Inventory inventory) {
         updateWorldsGUITask = new BukkitRunnable() {
@@ -118,10 +116,10 @@ public class GuiManager {
                 buttonDescription = LangManager.worldButtonDescriptionLine1.replace("{0}", LangManager.worldButtonDescriptionNotSupported) + "|" + LangManager.worldButtonDescriptionLine2.replace("{0}", pvpStatus) + "|" + LangManager.worldButtonDescriptionWorldType.replace("{0}", ChatColor.AQUA + "nether");
                 worldItem = ItemUtils.createCustomHead(worldName, worldName, buttonDescription + "||" + LangManager.worldButtonDescriptionLine3, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzkzYmZjNDMxOTAwNzIzZjdmYTI4Nzg2NDk2MzgwMTdjZTYxNWQ4ZDhjYWI4ZDJmMDcwYTYxZWIxYWEwMGQwMiJ9fX0=");
             } else if (world.getEnvironment() == World.Environment.THE_END) {
-                buttonDescription = LangManager.worldButtonDescriptionLine1.replace("{0}", LangManager.worldButtonDescriptionNotSupported) + "|" + LangManager.worldButtonDescriptionLine2.replace("{0}", pvpStatus) + "|" + LangManager.worldButtonDescriptionWorldType.replace("{0}",ChatColor.AQUA + "the_end");
+                buttonDescription = LangManager.worldButtonDescriptionLine1.replace("{0}", LangManager.worldButtonDescriptionNotSupported) + "|" + LangManager.worldButtonDescriptionLine2.replace("{0}", pvpStatus) + "|" + LangManager.worldButtonDescriptionWorldType.replace("{0}", ChatColor.AQUA + "the_end");
                 worldItem = ItemUtils.createCustomHead(worldName, worldName, buttonDescription + "||" + LangManager.worldButtonDescriptionLine3, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTlmMjFmNWQ4ODMzMTZmZDY1YTkzNjZmMzJhMzMwMTMxODJlMzM4MWRlYzIxYzE3Yzc4MzU1ZDliZjRmMCJ9fX0=");
             } else {
-                buttonDescription = LangManager.worldButtonDescriptionLine1.replace("{0}", dnpServiceStatus) + "|" + LangManager.worldButtonDescriptionLine2.replace("{0}", pvpStatus + "|" + LangManager.worldButtonDescriptionWorldType.replace("{0}",ChatColor.AQUA + "normal"));
+                buttonDescription = LangManager.worldButtonDescriptionLine1.replace("{0}", dnpServiceStatus) + "|" + LangManager.worldButtonDescriptionLine2.replace("{0}", pvpStatus + "|" + LangManager.worldButtonDescriptionWorldType.replace("{0}", ChatColor.AQUA + "normal"));
                 worldItem = ItemUtils.createCustomHead(worldName, worldName, buttonDescription + "||" + LangManager.worldButtonDescriptionLine3, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzIyODM5ZDVjN2ZjMDY3ODA2MmYxYzZjOGYyN2IzMzIwOTQzODRlM2JiNWM0YjVlYmQxNjc2YjI3OWIwNmJmIn19fQ==");
             }
 
@@ -129,7 +127,7 @@ public class GuiManager {
             position++;
         }
 
-        ItemStack panel = ItemUtils.createItem(ChatColor.RED +"###", "nada", " ", Material.GRAY_STAINED_GLASS_PANE);
+        ItemStack panel = ItemUtils.createItem(ChatColor.RED + "###", "nada", " ", Material.GRAY_STAINED_GLASS_PANE);
 
         for (int slot = 0; slot < WorldsGui.worldsGui.getSize(); slot++) {
             if (WorldsGui.worldsGui.getItem(slot) == null) {

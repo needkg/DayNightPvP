@@ -14,7 +14,7 @@ import java.util.List;
 public class DnpService {
 
     public static List<World> worldsPvpOff = new ArrayList<>();
-    public static List<World> worldsPvpOn= new ArrayList<>();
+    public static List<World> worldsPvpOn = new ArrayList<>();
 
     public void startService() {
         Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(DayNightPvP.getInstance(), this::listWorlds, 20L, 20L);
@@ -52,20 +52,20 @@ public class DnpService {
     private boolean checkTime(World world) {
         long currentWorldTime = world.getTime();
         if (currentWorldTime < ConfigManager.autoPvpDayEnd) {
-                if (!worldsPvpOff.contains(world)) {
-                    if (ConfigManager.automaticDifficulty) {
-                        world.setDifficulty(Difficulty.valueOf(ConfigManager.automaticDifficultyDay.toUpperCase()));
-                    }
-                    if (ConfigManager.alertPlayersChat) {
-                        PlayerUtils.sendMessageToAllPlayers(world, LangManager.dayChatMessage);
-                    }
-                    if (ConfigManager.alertPlayersTitle) {
-                        PlayerUtils.sendTitleToAllPlayers(world, LangManager.dayTitleMessage, LangManager.daySubTitleMessage);
-                    }
-                    if (ConfigManager.playSoundPvpOff) {
-                        PlayerUtils.playSoundToAllPlayers(world, ConfigManager.playSoundPvpOffSound, ConfigManager.playSoundPvpOffVolume, ConfigManager.playSoundPvpOffPitch);
-                    }
+            if (!worldsPvpOff.contains(world)) {
+                if (ConfigManager.automaticDifficulty) {
+                    world.setDifficulty(Difficulty.valueOf(ConfigManager.automaticDifficultyDay.toUpperCase()));
                 }
+                if (ConfigManager.alertPlayersChat) {
+                    PlayerUtils.sendMessageToAllPlayers(world, LangManager.dayChatMessage);
+                }
+                if (ConfigManager.alertPlayersTitle) {
+                    PlayerUtils.sendTitleToAllPlayers(world, LangManager.dayTitleMessage, LangManager.daySubTitleMessage);
+                }
+                if (ConfigManager.playSoundPvpOff) {
+                    PlayerUtils.playSoundToAllPlayers(world, ConfigManager.playSoundPvpOffSound, ConfigManager.playSoundPvpOffVolume, ConfigManager.playSoundPvpOffPitch);
+                }
+            }
             return false;
         } else {
             if (!worldsPvpOn.contains(world)) {

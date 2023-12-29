@@ -93,13 +93,12 @@ public class ItemUtils {
         return null;
     }
 
-    public static ItemStack getBanner(String banner)
-    {
+    public static ItemStack getBanner(String banner) {
         List<Pattern> patterns = new ArrayList<>();
 
         if (banner.equals("brazilianBanner")) {
             ItemStack greenBanner = new ItemStack(Material.GREEN_BANNER, 1);
-            BannerMeta greenBannerMeta = (BannerMeta)greenBanner.getItemMeta();
+            BannerMeta greenBannerMeta = (BannerMeta) greenBanner.getItemMeta();
 
 
             patterns.add(new Pattern(DyeColor.YELLOW, PatternType.RHOMBUS_MIDDLE));
@@ -115,7 +114,7 @@ public class ItemUtils {
         }
         if (banner.equals("euaBanner")) {
             ItemStack redBanner = new ItemStack(Material.RED_BANNER, 1);
-            BannerMeta redBannerMeta = (BannerMeta)redBanner.getItemMeta();
+            BannerMeta redBannerMeta = (BannerMeta) redBanner.getItemMeta();
 
             patterns.add(new Pattern(DyeColor.WHITE, PatternType.STRIPE_SMALL));
             patterns.add(new Pattern(DyeColor.BLUE, PatternType.SQUARE_TOP_LEFT));
@@ -128,7 +127,7 @@ public class ItemUtils {
         }
         if (banner.equals("spanishBanner")) {
             ItemStack yellowBanner = new ItemStack(Material.YELLOW_BANNER, 1);
-            BannerMeta yellowBannerMeta = (BannerMeta)yellowBanner.getItemMeta();
+            BannerMeta yellowBannerMeta = (BannerMeta) yellowBanner.getItemMeta();
 
             patterns.add(new Pattern(DyeColor.YELLOW, PatternType.STRIPE_TOP));
             patterns.add(new Pattern(DyeColor.BROWN, PatternType.MOJANG));
@@ -144,7 +143,7 @@ public class ItemUtils {
         }
         if (banner.equals("customLanguageBanner")) {
             ItemStack whiteBanner = new ItemStack(Material.WHITE_BANNER, 1);
-            BannerMeta whiteBannerMeta = (BannerMeta)whiteBanner.getItemMeta();
+            BannerMeta whiteBannerMeta = (BannerMeta) whiteBanner.getItemMeta();
 
 
             patterns.add(new Pattern(DyeColor.BLACK, PatternType.STRIPE_TOP));

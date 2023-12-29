@@ -18,7 +18,7 @@ public class MainGui {
     private final List<String> langHeads = new ArrayList<>();
     private ItemStack reload;
     private ItemStack worlds;
-    private ItemStack exit ;
+    private ItemStack exit;
     private ItemStack panel;
 
     public MainGui() {
@@ -26,7 +26,7 @@ public class MainGui {
         langHeads.add("en-US, euaBanner");
         langHeads.add("es-ES, spanishBanner");
 
-        panel = ItemUtils.createItem(ChatColor.RED +"###", "nada", " ", Material.GRAY_STAINED_GLASS_PANE);
+        panel = ItemUtils.createItem(ChatColor.RED + "###", "nada", " ", Material.GRAY_STAINED_GLASS_PANE);
     }
 
     public void open(Player player) {

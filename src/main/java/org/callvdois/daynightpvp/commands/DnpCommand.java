@@ -20,6 +20,7 @@ public class DnpCommand implements CommandExecutor {
         mainGui = new MainGui();
         filesManager = new FilesManager();
     }
+
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         if (sender instanceof Player) {

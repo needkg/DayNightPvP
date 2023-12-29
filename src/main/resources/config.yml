@@ -23,8 +23,8 @@ vault:
 
 grief-prevention:
   # Using this option as TRUE does not mean that PvP will always be active in GriefPrevention territories
-    # but only that if the combat is initiated outside the territory and the player runs inside the territory
-    # the combat may continue.
+  # but only that if the combat is initiated outside the territory and the player runs inside the territory
+  # the combat may continue.
   pvp-in-land: false
 
 placeholder-api:

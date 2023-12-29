@@ -45,7 +45,7 @@ public class RegisterEvents {
         boolean vaultLoseMoneyOnDeath = ConfigManager.vaultLoseMoneyOnDeath;
         boolean keepInventoryWhenKilledByPlayer = ConfigManager.keepInventoryWhenKilledByPlayer;
 
-        if(vaultLoseMoneyOnDeath || keepInventoryWhenKilledByPlayer) {
+        if (vaultLoseMoneyOnDeath || keepInventoryWhenKilledByPlayer) {
             pluginManager.registerEvents(new DeathEvent(), DayNightPvP.getInstance());
         }
     }

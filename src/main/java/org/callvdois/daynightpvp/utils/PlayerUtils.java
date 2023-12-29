@@ -14,7 +14,7 @@ public class PlayerUtils {
     }
 
     public static void sendMessageToPlayer(Player player, String message) {
-            player.sendMessage(message);
+        player.sendMessage(message);
     }
 
     public static void playSoundToAllPlayers(World world, Sound sound, float volume, float pitch) {

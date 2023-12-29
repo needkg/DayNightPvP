@@ -15,12 +15,12 @@ import java.util.List;
 
 public class FilesManager {
 
+    public static List<String> langFiles = new ArrayList<>();
     private final String configVersion;
     private final String langVersion;
     private final String fileOutdated;
     private final RegisterEvents registerEvents;
     private final RegisterPlaceHolder registerPlaceHolder;
-    public static List<String> langFiles = new ArrayList<>();
 
     public FilesManager() {
         registerEvents = new RegisterEvents();
@@ -30,6 +30,14 @@ public class FilesManager {
         configVersion = "10";
         langVersion = "7";
         langFiles = Arrays.asList("lang/en-US.yml", "lang/pt-BR.yml", "lang/es-ES.yml", "lang/ru-RU.yml");
+    }
+
+    public static FileConfiguration loadConfigFile(JavaPlugin plugin, String path) {
+        File file = new File(plugin.getDataFolder(), path);
+        if (!file.exists()) {
+            plugin.saveResource(path, false);
+        }
+        return YamlConfiguration.loadConfiguration(file);
     }
 
     public void verifyConfigVersion() {
@@ -77,14 +85,6 @@ public class FilesManager {
                 DayNightPvP.getInstance().saveResource(fileName, false);
             }
         }
-    }
-
-    public static FileConfiguration loadConfigFile(JavaPlugin plugin, String path) {
-        File file = new File(plugin.getDataFolder(), path);
-        if (!file.exists()) {
-            plugin.saveResource(path, false);
-        }
-        return YamlConfiguration.loadConfiguration(file);
     }
 
 }

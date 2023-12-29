@@ -83,7 +83,7 @@ public class DamageEvent implements Listener {
         );
     }
 
-    private boolean checkHooks(Player damagedPlayer,Player damager) {
+    private boolean checkHooks(Player damagedPlayer, Player damager) {
         if (DayNightPvP.worldGuardIsPresent && allowPvpOnDayFlag.checkState(damagedPlayer) && allowPvpOnDayFlag.checkState(damager)) {
             return false;
         }

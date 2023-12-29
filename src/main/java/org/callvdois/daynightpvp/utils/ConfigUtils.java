@@ -46,7 +46,7 @@ public class ConfigUtils {
         saveConfig();
     }
 
-    public static void setValue(FileConfiguration file,String path, String value) {
+    public static void setValue(FileConfiguration file, String path, String value) {
         file.set(path, value);
     }
 }
