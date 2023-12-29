@@ -1,7 +1,5 @@
 package org.callvdois.daynightpvp.gui;
 
-import org.callvdois.daynightpvp.config.LangManager;
-import org.callvdois.daynightpvp.utils.ItemUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -9,6 +7,8 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.callvdois.daynightpvp.config.LangManager;
+import org.callvdois.daynightpvp.utils.ItemUtils;
 
 public class WorldGui {
 

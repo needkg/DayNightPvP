@@ -1,13 +1,5 @@
 package org.callvdois.daynightpvp.events;
 
-import org.callvdois.daynightpvp.config.ConfigManager;
-import org.callvdois.daynightpvp.config.FilesManager;
-import org.callvdois.daynightpvp.config.LangManager;
-import org.callvdois.daynightpvp.gui.*;
-import org.callvdois.daynightpvp.utils.ConfigUtils;
-import org.callvdois.daynightpvp.utils.PlayerUtils;
-import org.callvdois.daynightpvp.utils.SearchUtils;
-import org.callvdois.daynightpvp.utils.WorldUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.World;
@@ -18,6 +10,14 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.callvdois.daynightpvp.config.ConfigManager;
+import org.callvdois.daynightpvp.config.FilesManager;
+import org.callvdois.daynightpvp.config.LangManager;
+import org.callvdois.daynightpvp.gui.*;
+import org.callvdois.daynightpvp.utils.ConfigUtils;
+import org.callvdois.daynightpvp.utils.PlayerUtils;
+import org.callvdois.daynightpvp.utils.SearchUtils;
+import org.callvdois.daynightpvp.utils.WorldUtils;
 
 public class InventoryEvent implements Listener {
 

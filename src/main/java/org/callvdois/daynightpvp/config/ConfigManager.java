@@ -1,8 +1,8 @@
 package org.callvdois.daynightpvp.config;
 
-import org.callvdois.daynightpvp.utils.ConfigUtils;
 import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.callvdois.daynightpvp.utils.ConfigUtils;
 
 import java.io.File;
 import java.util.List;

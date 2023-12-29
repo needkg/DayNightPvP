@@ -1,7 +1,7 @@
 package org.callvdois.daynightpvp.utils;
 
-import org.callvdois.daynightpvp.config.ConfigManager;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.callvdois.daynightpvp.config.ConfigManager;
 
 import java.util.List;
 

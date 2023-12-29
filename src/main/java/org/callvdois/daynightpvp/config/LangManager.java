@@ -1,8 +1,8 @@
 package org.callvdois.daynightpvp.config;
 
+import org.bukkit.configuration.file.FileConfiguration;
 import org.callvdois.daynightpvp.DayNightPvP;
 import org.callvdois.daynightpvp.utils.LangUtils;
-import org.bukkit.configuration.file.FileConfiguration;
 
 public class LangManager {
 

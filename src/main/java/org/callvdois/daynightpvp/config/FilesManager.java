@@ -1,12 +1,12 @@
 package org.callvdois.daynightpvp.config;
 
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.callvdois.daynightpvp.DayNightPvP;
 import org.callvdois.daynightpvp.events.RegisterEvents;
 import org.callvdois.daynightpvp.placeholder.RegisterPlaceHolder;
 import org.callvdois.daynightpvp.utils.ConsoleUtils;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.util.ArrayList;

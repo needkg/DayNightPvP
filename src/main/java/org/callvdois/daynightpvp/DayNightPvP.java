@@ -1,5 +1,6 @@
 package org.callvdois.daynightpvp;
 
+import org.bukkit.plugin.java.JavaPlugin;
 import org.callvdois.daynightpvp.commands.RegisterCommands;
 import org.callvdois.daynightpvp.config.ConfigManager;
 import org.callvdois.daynightpvp.config.FilesManager;
@@ -11,7 +12,6 @@ import org.callvdois.daynightpvp.service.DnpService;
 import org.callvdois.daynightpvp.utils.ConsoleUtils;
 import org.callvdois.daynightpvp.utils.PluginUtils;
 import org.callvdois.daynightpvp.worldguard.RegisterCustomFlag;
-import org.bukkit.plugin.java.JavaPlugin;
 
 public class DayNightPvP extends JavaPlugin {
 

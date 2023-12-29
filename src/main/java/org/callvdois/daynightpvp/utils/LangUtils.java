@@ -1,9 +1,9 @@
 package org.callvdois.daynightpvp.utils;
 
+import org.bukkit.plugin.java.JavaPlugin;
 import org.callvdois.daynightpvp.config.ConfigManager;
 import org.callvdois.daynightpvp.config.FilesManager;
 import org.callvdois.daynightpvp.config.LangManager;
-import org.bukkit.plugin.java.JavaPlugin;
 
 public class LangUtils {
 

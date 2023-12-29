@@ -1,15 +1,15 @@
 package org.callvdois.daynightpvp.events;
 
-import org.callvdois.daynightpvp.DayNightPvP;
-import org.callvdois.daynightpvp.config.ConfigManager;
-import org.callvdois.daynightpvp.utils.SearchUtils;
-import org.callvdois.daynightpvp.vault.LoseMoneyOnDeath;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.permissions.PermissionAttachmentInfo;
+import org.callvdois.daynightpvp.DayNightPvP;
+import org.callvdois.daynightpvp.config.ConfigManager;
+import org.callvdois.daynightpvp.utils.SearchUtils;
+import org.callvdois.daynightpvp.vault.LoseMoneyOnDeath;
 
 import java.util.List;
 

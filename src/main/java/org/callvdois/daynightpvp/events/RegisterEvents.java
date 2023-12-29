@@ -1,10 +1,10 @@
 package org.callvdois.daynightpvp.events;
 
-import org.callvdois.daynightpvp.DayNightPvP;
-import org.callvdois.daynightpvp.config.ConfigManager;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.PluginManager;
+import org.callvdois.daynightpvp.DayNightPvP;
+import org.callvdois.daynightpvp.config.ConfigManager;
 
 public class RegisterEvents {
 

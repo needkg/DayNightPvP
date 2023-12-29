@@ -1,14 +1,14 @@
 package org.callvdois.daynightpvp.commands;
 
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.callvdois.daynightpvp.DayNightPvP;
 import org.callvdois.daynightpvp.config.FilesManager;
 import org.callvdois.daynightpvp.config.LangManager;
 import org.callvdois.daynightpvp.gui.MainGui;
 import org.callvdois.daynightpvp.utils.PlayerUtils;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 public class DnpCommand implements CommandExecutor {

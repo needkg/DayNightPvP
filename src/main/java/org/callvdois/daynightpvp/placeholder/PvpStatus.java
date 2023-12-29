@@ -1,11 +1,11 @@
 package org.callvdois.daynightpvp.placeholder;
 
-import org.callvdois.daynightpvp.DayNightPvP;
-import org.callvdois.daynightpvp.config.LangManager;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.callvdois.daynightpvp.DayNightPvP;
+import org.callvdois.daynightpvp.config.LangManager;
 import org.jetbrains.annotations.NotNull;
 
 public class PvpStatus extends PlaceholderExpansion {

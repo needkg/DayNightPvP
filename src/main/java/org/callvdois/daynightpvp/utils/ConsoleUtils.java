@@ -1,7 +1,7 @@
 package org.callvdois.daynightpvp.utils;
 
-import org.callvdois.daynightpvp.DayNightPvP;
 import org.bukkit.Bukkit;
+import org.callvdois.daynightpvp.DayNightPvP;
 
 public class ConsoleUtils {
 

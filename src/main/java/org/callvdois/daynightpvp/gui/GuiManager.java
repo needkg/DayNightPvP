@@ -1,10 +1,5 @@
 package org.callvdois.daynightpvp.gui;
 
-import org.callvdois.daynightpvp.DayNightPvP;
-import org.callvdois.daynightpvp.config.ConfigManager;
-import org.callvdois.daynightpvp.config.LangManager;
-import org.callvdois.daynightpvp.utils.ItemUtils;
-import org.callvdois.daynightpvp.utils.SearchUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -13,6 +8,11 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
+import org.callvdois.daynightpvp.DayNightPvP;
+import org.callvdois.daynightpvp.config.ConfigManager;
+import org.callvdois.daynightpvp.config.LangManager;
+import org.callvdois.daynightpvp.utils.ItemUtils;
+import org.callvdois.daynightpvp.utils.SearchUtils;
 
 import java.util.ArrayList;
 import java.util.List;

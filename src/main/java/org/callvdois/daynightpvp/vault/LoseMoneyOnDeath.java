@@ -1,11 +1,11 @@
 package org.callvdois.daynightpvp.vault;
 
-import org.callvdois.daynightpvp.config.ConfigManager;
-import org.callvdois.daynightpvp.config.LangManager;
-import org.callvdois.daynightpvp.utils.SearchUtils;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.callvdois.daynightpvp.config.ConfigManager;
+import org.callvdois.daynightpvp.config.LangManager;
+import org.callvdois.daynightpvp.utils.SearchUtils;
 
 import java.util.List;
 

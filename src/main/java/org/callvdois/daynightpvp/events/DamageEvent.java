@@ -1,10 +1,5 @@
 package org.callvdois.daynightpvp.events;
 
-import org.callvdois.daynightpvp.DayNightPvP;
-import org.callvdois.daynightpvp.config.ConfigManager;
-import org.callvdois.daynightpvp.griefprevention.GriefManager;
-import org.callvdois.daynightpvp.utils.WorldUtils;
-import org.callvdois.daynightpvp.worldguard.AllowPvpOnDayFlag;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -14,6 +9,11 @@ import org.bukkit.event.entity.PotionSplashEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.callvdois.daynightpvp.DayNightPvP;
+import org.callvdois.daynightpvp.config.ConfigManager;
+import org.callvdois.daynightpvp.griefprevention.GriefManager;
+import org.callvdois.daynightpvp.utils.WorldUtils;
+import org.callvdois.daynightpvp.worldguard.AllowPvpOnDayFlag;
 
 public class DamageEvent implements Listener {
 

@@ -1,9 +1,9 @@
 package org.callvdois.daynightpvp.utils;
 
-import org.callvdois.daynightpvp.config.ConfigManager;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.callvdois.daynightpvp.config.ConfigManager;
 
 public class PlayerUtils {
 

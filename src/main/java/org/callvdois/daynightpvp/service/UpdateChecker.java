@@ -1,10 +1,10 @@
 package org.callvdois.daynightpvp.service;
 
-import org.callvdois.daynightpvp.DayNightPvP;
-import org.callvdois.daynightpvp.config.LangManager;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.callvdois.daynightpvp.DayNightPvP;
+import org.callvdois.daynightpvp.config.LangManager;
 
 import java.io.BufferedReader;
 import java.io.IOException;
