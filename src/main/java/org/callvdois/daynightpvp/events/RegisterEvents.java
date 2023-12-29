@@ -33,11 +33,6 @@ public class RegisterEvents {
     }
 
     private void registerEntityEvent() {
-        //if (PluginUtils.isPluginInstalled("GriefPrevention")) {
-        //    if (!ConfigManager.griefPreventionPvpInLand) {
-        //        pluginManager.registerEvents(new DamageEvent(), DayNightPvP.plugin);
-        //    }
-        //}
         pluginManager.registerEvents(new DamageEvent(), DayNightPvP.getInstance());
     }
 
