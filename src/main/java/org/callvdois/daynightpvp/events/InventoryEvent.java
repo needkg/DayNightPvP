@@ -14,7 +14,10 @@ import org.callvdois.daynightpvp.DayNightPvP;
 import org.callvdois.daynightpvp.config.ConfigManager;
 import org.callvdois.daynightpvp.config.FilesManager;
 import org.callvdois.daynightpvp.config.LangManager;
-import org.callvdois.daynightpvp.gui.*;
+import org.callvdois.daynightpvp.gui.LanguageGui;
+import org.callvdois.daynightpvp.gui.MainGui;
+import org.callvdois.daynightpvp.gui.WorldGui;
+import org.callvdois.daynightpvp.gui.WorldsGui;
 import org.callvdois.daynightpvp.utils.ConfigUtils;
 import org.callvdois.daynightpvp.utils.PlayerUtils;
 import org.callvdois.daynightpvp.utils.SearchUtils;
@@ -106,7 +109,7 @@ public class InventoryEvent implements Listener {
             File folder = new File(DayNightPvP.getInstance().getDataFolder() + "/lang");
             File[] listOfFiles = folder.listFiles();
             assert listOfFiles != null;
-            if (SearchUtils.fileExistInListOfFiles(listOfFiles,itemID)) {
+            if (SearchUtils.fileExistInListOfFiles(listOfFiles, itemID)) {
                 PlayerUtils.playSoundToPlayer(player, Sound.BLOCK_NOTE_BLOCK_HAT);
 
                 ConfigUtils.setValue(ConfigManager.configFileConfig, "lang", itemID);
@@ -125,7 +128,7 @@ public class InventoryEvent implements Listener {
     public void onInventoryClose(InventoryCloseEvent event) {
         String title = event.getView().getTitle();
         if (title.equals(WorldGui.inventoryTitle)) {
-           WorldGui.task.cancel();
+            WorldGui.task.cancel();
         }
         if (title.equals(WorldsGui.inventoryTitle)) {
             WorldsGui.task.cancel();

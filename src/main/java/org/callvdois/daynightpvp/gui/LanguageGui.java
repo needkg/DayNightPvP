@@ -22,7 +22,7 @@ public class LanguageGui {
         assert listOfFiles != null;
         int position = 0;
 
-        for (File file: listOfFiles) {
+        for (File file : listOfFiles) {
             String[] name = file.getName().split("\\.");
             ItemStack item = ItemUtils.createItem(ChatColor.YELLOW + name[0], name[0], LangManager.langButtonDescription2.replace("{0}", ChatColor.YELLOW + name[0]), Material.PAPER);
             inventory.setItem(position, item);

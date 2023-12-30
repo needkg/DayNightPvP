@@ -20,8 +20,8 @@ import java.util.List;
 public class WorldsGui {
 
     public static BukkitTask task;
-    private Inventory inventory;
     public static String inventoryTitle;
+    private Inventory inventory;
 
     public WorldsGui() {
         inventoryTitle = "§c§l» DayNightPvP (Worlds)";

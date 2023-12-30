@@ -16,9 +16,6 @@
 
         <spigot.prefix>${project.name}</spigot.prefix>
         <spigot.main>${project.groupId}.daynightpvp.DayNightPvP</spigot.main>
-
-        <maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
-        <config.version>${maven.build.timestamp}</config.version>
     </properties>
 
     <build>

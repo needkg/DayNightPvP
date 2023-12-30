@@ -6,6 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.callvdois.daynightpvp.DayNightPvP;
 import org.callvdois.daynightpvp.events.RegisterEvents;
 import org.callvdois.daynightpvp.placeholder.RegisterPlaceHolder;
+import org.callvdois.daynightpvp.utils.ConfigUtils;
 import org.callvdois.daynightpvp.utils.ConsoleUtils;
 
 import java.io.File;
@@ -27,7 +28,7 @@ public class FilesManager {
         registerPlaceHolder = new RegisterPlaceHolder();
         fileOutdated = "[DayNightPvP] The {0} file was an outdated version. it has been replaced by the new version.";
 
-        configVersion = "10";
+        configVersion = "11";
         langVersion = "7";
         langFiles = Arrays.asList("lang/en-US.yml", "lang/pt-BR.yml", "lang/es-ES.yml", "lang/ru-RU.yml");
     }
@@ -41,7 +42,8 @@ public class FilesManager {
     }
 
     public void verifyConfigVersion() {
-        if (!configVersion.equals(ConfigManager.configFileConfig.getString("version"))) {
+        String version = ConfigUtils.getValue("version");
+        if (!configVersion.equals(version)) {
             resetFile("config.yml");
             ConsoleUtils.warning(fileOutdated.replace("{0}", "config.yml"));
             ConfigManager.configFileConfig = YamlConfiguration.loadConfiguration(ConfigManager.configFile);

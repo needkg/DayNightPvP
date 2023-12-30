@@ -6,12 +6,8 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.callvdois.daynightpvp.config.ConfigManager;
 import org.callvdois.daynightpvp.config.LangManager;
 import org.callvdois.daynightpvp.utils.ItemUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainGui {
 
