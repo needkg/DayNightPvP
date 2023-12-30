@@ -29,6 +29,7 @@ public class ConfigManager {
 
 
     public static boolean keepInventoryWhenKilledByPlayer;
+    public static boolean notifyPvpIsDisabled;
 
     public static int autoPvpDayEnd;
     public static boolean automaticDifficulty;
@@ -67,6 +68,7 @@ public class ConfigManager {
         placeholderPlaceholders = ConfigUtils.getBoolean("placeholder-api.placeholders");
 
         keepInventoryWhenKilledByPlayer = ConfigUtils.getBoolean("pvp.keep-inventory-when-killed-by-player");
+        notifyPvpIsDisabled = ConfigUtils.getBoolean("pvp.notifyPvpIsDisabled");
 
         autoPvpDayEnd = Integer.parseInt(ConfigUtils.getValue("automatic-pvp.day-end"));
         automaticDifficulty = ConfigUtils.getBoolean("automatic-pvp.automatic-difficulty.enabled");
