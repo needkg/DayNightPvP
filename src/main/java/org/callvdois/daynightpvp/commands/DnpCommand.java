@@ -23,19 +23,25 @@ public class DnpCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
-        if (sender instanceof Player) {
-            Player player = (Player) sender;
+        if (sender instanceof Player player) {
             if (sender.hasPermission("dnp.admin")) {
                 if (args.length == 0) {
+                    // open gui
                     mainGui.open(player);
+                    return true;
                 }
                 if (args.length == 1) {
                     if (args[0].equals("reload")) {
+                        // reload plugin
                         filesManager.reloadPlugin();
                         PlayerUtils.sendMessageToPlayer(player, LangManager.reloadedConfig);
+                        return true;
+                    } else {
+                        PlayerUtils.sendMessageToPlayer(player, "§8[§e☀§8] §9DayNightPvP §8- §7Comando não existe");
+                        return false;
                     }
                 }
-                return true;
+                return false;
             } else {
                 PlayerUtils.sendMessageToPlayer(player, "§8[§e☀§8] §9DayNightPvP §8- §7v" + DayNightPvP.getInstance().getDescription().getVersion());
                 return false;

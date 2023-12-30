@@ -60,7 +60,7 @@ public class TimeChecker {
         return worlds;
     }
 
-    private boolean checkTime(World world) {
+    public boolean checkTime(World world) {
         long currentWorldTime = world.getTime();
         if (currentWorldTime < ConfigManager.autoPvpDayEnd) {
             if (!worldsPvpOff.contains(world)) {
