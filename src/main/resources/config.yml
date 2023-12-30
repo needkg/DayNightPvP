@@ -2,7 +2,7 @@
 version: 10
 update-checker: true
 
-# en-US, pt-BR, es-ES
+# en-US, pt-BR, es-ES, ru-RU
 lang: en-US
 
 # If you have capital letters in the world name, write it in capital letters.
@@ -23,8 +23,8 @@ vault:
 
 grief-prevention:
   # Using this option as TRUE does not mean that PvP will always be active in GriefPrevention territories
-    # but only that if the combat is initiated outside the territory and the player runs inside the territory
-    # the combat may continue.
+  # but only that if the combat is initiated outside the territory and the player runs inside the territory
+  # the combat may continue.
   pvp-in-land: false
 
 placeholder-api:

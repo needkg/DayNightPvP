@@ -9,6 +9,7 @@
           <platformType>PAPER</platformType>
           <platformType>BUKKIT</platformType>
         </autoDetectTypes>
+        <projectReimportVersion>1</projectReimportVersion>
       </configuration>
     </facet>
   </component>
