@@ -26,7 +26,7 @@ public class LoseMoneyOnDeath {
             if (onlyNight) {
                 if (Bukkit.getWorld(world).getPVP()) {
                     if (onlyConfiguredWorlds) {
-                        if (SearchUtils.stringInList(worldList, world)) {
+                        if (SearchUtils.stringExistInList(worldList, world)) {
                             economy.withdrawPlayer(killed, amountRounded);
                             shouldWithdraw = true;
                             // noite e configurado
@@ -38,7 +38,7 @@ public class LoseMoneyOnDeath {
                     }
                 }
             } else if (onlyConfiguredWorlds) {
-                if (SearchUtils.stringInList(worldList, world)) {
+                if (SearchUtils.stringExistInList(worldList, world)) {
                     shouldWithdraw = true;
                     economy.withdrawPlayer(killed, amountRounded);
                     // dia/noite e configurado

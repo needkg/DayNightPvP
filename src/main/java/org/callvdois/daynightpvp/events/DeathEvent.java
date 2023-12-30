@@ -24,7 +24,7 @@ public class DeathEvent implements Listener {
 
         if (ConfigManager.keepInventoryWhenKilledByPlayer) {
             if (killer != null) {
-                if (SearchUtils.stringInList(worldList, world)) {
+                if (SearchUtils.stringExistInList(worldList, world)) {
                     event.setKeepInventory(true);
                     event.getDrops().clear();
                     event.setKeepLevel(true);

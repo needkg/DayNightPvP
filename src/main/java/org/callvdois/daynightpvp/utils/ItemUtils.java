@@ -54,23 +54,6 @@ public class ItemUtils {
         return item;
     }
 
-    public static ItemStack createCustomBanner(String name, String id, String description, ItemStack item) {
-        ItemMeta itemMeta = item.getItemMeta();
-        itemMeta.setDisplayName(name);
-        List<String> itemLore = new ArrayList<>();
-
-        String[] descriptionParts = description.split("\\|");
-        for (String part : descriptionParts) {
-            itemLore.add(part);
-        }
-
-        itemMeta.setLore(itemLore);
-        itemMeta.setLocalizedName(id);
-        itemMeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
-        item.setItemMeta(itemMeta);
-        return item;
-    }
-
     private static ItemStack getHead(String value) {
         try {
             if (value == null) return null;
@@ -90,75 +73,6 @@ public class ItemUtils {
             // ignore
         }
 
-        return null;
-    }
-
-    public static ItemStack getBanner(String banner) {
-        List<Pattern> patterns = new ArrayList<>();
-
-        if (banner.equals("brazilianBanner")) {
-            ItemStack greenBanner = new ItemStack(Material.GREEN_BANNER, 1);
-            BannerMeta greenBannerMeta = (BannerMeta) greenBanner.getItemMeta();
-
-
-            patterns.add(new Pattern(DyeColor.YELLOW, PatternType.RHOMBUS_MIDDLE));
-            patterns.add(new Pattern(DyeColor.YELLOW, PatternType.RHOMBUS_MIDDLE));
-            patterns.add(new Pattern(DyeColor.YELLOW, PatternType.RHOMBUS_MIDDLE));
-            patterns.add(new Pattern(DyeColor.BLUE, PatternType.CIRCLE_MIDDLE));
-            patterns.add(new Pattern(DyeColor.BLUE, PatternType.CIRCLE_MIDDLE));
-            greenBannerMeta.setPatterns(patterns);
-
-            greenBanner.setItemMeta(greenBannerMeta);
-
-            return greenBanner;
-        }
-        if (banner.equals("euaBanner")) {
-            ItemStack redBanner = new ItemStack(Material.RED_BANNER, 1);
-            BannerMeta redBannerMeta = (BannerMeta) redBanner.getItemMeta();
-
-            patterns.add(new Pattern(DyeColor.WHITE, PatternType.STRIPE_SMALL));
-            patterns.add(new Pattern(DyeColor.BLUE, PatternType.SQUARE_TOP_LEFT));
-
-            redBannerMeta.setPatterns(patterns);
-
-            redBanner.setItemMeta(redBannerMeta);
-
-            return redBanner;
-        }
-        if (banner.equals("spanishBanner")) {
-            ItemStack yellowBanner = new ItemStack(Material.YELLOW_BANNER, 1);
-            BannerMeta yellowBannerMeta = (BannerMeta) yellowBanner.getItemMeta();
-
-            patterns.add(new Pattern(DyeColor.YELLOW, PatternType.STRIPE_TOP));
-            patterns.add(new Pattern(DyeColor.BROWN, PatternType.MOJANG));
-            patterns.add(new Pattern(DyeColor.BROWN, PatternType.FLOWER));
-            patterns.add(new Pattern(DyeColor.YELLOW, PatternType.HALF_HORIZONTAL));
-            patterns.add(new Pattern(DyeColor.RED, PatternType.STRIPE_RIGHT));
-            patterns.add(new Pattern(DyeColor.RED, PatternType.STRIPE_LEFT));
-            yellowBannerMeta.setPatterns(patterns);
-
-            yellowBanner.setItemMeta(yellowBannerMeta);
-
-            return yellowBanner;
-        }
-        if (banner.equals("customLanguageBanner")) {
-            ItemStack whiteBanner = new ItemStack(Material.WHITE_BANNER, 1);
-            BannerMeta whiteBannerMeta = (BannerMeta) whiteBanner.getItemMeta();
-
-
-            patterns.add(new Pattern(DyeColor.BLACK, PatternType.STRIPE_TOP));
-            patterns.add(new Pattern(DyeColor.WHITE, PatternType.RHOMBUS_MIDDLE));
-            patterns.add(new Pattern(DyeColor.BLACK, PatternType.STRIPE_DOWNLEFT));
-            patterns.add(new Pattern(DyeColor.WHITE, PatternType.STRIPE_BOTTOM));
-            patterns.add(new Pattern(DyeColor.BLACK, PatternType.TRIANGLES_BOTTOM));
-            patterns.add(new Pattern(DyeColor.WHITE, PatternType.CURLY_BORDER));
-            patterns.add(new Pattern(DyeColor.WHITE, PatternType.CURLY_BORDER));
-            whiteBannerMeta.setPatterns(patterns);
-
-            whiteBanner.setItemMeta(whiteBannerMeta);
-
-            return whiteBanner;
-        }
         return null;
     }
 
