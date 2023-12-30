@@ -3,7 +3,7 @@ package org.callvdois.daynightpvp.utils;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
-import org.callvdois.daynightpvp.service.DnpService;
+import org.callvdois.daynightpvp.service.TimeChecker;
 
 public class WorldUtils {
 
@@ -15,7 +15,7 @@ public class WorldUtils {
 
     public static boolean checkPlayerIsInWorld(Player player) {
         String worldName = player.getWorld().getName();
-        if (SearchUtils.worldExistsInList(DnpService.worldsPvpOff, worldName)) {
+        if (SearchUtils.worldExistsInList(TimeChecker.worldsPvpOff, worldName)) {
             return true;
         }
         return false;

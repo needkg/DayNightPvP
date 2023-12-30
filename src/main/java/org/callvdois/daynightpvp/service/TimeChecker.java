@@ -12,12 +12,12 @@ import org.callvdois.daynightpvp.utils.PlayerUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DnpService {
+public class TimeChecker {
 
     public static List<World> worldsPvpOff = new ArrayList<>();
     public static List<World> worldsPvpOn = new ArrayList<>();
 
-    public void startService() {
+    public void run() {
         Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(DayNightPvP.getInstance(), this::listWorlds, 20L, 20L);
     }
 

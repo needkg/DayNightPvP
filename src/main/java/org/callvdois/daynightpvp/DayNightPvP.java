@@ -8,7 +8,7 @@ import org.callvdois.daynightpvp.config.LangManager;
 import org.callvdois.daynightpvp.events.RegisterEvents;
 import org.callvdois.daynightpvp.metrics.RegisterMetrics;
 import org.callvdois.daynightpvp.placeholder.RegisterPlaceHolder;
-import org.callvdois.daynightpvp.service.DnpService;
+import org.callvdois.daynightpvp.service.TimeChecker;
 import org.callvdois.daynightpvp.utils.ConsoleUtils;
 import org.callvdois.daynightpvp.utils.PluginUtils;
 import org.callvdois.daynightpvp.worldguard.RegisterCustomFlag;
@@ -21,7 +21,7 @@ public class DayNightPvP extends JavaPlugin {
     public static boolean placeHolderIsPresent;
     private static DayNightPvP instance;
     private final FilesManager filesManager;
-    private final DnpService dnpService;
+    private final TimeChecker timeChecker;
     private final RegisterCommand registerCommand;
     private final RegisterEvents registerEvents;
     private final RegisterPlaceHolder registerPlaceHolder;
@@ -32,7 +32,7 @@ public class DayNightPvP extends JavaPlugin {
         instance = this;
 
         filesManager = new FilesManager();
-        dnpService = new DnpService();
+        timeChecker = new TimeChecker();
         registerCommand = new RegisterCommand();
         registerEvents = new RegisterEvents();
         registerPlaceHolder = new RegisterPlaceHolder();
@@ -55,7 +55,7 @@ public class DayNightPvP extends JavaPlugin {
         registerMetrics.register();
     }
 
-    public void load() {
+    private void load() {
 
         verifyCompabilityPlugins();
 
@@ -64,7 +64,7 @@ public class DayNightPvP extends JavaPlugin {
         }
     }
 
-    public void enable() {
+    private void enable() {
         ConsoleUtils.startMessage();
 
         filesManager.createFiles();
@@ -74,7 +74,7 @@ public class DayNightPvP extends JavaPlugin {
         ConfigManager.updateConfigs();
         LangManager.updateLangs();
 
-        dnpService.startService();
+        timeChecker.run();
 
         registerCommand.register();
 
@@ -83,7 +83,7 @@ public class DayNightPvP extends JavaPlugin {
         registerPlaceHolder.register();
     }
 
-    public void restart() {
+    private void restart() {
 
     }
 
