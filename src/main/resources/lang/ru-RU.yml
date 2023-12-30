@@ -1,5 +1,5 @@
 # This is the file version, DO NOT MODIFY
-version: 7
+version: 8
 
 # Chat messages.
 on-message: "&aВключено"
@@ -16,6 +16,7 @@ update-found-click: "&a&nЩелкните здесь, чтобы открыть 
 lang-selected: "&a&lПолучилось! &7Языковой файл изменен на \"{0}\""
 lose-money-message: "&e&lВнимание! &7Вы умерли от &b{0} &7и потеряли &c${1}"
 win-money-message: "&e&lВнимание! &7Вы убили &b{0} &7и заработали &a${1}"
+notifyPvpIsDisabled: "&7You can't engage in combat right now, it's daytime!"
 
 # Gui texts
 lang-button: "&aЯзык"

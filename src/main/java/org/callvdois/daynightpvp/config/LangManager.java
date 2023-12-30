@@ -22,6 +22,7 @@ public class LangManager {
     public static String langSelected;
     public static String loseMoneyMessage;
     public static String winMoneyMessage;
+    public static String notifyPvpIsDisabled;
     public static String updateFoundMessage;
     public static String langButton;
     public static String portugueseButton;
@@ -69,6 +70,7 @@ public class LangManager {
         langSelected = LangUtils.getString("lang-selected");
         loseMoneyMessage = LangUtils.getString("lose-money-message");
         winMoneyMessage = LangUtils.getString("win-money-message");
+        notifyPvpIsDisabled = LangUtils.getString("notifyPvpIsDisabled");
 
         langButton = LangUtils.getString("lang-button");
         portugueseButton = LangUtils.getString("portuguese-button");

@@ -1,6 +1,7 @@
 package org.callvdois.daynightpvp.events;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -11,6 +12,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.callvdois.daynightpvp.DayNightPvP;
 import org.callvdois.daynightpvp.config.ConfigManager;
+import org.callvdois.daynightpvp.config.LangManager;
 import org.callvdois.daynightpvp.griefprevention.GriefManager;
 import org.callvdois.daynightpvp.utils.WorldUtils;
 import org.callvdois.daynightpvp.worldguard.AllowPvpOnDayFlag;
@@ -36,6 +38,9 @@ public class DamageEvent implements Listener {
 
         if (checkHooks(damagedPlayer, damager)) {
             event.setCancelled(true);
+            if (ConfigManager.notifyPvpIsDisabled) {
+                damager.sendMessage(LangManager.notifyPvpIsDisabled);
+            }
         }
     }
 
@@ -50,6 +55,9 @@ public class DamageEvent implements Listener {
 
         if (checkHooks(damagedPlayer, damager)) {
             event.setCancelled(true);
+            if (ConfigManager.notifyPvpIsDisabled) {
+                damager.sendMessage(LangManager.notifyPvpIsDisabled);
+            }
         }
 
     }
@@ -67,6 +75,9 @@ public class DamageEvent implements Listener {
                         if (event.getAffectedEntities().contains(damagedPlayer) && damagedPlayer != damager) {
                             if (checkHooks(damagedPlayer, damager)) {
                                 event.setIntensity(damagedPlayer, 0.0);
+                                if (ConfigManager.notifyPvpIsDisabled) {
+                                    damager.sendMessage(LangManager.notifyPvpIsDisabled);
+                                }
                             }
                         }
                     }

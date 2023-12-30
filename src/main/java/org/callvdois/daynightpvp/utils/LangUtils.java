@@ -1,5 +1,6 @@
 package org.callvdois.daynightpvp.utils;
 
+import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.callvdois.daynightpvp.config.ConfigManager;
 import org.callvdois.daynightpvp.config.FilesManager;
@@ -9,8 +10,10 @@ public class LangUtils {
 
     public static String getString(String path) {
         String resultado = LangManager.currentLangFile.getString(path);
-        assert resultado != null;
-        return resultado.replaceAll("&", "§");
+        if (resultado != null) {
+            return ChatColor.translateAlternateColorCodes('&', resultado);
+        }
+        return "Invalid message syntax";
     }
 
     public static void selectLangFile(JavaPlugin plugin) {
