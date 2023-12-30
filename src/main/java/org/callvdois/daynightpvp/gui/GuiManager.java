@@ -11,6 +11,7 @@ import org.bukkit.scheduler.BukkitTask;
 import org.callvdois.daynightpvp.DayNightPvP;
 import org.callvdois.daynightpvp.config.ConfigManager;
 import org.callvdois.daynightpvp.config.LangManager;
+import org.callvdois.daynightpvp.service.TimeChecker;
 import org.callvdois.daynightpvp.utils.ItemUtils;
 import org.callvdois.daynightpvp.utils.SearchUtils;
 
@@ -72,18 +73,18 @@ public class GuiManager {
             dnpServiceStatus = LangManager.offMessage;
             dnpServicePanel = ItemUtils.createItem(LangManager.settingsButton1, "dnpServiceOn", LangManager.settingsButtonDescription2, Material.RED_STAINED_GLASS_PANE);
         }
-        if (world.getPVP()) {
-            worldPvpStatus = LangManager.onMessage;
+        if (TimeChecker.worldsPvpOn.contains(world)) {
+            worldPvpStatus = "night";
             worldPvpManuallyPanel = ItemUtils.createItem(LangManager.settingsButton2, "pvpManyallyOff", LangManager.settingsButtonDescription1, Material.GREEN_STAINED_GLASS_PANE);
         } else {
-            worldPvpStatus = LangManager.offMessage;
+            worldPvpStatus = "day";
             worldPvpManuallyPanel = ItemUtils.createItem(LangManager.settingsButton2, "pvpManyallyOn", LangManager.settingsButtonDescription2, Material.RED_STAINED_GLASS_PANE);
         }
         if ((world.getEnvironment() == World.Environment.NETHER || world.getEnvironment() == World.Environment.THE_END)) {
-            worldItem = ItemUtils.createCustomHead(worldName, worldName, LangManager.worldButtonDescriptionLine1.replace("{0}", LangManager.worldButtonDescriptionNotSupported) + "|" + LangManager.worldButtonDescriptionLine2.replace("{0}", worldPvpStatus), "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzIyODM5ZDVjN2ZjMDY3ODA2MmYxYzZjOGYyN2IzMzIwOTQzODRlM2JiNWM0YjVlYmQxNjc2YjI3OWIwNmJmIn19fQ==");
+            worldItem = ItemUtils.createCustomHead(worldName, worldName, LangManager.worldButtonDescriptionLine1.replace("{0}", LangManager.worldButtonDescriptionNotSupported) + "|" + "§3§l» §7Status: §b" + worldPvpStatus, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzIyODM5ZDVjN2ZjMDY3ODA2MmYxYzZjOGYyN2IzMzIwOTQzODRlM2JiNWM0YjVlYmQxNjc2YjI3OWIwNmJmIn19fQ==");
             worldGui.setItem(13, worldPvpManuallyPanel);
         } else {
-            worldItem = ItemUtils.createCustomHead(worldName, worldName, LangManager.worldButtonDescriptionLine1.replace("{0}", dnpServiceStatus) + "|" + LangManager.worldButtonDescriptionLine2.replace("{0}", worldPvpStatus), "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzIyODM5ZDVjN2ZjMDY3ODA2MmYxYzZjOGYyN2IzMzIwOTQzODRlM2JiNWM0YjVlYmQxNjc2YjI3OWIwNmJmIn19fQ==");
+            worldItem = ItemUtils.createCustomHead(worldName, worldName, LangManager.worldButtonDescriptionLine1.replace("{0}", dnpServiceStatus) + "|" + "§3§l» §7Status: §b" + worldPvpStatus, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzIyODM5ZDVjN2ZjMDY3ODA2MmYxYzZjOGYyN2IzMzIwOTQzODRlM2JiNWM0YjVlYmQxNjc2YjI3OWIwNmJmIn19fQ==");
             worldGui.setItem(12, dnpServicePanel);
             worldGui.setItem(14, worldPvpManuallyPanel);
         }
@@ -105,21 +106,21 @@ public class GuiManager {
             } else {
                 dnpServiceStatus = LangManager.offMessage;
             }
-            if (world.getPVP()) {
-                pvpStatus = LangManager.onMessage;
+            if (TimeChecker.worldsPvpOn.contains(world)) {
+                pvpStatus = "night";
             } else {
-                pvpStatus = LangManager.offMessage;
+                pvpStatus = "day";
             }
             String buttonDescription;
             ItemStack worldItem;
             if (world.getEnvironment() == World.Environment.NETHER) {
-                buttonDescription = LangManager.worldButtonDescriptionLine1.replace("{0}", LangManager.worldButtonDescriptionNotSupported) + "|" + LangManager.worldButtonDescriptionLine2.replace("{0}", pvpStatus) + "|" + LangManager.worldButtonDescriptionWorldType.replace("{0}", ChatColor.AQUA + "nether");
+                buttonDescription = LangManager.worldButtonDescriptionLine1.replace("{0}", LangManager.worldButtonDescriptionNotSupported) + "|" + "§3§l» §7Status: §b" + pvpStatus + "|" + LangManager.worldButtonDescriptionWorldType.replace("{0}", ChatColor.AQUA + "nether");
                 worldItem = ItemUtils.createCustomHead(worldName, worldName, buttonDescription + "||" + LangManager.worldButtonDescriptionLine3, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzkzYmZjNDMxOTAwNzIzZjdmYTI4Nzg2NDk2MzgwMTdjZTYxNWQ4ZDhjYWI4ZDJmMDcwYTYxZWIxYWEwMGQwMiJ9fX0=");
             } else if (world.getEnvironment() == World.Environment.THE_END) {
-                buttonDescription = LangManager.worldButtonDescriptionLine1.replace("{0}", LangManager.worldButtonDescriptionNotSupported) + "|" + LangManager.worldButtonDescriptionLine2.replace("{0}", pvpStatus) + "|" + LangManager.worldButtonDescriptionWorldType.replace("{0}", ChatColor.AQUA + "the_end");
+                buttonDescription = LangManager.worldButtonDescriptionLine1.replace("{0}", LangManager.worldButtonDescriptionNotSupported) + "|" + "§3§l» §7Status: §b" + pvpStatus + "|" + LangManager.worldButtonDescriptionWorldType.replace("{0}", ChatColor.AQUA + "the_end");
                 worldItem = ItemUtils.createCustomHead(worldName, worldName, buttonDescription + "||" + LangManager.worldButtonDescriptionLine3, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTlmMjFmNWQ4ODMzMTZmZDY1YTkzNjZmMzJhMzMwMTMxODJlMzM4MWRlYzIxYzE3Yzc4MzU1ZDliZjRmMCJ9fX0=");
             } else {
-                buttonDescription = LangManager.worldButtonDescriptionLine1.replace("{0}", dnpServiceStatus) + "|" + LangManager.worldButtonDescriptionLine2.replace("{0}", pvpStatus + "|" + LangManager.worldButtonDescriptionWorldType.replace("{0}", ChatColor.AQUA + "normal"));
+                buttonDescription = LangManager.worldButtonDescriptionLine1.replace("{0}", dnpServiceStatus) + "|" + "§3§l» §7Status: §b" + pvpStatus + "|" + LangManager.worldButtonDescriptionWorldType.replace("{0}", ChatColor.AQUA + "normal");
                 worldItem = ItemUtils.createCustomHead(worldName, worldName, buttonDescription + "||" + LangManager.worldButtonDescriptionLine3, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzIyODM5ZDVjN2ZjMDY3ODA2MmYxYzZjOGYyN2IzMzIwOTQzODRlM2JiNWM0YjVlYmQxNjc2YjI3OWIwNmJmIn19fQ==");
             }
 

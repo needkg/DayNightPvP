@@ -7,12 +7,12 @@
     <groupId>com.needkg</groupId>
     <artifactId>DayNightPvP</artifactId>
     <name>DayNightPvP</name>
-    <version>1.2.5.0</version>
+    <version>b1.2.5.0</version>
     <packaging>jar</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>8</java.version>
+        <java.version>16</java.version>
 
         <spigot.prefix>${project.name}</spigot.prefix>
         <spigot.main>${project.groupId}.daynightpvp.DayNightPvP</spigot.main>
