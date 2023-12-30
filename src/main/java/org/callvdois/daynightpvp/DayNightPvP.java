@@ -6,7 +6,6 @@ import org.callvdois.daynightpvp.config.ConfigManager;
 import org.callvdois.daynightpvp.config.FilesManager;
 import org.callvdois.daynightpvp.config.LangManager;
 import org.callvdois.daynightpvp.events.RegisterEvents;
-import org.callvdois.daynightpvp.metrics.Metrics;
 import org.callvdois.daynightpvp.metrics.RegisterMetrics;
 import org.callvdois.daynightpvp.placeholder.RegisterPlaceHolder;
 import org.callvdois.daynightpvp.service.DnpService;

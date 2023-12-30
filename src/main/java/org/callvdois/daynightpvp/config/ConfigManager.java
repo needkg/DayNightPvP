@@ -55,7 +55,7 @@ public class ConfigManager {
 
         selectedLang = ConfigUtils.getValue("lang");
 
-        worldList = ConfigUtils.getList();
+        worldList = ConfigUtils.getList("worlds");
 
         vaultLoseMoneyOnDeath = ConfigUtils.getBoolean("vault.lose-money-on-death.enabled");
         loseMoneyOnlyAtNight = ConfigUtils.getBoolean("vault.lose-money-on-death.only-at-night");

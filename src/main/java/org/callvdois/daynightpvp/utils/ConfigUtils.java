@@ -15,8 +15,8 @@ public class ConfigUtils {
         return ConfigManager.configFileConfig.getBoolean(path);
     }
 
-    public static List<String> getList() {
-        return ConfigManager.configFileConfig.getStringList("worlds");
+    public static List<String> getList(String path) {
+        return ConfigManager.configFileConfig.getStringList(path);
     }
 
     public static void saveConfig() {

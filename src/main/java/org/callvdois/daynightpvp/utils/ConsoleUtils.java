@@ -5,8 +5,12 @@ import org.callvdois.daynightpvp.DayNightPvP;
 
 public class ConsoleUtils {
 
-    public static void warning(String warning) {
-        Bukkit.getLogger().warning(warning);
+    public static void warning(String message) {
+        Bukkit.getLogger().warning(message);
+    }
+
+    public static void info(String message) {
+        Bukkit.getLogger().info(message);
     }
 
     public static void startMessage() {

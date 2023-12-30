@@ -6,6 +6,7 @@ import org.bukkit.World;
 import org.callvdois.daynightpvp.DayNightPvP;
 import org.callvdois.daynightpvp.config.ConfigManager;
 import org.callvdois.daynightpvp.config.LangManager;
+import org.callvdois.daynightpvp.utils.ConsoleUtils;
 import org.callvdois.daynightpvp.utils.PlayerUtils;
 
 import java.util.ArrayList;
@@ -27,18 +28,28 @@ public class DnpService {
         for (World world : worlds) {
             if (world != null) {
                 if (checkTime(world)) {
-                    if (!worldsPvpOn.contains(world)) {
-                        worldsPvpOn.add(world);
-                    }
-                    worldsPvpOff.remove(world);
+                    handleNight(world);
                 } else {
-                    if (!worldsPvpOff.contains(world)) {
-                        worldsPvpOff.add(world);
-                    }
-                    worldsPvpOn.remove(world);
+                    handleDay(world);
                 }
             }
         }
+    }
+
+    private void handleNight(World world) {
+        if (!worldsPvpOn.contains(world)) {
+            worldsPvpOn.add(world);
+            ConsoleUtils.info("DayNightPvP - It's night in \"" + world.getName() + "\"");
+        }
+        worldsPvpOff.remove(world);
+    }
+
+    private void handleDay(World world) {
+        if (!worldsPvpOff.contains(world)) {
+            worldsPvpOff.add(world);
+            ConsoleUtils.info("DayNightPvP - It's day in \"" + world.getName() + "\"");
+        }
+        worldsPvpOn.remove(world);
     }
 
     private World[] getWorlds(List<String> worldsList) {
