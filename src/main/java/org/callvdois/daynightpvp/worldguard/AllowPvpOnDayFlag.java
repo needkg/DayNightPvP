@@ -16,19 +16,16 @@ public class AllowPvpOnDayFlag {
 
     public static StateFlag allowPvpOnDay;
 
-    public boolean checkState(Player player) {
+    public static boolean checkState(Player player) {
         LocalPlayer localPlayer = WorldGuardPlugin.inst().wrapPlayer(player);
         Location loc = localPlayer.getLocation();
         RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
         RegionQuery query = container.createQuery();
 
-        if (query.testState(loc, localPlayer, allowPvpOnDay)) {
-            return true;
-        }
-        return false;
+        return query.testState(loc, localPlayer, allowPvpOnDay);
     }
 
-    public void register() {
+    public static void register() {
         FlagRegistry registry = WorldGuard.getInstance().getFlagRegistry();
         try {
             StateFlag flag = new StateFlag("allow-pvp-on-day", false);
@@ -38,7 +35,6 @@ public class AllowPvpOnDayFlag {
             Flag<?> existing = registry.get("allow-pvp-on-day");
             if (existing instanceof StateFlag) {
                 allowPvpOnDay = (StateFlag) existing;
-            } else {
             }
         }
     }
