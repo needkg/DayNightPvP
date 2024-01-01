@@ -1,7 +1,6 @@
 package org.callvdois.daynightpvp.events;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -20,21 +19,16 @@ import org.callvdois.daynightpvp.worldguard.AllowPvpOnDayFlag;
 public class DamageEvent implements Listener {
 
     private final GriefManager griefManager;
-    private final AllowPvpOnDayFlag allowPvpOnDayFlag;
 
     public DamageEvent() {
         griefManager = new GriefManager();
-        allowPvpOnDayFlag = new AllowPvpOnDayFlag();
     }
 
     @EventHandler
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
-        if (!(event.getEntity() instanceof Player) || !(event.getDamager() instanceof Player)) {
+        if (!(event.getEntity() instanceof Player damagedPlayer) || !(event.getDamager() instanceof Player damager)) {
             return;
         }
-
-        Player damagedPlayer = (Player) event.getEntity();
-        Player damager = (Player) event.getDamager();
 
         if (checkHooks(damagedPlayer, damager)) {
             event.setCancelled(true);
@@ -46,12 +40,9 @@ public class DamageEvent implements Listener {
 
     @EventHandler
     public void onProjectileHitEvent(ProjectileHitEvent event) {
-        if (!(event.getHitEntity() instanceof Player) || !(event.getEntity().getShooter() instanceof Player)) {
+        if (!(event.getHitEntity() instanceof Player damagedPlayer) || !(event.getEntity().getShooter() instanceof Player damager)) {
             return;
         }
-
-        Player damagedPlayer = (Player) event.getHitEntity();
-        Player damager = (Player) event.getEntity().getShooter();
 
         if (checkHooks(damagedPlayer, damager)) {
             event.setCancelled(true);
@@ -65,9 +56,7 @@ public class DamageEvent implements Listener {
     @EventHandler
     public void onPotionSplash(PotionSplashEvent event) {
 
-        if (event.getPotion().getShooter() instanceof Player) {
-
-            Player damager = (Player) event.getPotion().getShooter();
+        if (event.getPotion().getShooter() instanceof Player damager) {
 
             for (PotionEffect effectType : event.getPotion().getEffects()) {
                 if (isPotionEffectHarmful(effectType.getType())) {
@@ -95,16 +84,16 @@ public class DamageEvent implements Listener {
     }
 
     private boolean checkHooks(Player damagedPlayer, Player damager) {
-        if (DayNightPvP.worldGuardIsPresent && allowPvpOnDayFlag.checkState(damagedPlayer) && allowPvpOnDayFlag.checkState(damager)) {
+        if (damager.hasPermission("dnp.bypasspvp")) {
+            return false;
+        }
+        if (DayNightPvP.worldGuardIsPresent && AllowPvpOnDayFlag.checkState(damagedPlayer) && AllowPvpOnDayFlag.checkState(damager)) {
             return false;
         }
         if (DayNightPvP.griefIsPresent && !ConfigManager.griefPreventionPvpInLand && griefManager.verify(damagedPlayer, damager)) {
             return true;
         }
-        if (WorldUtils.checkPlayerIsInWorld(damagedPlayer)) {
-            return true;
-        }
-        return false;
+        return WorldUtils.checkPlayerIsInWorld(damagedPlayer);
     }
 
 }

@@ -28,8 +28,8 @@ public class FilesManager {
         registerPlaceHolder = new RegisterPlaceHolder();
         fileOutdated = "[DayNightPvP] The {0} file was an outdated version. it has been replaced by the new version.";
 
-        configVersion = "11";
-        langVersion = "7";
+        configVersion = "12";
+        langVersion = "8";
         langFiles = Arrays.asList("lang/en-US.yml", "lang/pt-BR.yml", "lang/es-ES.yml", "lang/ru-RU.yml");
     }
 
@@ -63,7 +63,7 @@ public class FilesManager {
         }
     }
 
-    public void resetFile(String path) {
+    private void resetFile(String path) {
         DayNightPvP.getInstance().saveResource(path, true);
     }
 

@@ -83,9 +83,8 @@ public class DayNightPvP extends JavaPlugin {
         registerPlaceHolder.register();
     }
 
-    private void restart() {
-
-    }
+    //public void restart() {
+    //}
 
     private void verifyCompabilityPlugins() {
         vaultIsPresent = PluginUtils.isPluginInstalled("Vault");
