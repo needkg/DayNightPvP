@@ -1,5 +1,5 @@
 # Este é a versão do arquivo, NÃO MODIFIQUE
-version: 8
+version: 9
 
 # Mensagens do chat
 on-message: "&aAtivado"
@@ -17,6 +17,7 @@ lang-selected: "&a&lSucesso! &7Arquivo de linguagem trocado para \"{0}\""
 lose-money-message: "&e&lAviso! &7Você morreu para &b{0} &7e perdeu &c${1}"
 win-money-message: "&e&lAviso! &7Você matou &b{0} &7e ganhou &a${1}"
 notifyPvpIsDisabled: "&7Você não pode entrar em combate no momento, está de dia!"
+nonExistentCommand: "&c&lErro! &7Este comando não existe!"
 
 # Mensagens da GUI
 lang-button: "&aLinguagens"
