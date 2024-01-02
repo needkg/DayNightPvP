@@ -12,8 +12,10 @@ import java.util.List;
 public class LoseMoneyOnDeath {
 
     public static void loseMoneyOnDeath(Player killed, Player killer, String world, List<String> worldList, String percentage) {
-        boolean onlyNight = ConfigManager.loseMoneyOnlyAtNight;
-        boolean onlyConfiguredWorlds = ConfigManager.loseMoneyOnlyInConfiguredWorlds;
+        ConfigManager configManager = new ConfigManager();
+        LangManager langManager = new LangManager();
+        boolean onlyNight = configManager.getBoolean("vault.lose-money-on-death.only-at-night");
+        boolean onlyConfiguredWorlds = configManager.getBoolean("vault.lose-money-on-death.only-in-configured-worlds");
 
         Economy economy = Bukkit.getServicesManager().getRegistration(Economy.class).getProvider();
         if (killed != null && !percentage.isEmpty() && percentage.matches("[1-9][0-9]?|100")) {
@@ -52,10 +54,10 @@ public class LoseMoneyOnDeath {
                 String money = Double.toString(amountRounded);
                 String killedName = killed.getName();
                 String killerName = killed.getName();
-                killed.sendMessage(LangManager.loseMoneyMessage.replace("{0}", killerName).replace("{1}", money));
-                if (ConfigManager.loseMoneyKillerReward) {
+                killed.sendMessage(langManager.getString("feedback-lose-money").replace("{0}", killerName).replace("{1}", money));
+                if (configManager.getBoolean("vault.lose-money-on-death.killer-reward-money")) {
                     economy.depositPlayer(killer, amountRounded);
-                    killer.sendMessage(LangManager.winMoneyMessage.replace("{0}", killedName).replace("{1}", money));
+                    killer.sendMessage(langManager.getString("feedback-win-money").replace("{0}", killedName).replace("{1}", money));
                 }
             }
         }

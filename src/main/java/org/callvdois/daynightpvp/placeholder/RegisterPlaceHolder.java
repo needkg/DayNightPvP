@@ -7,11 +7,9 @@ public class RegisterPlaceHolder {
 
     public void register() {
         if (DayNightPvP.placeHolderIsPresent) {
-            if (ConfigManager.placeholderPlaceholders) {
-                PvpStatus pvpStatus = new PvpStatus();
-                pvpStatus.unregister();
-                pvpStatus.register();
-            }
+            PvpStatus pvpStatus = new PvpStatus();
+            pvpStatus.unregister();
+            pvpStatus.register();
         }
     }
 

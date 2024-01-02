@@ -1,67 +1,69 @@
-# This is the file version, DO NOT MODIFY
-version: 12
+# This is the version of the file, DO NOT MODIFY.
+version: 14
+
+# Enables or disables the update checker (recommended to use as true).
 update-checker: true
 
-# en-US, pt-BR, es-ES, ru-RU
-lang: en-US
+# Available languages: en-US, pt-BR, es-ES, ru-RU.
+language: pt-BR
 
-# If you have capital letters in the world name, write it in capital letters.
-worlds:
-  - world
-  - worldNameExample
-  - MiningWorld
+daynightpvp:
+  # List of worlds where the DayNightPvP effect should take place.
+  worlds:
+    - world
+    - worldNameExample
+    - MiningWorld
+  # Defines when the day should end (0-24000)
+  day-end: 12900
+  automatic-difficulty:
+    # If set to true, the difficulty in the world should be changed to the configured value.
+    enabled: false
+    # peaceful, easy, normal, hard
+    day: normal
+    night: hard
+
+notify-players:
+  chat:
+    # Notifies players when it becomes night/day.
+    # The notification is only for players present in that world.
+    day-night-starts: true
+    # Notifies the player that they cannot engage in combat because it's daytime.
+    hit-another-player-during-the-day: true
+  title:
+    enabled: true
+    # 20 = 1 second.
+    # This value determines how long the fade-in animation should last.
+    fade-in: 20
+    # This value determines how long the warning message should stay on the screen.
+    stay: 20
+    # This value determines how long the fade-out animation should last.
+    fade-out: 20
+  sound:
+    enabled: true
+    # List of sounds: https://pastebin.com/raw/PqFKnKU2
+    day:
+      sound: ENTITY_CHICKEN_AMBIENT
+    night:
+      sound: ENTITY_GHAST_AMBIENT
+
+pvp:
+  # If set to true, the killed player should not lose items when killed by another player.
+  keep-inventory-when-killed-by-player: false
 
 vault:
-  # To configure the amount of money to lose using the permission "dnp.losemoney.<percentage>"
-  # dnp.losemoney.10 = Configure the amount with a 10% loss(min 1, max 100)
+  # To configure the amount of money a player should lose, use the permission "dnp.losemoney.<percentage>".
+  # For instance: "dnp.losemoney.10" - The player loses 10% of their money (between 1 and 100).
   lose-money-on-death:
-    enabled: true
+    # If enabled, players with the permission 'dnp.losemoney.<percentage>' should lose money upon death.
+    enabled: false
+    # If enabled, players will only lose money upon death in worlds that are nighttime.
     only-at-night: true
+    # If enabled, players will only lose money in worlds where DayNightPvP controls PvP.
     only-in-configured-worlds: true
     # The killer will earn the same amount of money that the deceased player lost.
     killer-reward-money: true
 
-grief-prevention:
-  # Using this option as TRUE does not mean that PvP will always be active in GriefPrevention territories
-  # but only that if the combat is initiated outside the territory and the player runs inside the territory
-  # the combat may continue.
+griefprevention:
+  # Setting this option to TRUE does not mean PvP will always be active in GriefPrevention territories.
+  # It means that if combat is initiated outside the territory and a player runs inside, the combat might continue.
   pvp-in-land: false
-
-placeholder-api:
-  placeholders: true
-
-pvp:
-  # This option will keep the player's inventory if they are killed by another player in a configured world.
-  keep-inventory-when-killed-by-player: false
-  notifyPvpIsDisabled: true
-
-automatic-pvp:
-  # 0 - 24000
-  day-end: 12900
-  automatic-difficulty:
-    enabled: false
-    # peaceful, easy, normal, hard
-    day: normal
-    night: normal
-  # To alert the players in the game world when it becomes day/night.
-  alert-players:
-    chat: true
-    title:
-      enabled: true
-      fade-in: 20
-      stay: 20
-      fade-out: 20
-
-# list of sounds: https://pastebin.com/raw/PqFKnKU2
-# volume/pitch min/max 0.0/1.0
-play-sound:
-  pvp-off:
-    enabled: true
-    sound: ENTITY_CHICKEN_AMBIENT
-    volume: 1.0
-    pitch: 1.0
-  pvp-on:
-    enabled: true
-    sound: ENTITY_GHAST_AMBIENT
-    volume: 1.0
-    pitch: 1.0

@@ -2,9 +2,7 @@ package org.callvdois.daynightpvp;
 
 import org.bukkit.plugin.java.JavaPlugin;
 import org.callvdois.daynightpvp.commands.RegisterCommand;
-import org.callvdois.daynightpvp.config.ConfigManager;
 import org.callvdois.daynightpvp.config.FilesManager;
-import org.callvdois.daynightpvp.config.LangManager;
 import org.callvdois.daynightpvp.events.RegisterEvents;
 import org.callvdois.daynightpvp.metrics.RegisterMetrics;
 import org.callvdois.daynightpvp.placeholder.RegisterPlaceHolder;
@@ -70,9 +68,6 @@ public class DayNightPvP extends JavaPlugin {
         filesManager.createFiles();
         filesManager.verifyConfigVersion();
         filesManager.verfiyLangsVersion();
-
-        ConfigManager.updateConfigs();
-        LangManager.updateLangs();
 
         timeChecker.run();
 

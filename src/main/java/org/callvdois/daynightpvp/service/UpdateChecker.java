@@ -14,6 +14,12 @@ import java.net.URL;
 
 public class UpdateChecker {
 
+    private final LangManager langManager;
+
+    public UpdateChecker() {
+        langManager = new LangManager();
+    }
+
     public void checkUpdate(PlayerJoinEvent event) {
         try {
             long random = (long) Math.floor(Math.random() * (Long.MAX_VALUE - 1 + 1) + 1);
@@ -22,10 +28,10 @@ public class UpdateChecker {
 
             if (!currentVersion.equals(latestVersion)) {
 
-                TextComponent link = new TextComponent(LangManager.updateFoundClick);
+                TextComponent link = new TextComponent(langManager.getString("action.update-found-click"));
                 link.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.spigotmc.org/resources/daynightpvp-dynamic-pvp-for-day-night.102250/updates"));
 
-                event.getPlayer().sendMessage(LangManager.updateFoundMessage);
+                event.getPlayer().sendMessage(langManager.getString("feedback-update-found"));
                 event.getPlayer().spigot().sendMessage(link);
             }
         } catch (IOException ex) {

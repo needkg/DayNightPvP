@@ -2,6 +2,7 @@ package org.callvdois.daynightpvp.service;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
+import org.bukkit.Sound;
 import org.bukkit.World;
 import org.callvdois.daynightpvp.DayNightPvP;
 import org.callvdois.daynightpvp.config.ConfigManager;
@@ -16,13 +17,22 @@ public class TimeChecker {
 
     public static List<World> worldsPvpOff = new ArrayList<>();
     public static List<World> worldsPvpOn = new ArrayList<>();
+    private final ConfigManager configManager;
+    private final LangManager langManager;
+    private final PlayerUtils playerUtils;
+
+    public TimeChecker() {
+        configManager = new ConfigManager();
+        langManager = new LangManager();
+        playerUtils = new PlayerUtils();
+    }
 
     public void run() {
         Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(DayNightPvP.getInstance(), this::listWorlds, 20L, 20L);
     }
 
     private void listWorlds() {
-        List<String> worldsList = ConfigManager.worldList;
+        List<String> worldsList = configManager.getList("daynightpvp.worlds");
         World[] worlds = getWorlds(worldsList);
 
         for (World world : worlds) {
@@ -62,35 +72,35 @@ public class TimeChecker {
 
     public boolean checkTime(World world) {
         long currentWorldTime = world.getTime();
-        if (currentWorldTime < ConfigManager.autoPvpDayEnd) {
+        if (currentWorldTime < configManager.getInt("daynightpvp.day-end")) {
             if (!worldsPvpOff.contains(world)) {
-                if (ConfigManager.automaticDifficulty) {
-                    world.setDifficulty(Difficulty.valueOf(ConfigManager.automaticDifficultyDay.toUpperCase()));
+                if (configManager.getBoolean("daynightpvp.automatic-difficulty.enabled")) {
+                    world.setDifficulty(Difficulty.valueOf(configManager.getString("daynightpvp.automatic-difficulty.day").toUpperCase()));
                 }
-                if (ConfigManager.alertPlayersChat) {
-                    PlayerUtils.sendMessageToAllPlayers(world, LangManager.dayChatMessage);
+                if (configManager.getBoolean("notify-players.chat.day-night-starts")) {
+                    PlayerUtils.sendMessageToAllPlayers(world, langManager.getString("notify-day-chat"));
                 }
-                if (ConfigManager.alertPlayersTitle) {
-                    PlayerUtils.sendTitleToAllPlayers(world, LangManager.dayTitleMessage, LangManager.daySubTitleMessage);
+                if (configManager.getBoolean("notify-players.title.enabled")) {
+                    playerUtils.sendTitleToAllPlayers(world, langManager.getString("notify-day-title"), langManager.getString("notify-day-subtitle"));
                 }
-                if (ConfigManager.playSoundPvpOff) {
-                    PlayerUtils.playSoundToAllPlayers(world, ConfigManager.playSoundPvpOffSound, ConfigManager.playSoundPvpOffVolume, ConfigManager.playSoundPvpOffPitch);
+                if (configManager.getBoolean("notify-players.sound.enabled")) {
+                    PlayerUtils.playSoundToAllPlayers(world, Sound.valueOf(configManager.getString("notify-players.sound.day.sound")));
                 }
             }
             return false;
         } else {
             if (!worldsPvpOn.contains(world)) {
-                if (ConfigManager.automaticDifficulty) {
-                    world.setDifficulty(Difficulty.valueOf(ConfigManager.automaticDifficultyNight.toUpperCase()));
+                if (configManager.getBoolean("daynightpvp.automatic-difficulty.enabled")) {
+                    world.setDifficulty(Difficulty.valueOf(configManager.getString("daynightpvp.automatic-difficulty.night").toUpperCase()));
                 }
-                if (ConfigManager.alertPlayersChat) {
-                    PlayerUtils.sendMessageToAllPlayers(world, LangManager.nightChatMessage);
+                if (configManager.getBoolean("notify-players.chat.day-night-starts")) {
+                    PlayerUtils.sendMessageToAllPlayers(world, langManager.getString("notify-night-chat"));
                 }
-                if (ConfigManager.alertPlayersTitle) {
-                    PlayerUtils.sendTitleToAllPlayers(world, LangManager.nightTitleMessage, LangManager.nightSubTitleMessage);
+                if (configManager.getBoolean("notify-players.title.enabled")) {
+                    playerUtils.sendTitleToAllPlayers(world, langManager.getString("notify-night-title"), langManager.getString("notify-night-subtitle"));
                 }
-                if (ConfigManager.playSoundPvpOn) {
-                    PlayerUtils.playSoundToAllPlayers(world, ConfigManager.playSoundPvpOnSound, ConfigManager.playSoundPvpOnVolume, ConfigManager.playSoundPvpOnPitch);
+                if (configManager.getBoolean("notify-players.sound.enabled")) {
+                    PlayerUtils.playSoundToAllPlayers(world, Sound.valueOf(configManager.getString("notify-players.sound.night.sound")));
                 }
             }
             return true;

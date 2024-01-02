@@ -15,10 +15,12 @@ public class DnpCommand implements CommandExecutor {
 
     private final MainGui mainGui;
     private final FilesManager filesManager;
+    private final LangManager langManager;
 
     public DnpCommand() {
         mainGui = new MainGui();
         filesManager = new FilesManager();
+        langManager = new LangManager();
     }
 
     @Override
@@ -32,10 +34,10 @@ public class DnpCommand implements CommandExecutor {
                 if (args.length == 1) {
                     if (args[0].equals("reload")) {
                         filesManager.reloadPlugin();
-                        PlayerUtils.sendMessageToPlayer(player, LangManager.reloadedConfig);
+                        PlayerUtils.sendMessageToPlayer(player, langManager.getString("feedback-reload-plugin"));
                         return true;
                     } else {
-                        PlayerUtils.sendMessageToPlayer(player, LangManager.nonExistentCommand);
+                        PlayerUtils.sendMessageToPlayer(player, langManager.getString("feedback-non-existent-command"));
                         return false;
                     }
                 }

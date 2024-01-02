@@ -19,9 +19,13 @@ import org.callvdois.daynightpvp.worldguard.AllowPvpOnDayFlag;
 public class DamageEvent implements Listener {
 
     private final GriefManager griefManager;
+    private final ConfigManager configManager;
+    private final LangManager langManager;
 
     public DamageEvent() {
         griefManager = new GriefManager();
+        configManager = new ConfigManager();
+        langManager = new LangManager();
     }
 
     @EventHandler
@@ -32,8 +36,8 @@ public class DamageEvent implements Listener {
 
         if (checkHooks(damagedPlayer, damager)) {
             event.setCancelled(true);
-            if (ConfigManager.notifyPvpIsDisabled) {
-                damager.sendMessage(LangManager.notifyPvpIsDisabled);
+            if (configManager.getBoolean("notify-players.chat.hit-another-player-during-the-day")) {
+                damager.sendMessage(langManager.getString("notify-pvp-disabled"));
             }
         }
     }
@@ -46,8 +50,8 @@ public class DamageEvent implements Listener {
 
         if (checkHooks(damagedPlayer, damager)) {
             event.setCancelled(true);
-            if (ConfigManager.notifyPvpIsDisabled) {
-                damager.sendMessage(LangManager.notifyPvpIsDisabled);
+            if (configManager.getBoolean("notify-players.chat.hit-another-player-during-the-day")) {
+                damager.sendMessage(langManager.getString("notify-pvp-disabled"));
             }
         }
 
@@ -64,8 +68,8 @@ public class DamageEvent implements Listener {
                         if (event.getAffectedEntities().contains(damagedPlayer) && damagedPlayer != damager) {
                             if (checkHooks(damagedPlayer, damager)) {
                                 event.setIntensity(damagedPlayer, 0.0);
-                                if (ConfigManager.notifyPvpIsDisabled) {
-                                    damager.sendMessage(LangManager.notifyPvpIsDisabled);
+                                if (configManager.getBoolean("notify-players.chat.hit-another-player-during-the-day")) {
+                                    damager.sendMessage(langManager.getString("notify-pvp-disabled"));
                                 }
                             }
                         }
@@ -90,7 +94,7 @@ public class DamageEvent implements Listener {
         if (DayNightPvP.worldGuardIsPresent && AllowPvpOnDayFlag.checkState(damagedPlayer) && AllowPvpOnDayFlag.checkState(damager)) {
             return false;
         }
-        if (DayNightPvP.griefIsPresent && !ConfigManager.griefPreventionPvpInLand && griefManager.verify(damagedPlayer, damager)) {
+        if (DayNightPvP.griefIsPresent && !configManager.getBoolean("griefprevention.pvp-in-land") && griefManager.verify(damagedPlayer, damager)) {
             return true;
         }
         return WorldUtils.checkPlayerIsInWorld(damagedPlayer);

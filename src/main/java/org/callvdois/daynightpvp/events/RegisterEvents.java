@@ -9,16 +9,18 @@ import org.callvdois.daynightpvp.config.ConfigManager;
 public class RegisterEvents {
 
     private final PluginManager pluginManager;
+    private final ConfigManager configManager;
 
     public RegisterEvents() {
         pluginManager = Bukkit.getPluginManager();
+        configManager = new ConfigManager();
     }
 
     public void register() {
         HandlerList.unregisterAll(DayNightPvP.getInstance());
         registerJoinEvent();
         registerEntityEvent();
-        registerPlayerEvent();
+        registerDeathEvent();
         registerInventoryEvent();
     }
 
@@ -27,7 +29,7 @@ public class RegisterEvents {
     }
 
     private void registerJoinEvent() {
-        if (ConfigManager.updateChecker) {
+        if (configManager.getBoolean("update-checker")) {
             pluginManager.registerEvents(new JoinEvent(), DayNightPvP.getInstance());
         }
     }
@@ -36,9 +38,9 @@ public class RegisterEvents {
         pluginManager.registerEvents(new DamageEvent(), DayNightPvP.getInstance());
     }
 
-    private void registerPlayerEvent() {
-        boolean vaultLoseMoneyOnDeath = ConfigManager.vaultLoseMoneyOnDeath;
-        boolean keepInventoryWhenKilledByPlayer = ConfigManager.keepInventoryWhenKilledByPlayer;
+    private void registerDeathEvent() {
+        boolean vaultLoseMoneyOnDeath = configManager.getBoolean("vault.lose-money-on-death.enabled");
+        boolean keepInventoryWhenKilledByPlayer = configManager.getBoolean("pvp.keep-inventory-when-killed-by-player");
 
         if (vaultLoseMoneyOnDeath || keepInventoryWhenKilledByPlayer) {
             pluginManager.registerEvents(new DeathEvent(), DayNightPvP.getInstance());

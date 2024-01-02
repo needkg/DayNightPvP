@@ -7,6 +7,12 @@ import org.callvdois.daynightpvp.config.ConfigManager;
 
 public class PlayerUtils {
 
+    private final ConfigManager configManager;
+
+    public PlayerUtils() {
+        configManager = new ConfigManager();
+    }
+
     public static void sendMessageToAllPlayers(World world, String message) {
         for (Player player : world.getPlayers()) {
             player.sendMessage(message);
@@ -17,9 +23,9 @@ public class PlayerUtils {
         player.sendMessage(message);
     }
 
-    public static void playSoundToAllPlayers(World world, Sound sound, float volume, float pitch) {
+    public static void playSoundToAllPlayers(World world, Sound sound) {
         for (Player player : world.getPlayers()) {
-            player.playSound(player.getLocation(), sound, volume, pitch);
+            player.playSound(player.getLocation(), sound, 1, 1);
         }
     }
 
@@ -27,9 +33,9 @@ public class PlayerUtils {
         player.playSound(player.getLocation(), sound, 1, 1);
     }
 
-    public static void sendTitleToAllPlayers(World world, String title, String subTitle) {
+    public void sendTitleToAllPlayers(World world, String title, String subTitle) {
         for (Player player : world.getPlayers()) {
-            player.sendTitle(title, subTitle, ConfigManager.alertPlayersFadeIn, ConfigManager.alertPlayersStay, ConfigManager.alertPlayersFadeOut);
+            player.sendTitle(title, subTitle, configManager.getInt("notify-players.title.fade-in"), configManager.getInt("notify-players.title.stay"), configManager.getInt("notify-players.title.fade-out"));
         }
     }
 }

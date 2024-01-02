@@ -10,6 +10,12 @@ import org.jetbrains.annotations.NotNull;
 
 public class PvpStatus extends PlaceholderExpansion {
 
+    private final LangManager langManager;
+
+    public PvpStatus() {
+        langManager = new LangManager();
+    }
+
 
     @Override
     public @NotNull String getIdentifier() {
@@ -36,7 +42,7 @@ public class PvpStatus extends PlaceholderExpansion {
 
         if (params.equalsIgnoreCase("current_world_pvpstatus")) {
             boolean pvpEnabled = player.getWorld().getPVP();
-            return pvpEnabled ? LangManager.onMessage : LangManager.offMessage;
+            return pvpEnabled ? langManager.getString("placeholder-pvp-enabled") : langManager.getString("placeholder-pvp-disabled");
         }
 
         if (params.startsWith("pvpstatus_")) {
@@ -44,7 +50,7 @@ public class PvpStatus extends PlaceholderExpansion {
             World world = Bukkit.getWorld(worldName);
             if (world != null) {
                 boolean pvpEnabled = world.getPVP();
-                return pvpEnabled ? LangManager.onMessage : LangManager.offMessage;
+                return pvpEnabled ? langManager.getString("placeholder-pvp-enabled") : langManager.getString("placeholder-pvp-disabled");
             }
         }
         return null;
