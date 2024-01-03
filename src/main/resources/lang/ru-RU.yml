@@ -1,59 +1,58 @@
-# This is the version of the file, DO NOT MODIFY.
+# Это версия файла, НЕ МОДИФИЦИРОВАТЬ.
 version: 10
 
-# States
-states.enabled: "&aAtivado"
-states.disabled: "&cDesativado"
+# Состояния
+state-enabled: "&aВключено"
+state-disabled: "&cОтключено"
 
-# Notifications
-notify-day-chat: "&a&lDia! PvP Desativado!"
-notify-night-chat: "&c&lNoite! PvP Ativado!"
-notify-day-title: "&a&lDia!"
-notify-day-subtitle: "&a&lPvP Desativado!"
-notify-night-title: "&c&lNoite!"
-notify-night-subtitle: "&c&lPvP Ativado!"
-notify-pvp-disabled: "&7Você não pode entrar em combate no momento, está de dia!"
+# Уведомления
+notify-day-chat: "&a&lДень! PvP Отключен!"
+notify-night-chat: "&c&lНочь! PvP Включен!"
+notify-day-title: "&a&lДень!"
+notify-day-subtitle: "&a&lPvP Отключен!"
+notify-night-title: "&c&lНочь!"
+notify-night-subtitle: "&c&lPvP Включен!"
+notify-pvp-disabled: "&7В данный момент вы не можете начать бой, сейчас день!"
 
-# Feedback
-feedback-update-found: "&9&lDayNightPvP &8-> &7Atualização encontrada!"
-feedback-reload-plugin: "&a&lSucesso! &7Arquivos de configuração recarregados!"
-feedback-select-lang: "&a&lSucesso! &7Arquivo de linguagem alterado para \"{0}\""
-feedback-lose-money: "&e&lAviso! &7Você morreu para &b{0} &7e perdeu &c${1}"
-feedback-win-money: "&e&lAviso! &7Você matou &b{0} &7e ganhou &a${1}"
-feedback-non-existent-command: "&c&lErro! &7Este comando não existe!"
+# Обратная связь
+feedback-update-found: "&9&lDayNightPvP &8-> &7Обновление найдено!"
+feedback-reload-plugin: "&a&lУспех! &7Файлы конфигурации перезагружены!"
+feedback-select-lang: "&a&lУспех! &7Языковой файл изменен на \"{0}\""
+feedback-lose-money: "&e&lПредупреждение! &7Вы погибли от &b{0} &7и потеряли &c${1}"
+feedback-win-money: "&e&lПредупреждение! &7Вы убили &b{0} &7и заработали &a${1}"
+feedback-non-existent-command: "&c&lОшибка! &7Эта команда не существует!"
 
-
-# Gui
-gui-languages-button: "&aLinguagens"
-gui-languages-button-description: "&3&l» &7Ver todas as linguagens disponíveis"
-gui-language-button-description: "&3&l» &7Carrega a linguagem \"{0}\""
-gui-reload-button: "&aRecarregar"
-gui-reload-button-description: "&3&l» &7Recarrega os arquivos de configuração"
-gui-worlds-button: "&aMundos"
-gui-worlds-button-description: "&3&l» &7Acessa a área de configurações dos mundos"
-gui-day-button: "&aDia"
-gui-day-button-description: "&3&l» &7Deixar de dia"
-gui-night-button: "&aNoite"
-gui-night-button-description: "&3&l» &7Deixar de noite"
+# Интерфейс
+gui-languages-button: "&aЯзыки"
+gui-languages-button-description: "&3&l» &7Просмотреть все доступные языки"
+gui-language-button-description: "&3&l» &7Загрузить язык \"{0}\""
+gui-reload-button: "&aПерезагрузить"
+gui-reload-button-description: "&3&l» &7Перезагрузить файлы конфигурации"
+gui-worlds-button: "&aМиры"
+gui-worlds-button-description: "&3&l» &7Доступ к настройкам миров"
+gui-day-button: "&aДень"
+gui-day-button-description: "&3&l» &7Установить режим дня"
+gui-night-button: "&aНочь"
+gui-night-button-description: "&3&l» &7Установить режим ночи"
 gui-world-button-description-daynightpvp: "&3&l» &7DayNightPvP: {0}"
-gui-world-button-description-type: "&3&l» &7Tipo de mundo: {0}"
-gui-world-button-description-time: "&3&l» &7Horário: {0}"
-gui-world-button-description-day: "&aDia"
-gui-world-button-description-end: "&cNoite"
-gui-world-button-description-not-supported: "&cNão suportado"
+gui-world-button-description-type: "&3&l» &7Тип мира: {0}"
+gui-world-button-description-time: "&3&l» &7Время: {0}"
+gui-world-button-description-day: "&aДень"
+gui-world-button-description-end: "&cНочь"
+gui-world-button-description-not-supported: "&cНе поддерживается"
 gui-daynightpvp-button: "&aDayNightPvP"
-gui-back-button: "&aVoltar"
-gui-back-button-description: "&3&l» &7Volta para a pagina anterior"
-gui-exit-button: "&aSair"
-gui-exit-button-description: "&3&l» &7Fecha o menu"
+gui-back-button: "&aНазад"
+gui-back-button-description: "&3&l» &7Вернуться на предыдущую страницу"
+gui-exit-button: "&aВыход"
+gui-exit-button-description: "&3&l» &7Закрыть меню"
 
-# Actions
-action.update-found-click: "&a&nClique aqui para abrir a página do Plugin"
-action.button-click-to-see-settings: "&3&l» &7Clique para ver as configurações"
-action.button-click-to-disable-or-enable: "&aBOTÃO ESQUERDO &3&l» &7Ativar \n&cBOTÃO DIREITO &3&l» Desativar"
-action.button-click-to-disable: "&3&l» &7Clique para desativar"
-action.button-click-to-enable: "&3&l» &7Clique para ativar"
+# Действия
+action-update-found-click: "&a&nНажмите сюда, чтобы открыть страницу плагина"
+action-button-click-to-see-settings: "&3&l» &7Нажмите, чтобы просмотреть настройки"
+action-button-click-to-disable-or-enable: "&aЛЕВЫЙ КЛИК &3&l» &7Включить \n&cПРАВЫЙ КЛИК &3&l» Выключить"
+action-button-click-to-disable: "&3&l» &7Нажмите, чтобы отключить"
+action-button-click-to-enable: "&3&l» &7Нажмите, чтобы включить"
 
-# Placeholder
-placeholder-pvp-enabled: "&aAtivado"
-placeholder-pvp-disabled: "&cDesativado"
+# Заполнитель
+placeholder-pvp-enabled: "&aВключено"
+placeholder-pvp-disabled: "&cОтключено"

@@ -1,59 +1,58 @@
-# This is the version of the file, DO NOT MODIFY.
+# Esta es la versión del archivo, NO MODIFICAR.
 version: 10
 
-# States
-states.enabled: "&aAtivado"
-states.disabled: "&cDesativado"
+# Estados
+state-enabled: "&aActivado"
+state-disabled: "&cDesactivado"
 
-# Notifications
-notify-day-chat: "&a&lDia! PvP Desativado!"
-notify-night-chat: "&c&lNoite! PvP Ativado!"
-notify-day-title: "&a&lDia!"
-notify-day-subtitle: "&a&lPvP Desativado!"
-notify-night-title: "&c&lNoite!"
-notify-night-subtitle: "&c&lPvP Ativado!"
-notify-pvp-disabled: "&7Você não pode entrar em combate no momento, está de dia!"
+# Notificaciones
+notify-day-chat: "&a&l¡Día! PvP Desactivado!"
+notify-night-chat: "&c&l¡Noche! PvP Activado!"
+notify-day-title: "&a&l¡Día!"
+notify-day-subtitle: "&a&lPvP Desactivado!"
+notify-night-title: "&c&l¡Noche!"
+notify-night-subtitle: "&c&lPvP Activado!"
+notify-pvp-disabled: "&7No puedes participar en combate en este momento, ¡es de día!"
 
-# Feedback
-feedback-update-found: "&9&lDayNightPvP &8-> &7Atualização encontrada!"
-feedback-reload-plugin: "&a&lSucesso! &7Arquivos de configuração recarregados!"
-feedback-select-lang: "&a&lSucesso! &7Arquivo de linguagem alterado para \"{0}\""
-feedback-lose-money: "&e&lAviso! &7Você morreu para &b{0} &7e perdeu &c${1}"
-feedback-win-money: "&e&lAviso! &7Você matou &b{0} &7e ganhou &a${1}"
-feedback-non-existent-command: "&c&lErro! &7Este comando não existe!"
+# Retroalimentación
+feedback-update-found: "&9&lDayNightPvP &8-> &7¡Actualización encontrada!"
+feedback-reload-plugin: "&a&l¡Éxito! &7Archivos de configuración recargados!"
+feedback-select-lang: "&a&l¡Éxito! &7Archivo de idioma cambiado a \"{0}\""
+feedback-lose-money: "&e&l¡Advertencia! &7Has muerto por &b{0} &7y perdiste &c${1}"
+feedback-win-money: "&e&l¡Advertencia! &7Has matado a &b{0} &7y ganaste &a${1}"
+feedback-non-existent-command: "&c&l¡Error! &7Este comando no existe!"
 
-
-# Gui
-gui-languages-button: "&aLinguagens"
-gui-languages-button-description: "&3&l» &7Ver todas as linguagens disponíveis"
-gui-language-button-description: "&3&l» &7Carrega a linguagem \"{0}\""
-gui-reload-button: "&aRecarregar"
-gui-reload-button-description: "&3&l» &7Recarrega os arquivos de configuração"
+# Interfaz gráfica
+gui-languages-button: "&aIdiomas"
+gui-languages-button-description: "&3&l» &7Ver todos los idiomas disponibles"
+gui-language-button-description: "&3&l» &7Cargar idioma \"{0}\""
+gui-reload-button: "&aRecargar"
+gui-reload-button-description: "&3&l» &7Recargar archivos de configuración"
 gui-worlds-button: "&aMundos"
-gui-worlds-button-description: "&3&l» &7Acessa a área de configurações dos mundos"
-gui-day-button: "&aDia"
-gui-day-button-description: "&3&l» &7Deixar de dia"
-gui-night-button: "&aNoite"
-gui-night-button-description: "&3&l» &7Deixar de noite"
+gui-worlds-button-description: "&3&l» &7Acceder a la configuración de mundos"
+gui-day-button: "&aDía"
+gui-day-button-description: "&3&l» &7Establecer en modo día"
+gui-night-button: "&aNoche"
+gui-night-button-description: "&3&l» &7Establecer en modo noche"
 gui-world-button-description-daynightpvp: "&3&l» &7DayNightPvP: {0}"
 gui-world-button-description-type: "&3&l» &7Tipo de mundo: {0}"
-gui-world-button-description-time: "&3&l» &7Horário: {0}"
-gui-world-button-description-day: "&aDia"
-gui-world-button-description-end: "&cNoite"
-gui-world-button-description-not-supported: "&cNão suportado"
+gui-world-button-description-time: "&3&l» &7Tiempo: {0}"
+gui-world-button-description-day: "&aDía"
+gui-world-button-description-end: "&cNoche"
+gui-world-button-description-not-supported: "&cNo compatible"
 gui-daynightpvp-button: "&aDayNightPvP"
-gui-back-button: "&aVoltar"
-gui-back-button-description: "&3&l» &7Volta para a pagina anterior"
-gui-exit-button: "&aSair"
-gui-exit-button-description: "&3&l» &7Fecha o menu"
+gui-back-button: "&aVolver"
+gui-back-button-description: "&3&l» &7Volver a la página anterior"
+gui-exit-button: "&aSalir"
+gui-exit-button-description: "&3&l» &7Cerrar el menú"
 
-# Actions
-action.update-found-click: "&a&nClique aqui para abrir a página do Plugin"
-action.button-click-to-see-settings: "&3&l» &7Clique para ver as configurações"
-action.button-click-to-disable-or-enable: "&aBOTÃO ESQUERDO &3&l» &7Ativar \n&cBOTÃO DIREITO &3&l» Desativar"
-action.button-click-to-disable: "&3&l» &7Clique para desativar"
-action.button-click-to-enable: "&3&l» &7Clique para ativar"
+# Acciones
+action-update-found-click: "&a&nHaz clic aquí para abrir la página del Plugin"
+action-button-click-to-see-settings: "&3&l» &7Haz clic para ver la configuración"
+action-button-click-to-disable-or-enable: "&aCLIC IZQUIERDO &3&l» &7Activar \n&cCLIC DERECHO &3&l» Desactivar"
+action-button-click-to-disable: "&3&l» &7Haz clic para desactivar"
+action-button-click-to-enable: "&3&l» &7Haz clic para activar"
 
-# Placeholder
-placeholder-pvp-enabled: "&aAtivado"
-placeholder-pvp-disabled: "&cDesativado"
+# Marcador de posición
+placeholder-pvp-enabled: "&aActivado"
+placeholder-pvp-disabled: "&cDesactivado"

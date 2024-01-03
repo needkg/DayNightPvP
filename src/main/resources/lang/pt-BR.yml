@@ -1,11 +1,11 @@
 # This is the version of the file, DO NOT MODIFY.
 version: 10
 
-# States
-states.enabled: "&aAtivado"
-states.disabled: "&cDesativado"
+# Estados
+state-enabled: "&aAtivado"
+state-disabled: "&cDesativado"
 
-# Notifications
+# Notificações
 notify-day-chat: "&a&lDia! PvP Desativado!"
 notify-night-chat: "&c&lNoite! PvP Ativado!"
 notify-day-title: "&a&lDia!"
@@ -23,7 +23,7 @@ feedback-win-money: "&e&lAviso! &7Você matou &b{0} &7e ganhou &a${1}"
 feedback-non-existent-command: "&c&lErro! &7Este comando não existe!"
 
 
-# Gui
+# Interface
 gui-languages-button: "&aLinguagens"
 gui-languages-button-description: "&3&l» &7Ver todas as linguagens disponíveis"
 gui-language-button-description: "&3&l» &7Carrega a linguagem \"{0}\""
@@ -47,12 +47,12 @@ gui-back-button-description: "&3&l» &7Volta para a pagina anterior"
 gui-exit-button: "&aSair"
 gui-exit-button-description: "&3&l» &7Fecha o menu"
 
-# Actions
-action.update-found-click: "&a&nClique aqui para abrir a página do Plugin"
-action.button-click-to-see-settings: "&3&l» &7Clique para ver as configurações"
-action.button-click-to-disable-or-enable: "&aBOTÃO ESQUERDO &3&l» &7Ativar \n&cBOTÃO DIREITO &3&l» Desativar"
-action.button-click-to-disable: "&3&l» &7Clique para desativar"
-action.button-click-to-enable: "&3&l» &7Clique para ativar"
+# Ações
+action-update-found-click: "&a&nClique aqui para abrir a página do Plugin"
+action-button-click-to-see-settings: "&3&l» &7Clique para ver as configurações"
+action-button-click-to-disable-or-enable: "&aBOTÃO ESQUERDO &3&l» &7Ativar \n&cBOTÃO DIREITO &3&l» Desativar"
+action-button-click-to-disable: "&3&l» &7Clique para desativar"
+action-button-click-to-enable: "&3&l» &7Clique para ativar"
 
 # Placeholder
 placeholder-pvp-enabled: "&aAtivado"
