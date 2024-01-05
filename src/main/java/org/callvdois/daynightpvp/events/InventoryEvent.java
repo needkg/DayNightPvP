@@ -83,21 +83,21 @@ public class InventoryEvent implements Listener {
                     break;
                 case "dayButton":
                     WorldUtils.setTime(worldName, 1000);
-                    PlayerUtils.playSoundToPlayer(player, Sound.BLOCK_NOTE_BLOCK_HAT);
+                    PlayerUtils.playSoundToPlayer(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP);
                     break;
                 case "nightButton":
                     WorldUtils.setTime(worldName, configManager.getInt("daynightpvp.day-end"));
-                    PlayerUtils.playSoundToPlayer(player, Sound.BLOCK_NOTE_BLOCK_HAT);
+                    PlayerUtils.playSoundToPlayer(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP);
                     break;
                 case "setAutomaticPvpOn":
-                    configManager.addToList(worldName, "worlds");
+                    configManager.addToList(worldName, "daynightpvp.worlds");
                     filesManager.reloadPlugin();
-                    PlayerUtils.playSoundToPlayer(player, Sound.BLOCK_NOTE_BLOCK_HAT);
+                    PlayerUtils.playSoundToPlayer(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP);
                     break;
                 case "setAutomaticPvpOff":
-                    configManager.removeFromList(worldName, "worlds");
+                    configManager.removeFromList(worldName, "daynightpvp.worlds");
                     filesManager.reloadPlugin();
-                    PlayerUtils.playSoundToPlayer(player, Sound.BLOCK_NOTE_BLOCK_HAT);
+                    PlayerUtils.playSoundToPlayer(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP);
                     break;
             }
             if (SearchUtils.worldExistsInList(Bukkit.getWorlds(), itemID)) {
@@ -115,7 +115,7 @@ public class InventoryEvent implements Listener {
             if (SearchUtils.fileExistInListOfFiles(listOfFiles, itemID)) {
                 PlayerUtils.playSoundToPlayer(player, Sound.BLOCK_NOTE_BLOCK_HAT);
 
-                configManager.setValue("lang", itemID);
+                configManager.setValue("language", itemID);
                 configManager.saveConfig();
 
                 filesManager.reloadPlugin();

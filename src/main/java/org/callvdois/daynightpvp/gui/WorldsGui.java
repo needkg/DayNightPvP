@@ -55,9 +55,9 @@ public class WorldsGui {
 
     public String verifyAutomaticPvpStatus(List<String> list, String worldName) {
         if (SearchUtils.stringExistInList(list, worldName)) {
-            return langManager.getString("states.enabled");
+            return langManager.getString("state-enabled");
         } else {
-            return langManager.getString("states.disabled");
+            return langManager.getString("state-disabled");
         }
     }
 
@@ -72,13 +72,13 @@ public class WorldsGui {
     public ItemStack defineWorldItem(World world, String automaticPvpStatus, String timeStatus) {
         if (world.getEnvironment() == World.Environment.NETHER) {
             String buttonDescription = langManager.getString("gui-world-button-description-daynightpvp").replace("{0}", langManager.getString("gui-world-button-description-not-supported")) + "|" + langManager.getString("gui-world-button-description-type").replace("{0}", ChatColor.AQUA + "nether");
-            return ItemUtils.createCustomHead(world.getName(), world.getName(), buttonDescription + "||" + langManager.getString("action.button-click-to-see-settings"), "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzkzYmZjNDMxOTAwNzIzZjdmYTI4Nzg2NDk2MzgwMTdjZTYxNWQ4ZDhjYWI4ZDJmMDcwYTYxZWIxYWEwMGQwMiJ9fX0=");
+            return ItemUtils.createCustomHead(world.getName(), world.getName(), buttonDescription + "||" + langManager.getString("action-button-click-to-see-settings"), "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzkzYmZjNDMxOTAwNzIzZjdmYTI4Nzg2NDk2MzgwMTdjZTYxNWQ4ZDhjYWI4ZDJmMDcwYTYxZWIxYWEwMGQwMiJ9fX0=");
         } else if (world.getEnvironment() == World.Environment.THE_END) {
             String buttonDescription = langManager.getString("gui-world-button-description-daynightpvp").replace("{0}", langManager.getString("gui-world-button-description-not-supported")) + "|" + langManager.getString("gui-world-button-description-type").replace("{0}", ChatColor.AQUA + "the_end");
-            return ItemUtils.createCustomHead(world.getName(), world.getName(), buttonDescription + "||" + langManager.getString("action.button-click-to-see-settings"), "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTlmMjFmNWQ4ODMzMTZmZDY1YTkzNjZmMzJhMzMwMTMxODJlMzM4MWRlYzIxYzE3Yzc4MzU1ZDliZjRmMCJ9fX0=");
+            return ItemUtils.createCustomHead(world.getName(), world.getName(), buttonDescription + "||" + langManager.getString("action-button-click-to-see-settings"), "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTlmMjFmNWQ4ODMzMTZmZDY1YTkzNjZmMzJhMzMwMTMxODJlMzM4MWRlYzIxYzE3Yzc4MzU1ZDliZjRmMCJ9fX0=");
         } else {
             String buttonDescription = langManager.getString("gui-world-button-description-daynightpvp").replace("{0}", automaticPvpStatus) + "|" + langManager.getString("gui-world-button-description-time").replace("{0}", timeStatus) + "|" + langManager.getString("gui-world-button-description-type").replace("{0}", ChatColor.AQUA + "overworld");
-            return ItemUtils.createCustomHead(world.getName(), world.getName(), buttonDescription + "||" + langManager.getString("action.button-click-to-see-settings"), "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzIyODM5ZDVjN2ZjMDY3ODA2MmYxYzZjOGYyN2IzMzIwOTQzODRlM2JiNWM0YjVlYmQxNjc2YjI3OWIwNmJmIn19fQ==");
+            return ItemUtils.createCustomHead(world.getName(), world.getName(), buttonDescription + "||" + langManager.getString("action-button-click-to-see-settings"), "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzIyODM5ZDVjN2ZjMDY3ODA2MmYxYzZjOGYyN2IzMzIwOTQzODRlM2JiNWM0YjVlYmQxNjc2YjI3OWIwNmJmIn19fQ==");
         }
     }
 

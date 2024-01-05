@@ -69,7 +69,7 @@ public class WorldGui {
     }
 
     public String verifyTimeOnWorld(long time) {
-        if (time > configManager.getInt("daynightpvp.day-end")) {
+        if (time >= configManager.getInt("daynightpvp.day-end")) {
             return langManager.getString("gui-world-button-description-night");
         } else {
             return langManager.getString("gui-world-button-description-day");
@@ -78,17 +78,17 @@ public class WorldGui {
 
     public String verifyAutomaticPvpStatus(List<String> list, String worldName) {
         if (SearchUtils.stringExistInList(list, worldName)) {
-            return langManager.getString("states.enabled");
+            return langManager.getString("state-enabled");
         } else {
-            return langManager.getString("states.disabled");
+            return langManager.getString("state-disabled");
         }
     }
 
     public ItemStack defineAutomaticPvpPanel(String worldName) {
         if (SearchUtils.stringExistInList(configManager.getList("daynightpvp.worlds"), worldName)) {
-            return ItemUtils.createItem(langManager.getString("gui-daynightpvp-button"), "setAutomaticPvpOff", langManager.getString("action.button-click-to-disable"), Material.GREEN_STAINED_GLASS_PANE);
+            return ItemUtils.createItem(langManager.getString("gui-daynightpvp-button"), "setAutomaticPvpOff", langManager.getString("action-button-click-to-disable"), Material.GREEN_STAINED_GLASS_PANE);
         } else {
-            return ItemUtils.createItem(langManager.getString("gui-daynightpvp-button"), "setAutomaticPvpOn", langManager.getString("action.button-click-to-enable"), Material.RED_STAINED_GLASS_PANE);
+            return ItemUtils.createItem(langManager.getString("gui-daynightpvp-button"), "setAutomaticPvpOn", langManager.getString("action-button-click-to-enable"), Material.RED_STAINED_GLASS_PANE);
         }
     }
 
@@ -101,7 +101,6 @@ public class WorldGui {
     }
 
     public void refreshGui(Inventory inventory, World world) {
-
         String worldName = world.getName();
         String automaticPvpStatus = verifyAutomaticPvpStatus(configManager.getList("daynightpvp.worlds"), worldName);
 

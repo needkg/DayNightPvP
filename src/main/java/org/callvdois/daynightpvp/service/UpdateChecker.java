@@ -28,7 +28,7 @@ public class UpdateChecker {
 
             if (!currentVersion.equals(latestVersion)) {
 
-                TextComponent link = new TextComponent(langManager.getString("action.update-found-click"));
+                TextComponent link = new TextComponent(langManager.getString("action-update-found-click"));
                 link.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.spigotmc.org/resources/daynightpvp-dynamic-pvp-for-day-night.102250/updates"));
 
                 event.getPlayer().sendMessage(langManager.getString("feedback-update-found"));
