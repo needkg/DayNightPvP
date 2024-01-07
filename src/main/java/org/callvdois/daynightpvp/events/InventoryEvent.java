@@ -18,7 +18,6 @@ import org.callvdois.daynightpvp.gui.LanguageGui;
 import org.callvdois.daynightpvp.gui.MainGui;
 import org.callvdois.daynightpvp.gui.WorldGui;
 import org.callvdois.daynightpvp.gui.WorldsGui;
-import org.callvdois.daynightpvp.utils.ConfigUtils;
 import org.callvdois.daynightpvp.utils.PlayerUtils;
 import org.callvdois.daynightpvp.utils.SearchUtils;
 import org.callvdois.daynightpvp.utils.WorldUtils;
@@ -32,6 +31,8 @@ public class InventoryEvent implements Listener {
     private final MainGui mainGui;
     private final WorldGui worldGui;
     private final WorldsGui worldsGui;
+    private final ConfigManager configManager;
+    private final LangManager langManager;
 
     public InventoryEvent() {
         filesManager = new FilesManager();
@@ -39,6 +40,8 @@ public class InventoryEvent implements Listener {
         mainGui = new MainGui();
         worldGui = new WorldGui();
         worldsGui = new WorldsGui();
+        configManager = new ConfigManager();
+        langManager = new LangManager();
     }
 
     @EventHandler
@@ -64,7 +67,7 @@ public class InventoryEvent implements Listener {
                     worldsGui.open(player);
                 case "reloadButton":
                     filesManager.reloadPlugin();
-                    PlayerUtils.sendMessageToPlayer(player, LangManager.reloadedConfig);
+                    PlayerUtils.sendMessageToPlayer(player, langManager.getString("feedback-reload-plugin"));
                     break;
                 case "languageButton":
                     languageGui.open(player);
@@ -80,21 +83,21 @@ public class InventoryEvent implements Listener {
                     break;
                 case "dayButton":
                     WorldUtils.setTime(worldName, 1000);
-                    PlayerUtils.playSoundToPlayer(player, Sound.BLOCK_NOTE_BLOCK_HAT);
+                    PlayerUtils.playSoundToPlayer(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP);
                     break;
                 case "nightButton":
-                    WorldUtils.setTime(worldName, ConfigManager.autoPvpDayEnd);
-                    PlayerUtils.playSoundToPlayer(player, Sound.BLOCK_NOTE_BLOCK_HAT);
+                    WorldUtils.setTime(worldName, configManager.getInt("daynightpvp.day-end"));
+                    PlayerUtils.playSoundToPlayer(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP);
                     break;
                 case "setAutomaticPvpOn":
-                    ConfigUtils.addWorldToList(worldName);
+                    configManager.addToList(worldName, "daynightpvp.worlds");
                     filesManager.reloadPlugin();
-                    PlayerUtils.playSoundToPlayer(player, Sound.BLOCK_NOTE_BLOCK_HAT);
+                    PlayerUtils.playSoundToPlayer(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP);
                     break;
                 case "setAutomaticPvpOff":
-                    ConfigUtils.removeWorldToList(worldName);
+                    configManager.removeFromList(worldName, "daynightpvp.worlds");
                     filesManager.reloadPlugin();
-                    PlayerUtils.playSoundToPlayer(player, Sound.BLOCK_NOTE_BLOCK_HAT);
+                    PlayerUtils.playSoundToPlayer(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP);
                     break;
             }
             if (SearchUtils.worldExistsInList(Bukkit.getWorlds(), itemID)) {
@@ -112,12 +115,12 @@ public class InventoryEvent implements Listener {
             if (SearchUtils.fileExistInListOfFiles(listOfFiles, itemID)) {
                 PlayerUtils.playSoundToPlayer(player, Sound.BLOCK_NOTE_BLOCK_HAT);
 
-                ConfigUtils.setValue(ConfigManager.configFileConfig, "lang", itemID);
-                ConfigUtils.saveConfig();
+                configManager.setValue("language", itemID);
+                configManager.saveConfig();
 
                 filesManager.reloadPlugin();
 
-                player.sendMessage(LangManager.langSelected.replace("{0}", itemID));
+                player.sendMessage(langManager.getString("feedback-select-lang").replace("{0}", itemID));
 
                 mainGui.open(player);
             }

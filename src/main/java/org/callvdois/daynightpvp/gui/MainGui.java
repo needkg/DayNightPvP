@@ -12,20 +12,22 @@ import org.callvdois.daynightpvp.utils.ItemUtils;
 public class MainGui {
 
     public static String inventoryTitle;
+    private final LangManager langManager;
 
     public MainGui() {
         inventoryTitle = "§c§l» DayNightPvP";
+        langManager = new LangManager();
     }
 
     public void open(Player player) {
 
         Inventory inventory = Bukkit.createInventory(player, 9, inventoryTitle);
 
-        ItemStack worldsButton = ItemUtils.createCustomHead(LangManager.worldsButton, "worldsButton", LangManager.worldsButtonDescription, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDM4Y2YzZjhlNTRhZmMzYjNmOTFkMjBhNDlmMzI0ZGNhMTQ4NjAwN2ZlNTQ1Mzk5MDU1NTI0YzE3OTQxZjRkYyJ9fX0=");
+        ItemStack worldsButton = ItemUtils.createCustomHead(langManager.getString("gui-worlds-button"), "worldsButton", langManager.getString("gui-worlds-button-description"), "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDM4Y2YzZjhlNTRhZmMzYjNmOTFkMjBhNDlmMzI0ZGNhMTQ4NjAwN2ZlNTQ1Mzk5MDU1NTI0YzE3OTQxZjRkYyJ9fX0=");
         ItemStack separatorGlass = ItemUtils.createItem(ChatColor.RED + "###", "nothing", " ", Material.GRAY_STAINED_GLASS_PANE);
-        ItemStack languageButton = ItemUtils.createItem(LangManager.langButton, "languageButton", LangManager.langButtonDescription1, Material.PAPER);
-        ItemStack reloadButon = ItemUtils.createCustomHead(LangManager.reloadButton, "reloadButton", LangManager.reloadButtonDescription, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjk3ZDZkN2JlOTg1ZDA2MjJhNDhlOTA2OThlOTA3M2Y3ZmY4ODEzMjkyODEyZWJkMTczMGRiYTBlMDFjZjE4ZiJ9fX0=");
-        ItemStack exitButton = ItemUtils.createCustomHead(LangManager.exitButton, "exitButton", LangManager.exitButtonDescription, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTkxOWQxNTk0YmY4MDlkYjdiNDRiMzc4MmJmOTBhNjlmNDQ5YTg3Y2U1ZDE4Y2I0MGViNjUzZmRlYzI3MjIifX19");
+        ItemStack languageButton = ItemUtils.createItem(langManager.getString("gui-languages-button"), "languageButton", langManager.getString("gui-languages-button-description"), Material.PAPER);
+        ItemStack reloadButon = ItemUtils.createCustomHead(langManager.getString("gui-reload-button"), "reloadButton", langManager.getString("gui-reload-button-description"), "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjk3ZDZkN2JlOTg1ZDA2MjJhNDhlOTA2OThlOTA3M2Y3ZmY4ODEzMjkyODEyZWJkMTczMGRiYTBlMDFjZjE4ZiJ9fX0=");
+        ItemStack exitButton = ItemUtils.createCustomHead(langManager.getString("gui-exit-button"), "exitButton", langManager.getString("gui-exit-button-description"), "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTkxOWQxNTk0YmY4MDlkYjdiNDRiMzc4MmJmOTBhNjlmNDQ5YTg3Y2U1ZDE4Y2I0MGViNjUzZmRlYzI3MjIifX19");
 
         inventory.setItem(0, worldsButton);
         inventory.setItem(1, separatorGlass);

@@ -14,6 +14,12 @@ import java.io.File;
 
 public class LanguageGui {
 
+    private final LangManager langManager;
+
+    public LanguageGui() {
+        langManager = new LangManager();
+    }
+
     public void open(Player player) {
         Inventory inventory = Bukkit.createInventory(player, 18, MainGui.inventoryTitle);
 
@@ -24,14 +30,14 @@ public class LanguageGui {
 
         for (File file : listOfFiles) {
             String[] name = file.getName().split("\\.");
-            ItemStack item = ItemUtils.createItem(ChatColor.YELLOW + name[0], name[0], LangManager.langButtonDescription2.replace("{0}", ChatColor.YELLOW + name[0]), Material.PAPER);
+            ItemStack item = ItemUtils.createItem(ChatColor.YELLOW + name[0], name[0], langManager.getString("gui-language-button-description").replace("{0}", ChatColor.YELLOW + name[0]), Material.PAPER);
             inventory.setItem(position, item);
 
             position++;
         }
 
-        ItemStack backButton = ItemUtils.createCustomHead(LangManager.backButton, "backButton", LangManager.backButtonDescription1, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmIwZjZlOGFmNDZhYzZmYWY4ODkxNDE5MWFiNjZmMjYxZDY3MjZhNzk5OWM2MzdjZjJlNDE1OWZlMWZjNDc3In19fQ==");
-        ItemStack exitButton = ItemUtils.createCustomHead(LangManager.exitButton, "exitButton", LangManager.exitButtonDescription, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTkxOWQxNTk0YmY4MDlkYjdiNDRiMzc4MmJmOTBhNjlmNDQ5YTg3Y2U1ZDE4Y2I0MGViNjUzZmRlYzI3MjIifX19");
+        ItemStack backButton = ItemUtils.createCustomHead(langManager.getString("gui-back-button"), "backButton", langManager.getString("gui-back-button-description"), "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmIwZjZlOGFmNDZhYzZmYWY4ODkxNDE5MWFiNjZmMjYxZDY3MjZhNzk5OWM2MzdjZjJlNDE1OWZlMWZjNDc3In19fQ==");
+        ItemStack exitButton = ItemUtils.createCustomHead(langManager.getString("gui-exit-button"), "exitButton", langManager.getString("gui-exit-button-description"), "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTkxOWQxNTk0YmY4MDlkYjdiNDRiMzc4MmJmOTBhNjlmNDQ5YTg3Y2U1ZDE4Y2I0MGViNjUzZmRlYzI3MjIifX19");
         ItemStack separatorGlass = ItemUtils.createItem(ChatColor.RED + "###", "nothing", " ", Material.GRAY_STAINED_GLASS_PANE);
 
         inventory.setItem(16, backButton);

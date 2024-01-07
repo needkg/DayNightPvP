@@ -6,7 +6,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.callvdois.daynightpvp.DayNightPvP;
 import org.callvdois.daynightpvp.events.RegisterEvents;
 import org.callvdois.daynightpvp.placeholder.RegisterPlaceHolder;
-import org.callvdois.daynightpvp.utils.ConfigUtils;
 import org.callvdois.daynightpvp.utils.ConsoleUtils;
 
 import java.io.File;
@@ -17,19 +16,23 @@ import java.util.List;
 public class FilesManager {
 
     public static List<String> langFiles = new ArrayList<>();
-    private final String configVersion;
-    private final String langVersion;
+    private final int configVersion;
+    private final int langVersion;
     private final String fileOutdated;
     private final RegisterEvents registerEvents;
     private final RegisterPlaceHolder registerPlaceHolder;
+    private final ConfigManager configManager;
+    private final LangManager langManager;
 
     public FilesManager() {
         registerEvents = new RegisterEvents();
         registerPlaceHolder = new RegisterPlaceHolder();
+        configManager = new ConfigManager();
+        langManager = new LangManager();
         fileOutdated = "[DayNightPvP] The {0} file was an outdated version. it has been replaced by the new version.";
 
-        configVersion = "12";
-        langVersion = "8";
+        configVersion = 14;
+        langVersion = 10;
         langFiles = Arrays.asList("lang/en-US.yml", "lang/pt-BR.yml", "lang/es-ES.yml", "lang/ru-RU.yml");
     }
 
@@ -42,8 +45,7 @@ public class FilesManager {
     }
 
     public void verifyConfigVersion() {
-        String version = ConfigUtils.getValue("version");
-        if (!configVersion.equals(version)) {
+        if (!(configVersion == configManager.getVersion())) {
             resetFile("config.yml");
             ConsoleUtils.warning(fileOutdated.replace("{0}", "config.yml"));
             ConfigManager.configFileConfig = YamlConfiguration.loadConfiguration(ConfigManager.configFile);
@@ -53,10 +55,8 @@ public class FilesManager {
     public void verfiyLangsVersion() {
         for (String fileName : langFiles) {
             File langFile = new File(DayNightPvP.getInstance().getDataFolder(), fileName);
-            FileConfiguration langFileConfig = YamlConfiguration.loadConfiguration(langFile);
-            String currentVersion = langFileConfig.getString("version");
 
-            if (!langVersion.equals(currentVersion)) {
+            if (!(langVersion == langManager.getVersion())) {
                 resetFile("lang/" + langFile.getName());
                 ConsoleUtils.warning(fileOutdated.replace("{0}", "lang/" + langFile.getName()));
             }
@@ -69,8 +69,6 @@ public class FilesManager {
 
     public void reloadPlugin() {
         createFiles();
-        ConfigManager.updateConfigs();
-        LangManager.updateLangs();
         registerEvents.register();
         registerPlaceHolder.register();
     }
@@ -87,6 +85,7 @@ public class FilesManager {
                 DayNightPvP.getInstance().saveResource(fileName, false);
             }
         }
+        langManager.getLanguageFileSelected();
     }
 
 }
