@@ -36,6 +36,8 @@ Need assistance or have a suggestion? Join our Discord community: [click here](h
 
 - Vault Support: With Vault support, you can determine if players should lose money upon dying during PvP and if the
   killer will receive the reward.
+  
+- WorldGuard Support: Easily define whether a WorldGuard region should have PvP enabled even during the day.
 
 # Metrics
 
@@ -50,8 +52,13 @@ Need assistance or have a suggestion? Join our Discord community: [click here](h
 
     /dnp → Open the GUI
     /dnp reload → Reload the plugin
+	
+# WorldGuard Flags
+
+	allow-pvp-on-day → Allows players to engage in combat even when it's daytime in a WorldGuard region (the "pvp" flag must be set to allow for it to work).
 
 # Permissions
 
-    dnp.admin -> /dnp command access.
-    dnp.losemoney.<percentage> -> Percentage of money the user should lose upon death.
+    dnp.admin → /dnp command access.
+    dnp.losemoney.<percentage> → Percentage of money the user should lose upon death.
+	dnp.bypasspvp → Allows the user to engage in combat even during the day.
