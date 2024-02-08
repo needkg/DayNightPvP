@@ -5,7 +5,7 @@ version: 14
 update-checker: true
 
 # Available languages: en-US, pt-BR, es-ES, ru-RU.
-language: pt-BR
+language: en-US
 
 daynightpvp:
   # List of worlds where the DayNightPvP effect should take place.

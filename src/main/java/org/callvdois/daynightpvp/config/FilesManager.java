@@ -79,6 +79,7 @@ public class FilesManager {
             DayNightPvP.getInstance().saveResource("config.yml", false);
         }
         ConfigManager.configFileConfig = YamlConfiguration.loadConfiguration(ConfigManager.configFile);
+        verifyConfigVersion();
 
         for (String fileName : langFiles) {
             if (!new File(DayNightPvP.getInstance().getDataFolder(), fileName).exists()) {
@@ -86,6 +87,7 @@ public class FilesManager {
             }
         }
         langManager.getLanguageFileSelected();
+        verfiyLangsVersion();
     }
 
 }

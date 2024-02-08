@@ -66,8 +66,6 @@ public class DayNightPvP extends JavaPlugin {
         ConsoleUtils.startMessage();
 
         filesManager.createFiles();
-        filesManager.verifyConfigVersion();
-        filesManager.verfiyLangsVersion();
 
         timeChecker.run();
 
