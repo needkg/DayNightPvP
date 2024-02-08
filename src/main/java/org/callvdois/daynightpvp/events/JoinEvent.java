@@ -5,7 +5,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.callvdois.daynightpvp.DayNightPvP;
-import org.callvdois.daynightpvp.config.ConfigManager;
 import org.callvdois.daynightpvp.service.UpdateChecker;
 
 public class JoinEvent implements Listener {

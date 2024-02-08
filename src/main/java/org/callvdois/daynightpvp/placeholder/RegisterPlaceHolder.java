@@ -1,7 +1,6 @@
 package org.callvdois.daynightpvp.placeholder;
 
 import org.callvdois.daynightpvp.DayNightPvP;
-import org.callvdois.daynightpvp.config.ConfigManager;
 
 public class RegisterPlaceHolder {
 
