@@ -117,8 +117,7 @@ public class InventoryEvent implements Listener {
 
                 configManager.setValue("language", itemID);
                 configManager.saveConfig();
-
-                filesManager.reloadPlugin();
+                langManager.getLanguageFileSelected();
 
                 player.sendMessage(langManager.getString("feedback-select-lang").replace("{0}", itemID));
 
