@@ -49,7 +49,7 @@ public class TimeChecker {
     private void handleNight(World world) {
         if (!worldsPvpOn.contains(world)) {
             worldsPvpOn.add(world);
-            ConsoleUtils.info("DayNightPvP - It's night in \"" + world.getName() + "\"");
+            ConsoleUtils.info("[DayNightPvP] It's night in \"" + world.getName() + "\"");
         }
         worldsPvpOff.remove(world);
     }
@@ -57,7 +57,7 @@ public class TimeChecker {
     private void handleDay(World world) {
         if (!worldsPvpOff.contains(world)) {
             worldsPvpOff.add(world);
-            ConsoleUtils.info("DayNightPvP - It's day in \"" + world.getName() + "\"");
+            ConsoleUtils.info("[DayNightPvP] It's day in \"" + world.getName() + "\"");
         }
         worldsPvpOn.remove(world);
     }

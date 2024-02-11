@@ -32,6 +32,23 @@ public class ItemUtils {
         return item;
     }
 
+    public static ItemStack createCustomHeadExtendedDescription(String name, String id, List<String> description, String url) {
+        ItemStack item = getHead(url);
+
+        ItemMeta itemMeta = item.getItemMeta();
+        itemMeta.setDisplayName(name);
+        List<String> itemLore = new ArrayList<>();
+
+        for (String part : description) {
+            itemLore.add(part);
+        }
+
+        itemMeta.setLore(itemLore);
+        itemMeta.setLocalizedName(id);
+        item.setItemMeta(itemMeta);
+        return item;
+    }
+
     public static ItemStack createItem(String name, String id, String description, Material material) {
         ItemStack item = new ItemStack(material);
         ItemMeta itemMeta = item.getItemMeta();
