@@ -1,5 +1,5 @@
 # Esta es la versión del archivo, NO MODIFICAR.
-version: 10
+version: 11
 
 # Estados
 state-enabled: "&aActivado"
@@ -21,6 +21,7 @@ feedback-select-lang: "&a&l¡Éxito! &7Archivo de idioma cambiado a \"{0}\""
 feedback-lose-money: "&e&l¡Advertencia! &7Has muerto por &b{0} &7y perdiste &c${1}"
 feedback-win-money: "&e&l¡Advertencia! &7Has matado a &b{0} &7y ganaste &a${1}"
 feedback-non-existent-command: "&c&l¡Error! &7Este comando no existe!"
+feedback-error: "&c&lERROR!"
 
 # Interfaz gráfica
 gui-languages-button: "&aIdiomas"
