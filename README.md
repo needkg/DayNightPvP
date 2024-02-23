@@ -10,7 +10,9 @@ day.
 
 # Download
 [Spigot](https://www.spigotmc.org/resources/daynightpvp-dynamic-pvp-for-day-night.102250/)
+
 [Modrinth](https://modrinth.com/plugin/daynightpvp)
+
 [Github](https://github.com/CallVDois/DayNightPvP/releases/latest)
 
 # Support
