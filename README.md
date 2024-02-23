@@ -1,3 +1,5 @@
+
+
 # DayNightPvP
 
 Dynamic Minecraft PvP Plugin for your server!
@@ -6,8 +8,10 @@ DayNightPvP is a plugin that adds a unique and thrilling PvP experience to your 
 and an easy-to-use interface, you can create a dynamic PvP cycle, activated during the night and deactivated during the
 day.
 
-Download
-release: [spigotmc.org](https://www.spigotmc.org/resources/daynightpvp-dynamic-pvp-for-day-night.102250/) [modrinth.com](https://modrinth.com/plugin/daynightpvp)
+# Download
+[Spigot](https://www.spigotmc.org/resources/daynightpvp-dynamic-pvp-for-day-night.102250/)
+[Modrinth](https://modrinth.com/plugin/daynightpvp)
+[Github](https://github.com/CallVDois/DayNightPvP/releases/latest)
 
 # Support
 
