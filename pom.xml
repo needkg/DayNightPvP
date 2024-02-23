@@ -7,7 +7,7 @@
     <groupId>com.needkg</groupId>
     <artifactId>DayNightPvP</artifactId>
     <name>DayNightPvP</name>
-    <version>1.2.5.1</version>
+    <version>1.2.5.2</version>
     <packaging>jar</packaging>
 
     <properties>
