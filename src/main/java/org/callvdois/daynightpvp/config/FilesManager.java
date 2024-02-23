@@ -32,7 +32,7 @@ public class FilesManager {
         fileOutdated = "[DayNightPvP] The {0} file was an outdated version. it has been replaced by the new version.";
 
         configVersion = 14;
-        langVersion = 11;
+        langVersion = 12;
         langFiles = Arrays.asList("lang/en-US.yml", "lang/pt-BR.yml", "lang/es-ES.yml", "lang/ru-RU.yml");
     }
 
