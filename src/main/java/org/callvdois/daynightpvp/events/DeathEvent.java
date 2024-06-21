@@ -26,9 +26,9 @@ public class DeathEvent implements Listener {
         Player killed = event.getEntity();
         Player killer = event.getEntity().getKiller();
         String world = event.getEntity().getWorld().getName();
-        List<String> worldList = configManager.getList("daynightpvp.worlds");
+        List<String> worldList = configManager.getDayNightPvpWorlds();
 
-        if (configManager.getBoolean("pvp.keep-inventory-when-killed-by-player")) {
+        if (configManager.getPvpKeepInventoryWhenKilledByPlayer()) {
             if (killer != null) {
                 if (SearchUtils.stringExistInList(worldList, world)) {
                     event.setKeepInventory(true);
@@ -39,7 +39,7 @@ public class DeathEvent implements Listener {
         }
 
         Bukkit.getScheduler().runTaskAsynchronously(DayNightPvP.getInstance(), () -> {
-            if (configManager.getBoolean("vault.lose-money-on-death.enabled") && DayNightPvP.vaultIsPresent) {
+            if (configManager.getVaultLoseMoneyOnDeathEnabled() && DayNightPvP.vaultIsPresent) {
                 if (killer != null) {
                     for (PermissionAttachmentInfo permission : event.getEntity().getEffectivePermissions()) {
                         if (permission.getPermission().startsWith("dnp.losemoney")) {

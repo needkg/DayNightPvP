@@ -48,13 +48,13 @@ public class PvpStatus extends PlaceholderExpansion {
             boolean pvpStatus;
 
             World world = player.getWorld();
-            if (SearchUtils.stringExistInList(configManager.getList("daynightpvp.worlds"), world.getName())) {
+            if (SearchUtils.stringExistInList(configManager.getDayNightPvpWorlds(), world.getName())) {
                 long time = world.getTime();
-                pvpStatus = time >= configManager.getInt("daynightpvp.day-end");
+                pvpStatus = time >= configManager.getDayNightPvpDayEnd();
             } else {
-                return langManager.getString("feedback-error");
+                return langManager.getFeedbackError();
             }
-            return pvpStatus ? langManager.getString("placeholder-pvp-enabled") : langManager.getString("placeholder-pvp-disabled");
+            return pvpStatus ? langManager.getPlaceholderPvpEnabled() : langManager.getPlaceholderPvpDisabled();
         }
 
         if (params.startsWith("pvpstatus_")) {
@@ -62,14 +62,14 @@ public class PvpStatus extends PlaceholderExpansion {
             String worldName = params.substring("pvpstatus_".length());
             World world = Bukkit.getWorld(worldName);
             if (world != null) {
-                if (SearchUtils.stringExistInList(configManager.getList("daynightpvp.worlds"), world.getName())) {
+                if (SearchUtils.stringExistInList(configManager.getDayNightPvpWorlds(), world.getName())) {
                     long time = world.getTime();
-                    pvpStatus = time >= configManager.getInt("daynightpvp.day-end");
-                    return pvpStatus ? langManager.getString("placeholder-pvp-enabled") : langManager.getString("placeholder-pvp-disabled");
+                    pvpStatus = time >= configManager.getDayNightPvpDayEnd();
+                    return pvpStatus ? langManager.getPlaceholderPvpEnabled() : langManager.getPlaceholderPvpDisabled();
                 }
             }
         }
-        return langManager.getString("feedback-error");
+        return langManager.getFeedbackError();
     }
 
 }

@@ -35,7 +35,7 @@ public class PlayerUtils {
 
     public void sendTitleToAllPlayers(World world, String title, String subTitle) {
         for (Player player : world.getPlayers()) {
-            player.sendTitle(title, subTitle, configManager.getInt("notify-players.title.fade-in"), configManager.getInt("notify-players.title.stay"), configManager.getInt("notify-players.title.fade-out"));
+            player.sendTitle(title, subTitle, configManager.getNotifyPlayersTitleFadeIn(), configManager.getNotifyPlayersTitleStay(), configManager.getNotifyPlayersTitleFadeOut());
         }
     }
 }

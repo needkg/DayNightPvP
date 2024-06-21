@@ -18,6 +18,7 @@ import org.callvdois.daynightpvp.gui.LanguageGui;
 import org.callvdois.daynightpvp.gui.MainGui;
 import org.callvdois.daynightpvp.gui.WorldGui;
 import org.callvdois.daynightpvp.gui.WorldsGui;
+import org.callvdois.daynightpvp.utils.ItemUtils;
 import org.callvdois.daynightpvp.utils.PlayerUtils;
 import org.callvdois.daynightpvp.utils.SearchUtils;
 import org.callvdois.daynightpvp.utils.WorldUtils;
@@ -55,8 +56,7 @@ public class InventoryEvent implements Listener {
             }
 
             event.setCancelled(true);
-            ItemMeta itemMeta = clickedItem.getItemMeta();
-            String itemID = itemMeta.getLocalizedName();
+            String itemID = ItemUtils.getID(clickedItem);
 
 
             Player player = (Player) event.getWhoClicked();
@@ -65,9 +65,10 @@ public class InventoryEvent implements Listener {
             switch (itemID) {
                 case "worldsButton":
                     worldsGui.open(player);
+                    break;
                 case "reloadButton":
                     filesManager.reloadPlugin();
-                    PlayerUtils.sendMessageToPlayer(player, langManager.getString("feedback-reload-plugin"));
+                    PlayerUtils.sendMessageToPlayer(player, langManager.getFeedbackReloadPlugin());
                     break;
                 case "languageButton":
                     languageGui.open(player);
@@ -86,16 +87,16 @@ public class InventoryEvent implements Listener {
                     PlayerUtils.playSoundToPlayer(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP);
                     break;
                 case "nightButton":
-                    WorldUtils.setTime(worldName, configManager.getInt("daynightpvp.day-end"));
+                    WorldUtils.setTime(worldName, configManager.getDayNightPvpDayEnd());
                     PlayerUtils.playSoundToPlayer(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP);
                     break;
                 case "setAutomaticPvpOn":
-                    configManager.addToList(worldName, "daynightpvp.worlds");
+                    configManager.addWorld(worldName);
                     filesManager.reloadPlugin();
                     PlayerUtils.playSoundToPlayer(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP);
                     break;
                 case "setAutomaticPvpOff":
-                    configManager.removeFromList(worldName, "daynightpvp.worlds");
+                    configManager.removeWorld(worldName);
                     filesManager.reloadPlugin();
                     PlayerUtils.playSoundToPlayer(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP);
                     break;
@@ -119,7 +120,7 @@ public class InventoryEvent implements Listener {
                 configManager.saveConfig();
                 langManager.getLanguageFileSelected();
 
-                player.sendMessage(langManager.getString("feedback-select-lang").replace("{0}", itemID));
+                player.sendMessage(langManager.getFeedbackSelectLang().replace("{0}", itemID));
 
                 mainGui.open(player);
             }
