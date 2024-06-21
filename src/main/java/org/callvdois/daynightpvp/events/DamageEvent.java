@@ -36,8 +36,8 @@ public class DamageEvent implements Listener {
 
         if (checkHooks(damagedPlayer, damager)) {
             event.setCancelled(true);
-            if (configManager.getBoolean("notify-players.chat.hit-another-player-during-the-day")) {
-                damager.sendMessage(langManager.getString("notify-pvp-disabled"));
+            if (configManager.getNotifyPlayersChatHitAnotherPlayerDuringTheDay()) {
+                damager.sendMessage(langManager.getNotifyPvpDisabled());
             }
         }
     }
@@ -50,8 +50,8 @@ public class DamageEvent implements Listener {
 
         if (checkHooks(damagedPlayer, damager)) {
             event.setCancelled(true);
-            if (configManager.getBoolean("notify-players.chat.hit-another-player-during-the-day")) {
-                damager.sendMessage(langManager.getString("notify-pvp-disabled"));
+            if (configManager.getNotifyPlayersChatHitAnotherPlayerDuringTheDay()) {
+                damager.sendMessage(langManager.getNotifyPvpDisabled());
             }
         }
 
@@ -68,8 +68,8 @@ public class DamageEvent implements Listener {
                         if (event.getAffectedEntities().contains(damagedPlayer) && damagedPlayer != damager) {
                             if (checkHooks(damagedPlayer, damager)) {
                                 event.setIntensity(damagedPlayer, 0.0);
-                                if (configManager.getBoolean("notify-players.chat.hit-another-player-during-the-day")) {
-                                    damager.sendMessage(langManager.getString("notify-pvp-disabled"));
+                                if (configManager.getNotifyPlayersChatHitAnotherPlayerDuringTheDay()) {
+                                    damager.sendMessage(langManager.getNotifyPvpDisabled());
                                 }
                             }
                         }
@@ -94,7 +94,7 @@ public class DamageEvent implements Listener {
         if (DayNightPvP.worldGuardIsPresent && AllowPvpOnDayFlag.checkState(damagedPlayer) && AllowPvpOnDayFlag.checkState(damager)) {
             return false;
         }
-        if (DayNightPvP.griefIsPresent && !configManager.getBoolean("griefprevention.pvp-in-land") && griefManager.verify(damagedPlayer, damager)) {
+        if (DayNightPvP.griefIsPresent && !configManager.getGriefPreventionPvpInLandEnabled() && griefManager.verify(damagedPlayer, damager)) {
             return true;
         }
         return WorldUtils.checkPlayerIsInWorld(damagedPlayer);

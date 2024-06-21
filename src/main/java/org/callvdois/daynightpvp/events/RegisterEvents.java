@@ -29,7 +29,7 @@ public class RegisterEvents {
     }
 
     private void registerJoinEvent() {
-        if (configManager.getBoolean("update-checker")) {
+        if (configManager.getUpdateChecker()) {
             pluginManager.registerEvents(new JoinEvent(), DayNightPvP.getInstance());
         }
     }
@@ -39,8 +39,8 @@ public class RegisterEvents {
     }
 
     private void registerDeathEvent() {
-        boolean vaultLoseMoneyOnDeath = configManager.getBoolean("vault.lose-money-on-death.enabled");
-        boolean keepInventoryWhenKilledByPlayer = configManager.getBoolean("pvp.keep-inventory-when-killed-by-player");
+        boolean vaultLoseMoneyOnDeath = configManager.getVaultLoseMoneyOnDeathEnabled();
+        boolean keepInventoryWhenKilledByPlayer = configManager.getPvpKeepInventoryWhenKilledByPlayer();
 
         if (vaultLoseMoneyOnDeath || keepInventoryWhenKilledByPlayer) {
             pluginManager.registerEvents(new DeathEvent(), DayNightPvP.getInstance());

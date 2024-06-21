@@ -32,7 +32,7 @@ public class TimeChecker {
     }
 
     private void listWorlds() {
-        List<String> worldsList = configManager.getList("daynightpvp.worlds");
+        List<String> worldsList = configManager.getDayNightPvpWorlds();
         World[] worlds = getWorlds(worldsList);
 
         for (World world : worlds) {
@@ -72,35 +72,35 @@ public class TimeChecker {
 
     public boolean checkTime(World world) {
         long currentWorldTime = world.getTime();
-        if (currentWorldTime < configManager.getInt("daynightpvp.day-end")) {
+        if (currentWorldTime < configManager.getDayNightPvpDayEnd()) {
             if (!worldsPvpOff.contains(world)) {
-                if (configManager.getBoolean("daynightpvp.automatic-difficulty.enabled")) {
-                    world.setDifficulty(Difficulty.valueOf(configManager.getString("daynightpvp.automatic-difficulty.day").toUpperCase()));
+                if (configManager.getDayNightPvpAutomaticDifficultyEnabled()) {
+                    world.setDifficulty(Difficulty.valueOf(configManager.getDayNightPvpAutomaticDifficultyDay().toUpperCase()));
                 }
-                if (configManager.getBoolean("notify-players.chat.day-night-starts")) {
-                    PlayerUtils.sendMessageToAllPlayers(world, langManager.getString("notify-day-chat"));
+                if (configManager.getNotifyPlayersChatDayNightStarts()) {
+                    PlayerUtils.sendMessageToAllPlayers(world, langManager.getNotifyDayChat());
                 }
-                if (configManager.getBoolean("notify-players.title.enabled")) {
-                    playerUtils.sendTitleToAllPlayers(world, langManager.getString("notify-day-title"), langManager.getString("notify-day-subtitle"));
+                if (configManager.getNotifyPlayersTitleEnabled()) {
+                    playerUtils.sendTitleToAllPlayers(world, langManager.getNotifyDayTitle(), langManager.getNotifyDaySubtitle());
                 }
-                if (configManager.getBoolean("notify-players.sound.enabled")) {
-                    PlayerUtils.playSoundToAllPlayers(world, Sound.valueOf(configManager.getString("notify-players.sound.day.sound")));
+                if (configManager.getNotifyPlayersSoundEnabled()) {
+                    PlayerUtils.playSoundToAllPlayers(world, Sound.valueOf(configManager.getNotifyPlayersSoundDay()));
                 }
             }
             return false;
         } else {
             if (!worldsPvpOn.contains(world)) {
-                if (configManager.getBoolean("daynightpvp.automatic-difficulty.enabled")) {
-                    world.setDifficulty(Difficulty.valueOf(configManager.getString("daynightpvp.automatic-difficulty.night").toUpperCase()));
+                if (configManager.getDayNightPvpAutomaticDifficultyEnabled()) {
+                    world.setDifficulty(Difficulty.valueOf(configManager.getDayNightPvpAutomaticDifficultyNight().toUpperCase()));
                 }
-                if (configManager.getBoolean("notify-players.chat.day-night-starts")) {
-                    PlayerUtils.sendMessageToAllPlayers(world, langManager.getString("notify-night-chat"));
+                if (configManager.getNotifyPlayersChatDayNightStarts()) {
+                    PlayerUtils.sendMessageToAllPlayers(world, langManager.getNotifyNightChat());
                 }
-                if (configManager.getBoolean("notify-players.title.enabled")) {
-                    playerUtils.sendTitleToAllPlayers(world, langManager.getString("notify-night-title"), langManager.getString("notify-night-subtitle"));
+                if (configManager.getNotifyPlayersTitleEnabled()) {
+                    playerUtils.sendTitleToAllPlayers(world, langManager.getNotifyNightTitle(), langManager.getNotifyNightSubtitle());
                 }
-                if (configManager.getBoolean("notify-players.sound.enabled")) {
-                    PlayerUtils.playSoundToAllPlayers(world, Sound.valueOf(configManager.getString("notify-players.sound.night.sound")));
+                if (configManager.getNotifyPlayersSoundEnabled()) {
+                    PlayerUtils.playSoundToAllPlayers(world, Sound.valueOf(configManager.getNotifyPlayersSoundNight()));
                 }
             }
             return true;

@@ -34,10 +34,10 @@ public class DnpCommand implements CommandExecutor {
                 if (args.length == 1) {
                     if (args[0].equals("reload")) {
                         filesManager.reloadPlugin();
-                        PlayerUtils.sendMessageToPlayer(player, langManager.getString("feedback-reload-plugin"));
+                        PlayerUtils.sendMessageToPlayer(player, langManager.getFeedbackReloadPlugin());
                         return true;
                     } else {
-                        PlayerUtils.sendMessageToPlayer(player, langManager.getString("feedback-non-existent-command"));
+                        PlayerUtils.sendMessageToPlayer(player, langManager.getFeedbackNonExistentCommand());
                         return false;
                     }
                 }

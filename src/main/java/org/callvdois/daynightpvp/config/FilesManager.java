@@ -31,7 +31,7 @@ public class FilesManager {
         langManager = new LangManager();
         fileOutdated = "[DayNightPvP] The {0} file was an outdated version. it has been replaced by the new version.";
 
-        configVersion = 14;
+        configVersion = 15;
         langVersion = 12;
         langFiles = Arrays.asList("lang/en-US.yml", "lang/pt-BR.yml", "lang/es-ES.yml", "lang/ru-RU.yml");
     }
@@ -48,7 +48,7 @@ public class FilesManager {
         if (!(configVersion == configManager.getVersion())) {
             resetFile("config.yml");
             ConsoleUtils.warning(fileOutdated.replace("{0}", "config.yml"));
-            ConfigManager.configFileConfig = YamlConfiguration.loadConfiguration(ConfigManager.configFile);
+            ConfigManager.fileConfiguration = YamlConfiguration.loadConfiguration(ConfigManager.file);
         }
     }
 
@@ -74,11 +74,11 @@ public class FilesManager {
     }
 
     public void createFiles() {
-        ConfigManager.configFile = new File(DayNightPvP.getInstance().getDataFolder(), "config.yml");
-        if (!ConfigManager.configFile.exists()) {
+        ConfigManager.file = new File(DayNightPvP.getInstance().getDataFolder(), "config.yml");
+        if (!ConfigManager.file.exists()) {
             DayNightPvP.getInstance().saveResource("config.yml", false);
         }
-        ConfigManager.configFileConfig = YamlConfiguration.loadConfiguration(ConfigManager.configFile);
+        ConfigManager.fileConfiguration = YamlConfiguration.loadConfiguration(ConfigManager.file);
         verifyConfigVersion();
 
         for (String fileName : langFiles) {
