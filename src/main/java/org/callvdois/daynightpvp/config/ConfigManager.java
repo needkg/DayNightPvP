@@ -1,8 +1,10 @@
 package org.callvdois.daynightpvp.config;
 
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ConfigManager {
@@ -48,8 +50,38 @@ public class ConfigManager {
         return fileConfiguration.getString("language");
     }
 
+    public Boolean getDayNightDuration() {
+        return fileConfiguration.getBoolean("day-night-duration.enabled");
+    }
+
+    public int getDayNightDurationDayDuration() {
+        return fileConfiguration.getInt("day-night-duration.day-duration");
+    }
+
+    public int getDayNightDurationNightDuration() {
+        return fileConfiguration.getInt("day-night-duration.night-duration");
+    }
+
+    public List<String> getDayNightDurationWorlds() {
+        List<String> worldList = fileConfiguration.getStringList("day-night-duration.worlds");
+        List<String> newWorldList = new ArrayList<>();
+        for (String worldName : worldList) {
+            if (Bukkit.getWorld(worldName) != null) {
+                newWorldList.add(worldName);
+            }
+        }
+        return newWorldList;
+    }
+
     public List<String> getDayNightPvpWorlds() {
-        return fileConfiguration.getStringList("daynightpvp.worlds");
+        List<String> worldList = fileConfiguration.getStringList("daynightpvp.worlds");
+        List<String> newWorldList = new ArrayList<>();
+        for (String worldName : worldList) {
+            if (Bukkit.getWorld(worldName) != null) {
+                newWorldList.add(worldName);
+            }
+        }
+        return newWorldList;
     }
 
     public int getDayNightPvpDayEnd() {

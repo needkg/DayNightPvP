@@ -7,7 +7,7 @@
     <groupId>com.needkg</groupId>
     <artifactId>DayNightPvP</artifactId>
     <name>DayNightPvP</name>
-    <version>1.2.5.3</version>
+    <version>1.2.5.4</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -31,7 +31,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.2.0</version>
+                <version>3.4.2</version>
                 <configuration>
                     <finalName>${project.name}-${project.version}</finalName>
                     <outputDirectory>D:\Tranqueiras\Minecraft\Servidores\Debug\plugins</outputDirectory>
@@ -41,7 +41,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>3.13.0</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>

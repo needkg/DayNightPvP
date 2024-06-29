@@ -4,7 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
 import org.bukkit.Sound;
 import org.bukkit.World;
-import org.callvdois.daynightpvp.DayNightPvP;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.callvdois.daynightpvp.config.ConfigManager;
 import org.callvdois.daynightpvp.config.LangManager;
 import org.callvdois.daynightpvp.utils.ConsoleUtils;
@@ -13,35 +13,29 @@ import org.callvdois.daynightpvp.utils.PlayerUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TimeChecker {
+public class TimeCheckerService extends BukkitRunnable {
 
-    public static List<World> worldsPvpOff = new ArrayList<>();
-    public static List<World> worldsPvpOn = new ArrayList<>();
     private final ConfigManager configManager;
     private final LangManager langManager;
     private final PlayerUtils playerUtils;
+    public static List<World> worldsPvpOff = new ArrayList<>();
+    public static List<World> worldsPvpOn = new ArrayList<>();
 
-    public TimeChecker() {
+    public TimeCheckerService() {
         configManager = new ConfigManager();
         langManager = new LangManager();
         playerUtils = new PlayerUtils();
     }
 
+    @Override
     public void run() {
-        Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(DayNightPvP.getInstance(), this::listWorlds, 20L, 20L);
-    }
-
-    private void listWorlds() {
-        List<String> worldsList = configManager.getDayNightPvpWorlds();
-        World[] worlds = getWorlds(worldsList);
-
+        List<String> worldList = configManager.getDayNightPvpWorlds();
+        World[] worlds = getWorlds(worldList);
         for (World world : worlds) {
-            if (world != null) {
-                if (checkTime(world)) {
-                    handleNight(world);
-                } else {
-                    handleDay(world);
-                }
+            if (checkTime(world)) {
+                handleNight(world);
+            } else {
+                handleDay(world);
             }
         }
     }

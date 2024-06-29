@@ -1,5 +1,5 @@
 # This is the version of the file, DO NOT MODIFY.
-version: 15
+version: 16
 
 ## Enables or disables the update checker (recommended to use as true).
 # Setting type: Boolean
@@ -9,6 +9,23 @@ update-checker: true
 ## Available languages: en-US, pt-BR, es-ES, ru-RU.
 # Setting type: String
 language: en-US
+
+day-night-duration:
+  ## Enable or disable day/night duration customization.
+  # Setting type: Boolean
+  # Default value: false
+  enabled: false
+  ## Day/night duration in seconds
+  # Setting type: Int
+  # Default value: 600
+  day-duration: 600
+  night-duration: 600
+  ## List of worlds where the plugin should alter the day/night duration
+  # Setting type: String List
+  worlds:
+    - world
+    - worldNameExample
+    - MiningWorld
 
 ## Main feature settings.
 daynightpvp:
@@ -20,9 +37,9 @@ daynightpvp:
     - MiningWorld
   ## Defines when the day should end.
   # Setting type: Int
-  # Default value: 12900
+  # Default value: 12000
   # Setting range: 0 - 24000
-  day-end: 12900
+  day-end: 12000
   ## Automatic difficulty settings.
   automatic-difficulty:
     ## If set to true, the difficulty in the world should be changed to the configured value.

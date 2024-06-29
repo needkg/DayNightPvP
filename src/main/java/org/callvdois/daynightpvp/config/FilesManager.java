@@ -6,6 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.callvdois.daynightpvp.DayNightPvP;
 import org.callvdois.daynightpvp.events.RegisterEvents;
 import org.callvdois.daynightpvp.placeholder.RegisterPlaceHolder;
+import org.callvdois.daynightpvp.service.ServiceManager;
 import org.callvdois.daynightpvp.utils.ConsoleUtils;
 
 import java.io.File;
@@ -23,15 +24,18 @@ public class FilesManager {
     private final RegisterPlaceHolder registerPlaceHolder;
     private final ConfigManager configManager;
     private final LangManager langManager;
+    private final ServiceManager serviceManager;
 
     public FilesManager() {
         registerEvents = new RegisterEvents();
         registerPlaceHolder = new RegisterPlaceHolder();
         configManager = new ConfigManager();
         langManager = new LangManager();
+        serviceManager = new ServiceManager();
+
         fileOutdated = "[DayNightPvP] The {0} file was an outdated version. it has been replaced by the new version.";
 
-        configVersion = 15;
+        configVersion = 16;
         langVersion = 12;
         langFiles = Arrays.asList("lang/en-US.yml", "lang/pt-BR.yml", "lang/es-ES.yml", "lang/ru-RU.yml");
     }
@@ -63,14 +67,16 @@ public class FilesManager {
         }
     }
 
-    private void resetFile(String path) {
-        DayNightPvP.getInstance().saveResource(path, true);
-    }
-
     public void reloadPlugin() {
         createFiles();
         registerEvents.register();
         registerPlaceHolder.register();
+        serviceManager.stopServices();
+        //serviceManager.startServices();
+    }
+
+    private void resetFile(String path) {
+        DayNightPvP.getInstance().saveResource(path, true);
     }
 
     public void createFiles() {
