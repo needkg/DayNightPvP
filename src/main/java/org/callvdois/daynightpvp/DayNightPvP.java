@@ -60,7 +60,7 @@ public class DayNightPvP extends JavaPlugin {
 
     private void load() {
 
-        verifyCompabilityPlugins();
+        verifyCompatibilityPlugins();
 
         if (worldGuardIsPresent) {
             worldGuardManager.register();
@@ -83,7 +83,7 @@ public class DayNightPvP extends JavaPlugin {
         metricsManager.register();
     }
 
-    private void verifyCompabilityPlugins() {
+    private void verifyCompatibilityPlugins() {
         vaultIsPresent = PluginUtils.isPluginInstalled("Vault");
         worldGuardIsPresent = PluginUtils.isPluginInstalled("WorldGuard");
         griefIsPresent = PluginUtils.isPluginInstalled("GriefPrevention");
