@@ -116,7 +116,6 @@ public class InventoryEvent implements Listener {
                 PlayerUtils.playSoundToPlayer(player, Sound.BLOCK_NOTE_BLOCK_HAT);
 
                 configManager.setValue("language", itemID);
-                configManager.saveConfig();
                 langManager.getLanguageFileSelected();
 
                 player.sendMessage(langManager.getFeedbackSelectLang().replace("{0}", itemID));

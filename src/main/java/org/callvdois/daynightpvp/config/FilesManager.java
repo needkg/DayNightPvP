@@ -77,8 +77,8 @@ public class FilesManager {
         serviceManager.startServices();
     }
 
-    private void resetFile(String path) {
-        DayNightPvP.getInstance().saveResource(path, true);
+    public void resetFile(String fileName) {
+        DayNightPvP.getInstance().saveResource(fileName, true);
     }
 
     public void createFiles() {
