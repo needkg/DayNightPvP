@@ -1,13 +1,11 @@
 package org.callvdois.daynightpvp.service;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.callvdois.daynightpvp.config.ConfigManager;
 import org.callvdois.daynightpvp.config.LangManager;
-import org.callvdois.daynightpvp.utils.ConsoleUtils;
 import org.callvdois.daynightpvp.utils.PlayerUtils;
 
 import java.util.ArrayList;
@@ -29,9 +27,8 @@ public class TimeCheckerService extends BukkitRunnable {
 
     @Override
     public void run() {
-        List<String> worldList = configManager.getDayNightPvpWorlds();
-        World[] worlds = getWorlds(worldList);
-        for (World world : worlds) {
+        List<World> worldList = configManager.getDayNightPvpWorlds();
+        for (World world : worldList) {
             if (checkTime(world)) {
                 handleNight(world);
             } else {
@@ -54,14 +51,6 @@ public class TimeCheckerService extends BukkitRunnable {
             //ConsoleUtils.info("[DayNightPvP] It's day in \"" + world.getName() + "\"");
         }
         worldsPvpOn.remove(world);
-    }
-
-    private World[] getWorlds(List<String> worldsList) {
-        World[] worlds = new World[worldsList.size()];
-        for (int i = 0; i < worldsList.size(); i++) {
-            worlds[i] = Bukkit.getWorld(worldsList.get(i));
-        }
-        return worlds;
     }
 
     public boolean checkTime(World world) {

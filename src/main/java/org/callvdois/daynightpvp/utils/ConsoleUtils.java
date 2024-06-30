@@ -9,10 +9,6 @@ public class ConsoleUtils {
         Bukkit.getLogger().warning(message);
     }
 
-    public static void info(String message) {
-        Bukkit.getLogger().info(message);
-    }
-
     public static void startMessage() {
         Bukkit.getConsoleSender().sendMessage("   §9 _     _");
         Bukkit.getConsoleSender().sendMessage("   §9| \\|\\||_)" + "   §3DayNightPvP §8v" + DayNightPvP.getInstance().getDescription().getVersion());

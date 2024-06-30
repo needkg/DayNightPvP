@@ -1,6 +1,7 @@
 package org.callvdois.daynightpvp.config;
 
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.io.File;
@@ -20,16 +21,16 @@ public class ConfigManager {
         }
     }
 
-    public void addWorld(String world) {
-        List<String> worldList = getDayNightPvpWorlds();
-        worldList.add(world);
+    public void addWorld(String worldName) {
+        List<World> worldList = getDayNightPvpWorlds();
+        worldList.add(Bukkit.getWorld(worldName));
         fileConfiguration.set("daynightpvp.worlds", worldList);
         saveConfig();
     }
 
-    public void removeWorld(String world) {
-        List<String> worldList = getDayNightPvpWorlds();
-        worldList.remove(world);
+    public void removeWorld(String worldName) {
+        List<World> worldList = getDayNightPvpWorlds();
+        worldList.remove(Bukkit.getWorld(worldName));
         fileConfiguration.set("daynightpvp.worlds", worldList);
         saveConfig();
     }
@@ -62,27 +63,49 @@ public class ConfigManager {
         return fileConfiguration.getInt("day-night-duration.night-duration");
     }
 
-    public List<String> getDayNightDurationWorlds() {
-        List<String> worldList = fileConfiguration.getStringList("day-night-duration.worlds");
-        List<String> newWorldList = new ArrayList<>();
-        for (String worldName : worldList) {
+    public List<World> getDayNightDurationWorlds() {
+        List<String> worldNameList = fileConfiguration.getStringList("day-night-duration.worlds");
+        List<World> worldList = new ArrayList<>();
+        for (String worldName : worldNameList) {
             if (Bukkit.getWorld(worldName) != null) {
-                newWorldList.add(worldName);
+                worldList.add(Bukkit.getWorld(worldName));
             }
         }
-        return newWorldList;
+        return worldList;
     }
 
-    public List<String> getDayNightPvpWorlds() {
-        List<String> worldList = fileConfiguration.getStringList("daynightpvp.worlds");
-        List<String> newWorldList = new ArrayList<>();
-        for (String worldName : worldList) {
+    //public List<String> getDayNightDurationWorlds() {
+    //    List<String> worldList = fileConfiguration.getStringList("day-night-duration.worlds");
+    //    List<String> newWorldList = new ArrayList<>();
+    //    for (String worldName : worldList) {
+    //        if (Bukkit.getWorld(worldName) != null) {
+    //            newWorldList.add(worldName);
+    //        }
+    //    }
+    //    return newWorldList;
+    //}
+
+    public List<World> getDayNightPvpWorlds() {
+        List<String> worldNameList = fileConfiguration.getStringList("daynightpvp.worlds");
+        List<World> worldList = new ArrayList<>();
+        for (String worldName : worldNameList) {
             if (Bukkit.getWorld(worldName) != null) {
-                newWorldList.add(worldName);
+                worldList.add(Bukkit.getWorld(worldName));
             }
         }
-        return newWorldList;
+        return worldList;
     }
+
+    //public List<String> getDayNightPvpWorlds() {
+    //    List<String> worldList = fileConfiguration.getStringList("daynightpvp.worlds");
+    //    List<String> newWorldList = new ArrayList<>();
+    //    for (String worldName : worldList) {
+    //        if (Bukkit.getWorld(worldName) != null) {
+    //            newWorldList.add(worldName);
+    //        }
+    //    }
+    //    return newWorldList;
+    //}
 
     public int getDayNightPvpDayEnd() {
         return fileConfiguration.getInt("daynightpvp.day-end");

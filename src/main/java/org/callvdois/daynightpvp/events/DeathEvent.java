@@ -1,6 +1,7 @@
 package org.callvdois.daynightpvp.events;
 
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -25,12 +26,12 @@ public class DeathEvent implements Listener {
     public void onPlayerDeath(PlayerDeathEvent event) {
         Player killed = event.getEntity();
         Player killer = event.getEntity().getKiller();
-        String world = event.getEntity().getWorld().getName();
-        List<String> worldList = configManager.getDayNightPvpWorlds();
+        World world = event.getEntity().getWorld();
+        List<World> worldList = configManager.getDayNightPvpWorlds();
 
         if (configManager.getPvpKeepInventoryWhenKilledByPlayer()) {
             if (killer != null) {
-                if (SearchUtils.stringExistInList(worldList, world)) {
+                if (SearchUtils.worldExistsInList(worldList, world.getName())) {
                     event.setKeepInventory(true);
                     event.getDrops().clear();
                     event.setKeepLevel(true);

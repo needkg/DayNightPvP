@@ -2,6 +2,7 @@ package org.callvdois.daynightpvp.vault;
 
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.callvdois.daynightpvp.config.ConfigManager;
 import org.callvdois.daynightpvp.config.LangManager;
@@ -11,7 +12,7 @@ import java.util.List;
 
 public class LoseMoneyOnDeath {
 
-    public static void loseMoneyOnDeath(Player killed, Player killer, String world, List<String> worldList, String percentage) {
+    public static void loseMoneyOnDeath(Player killed, Player killer, World world, List<World> worldList, String percentage) {
         ConfigManager configManager = new ConfigManager();
         LangManager langManager = new LangManager();
         boolean onlyNight = configManager.getVaultLoseMoneyOnDeathOnlyAtNight();
@@ -26,9 +27,9 @@ public class LoseMoneyOnDeath {
             double amountRounded = Math.round(amount * 100.0) / 100.0;
 
             if (onlyNight) {
-                if (Bukkit.getWorld(world).getPVP()) {
+                if (world.getPVP()) {
                     if (onlyConfiguredWorlds) {
-                        if (SearchUtils.stringExistInList(worldList, world)) {
+                        if (SearchUtils.worldExistsInList(worldList, world.getName())) {
                             economy.withdrawPlayer(killed, amountRounded);
                             shouldWithdraw = true;
                             // noite e configurado
@@ -40,7 +41,7 @@ public class LoseMoneyOnDeath {
                     }
                 }
             } else if (onlyConfiguredWorlds) {
-                if (SearchUtils.stringExistInList(worldList, world)) {
+                if (SearchUtils.worldExistsInList(worldList, world.getName())) {
                     shouldWithdraw = true;
                     economy.withdrawPlayer(killed, amountRounded);
                     // dia/noite e configurado

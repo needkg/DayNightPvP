@@ -1,6 +1,5 @@
 package org.callvdois.daynightpvp.service;
 
-import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.callvdois.daynightpvp.config.ConfigManager;
@@ -20,8 +19,7 @@ public class DayNightDurationService extends BukkitRunnable {
         double dayTickIncrement = dayTicks / (configManager.getDayNightDurationDayDuration() * 20.0);
         double nightTickIncrement = nightTicks / (configManager.getDayNightDurationNightDuration() * 20.0);
 
-        for (String worldName : configManager.getDayNightDurationWorlds()) {
-            World world = Bukkit.getWorld(worldName);
+        for (World world : configManager.getDayNightDurationWorlds()) {
             long time = world.getTime();
             if (time < 12000) {
                 world.setTime((long) (time + dayTickIncrement));

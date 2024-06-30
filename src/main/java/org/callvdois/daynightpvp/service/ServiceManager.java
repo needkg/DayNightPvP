@@ -1,7 +1,7 @@
 package org.callvdois.daynightpvp.service;
 
-import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
+import org.bukkit.World;
 import org.bukkit.scheduler.BukkitTask;
 import org.callvdois.daynightpvp.DayNightPvP;
 import org.callvdois.daynightpvp.config.ConfigManager;
@@ -18,8 +18,8 @@ public class ServiceManager {
         DayNightPvP.serviceTasks.add(new TimeCheckerService().runTaskTimer(DayNightPvP.getInstance(), 0, 20));
         if (configManager.getDayNightDuration()) {
             DayNightPvP.serviceTasks.add(new DayNightDurationService().runTaskTimer(DayNightPvP.getInstance(), 0, 1));
-            for (String worldName : configManager.getDayNightDurationWorlds()) {
-                Bukkit.getWorld(worldName).setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
+            for (World world : configManager.getDayNightDurationWorlds()) {
+                world.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
             }
         }
     }
@@ -29,8 +29,8 @@ public class ServiceManager {
             stopService(task);
         }
         DayNightPvP.serviceTasks.clear();
-        for (String worldName : configManager.getDayNightDurationWorlds()) {
-            Bukkit.getWorld(worldName).setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true);
+        for (World world : configManager.getDayNightDurationWorlds()) {
+            world.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true);
         }
     }
 
