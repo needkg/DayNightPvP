@@ -55,7 +55,7 @@ public class WorldsGui {
     }
 
     public String verifyAutomaticPvpStatus(List<World> list, String worldName) {
-        if (SearchUtils.worldExistsInList(list, worldName)) {
+        if (SearchUtils.worldExistsInWorldList(list, worldName)) {
             return langManager.getStateEnabled();
         } else {
             return langManager.getStateDisabled();

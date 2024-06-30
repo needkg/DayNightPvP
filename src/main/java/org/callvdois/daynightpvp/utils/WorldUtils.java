@@ -15,7 +15,7 @@ public class WorldUtils {
 
     public static boolean checkPlayerIsInWorld(Player player) {
         String worldName = player.getWorld().getName();
-        return SearchUtils.worldExistsInList(TimeCheckerService.worldsPvpOff, worldName);
+        return SearchUtils.worldExistsInWorldList(TimeCheckerService.worldsPvpOff, worldName);
     }
 
 }

@@ -31,7 +31,7 @@ public class DeathEvent implements Listener {
 
         if (configManager.getPvpKeepInventoryWhenKilledByPlayer()) {
             if (killer != null) {
-                if (SearchUtils.worldExistsInList(worldList, world.getName())) {
+                if (SearchUtils.worldExistsInWorldList(worldList, world.getName())) {
                     event.setKeepInventory(true);
                     event.getDrops().clear();
                     event.setKeepLevel(true);

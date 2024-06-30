@@ -29,7 +29,7 @@ public class LoseMoneyOnDeath {
             if (onlyNight) {
                 if (world.getPVP()) {
                     if (onlyConfiguredWorlds) {
-                        if (SearchUtils.worldExistsInList(worldList, world.getName())) {
+                        if (SearchUtils.worldExistsInWorldList(worldList, world.getName())) {
                             economy.withdrawPlayer(killed, amountRounded);
                             shouldWithdraw = true;
                             // noite e configurado
@@ -41,7 +41,7 @@ public class LoseMoneyOnDeath {
                     }
                 }
             } else if (onlyConfiguredWorlds) {
-                if (SearchUtils.worldExistsInList(worldList, world.getName())) {
+                if (SearchUtils.worldExistsInWorldList(worldList, world.getName())) {
                     shouldWithdraw = true;
                     economy.withdrawPlayer(killed, amountRounded);
                     // dia/noite e configurado

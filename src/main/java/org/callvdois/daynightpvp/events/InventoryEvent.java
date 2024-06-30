@@ -9,7 +9,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.callvdois.daynightpvp.DayNightPvP;
 import org.callvdois.daynightpvp.config.ConfigManager;
 import org.callvdois.daynightpvp.config.FilesManager;
@@ -101,7 +100,7 @@ public class InventoryEvent implements Listener {
                     PlayerUtils.playSoundToPlayer(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP);
                     break;
             }
-            if (SearchUtils.worldExistsInList(Bukkit.getWorlds(), itemID)) {
+            if (SearchUtils.worldExistsInWorldList(Bukkit.getWorlds(), itemID)) {
                 World world = Bukkit.getWorld(itemID);
                 if (world != null) {
                     if (world.getEnvironment().equals(World.Environment.NORMAL)) {
@@ -113,7 +112,7 @@ public class InventoryEvent implements Listener {
             File folder = new File(DayNightPvP.getInstance().getDataFolder() + "/lang");
             File[] listOfFiles = folder.listFiles();
             assert listOfFiles != null;
-            if (SearchUtils.fileExistInListOfFiles(listOfFiles, itemID)) {
+            if (SearchUtils.fileExistsInFileList(listOfFiles, itemID)) {
                 PlayerUtils.playSoundToPlayer(player, Sound.BLOCK_NOTE_BLOCK_HAT);
 
                 configManager.setValue("language", itemID);
