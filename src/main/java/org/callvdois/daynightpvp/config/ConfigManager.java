@@ -1,8 +1,12 @@
 package org.callvdois.daynightpvp.config;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Difficulty;
+import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.callvdois.daynightpvp.DayNightPvP;
+import org.callvdois.daynightpvp.utils.ConsoleUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -13,12 +17,22 @@ public class ConfigManager {
     public static File file;
     public static FileConfiguration fileConfiguration;
 
+    public void setValue(String path, Object value) {
+        fileConfiguration.set(path, value);
+        saveConfig();
+    }
+
     public void saveConfig() {
         try {
             fileConfiguration.save(file);
-        } catch (Exception ignore) {
-
+        } catch (Exception e) {
+            ConsoleUtils.warning("Error saving configuration file, resetting...");
+            resetFile("config.yml");
         }
+    }
+
+    public void resetFile(String fileName) {
+        DayNightPvP.getInstance().saveResource(fileName, true);
     }
 
     public void addWorld(String worldName) {
@@ -35,8 +49,109 @@ public class ConfigManager {
         saveConfig();
     }
 
-    public void setValue(String path, String value) {
-        fileConfiguration.set(path, value);
+    public int getInt(String path, Integer defaultValue) {
+
+        String configValue = fileConfiguration.getString(path);
+
+        if (configValue == null) {
+            resetFile("config.yml");
+            return defaultValue;
+        }
+
+        try {
+            return Integer.parseInt(configValue);
+        } catch (Exception e) {
+            setValue(path, defaultValue);
+            return defaultValue;
+        }
+    }
+
+    public Difficulty getDifficulty(String path, Difficulty defaultValue) {
+
+        String configValue = fileConfiguration.getString(path);
+
+        if (configValue == null) {
+            resetFile("config.yml");
+            return defaultValue;
+        }
+
+        try {
+            return Difficulty.valueOf(configValue.toUpperCase());
+        } catch (Exception e) {
+            setValue(path, defaultValue.name());
+            return defaultValue;
+        }
+    }
+
+    public Sound getSound(String path, Sound defaultValue) {
+
+        String configValue = fileConfiguration.getString(path);
+
+        if (configValue == null) {
+            resetFile("config.yml");
+            return defaultValue;
+        }
+
+        try {
+            return Sound.valueOf(configValue.toUpperCase());
+        } catch (Exception e) {
+            setValue(path, defaultValue.name());
+            return defaultValue;
+        }
+    }
+
+    public String getString(String path, String defaultValue) {
+        String configValue = fileConfiguration.getString(path);
+
+        if (configValue == null) {
+            resetFile("config.yml");
+            return defaultValue;
+        }
+
+        return configValue;
+    }
+
+    public boolean getBoolean(String path, Boolean defaultValue) {
+        String configValue = fileConfiguration.getString(path);
+
+        if (configValue == null) {
+            resetFile("config.yml");
+            return defaultValue;
+        }
+
+        if (configValue.equalsIgnoreCase("true") || configValue.equalsIgnoreCase("false")) {
+            return Boolean.parseBoolean(configValue);
+        } else {
+            setValue(path, defaultValue);
+            return defaultValue;
+        }
+    }
+
+    public List<World> getWorldList(String path, List<String> defaultValue) {
+
+        List<String> configValue = fileConfiguration.getStringList(path);
+        List<World> worldList = new ArrayList<>();
+
+        // Se a lista de String estiver vazia, reseta a configuração e retorna o valor padrão.
+        if (configValue.isEmpty()) {
+            resetFile("config.yml");
+
+            for (String worldName : defaultValue) {
+                if (Bukkit.getWorld(worldName) != null) {
+                    worldList.add(Bukkit.getWorld(worldName));
+                }
+            }
+            setValue(path, defaultValue);
+            return worldList;
+        }
+
+        // Verifica e transforma a lista de String em mundos validos.
+        for (String worldName : configValue) {
+            if (Bukkit.getWorld(worldName) != null) {
+                worldList.add(Bukkit.getWorld(worldName));
+            }
+        }
+        return worldList;
     }
 
     public int getVersion() {
@@ -44,142 +159,114 @@ public class ConfigManager {
     }
 
     public boolean getUpdateChecker() {
-        return fileConfiguration.getBoolean("update-checker");
+        return getBoolean("update-checker", true);
     }
 
     public String getLanguage() {
-        return fileConfiguration.getString("language");
+        return getString("language", "en-US");
     }
 
-    public Boolean getDayNightDuration() {
-        return fileConfiguration.getBoolean("day-night-duration.enabled");
+    public Boolean getDayNightDurationEnabled() {
+        return getBoolean("day-night-duration.enabled", false);
     }
 
     public int getDayNightDurationDayDuration() {
-        return fileConfiguration.getInt("day-night-duration.day-duration");
+        return getInt("day-night-duration.day-duration", 600);
     }
 
     public int getDayNightDurationNightDuration() {
-        return fileConfiguration.getInt("day-night-duration.night-duration");
+        return getInt("day-night-duration.night-duration", 600);
     }
 
     public List<World> getDayNightDurationWorlds() {
-        List<String> worldNameList = fileConfiguration.getStringList("day-night-duration.worlds");
-        List<World> worldList = new ArrayList<>();
-        for (String worldName : worldNameList) {
-            if (Bukkit.getWorld(worldName) != null) {
-                worldList.add(Bukkit.getWorld(worldName));
-            }
-        }
-        return worldList;
+        List<String> defaultValue = new ArrayList<>();
+        defaultValue.add("world");
+        defaultValue.add("worldNameExample");
+        defaultValue.add("MiningWorld");
+        return getWorldList("day-night-duration.worlds", defaultValue);
     }
-
-    //public List<String> getDayNightDurationWorlds() {
-    //    List<String> worldList = fileConfiguration.getStringList("day-night-duration.worlds");
-    //    List<String> newWorldList = new ArrayList<>();
-    //    for (String worldName : worldList) {
-    //        if (Bukkit.getWorld(worldName) != null) {
-    //            newWorldList.add(worldName);
-    //        }
-    //    }
-    //    return newWorldList;
-    //}
 
     public List<World> getDayNightPvpWorlds() {
-        List<String> worldNameList = fileConfiguration.getStringList("daynightpvp.worlds");
-        List<World> worldList = new ArrayList<>();
-        for (String worldName : worldNameList) {
-            if (Bukkit.getWorld(worldName) != null) {
-                worldList.add(Bukkit.getWorld(worldName));
-            }
-        }
-        return worldList;
+        List<String> defaultValue = new ArrayList<>();
+        defaultValue.add("world");
+        defaultValue.add("worldNameExample");
+        defaultValue.add("MiningWorld");
+        return getWorldList("day-night-duration.worlds", defaultValue);
     }
 
-    //public List<String> getDayNightPvpWorlds() {
-    //    List<String> worldList = fileConfiguration.getStringList("daynightpvp.worlds");
-    //    List<String> newWorldList = new ArrayList<>();
-    //    for (String worldName : worldList) {
-    //        if (Bukkit.getWorld(worldName) != null) {
-    //            newWorldList.add(worldName);
-    //        }
-    //    }
-    //    return newWorldList;
-    //}
-
     public int getDayNightPvpDayEnd() {
-        return fileConfiguration.getInt("daynightpvp.day-end");
+        return getInt("daynightpvp.day-end", 12000);
     }
 
     public boolean getDayNightPvpAutomaticDifficultyEnabled() {
-        return fileConfiguration.getBoolean("daynightpvp.automatic-difficulty.enabled");
+        return getBoolean("daynightpvp.automatic-difficulty.enabled", false);
     }
 
-    public String getDayNightPvpAutomaticDifficultyDay() {
-        return fileConfiguration.getString("daynightpvp.automatic-difficulty.day");
+    public Difficulty getDayNightPvpAutomaticDifficultyDay() {
+        return getDifficulty("daynightpvp.automatic-difficulty.day", Difficulty.NORMAL);
     }
 
-    public String getDayNightPvpAutomaticDifficultyNight() {
-        return fileConfiguration.getString("daynightpvp.automatic-difficulty.night");
+    public Difficulty getDayNightPvpAutomaticDifficultyNight() {
+        return getDifficulty("daynightpvp.automatic-difficulty.night", Difficulty.HARD);
     }
 
     public boolean getNotifyPlayersChatDayNightStarts() {
-        return fileConfiguration.getBoolean("notify-players.chat.day-night-starts");
+        return getBoolean("notify-players.chat.day-night-starts", true);
     }
 
     public boolean getNotifyPlayersChatHitAnotherPlayerDuringTheDay() {
-        return fileConfiguration.getBoolean("notify-players.chat.hit-another-player-during-the-day");
+        return getBoolean("notify-players.chat.hit-another-player-during-the-day", true);
     }
 
     public boolean getNotifyPlayersTitleEnabled() {
-        return fileConfiguration.getBoolean("notify-players.title.enabled");
+        return getBoolean("notify-players.title.enabled", true);
     }
 
     public int getNotifyPlayersTitleFadeIn() {
-        return fileConfiguration.getInt("notify-players.title.fade-in");
+        return getInt("notify-players.title.fade-in", 20);
     }
 
     public int getNotifyPlayersTitleStay() {
-        return fileConfiguration.getInt("notify-players.title.stay");
+        return getInt("notify-players.title.stay", 20);
     }
 
     public int getNotifyPlayersTitleFadeOut() {
-        return fileConfiguration.getInt("notify-players.title.fade-out");
+        return getInt("notify-players.title.fade-out", 20);
     }
 
     public boolean getNotifyPlayersSoundEnabled() {
-        return fileConfiguration.getBoolean("notify-players.sound.enabled");
+        return getBoolean("notify-players.sound.enabled", true);
     }
 
-    public String getNotifyPlayersSoundDay() {
-        return fileConfiguration.getString("notify-players.sound.day");
+    public Sound getNotifyPlayersSoundDay() {
+        return getSound("notify-players.sound.day", Sound.ENTITY_CHICKEN_AMBIENT);
     }
 
-    public String getNotifyPlayersSoundNight() {
-        return fileConfiguration.getString("notify-players.sound.night");
+    public Sound getNotifyPlayersSoundNight() {
+        return getSound("notify-players.sound.night", Sound.ENTITY_GHAST_AMBIENT);
     }
 
     public boolean getPvpKeepInventoryWhenKilledByPlayer() {
-        return fileConfiguration.getBoolean("pvp.keep-inventory-when-killed-by-player");
+        return getBoolean("pvp.keep-inventory-when-killed-by-player", false);
     }
 
     public boolean getVaultLoseMoneyOnDeathEnabled() {
-        return fileConfiguration.getBoolean("vault.lose-money-on-death.enabled");
+        return getBoolean("vault.lose-money-on-death.enabled", false);
     }
 
     public boolean getVaultLoseMoneyOnDeathOnlyAtNight() {
-        return fileConfiguration.getBoolean("vault.lose-money-on-death.only-at-night");
+        return getBoolean("vault.lose-money-on-death.only-at-night", true);
     }
 
     public boolean getVaultLoseMoneyOnDeathOnlyInConfiguredWorlds() {
-        return fileConfiguration.getBoolean("vault.lose-money-on-death.only-in-configured-worlds");
+        return getBoolean("vault.lose-money-on-death.only-in-configured-worlds", true);
     }
 
     public boolean getVaultLoseMoneyOnDeathKillerRewardMoney() {
-        return fileConfiguration.getBoolean("vault.lose-money-on-death.killer-reward-money");
+        return getBoolean("vault.lose-money-on-death.killer-reward-money", true);
     }
 
     public boolean getGriefPreventionPvpInLandEnabled() {
-        return fileConfiguration.getBoolean("griefprevention.pvp-in-land");
+        return getBoolean("griefprevention.pvp-in-land", false);
     }
 }

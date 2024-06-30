@@ -16,7 +16,7 @@ public class ServiceManager {
 
     public void startServices() {
         DayNightPvP.serviceTasks.add(new TimeCheckerService().runTaskTimer(DayNightPvP.getInstance(), 0, 20));
-        if (configManager.getDayNightDuration()) {
+        if (configManager.getDayNightDurationEnabled()) {
             DayNightPvP.serviceTasks.add(new DayNightDurationService().runTaskTimer(DayNightPvP.getInstance(), 0, 1));
             for (World world : configManager.getDayNightDurationWorlds()) {
                 world.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);

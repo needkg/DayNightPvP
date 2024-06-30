@@ -1,7 +1,5 @@
 package org.callvdois.daynightpvp.service;
 
-import org.bukkit.Difficulty;
-import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.callvdois.daynightpvp.config.ConfigManager;
@@ -58,7 +56,7 @@ public class TimeCheckerService extends BukkitRunnable {
         if (currentWorldTime < configManager.getDayNightPvpDayEnd()) {
             if (!worldsPvpOff.contains(world)) {
                 if (configManager.getDayNightPvpAutomaticDifficultyEnabled()) {
-                    world.setDifficulty(Difficulty.valueOf(configManager.getDayNightPvpAutomaticDifficultyDay().toUpperCase()));
+                    world.setDifficulty(configManager.getDayNightPvpAutomaticDifficultyDay());
                 }
                 if (configManager.getNotifyPlayersChatDayNightStarts()) {
                     PlayerUtils.sendMessageToAllPlayers(world, langManager.getNotifyDayChat());
@@ -67,14 +65,14 @@ public class TimeCheckerService extends BukkitRunnable {
                     playerUtils.sendTitleToAllPlayers(world, langManager.getNotifyDayTitle(), langManager.getNotifyDaySubtitle());
                 }
                 if (configManager.getNotifyPlayersSoundEnabled()) {
-                    PlayerUtils.playSoundToAllPlayers(world, Sound.valueOf(configManager.getNotifyPlayersSoundDay()));
+                    PlayerUtils.playSoundToAllPlayers(world, configManager.getNotifyPlayersSoundDay());
                 }
             }
             return false;
         } else {
             if (!worldsPvpOn.contains(world)) {
                 if (configManager.getDayNightPvpAutomaticDifficultyEnabled()) {
-                    world.setDifficulty(Difficulty.valueOf(configManager.getDayNightPvpAutomaticDifficultyNight().toUpperCase()));
+                    world.setDifficulty(configManager.getDayNightPvpAutomaticDifficultyNight());
                 }
                 if (configManager.getNotifyPlayersChatDayNightStarts()) {
                     PlayerUtils.sendMessageToAllPlayers(world, langManager.getNotifyNightChat());
@@ -83,7 +81,7 @@ public class TimeCheckerService extends BukkitRunnable {
                     playerUtils.sendTitleToAllPlayers(world, langManager.getNotifyNightTitle(), langManager.getNotifyNightSubtitle());
                 }
                 if (configManager.getNotifyPlayersSoundEnabled()) {
-                    PlayerUtils.playSoundToAllPlayers(world, Sound.valueOf(configManager.getNotifyPlayersSoundNight()));
+                    PlayerUtils.playSoundToAllPlayers(world, configManager.getNotifyPlayersSoundNight());
                 }
             }
             return true;
