@@ -1,5 +1,3 @@
-
-
 # DayNightPvP
 
 Dynamic Minecraft PvP Plugin for your server!
@@ -9,6 +7,7 @@ and an easy-to-use interface, you can create a dynamic PvP cycle, activated duri
 day.
 
 # Download
+
 [Spigot](https://www.spigotmc.org/resources/daynightpvp-dynamic-pvp-for-day-night.102250/)
 
 [Modrinth](https://modrinth.com/plugin/daynightpvp)
@@ -42,7 +41,7 @@ Need assistance or have a suggestion? Join our Discord community: [click here](h
 
 - Vault Support: With Vault support, you can determine if players should lose money upon dying during PvP and if the
   killer will receive the reward.
-  
+
 - WorldGuard Support: Easily define whether a WorldGuard region should have PvP enabled even during the day.
 
 # Metrics
@@ -58,7 +57,7 @@ Need assistance or have a suggestion? Join our Discord community: [click here](h
 
     /dnp → Open the GUI
     /dnp reload → Reload the plugin
-	
+
 # WorldGuard Flags
 
 	allow-pvp-on-day → Allows players to engage in combat even when it's daytime in a WorldGuard region (the "pvp" flag must be set to allow for it to work).
