@@ -13,11 +13,11 @@ import java.util.List;
 
 public class TimeCheckerService extends BukkitRunnable {
 
+    public static List<World> worldsPvpOff = new ArrayList<>();
+    public static List<World> worldsPvpOn = new ArrayList<>();
     private final ConfigManager configManager;
     private final LangManager langManager;
     private final PlayerUtils playerUtils;
-    public static List<World> worldsPvpOff = new ArrayList<>();
-    public static List<World> worldsPvpOn = new ArrayList<>();
 
     public TimeCheckerService() {
         configManager = new ConfigManager();
