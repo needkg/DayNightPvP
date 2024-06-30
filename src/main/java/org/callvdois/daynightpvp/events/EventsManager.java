@@ -5,7 +5,6 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.PluginManager;
 import org.callvdois.daynightpvp.DayNightPvP;
 import org.callvdois.daynightpvp.config.ConfigManager;
-import org.callvdois.daynightpvp.utils.ConsoleUtils;
 
 public class EventsManager {
 
