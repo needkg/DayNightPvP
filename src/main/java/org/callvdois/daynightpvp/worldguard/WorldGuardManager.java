@@ -2,9 +2,9 @@ package org.callvdois.daynightpvp.worldguard;
 
 import org.callvdois.daynightpvp.DayNightPvP;
 
-public class RegisterCustomFlag {
+public class WorldGuardManager {
 
-    public void run() {
+    public void register() {
         if (DayNightPvP.worldGuardIsPresent) {
             AllowPvpOnDayFlag.register();
         }

@@ -48,10 +48,10 @@ public class UpdateChecker {
         int responseCode = connection.getResponseCode();
 
         if (responseCode == HttpURLConnection.HTTP_OK) {
-            String readLine = null;
+            String readLine;
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(connection.getInputStream()));
-            StringBuffer response = new StringBuffer();
+            StringBuilder response = new StringBuilder();
             while ((readLine = in.readLine()) != null) {
                 response.append(readLine);
             }

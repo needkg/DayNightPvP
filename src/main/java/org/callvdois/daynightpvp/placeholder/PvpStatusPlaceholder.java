@@ -10,12 +10,12 @@ import org.callvdois.daynightpvp.config.LangManager;
 import org.callvdois.daynightpvp.utils.SearchUtils;
 import org.jetbrains.annotations.NotNull;
 
-public class PvpStatus extends PlaceholderExpansion {
+public class PvpStatusPlaceholder extends PlaceholderExpansion {
 
     private final LangManager langManager;
     private final ConfigManager configManager;
 
-    public PvpStatus() {
+    public PvpStatusPlaceholder() {
         langManager = new LangManager();
         configManager = new ConfigManager();
     }
@@ -48,7 +48,7 @@ public class PvpStatus extends PlaceholderExpansion {
             boolean pvpStatus;
 
             World world = player.getWorld();
-            if (SearchUtils.stringExistInList(configManager.getDayNightPvpWorlds(), world.getName())) {
+            if (SearchUtils.worldExistsInWorldList(configManager.getDayNightPvpWorlds(), world.getName())) {
                 long time = world.getTime();
                 pvpStatus = time >= configManager.getDayNightPvpDayEnd();
             } else {
@@ -62,7 +62,7 @@ public class PvpStatus extends PlaceholderExpansion {
             String worldName = params.substring("pvpstatus_".length());
             World world = Bukkit.getWorld(worldName);
             if (world != null) {
-                if (SearchUtils.stringExistInList(configManager.getDayNightPvpWorlds(), world.getName())) {
+                if (SearchUtils.worldExistsInWorldList(configManager.getDayNightPvpWorlds(), world.getName())) {
                     long time = world.getTime();
                     pvpStatus = time >= configManager.getDayNightPvpDayEnd();
                     return pvpStatus ? langManager.getPlaceholderPvpEnabled() : langManager.getPlaceholderPvpDisabled();

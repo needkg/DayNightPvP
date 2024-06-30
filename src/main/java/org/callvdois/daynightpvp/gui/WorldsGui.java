@@ -54,8 +54,8 @@ public class WorldsGui {
         }.runTaskTimer(DayNightPvP.getInstance(), 0L, 20L);
     }
 
-    public String verifyAutomaticPvpStatus(List<String> list, String worldName) {
-        if (SearchUtils.stringExistInList(list, worldName)) {
+    public String verifyAutomaticPvpStatus(List<World> list, String worldName) {
+        if (SearchUtils.worldExistsInWorldList(list, worldName)) {
             return langManager.getStateEnabled();
         } else {
             return langManager.getStateDisabled();

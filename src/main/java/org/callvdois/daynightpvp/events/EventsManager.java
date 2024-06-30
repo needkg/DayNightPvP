@@ -6,22 +6,25 @@ import org.bukkit.plugin.PluginManager;
 import org.callvdois.daynightpvp.DayNightPvP;
 import org.callvdois.daynightpvp.config.ConfigManager;
 
-public class RegisterEvents {
+public class EventsManager {
 
     private final PluginManager pluginManager;
     private final ConfigManager configManager;
 
-    public RegisterEvents() {
+    public EventsManager() {
         pluginManager = Bukkit.getPluginManager();
         configManager = new ConfigManager();
     }
 
     public void register() {
-        HandlerList.unregisterAll(DayNightPvP.getInstance());
         registerJoinEvent();
         registerEntityEvent();
         registerDeathEvent();
         registerInventoryEvent();
+    }
+
+    public void unregiser() {
+        HandlerList.unregisterAll(DayNightPvP.getInstance());
     }
 
     private void registerInventoryEvent() {

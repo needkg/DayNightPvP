@@ -76,8 +76,8 @@ public class WorldGui {
         }
     }
 
-    public String verifyAutomaticPvpStatus(List<String> list, String worldName) {
-        if (SearchUtils.stringExistInList(list, worldName)) {
+    public String verifyAutomaticPvpStatus(List<World> list, String worldName) {
+        if (SearchUtils.worldExistsInWorldList(list, worldName)) {
             return langManager.getStateEnabled();
         } else {
             return langManager.getStateDisabled();
@@ -85,7 +85,7 @@ public class WorldGui {
     }
 
     public ItemStack defineAutomaticPvpPanel(String worldName) {
-        if (SearchUtils.stringExistInList(configManager.getDayNightPvpWorlds(), worldName)) {
+        if (SearchUtils.worldExistsInWorldList(configManager.getDayNightPvpWorlds(), worldName)) {
             return ItemUtils.createItem(langManager.getGuiDayNightPvpButton(), "setAutomaticPvpOff", langManager.getActionButtonClickToDisable(), Material.GREEN_STAINED_GLASS_PANE);
         } else {
             return ItemUtils.createItem(langManager.getGuiDayNightPvpButton(), "setAutomaticPvpOn", langManager.getActionButtonClickToEnable(), Material.RED_STAINED_GLASS_PANE);
