@@ -10,12 +10,12 @@ import org.callvdois.daynightpvp.config.LangManager;
 import org.callvdois.daynightpvp.utils.SearchUtils;
 import org.jetbrains.annotations.NotNull;
 
-public class PvpStatus extends PlaceholderExpansion {
+public class PvpStatusPlaceholder extends PlaceholderExpansion {
 
     private final LangManager langManager;
     private final ConfigManager configManager;
 
-    public PvpStatus() {
+    public PvpStatusPlaceholder() {
         langManager = new LangManager();
         configManager = new ConfigManager();
     }

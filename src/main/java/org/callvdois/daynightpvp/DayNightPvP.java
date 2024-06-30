@@ -2,15 +2,15 @@ package org.callvdois.daynightpvp;
 
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
-import org.callvdois.daynightpvp.commands.RegisterCommand;
+import org.callvdois.daynightpvp.commands.CommandManager;
 import org.callvdois.daynightpvp.config.FilesManager;
-import org.callvdois.daynightpvp.events.RegisterEvents;
-import org.callvdois.daynightpvp.metrics.RegisterMetrics;
-import org.callvdois.daynightpvp.placeholder.RegisterPlaceHolder;
+import org.callvdois.daynightpvp.events.EventsManager;
+import org.callvdois.daynightpvp.metrics.MetricsManager;
+import org.callvdois.daynightpvp.placeholder.PlaceholderManager;
 import org.callvdois.daynightpvp.service.ServiceManager;
 import org.callvdois.daynightpvp.utils.ConsoleUtils;
 import org.callvdois.daynightpvp.utils.PluginUtils;
-import org.callvdois.daynightpvp.worldguard.RegisterCustomFlag;
+import org.callvdois.daynightpvp.worldguard.WorldGuardManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,23 +24,23 @@ public class DayNightPvP extends JavaPlugin {
     public static List<BukkitTask> serviceTasks = new ArrayList<>();
     private static DayNightPvP instance;
     private final FilesManager filesManager;
-    private final RegisterCommand registerCommand;
-    private final RegisterEvents registerEvents;
-    private final RegisterPlaceHolder registerPlaceHolder;
-    private final RegisterCustomFlag registerCustomFlag;
+    private final CommandManager commandManager;
+    private final EventsManager eventsManager;
+    private final PlaceholderManager placeholderManager;
+    private final WorldGuardManager worldGuardManager;
     private final ServiceManager serviceManager;
-    private final RegisterMetrics registerMetrics;
+    private final MetricsManager metricsManager;
 
     public DayNightPvP() {
         instance = this;
 
         filesManager = new FilesManager();
-        registerCommand = new RegisterCommand();
-        registerEvents = new RegisterEvents();
-        registerPlaceHolder = new RegisterPlaceHolder();
-        registerCustomFlag = new RegisterCustomFlag();
+        commandManager = new CommandManager();
+        eventsManager = new EventsManager();
+        placeholderManager = new PlaceholderManager();
+        worldGuardManager = new WorldGuardManager();
         serviceManager = new ServiceManager();
-        registerMetrics = new RegisterMetrics();
+        metricsManager = new MetricsManager();
 
     }
 
@@ -63,7 +63,7 @@ public class DayNightPvP extends JavaPlugin {
         verifyCompabilityPlugins();
 
         if (worldGuardIsPresent) {
-            registerCustomFlag.run();
+            worldGuardManager.register();
         }
     }
 
@@ -72,15 +72,15 @@ public class DayNightPvP extends JavaPlugin {
 
         filesManager.createFiles();
 
-        registerCommand.register();
+        commandManager.register();
 
-        registerEvents.register();
+        eventsManager.register();
 
-        registerPlaceHolder.register();
+        placeholderManager.register();
 
         serviceManager.startServices();
 
-        registerMetrics.register();
+        metricsManager.register();
     }
 
     private void verifyCompabilityPlugins() {

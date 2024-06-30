@@ -4,8 +4,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.callvdois.daynightpvp.DayNightPvP;
-import org.callvdois.daynightpvp.events.RegisterEvents;
-import org.callvdois.daynightpvp.placeholder.RegisterPlaceHolder;
+import org.callvdois.daynightpvp.events.EventsManager;
+import org.callvdois.daynightpvp.placeholder.PlaceholderManager;
 import org.callvdois.daynightpvp.service.ServiceManager;
 import org.callvdois.daynightpvp.utils.ConsoleUtils;
 
@@ -20,15 +20,15 @@ public class FilesManager {
     private final int configVersion;
     private final int langVersion;
     private final String fileOutdated;
-    private final RegisterEvents registerEvents;
-    private final RegisterPlaceHolder registerPlaceHolder;
+    private final EventsManager eventsManager;
+    private final PlaceholderManager placeholderManager;
     private final ConfigManager configManager;
     private final LangManager langManager;
     private final ServiceManager serviceManager;
 
     public FilesManager() {
-        registerEvents = new RegisterEvents();
-        registerPlaceHolder = new RegisterPlaceHolder();
+        eventsManager = new EventsManager();
+        placeholderManager = new PlaceholderManager();
         configManager = new ConfigManager();
         langManager = new LangManager();
         serviceManager = new ServiceManager();
@@ -69,10 +69,12 @@ public class FilesManager {
 
     public void reloadPlugin() {
         createFiles();
-        registerEvents.register();
-        registerPlaceHolder.register();
+        eventsManager.unregiser();
+        eventsManager.register();
+        placeholderManager.unregister();
+        placeholderManager.register();
         serviceManager.stopServices();
-        //serviceManager.startServices();
+        serviceManager.startServices();
     }
 
     private void resetFile(String path) {
