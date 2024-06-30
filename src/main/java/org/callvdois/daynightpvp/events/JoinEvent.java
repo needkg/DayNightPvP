@@ -17,7 +17,7 @@ public class JoinEvent implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         if (event.getPlayer().hasPermission("dnp.admin")) {
-            Bukkit.getScheduler().runTaskAsynchronously(DayNightPvP.getInstance(), () -> updateChecker.checkUpdate(event));
+            Bukkit.getServer().getScheduler().runTaskLater(DayNightPvP.getInstance(), () -> updateChecker.checkUpdate(event), 100);
         }
     }
 
