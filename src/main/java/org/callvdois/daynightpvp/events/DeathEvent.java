@@ -1,4 +1,4 @@
-package org.callvdois.daynightpvp.Listeners;
+package org.callvdois.daynightpvp.events;
 
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -8,20 +8,18 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.permissions.PermissionAttachmentInfo;
 import org.callvdois.daynightpvp.DayNightPvP;
-import org.callvdois.daynightpvp.files.ConfigFile;
+import org.callvdois.daynightpvp.config.ConfigManager;
 import org.callvdois.daynightpvp.utils.SearchUtils;
 import org.callvdois.daynightpvp.vault.LoseMoneyOnDeath;
 
 import java.util.List;
 
-public class DeathListener implements Listener {
+public class DeathEvent implements Listener {
 
-    private final ConfigFile configFile;
-    private final SearchUtils searchUtils;
+    private final ConfigManager configManager;
 
-    public DeathListener() {
-        configFile = new ConfigFile();
-        searchUtils = new SearchUtils();
+    public DeathEvent() {
+        configManager = new ConfigManager();
     }
 
     @EventHandler
@@ -29,11 +27,11 @@ public class DeathListener implements Listener {
         Player killed = event.getEntity();
         Player killer = event.getEntity().getKiller();
         World world = event.getEntity().getWorld();
-        List<World> worldList = configFile.getDayNightPvpWorlds();
+        List<World> worldList = configManager.getDayNightPvpWorlds();
 
-        if (configFile.getPvpKeepInventoryWhenKilledByPlayer()) {
+        if (configManager.getPvpKeepInventoryWhenKilledByPlayer()) {
             if (killer != null) {
-                if (searchUtils.worldExistsInWorldList(worldList, world.getName())) {
+                if (SearchUtils.worldExistsInWorldList(worldList, world.getName())) {
                     event.setKeepInventory(true);
                     event.getDrops().clear();
                     event.setKeepLevel(true);
@@ -42,7 +40,7 @@ public class DeathListener implements Listener {
         }
 
         Bukkit.getScheduler().runTaskAsynchronously(DayNightPvP.getInstance(), () -> {
-            if (configFile.getVaultLoseMoneyOnDeathEnabled() && DayNightPvP.vaultIsPresent) {
+            if (configManager.getVaultLoseMoneyOnDeathEnabled() && DayNightPvP.vaultIsPresent) {
                 if (killer != null) {
                     for (PermissionAttachmentInfo permission : event.getEntity().getEffectivePermissions()) {
                         if (permission.getPermission().startsWith("dnp.losemoney")) {

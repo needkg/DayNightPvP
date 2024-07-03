@@ -3,31 +3,39 @@ package org.callvdois.daynightpvp.utils;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
-import org.callvdois.daynightpvp.files.ConfigFile;
+import org.callvdois.daynightpvp.config.ConfigManager;
 
 public class PlayerUtils {
 
-    private final ConfigFile configFile;
+    private final ConfigManager configManager;
 
     public PlayerUtils() {
-        configFile = new ConfigFile();
+        configManager = new ConfigManager();
     }
 
-    public void sendMessageToAllPlayers(World world, String message) {
+    public static void sendMessageToAllPlayers(World world, String message) {
         for (Player player : world.getPlayers()) {
             player.sendMessage(message);
         }
     }
 
-    public void playSoundToAllPlayers(World world, Sound sound) {
+    public static void sendMessageToPlayer(Player player, String message) {
+        player.sendMessage(message);
+    }
+
+    public static void playSoundToAllPlayers(World world, Sound sound) {
         for (Player player : world.getPlayers()) {
             player.playSound(player.getLocation(), sound, 1, 1);
         }
     }
 
+    public static void playSoundToPlayer(Player player, Sound sound) {
+        player.playSound(player.getLocation(), sound, 1, 1);
+    }
+
     public void sendTitleToAllPlayers(World world, String title, String subTitle) {
         for (Player player : world.getPlayers()) {
-            player.sendTitle(title, subTitle, configFile.getNotifyPlayersTitleFadeIn(), configFile.getNotifyPlayersTitleStay(), configFile.getNotifyPlayersTitleFadeOut());
+            player.sendTitle(title, subTitle, configManager.getNotifyPlayersTitleFadeIn(), configManager.getNotifyPlayersTitleStay(), configManager.getNotifyPlayersTitleFadeOut());
         }
     }
 }

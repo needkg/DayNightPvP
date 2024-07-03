@@ -12,11 +12,11 @@ import com.sk89q.worldguard.protection.regions.RegionContainer;
 import com.sk89q.worldguard.protection.regions.RegionQuery;
 import org.bukkit.entity.Player;
 
-public class AllowDaytimePvpFlag {
+public class AllowPvpOnDayFlag {
 
-    private static StateFlag allowPvpOnDay;
+    public static StateFlag allowPvpOnDay;
 
-    public static boolean checkStateOnPosition(Player player) {
+    public static boolean checkState(Player player) {
         LocalPlayer localPlayer = WorldGuardPlugin.inst().wrapPlayer(player);
         Location loc = localPlayer.getLocation();
         RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
