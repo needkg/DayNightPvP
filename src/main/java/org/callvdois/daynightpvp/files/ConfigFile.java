@@ -1,10 +1,11 @@
-package org.callvdois.daynightpvp.config;
+package org.callvdois.daynightpvp.files;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.callvdois.daynightpvp.DayNightPvP;
 import org.callvdois.daynightpvp.utils.ConsoleUtils;
 
@@ -12,49 +13,56 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConfigManager {
+public class ConfigFile {
 
-    public static File file;
-    public static FileConfiguration fileConfiguration;
+    public static File fileLocation;
+    public static FileConfiguration fileContent;
+    private final ConsoleUtils consoleUtils;
+
+    public ConfigFile() {
+        consoleUtils = new ConsoleUtils();
+    }
+
+    public void createFile() {
+        fileLocation = new File(DayNightPvP.getInstance().getDataFolder(), "config.yml");
+        fileContent = YamlConfiguration.loadConfiguration(fileLocation);
+        verifyFileVersion();
+    }
+
+    private void verifyFileVersion() {
+        int lastestFileVersion = 16;
+        if (lastestFileVersion != getVersion()) {
+            resetFile();
+            String fileOutdated = "[DayNightPvP] The \"config.yml\" file was an outdated version. it has been replaced by the new version.";
+            consoleUtils.sendWarningMessage(fileOutdated);
+            fileContent = YamlConfiguration.loadConfiguration(fileLocation);
+        }
+    }
 
     public void setValue(String path, Object value) {
-        fileConfiguration.set(path, value);
+        fileContent.set(path, value);
         saveConfig();
     }
 
     public void saveConfig() {
         try {
-            fileConfiguration.save(file);
+            fileContent.save(fileLocation);
         } catch (Exception e) {
-            ConsoleUtils.warning("Error saving configuration file, resetting...");
-            resetFile("config.yml");
+            consoleUtils.sendWarningMessage("Error saving configuration file, resetting...");
+            resetFile();
         }
     }
 
-    public void resetFile(String fileName) {
-        DayNightPvP.getInstance().saveResource(fileName, true);
-    }
-
-    public void addWorld(String worldName) {
-        List<World> worldList = getDayNightPvpWorlds();
-        worldList.add(Bukkit.getWorld(worldName));
-        fileConfiguration.set("daynightpvp.worlds", worldList);
-        saveConfig();
-    }
-
-    public void removeWorld(String worldName) {
-        List<World> worldList = getDayNightPvpWorlds();
-        worldList.remove(Bukkit.getWorld(worldName));
-        fileConfiguration.set("daynightpvp.worlds", worldList);
-        saveConfig();
+    public void resetFile() {
+        DayNightPvP.getInstance().saveResource("config.yml", true);
     }
 
     public int getInt(String path, Integer defaultValue) {
 
-        String configValue = fileConfiguration.getString(path);
+        String configValue = fileContent.getString(path);
 
         if (configValue == null) {
-            resetFile("config.yml");
+            resetFile();
             return defaultValue;
         }
 
@@ -68,10 +76,10 @@ public class ConfigManager {
 
     public Difficulty getDifficulty(String path, Difficulty defaultValue) {
 
-        String configValue = fileConfiguration.getString(path);
+        String configValue = fileContent.getString(path);
 
         if (configValue == null) {
-            resetFile("config.yml");
+            resetFile();
             return defaultValue;
         }
 
@@ -85,10 +93,10 @@ public class ConfigManager {
 
     public Sound getSound(String path, Sound defaultValue) {
 
-        String configValue = fileConfiguration.getString(path);
+        String configValue = fileContent.getString(path);
 
         if (configValue == null) {
-            resetFile("config.yml");
+            resetFile();
             return defaultValue;
         }
 
@@ -101,10 +109,10 @@ public class ConfigManager {
     }
 
     public String getString(String path, String defaultValue) {
-        String configValue = fileConfiguration.getString(path);
+        String configValue = fileContent.getString(path);
 
         if (configValue == null) {
-            resetFile("config.yml");
+            resetFile();
             return defaultValue;
         }
 
@@ -112,10 +120,10 @@ public class ConfigManager {
     }
 
     public boolean getBoolean(String path, Boolean defaultValue) {
-        String configValue = fileConfiguration.getString(path);
+        String configValue = fileContent.getString(path);
 
         if (configValue == null) {
-            resetFile("config.yml");
+            resetFile();
             return defaultValue;
         }
 
@@ -129,12 +137,12 @@ public class ConfigManager {
 
     public List<World> getWorldList(String path, List<String> defaultValue) {
 
-        List<String> configValue = fileConfiguration.getStringList(path);
+        List<String> configValue = fileContent.getStringList(path);
         List<World> worldList = new ArrayList<>();
 
         // Se a lista de String estiver vazia, reseta a configuração e retorna o valor padrão.
         if (configValue.isEmpty()) {
-            resetFile("config.yml");
+            resetFile();
 
             for (String worldName : defaultValue) {
                 if (Bukkit.getWorld(worldName) != null) {
@@ -155,7 +163,7 @@ public class ConfigManager {
     }
 
     public int getVersion() {
-        return fileConfiguration.getInt("version");
+        return fileContent.getInt("version");
     }
 
     public boolean getUpdateChecker() {

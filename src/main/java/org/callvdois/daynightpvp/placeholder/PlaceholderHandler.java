@@ -2,7 +2,7 @@ package org.callvdois.daynightpvp.placeholder;
 
 import org.callvdois.daynightpvp.DayNightPvP;
 
-public class PlaceholderManager {
+public class PlaceholderHandler {
 
     public void register() {
         if (DayNightPvP.placeHolderIsPresent) {

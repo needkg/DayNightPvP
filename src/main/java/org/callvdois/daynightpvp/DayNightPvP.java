@@ -2,15 +2,16 @@ package org.callvdois.daynightpvp;
 
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
-import org.callvdois.daynightpvp.commands.CommandManager;
-import org.callvdois.daynightpvp.config.FilesManager;
-import org.callvdois.daynightpvp.events.EventsManager;
-import org.callvdois.daynightpvp.metrics.MetricsManager;
-import org.callvdois.daynightpvp.placeholder.PlaceholderManager;
-import org.callvdois.daynightpvp.service.ServiceManager;
+import org.callvdois.daynightpvp.Listeners.ListenersHandler;
+import org.callvdois.daynightpvp.commands.CommandHandler;
+import org.callvdois.daynightpvp.files.ConfigFile;
+import org.callvdois.daynightpvp.files.LangFile;
+import org.callvdois.daynightpvp.metrics.MetricsHandler;
+import org.callvdois.daynightpvp.placeholder.PlaceholderHandler;
+import org.callvdois.daynightpvp.runnables.RunnableHandler;
 import org.callvdois.daynightpvp.utils.ConsoleUtils;
 import org.callvdois.daynightpvp.utils.PluginUtils;
-import org.callvdois.daynightpvp.worldguard.WorldGuardManager;
+import org.callvdois.daynightpvp.worldguard.FlagHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,24 +24,30 @@ public class DayNightPvP extends JavaPlugin {
     public static boolean placeHolderIsPresent;
     public static List<BukkitTask> serviceTasks = new ArrayList<>();
     private static DayNightPvP instance;
-    private final FilesManager filesManager;
-    private final CommandManager commandManager;
-    private final EventsManager eventsManager;
-    private final PlaceholderManager placeholderManager;
-    private final WorldGuardManager worldGuardManager;
-    private final ServiceManager serviceManager;
-    private final MetricsManager metricsManager;
+    private final ConsoleUtils consoleUtils;
+    private final ConfigFile configFile;
+    private final LangFile langFile;
+    private final CommandHandler commandHandler;
+    private final ListenersHandler listenersHandler;
+    private final PlaceholderHandler placeholderHandler;
+    private final FlagHandler flagHandler;
+    private final RunnableHandler runnableHandler;
+    private final MetricsHandler metricsHandler;
+    private final PluginUtils pluginUtils;
 
     public DayNightPvP() {
         instance = this;
 
-        filesManager = new FilesManager();
-        commandManager = new CommandManager();
-        eventsManager = new EventsManager();
-        placeholderManager = new PlaceholderManager();
-        worldGuardManager = new WorldGuardManager();
-        serviceManager = new ServiceManager();
-        metricsManager = new MetricsManager();
+        consoleUtils = new ConsoleUtils();
+        configFile = new ConfigFile();
+        langFile = new LangFile();
+        commandHandler = new CommandHandler();
+        listenersHandler = new ListenersHandler();
+        placeholderHandler = new PlaceholderHandler();
+        flagHandler = new FlagHandler();
+        runnableHandler = new RunnableHandler();
+        metricsHandler = new MetricsHandler();
+        pluginUtils = new PluginUtils();
 
     }
 
@@ -50,49 +57,42 @@ public class DayNightPvP extends JavaPlugin {
 
     @Override
     public void onLoad() {
-        load();
+        verifyCompatibilityPlugins();
+
+        if (worldGuardIsPresent) {
+            flagHandler.register();
+        }
     }
 
     @Override
     public void onEnable() {
-        enable();
+        consoleUtils.sendStartupMessage();
+
+        metricsHandler.start();
+
+        configFile.createFile();
+        langFile.createFile();
+
+        commandHandler.register();
+
+        listenersHandler.register();
+
+        placeholderHandler.register();
+
+        runnableHandler.startAllRunnables();
     }
 
-    private void load() {
-
-        verifyCompatibilityPlugins();
-
-        if (worldGuardIsPresent) {
-            worldGuardManager.register();
-        }
-    }
-
-    private void enable() {
-        ConsoleUtils.startMessage();
-
-        filesManager.createFiles();
-
-        commandManager.register();
-
-        eventsManager.register();
-
-        placeholderManager.register();
-
-        serviceManager.startServices();
-
-        metricsManager.register();
-    }
 
     private void verifyCompatibilityPlugins() {
-        vaultIsPresent = PluginUtils.isPluginInstalled("Vault");
-        worldGuardIsPresent = PluginUtils.isPluginInstalled("WorldGuard");
-        griefIsPresent = PluginUtils.isPluginInstalled("GriefPrevention");
-        placeHolderIsPresent = PluginUtils.isPluginInstalled("PlaceholderAPI");
+        vaultIsPresent = pluginUtils.isPluginInstalled("Vault");
+        worldGuardIsPresent = pluginUtils.isPluginInstalled("WorldGuard");
+        griefIsPresent = pluginUtils.isPluginInstalled("GriefPrevention");
+        placeHolderIsPresent = pluginUtils.isPluginInstalled("PlaceholderAPI");
     }
 
     @Override
     public void onDisable() {
-        serviceManager.stopServices();
+        runnableHandler.stopAllRunnables();
     }
 
 }

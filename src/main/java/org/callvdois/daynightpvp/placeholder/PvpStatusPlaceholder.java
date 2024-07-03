@@ -5,19 +5,21 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.callvdois.daynightpvp.DayNightPvP;
-import org.callvdois.daynightpvp.config.ConfigManager;
-import org.callvdois.daynightpvp.config.LangManager;
+import org.callvdois.daynightpvp.files.ConfigFile;
+import org.callvdois.daynightpvp.files.LangFile;
 import org.callvdois.daynightpvp.utils.SearchUtils;
 import org.jetbrains.annotations.NotNull;
 
 public class PvpStatusPlaceholder extends PlaceholderExpansion {
 
-    private final LangManager langManager;
-    private final ConfigManager configManager;
+    private final LangFile langFile;
+    private final ConfigFile configFile;
+    private final SearchUtils searchUtils;
 
     public PvpStatusPlaceholder() {
-        langManager = new LangManager();
-        configManager = new ConfigManager();
+        langFile = new LangFile();
+        configFile = new ConfigFile();
+        searchUtils = new SearchUtils();
     }
 
 
@@ -48,13 +50,13 @@ public class PvpStatusPlaceholder extends PlaceholderExpansion {
             boolean pvpStatus;
 
             World world = player.getWorld();
-            if (SearchUtils.worldExistsInWorldList(configManager.getDayNightPvpWorlds(), world.getName())) {
+            if (searchUtils.worldExistsInWorldList(configFile.getDayNightPvpWorlds(), world.getName())) {
                 long time = world.getTime();
-                pvpStatus = time >= configManager.getDayNightPvpDayEnd();
+                pvpStatus = time >= configFile.getDayNightPvpDayEnd();
             } else {
-                return langManager.getFeedbackError();
+                return langFile.getFeedbackError();
             }
-            return pvpStatus ? langManager.getPlaceholderPvpEnabled() : langManager.getPlaceholderPvpDisabled();
+            return pvpStatus ? langFile.getPlaceholderPvpEnabled() : langFile.getPlaceholderPvpDisabled();
         }
 
         if (params.startsWith("pvpstatus_")) {
@@ -62,14 +64,14 @@ public class PvpStatusPlaceholder extends PlaceholderExpansion {
             String worldName = params.substring("pvpstatus_".length());
             World world = Bukkit.getWorld(worldName);
             if (world != null) {
-                if (SearchUtils.worldExistsInWorldList(configManager.getDayNightPvpWorlds(), world.getName())) {
+                if (searchUtils.worldExistsInWorldList(configFile.getDayNightPvpWorlds(), world.getName())) {
                     long time = world.getTime();
-                    pvpStatus = time >= configManager.getDayNightPvpDayEnd();
-                    return pvpStatus ? langManager.getPlaceholderPvpEnabled() : langManager.getPlaceholderPvpDisabled();
+                    pvpStatus = time >= configFile.getDayNightPvpDayEnd();
+                    return pvpStatus ? langFile.getPlaceholderPvpEnabled() : langFile.getPlaceholderPvpDisabled();
                 }
             }
         }
-        return langManager.getFeedbackError();
+        return langFile.getFeedbackError();
     }
 
 }

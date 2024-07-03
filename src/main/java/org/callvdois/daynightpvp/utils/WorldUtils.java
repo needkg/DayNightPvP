@@ -3,19 +3,19 @@ package org.callvdois.daynightpvp.utils;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
-import org.callvdois.daynightpvp.service.TimeCheckerService;
+import org.callvdois.daynightpvp.runnables.AutomaticPvp;
 
 public class WorldUtils {
 
-    public static void setTime(String worldName, int time) {
-        World world = Bukkit.getWorld(worldName);
-        assert world != null;
-        world.setTime(time);
+    public SearchUtils searchUtils;
+
+    public WorldUtils() {
+        searchUtils = new SearchUtils();
     }
 
-    public static boolean checkPlayerIsInWorld(Player player) {
+    public boolean checkPlayerIsInWorld(Player player) {
         String worldName = player.getWorld().getName();
-        return SearchUtils.worldExistsInWorldList(TimeCheckerService.worldsPvpOff, worldName);
+        return searchUtils.worldExistsInWorldList(AutomaticPvp.worldsPvpOff, worldName);
     }
 
 }

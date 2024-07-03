@@ -1,25 +1,57 @@
-package org.callvdois.daynightpvp.config;
+package org.callvdois.daynightpvp.files;
 
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.callvdois.daynightpvp.DayNightPvP;
+import org.callvdois.daynightpvp.utils.ConsoleUtils;
 
-public class LangManager {
+import java.io.File;
 
-    public static FileConfiguration fileConfiguration;
-    private final ConfigManager configManager;
+public class LangFile {
 
-    public LangManager() {
-        configManager = new ConfigManager();
+    private static File fileLocation;
+    private static FileConfiguration fileContent;
+    private final ConfigFile configFile;
+    private final ConsoleUtils consoleUtils;
+
+    public LangFile() {
+        configFile = new ConfigFile();
+        consoleUtils = new ConsoleUtils();
     }
 
-    public void getLanguageFileSelected() {
-        String pathLangFile = "lang/" + configManager.getLanguage() + ".yml";
-        fileConfiguration = FilesManager.loadConfigFile(DayNightPvP.getInstance(), pathLangFile);
+    public void createFile() {
+        String filePath = "lang/" + configFile.getLanguage() + ".yml";
+        fileLocation = new File(DayNightPvP.getInstance().getDataFolder(), filePath);
+
+        if (!fileLocation.exists()) {
+            DayNightPvP.getInstance().saveResource(filePath, false);
+        }
+
+        loadFileContent();
+        verifyFileVersion();
+    }
+
+    private void verifyFileVersion() {
+        int latestFileVersion = 13;
+        if (latestFileVersion != getVersion()) {
+            resetFile();
+            loadFileContent();
+            String fileOutdated = "[DayNightPvP] The " + configFile.getLanguage() + ".yml file was an outdated version. It has been replaced by the new version.";
+            consoleUtils.sendWarningMessage(fileOutdated);
+        }
+    }
+
+    private void resetFile() {
+        DayNightPvP.getInstance().saveResource("lang/" + configFile.getLanguage() + ".yml", true);
+    }
+
+    private void loadFileContent() {
+        fileContent = YamlConfiguration.loadConfiguration(fileLocation);
     }
 
     private String formatMessage(String path) {
-        String text = fileConfiguration.getString(path);
+        String text = fileContent.getString(path);
         if (text != null) {
             return ChatColor.translateAlternateColorCodes('&', text);
         }
@@ -28,7 +60,7 @@ public class LangManager {
 
     // Version
     public int getVersion() {
-        return fileConfiguration.getInt("version");
+        return fileContent.getInt("version");
     }
 
     // Estados

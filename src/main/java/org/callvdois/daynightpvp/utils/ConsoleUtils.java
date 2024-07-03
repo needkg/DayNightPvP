@@ -5,11 +5,11 @@ import org.callvdois.daynightpvp.DayNightPvP;
 
 public class ConsoleUtils {
 
-    public static void warning(String message) {
+    public void sendWarningMessage(String message) {
         Bukkit.getLogger().warning(message);
     }
 
-    public static void startMessage() {
+    public void sendStartupMessage() {
         Bukkit.getConsoleSender().sendMessage("   §9 _     _");
         Bukkit.getConsoleSender().sendMessage("   §9| \\|\\||_)" + "   §3DayNightPvP §8v" + DayNightPvP.getInstance().getDescription().getVersion());
         Bukkit.getConsoleSender().sendMessage("   §9|_/| ||" + "         §8by §3needkg");

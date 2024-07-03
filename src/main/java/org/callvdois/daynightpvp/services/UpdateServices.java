@@ -1,10 +1,10 @@
-package org.callvdois.daynightpvp.service;
+package org.callvdois.daynightpvp.services;
 
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.callvdois.daynightpvp.DayNightPvP;
-import org.callvdois.daynightpvp.config.LangManager;
+import org.callvdois.daynightpvp.files.LangFile;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,12 +12,12 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class UpdateChecker {
+public class UpdateServices {
 
-    private final LangManager langManager;
+    private final LangFile langFile;
 
-    public UpdateChecker() {
-        langManager = new LangManager();
+    public UpdateServices() {
+        langFile = new LangFile();
     }
 
     public void checkUpdate(PlayerJoinEvent event) {
@@ -28,12 +28,12 @@ public class UpdateChecker {
 
             if (!currentVersion.equals(latestVersion)) {
 
-                TextComponent link = new TextComponent(langManager.getActionUpdateFoundClick());
+                TextComponent link = new TextComponent(langFile.getActionUpdateFoundClick());
                 link.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.spigotmc.org/resources/daynightpvp-dynamic-pvp-for-day-night.102250/updates"));
 
-                event.getPlayer().sendMessage(langManager.getFeedbackUpdateFound());
-                event.getPlayer().sendMessage(langManager.getFeedbackUpdateFoundCurrentVersion().replace("{0}", currentVersion));
-                event.getPlayer().sendMessage(langManager.getFeedbackUpdateFoundNewVersion().replace("{0}", latestVersion));
+                event.getPlayer().sendMessage(langFile.getFeedbackUpdateFound());
+                event.getPlayer().sendMessage(langFile.getFeedbackUpdateFoundCurrentVersion().replace("{0}", currentVersion));
+                event.getPlayer().sendMessage(langFile.getFeedbackUpdateFoundNewVersion().replace("{0}", latestVersion));
                 event.getPlayer().spigot().sendMessage(link);
             }
         } catch (IOException ex) {
