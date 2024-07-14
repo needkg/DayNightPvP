@@ -44,6 +44,8 @@ Need assistance or have a suggestion? Join our Discord community: [click here](h
 
 - WorldGuard Support: Easily define whether a WorldGuard region should have PvP enabled even during the day.
 
+- Custom Day/Night Duration: Adjust the length of day and night cycles to suit your preferences.
+
 # Metrics
 
 [<img src="https://bstats.org/signatures/bukkit/daynightpvp.svg">](https://bstats.org/plugin/bukkit/DayNightPvP/19067/)
