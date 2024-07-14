@@ -23,8 +23,6 @@ Need assistance or have a suggestion? Join our Discord community: [click here](h
 - Automatic PvP:  Forget the need to manually enable or disable PvP. DayNightPvP takes care of this automatically,
   activating exciting PvP during the night and safely deactivating it during the day.
 
-- Intuitive GUI: Easily configure your server's worlds through the plugin's GUI. Managing PvP has never been easier!
-
 - Difficulty Adjustment: To add an extra challenge to your server, the plugin automatically adjusts the game difficulty
   when day or night begins.
 
@@ -57,7 +55,7 @@ Need assistance or have a suggestion? Join our Discord community: [click here](h
 
 # Commands
 
-    /dnp → Show all commands
+    /dnp → Show all available commands
     /dnp reload → Reload the plugin
 
 # WorldGuard Flags
