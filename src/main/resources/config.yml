@@ -10,6 +10,7 @@ update-checker: true
 # Setting type: String
 language: en-US
 
+# Custom day/night duration settings.
 day-night-duration:
   # Enable or disable day/night duration customization.
   # Setting type: Boolean
@@ -18,38 +19,40 @@ day-night-duration:
   # Day/night duration in seconds
   # Setting type: Int
   # Default value: 600
+  # Setting range: 1 - 2147483647
   day-duration: 600
   night-duration: 600
   # List of worlds where the plugin should alter the day/night duration
   # Setting type: String List
   worlds:
-    - world
-    - worldNameExample
-    - MiningWorld
+  - world
+  - worldNameExample
+  - MiningWorld
 
-# Main feature settings.
-daynightpvp:
+# Automatic pvp settings.
+automatic-pvp:
   # List of worlds where the DayNightPvP effect should take place.
   # Setting type: String List
   worlds:
-    - world
-    - worldNameExample
-    - MiningWorld
+  - world
+  - worldNameExample
+  - MiningWorld
   # Defines when the day should end.
   # Setting type: Int
   # Default value: 12000
-  # Setting range: 0 - 24000
+  # Setting range: 1 - 24000
   day-end: 12000
-  # Automatic difficulty settings.
-  automatic-difficulty:
-    # If set to true, the difficulty in the world should be changed to the configured value.
-    # Setting type: Boolean
-    # Default value: false
-    enabled: false
-    # Setting type: String
-    # Acceptable values: PEACEFUL, EASY, NORMAL, HARd
-    day: NORMAL
-    night: HARD
+
+# Automatic difficulty settings.
+automatic-difficulty:
+  # If set to true, the difficulty in the world should be changed to the configured value.
+  # Setting type: Boolean
+  # Default value: false
+  enabled: false
+  # Setting type: String
+  # Acceptable values: PEACEFUL, EASY, NORMAL, HARd
+  day: NORMAL
+  night: HARD
 
 # Notification settings.
 notify-players:
@@ -92,6 +95,7 @@ pvp:
   # Default value: false
   keep-inventory-when-killed-by-player: false
 
+# Vault settings.
 vault:
   # To configure the amount of money a player should lose, use the permission "dnp.losemoney.<percentage>".
   # For instance: "dnp.losemoney.10" - The player loses 10% of their money (between 1 and 100).
@@ -113,6 +117,7 @@ vault:
     # Default value: true
     killer-reward-money: true
 
+# GriefPrevention settings.
 griefprevention:
   # Setting this option to TRUE does not mean PvP will always be active in GriefPrevention territories.
   # It means that if combat is initiated outside the territory and a player runs inside, the combat might continue.

@@ -29,6 +29,7 @@
 .DS_Store
 
 # intellij
+dependency-reduced-pom.xml
 *.iml
 *.ipr
 *.iws

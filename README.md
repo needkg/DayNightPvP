@@ -16,7 +16,7 @@ day.
 
 # Support
 
-Need assistance or have a suggestion? Join our Discord community: [click here](https://discord.needkg.online)
+Need assistance or have a suggestion? Join our Discord community: [click here](https://discord.needkg.com)
 
 # Features
 
@@ -55,7 +55,7 @@ Need assistance or have a suggestion? Join our Discord community: [click here](h
 
 # Commands
 
-    /dnp → Open the GUI
+    /dnp → Show all commands
     /dnp reload → Reload the plugin
 
 # WorldGuard Flags
