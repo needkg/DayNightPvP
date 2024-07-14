@@ -43,7 +43,8 @@ public class UpdateServices {
     private String verifyPluginVersion() throws IOException {
         HttpURLConnection connection = null;
         try {
-            URL urlForGetRequest = new URL("https://api.spigotmc.org/legacy/update.php?resource=102250");
+            long random = (long) Math.floor(Math.random() * (Long.MAX_VALUE - 1 + 1) + 1);
+            URL urlForGetRequest = new URL("https://api.spigotmc.org/legacy/update.php?resource=102250&t=" + random);
             connection = (HttpURLConnection) urlForGetRequest.openConnection();
             connection.setRequestMethod("GET");
 
