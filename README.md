@@ -12,8 +12,6 @@ day.
 
 [Modrinth](https://modrinth.com/plugin/daynightpvp)
 
-[Github](https://github.com/CallVDois/DayNightPvP/releases/latest)
-
 # Support
 
 Need assistance or have a suggestion? Join our Discord community: [click here](https://discord.needkg.com)
