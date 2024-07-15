@@ -24,4 +24,4 @@ permissions:
     default: op
   dnp.bypasspvp:
     description: Allows the user to engage in combat even during the day.
-    default: op
+    default: false
