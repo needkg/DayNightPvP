@@ -1,5 +1,5 @@
 # This is the version of the file, DO NOT MODIFY.
-version: 16
+version: 17
 
 # Enables or disables the update checker (recommended to use as true).
 # Setting type: Boolean
@@ -84,10 +84,22 @@ notify-players:
     fade-out: 20
   sound:
     enabled: true
-    # Setting type: String
-    # Acceptable values: https://github.com/CallVDois/DayNightPvP/wiki/Sounds
-    day: ENTITY_CHICKEN_AMBIENT
-    night: ENTITY_GHAST_AMBIENT
+    day:
+      # Setting type: String
+      # Acceptable values: https://github.com/CallVDois/DayNightPvP/wiki/Sounds
+      sound: ENTITY_CHICKEN_AMBIENT
+      # Setting type: Float
+      # Default value: 1.0
+      # Setting range: 0.0 - 1.0
+      volume: 1.0
+    night:
+      # Setting type: String
+      # Acceptable values: https://github.com/CallVDois/DayNightPvP/wiki/Sounds
+      sound: ENTITY_GHAST_AMBIENT
+      # Setting type: Float
+      # Default value: 1.0
+      # Setting range: 0.0 - 1.0
+      volume: 1.0
 
 pvp:
   # If set to true, the killed player should not lose items when killed by another player.

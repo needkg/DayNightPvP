@@ -35,6 +35,8 @@ public class AutomaticPvp extends BukkitRunnable {
     private final int fadeIn;
     private final int stay;
     private final int fadeOut;
+    private final float soundNightVolume;
+    private final float soundDayVolume;
 
     public AutomaticPvp(ConfigFile configFile, LangFile langFile) {
         this.dayEnd = configFile.getDayNightPvpDayEnd();
@@ -50,12 +52,14 @@ public class AutomaticPvp extends BukkitRunnable {
         this.notifyNightChat = langFile.getNotifyNightChat();
         this.notifyNightTitle = langFile.getNotifyNightTitle();
         this.notifyNightSubtitle = langFile.getNotifyNightSubtitle();
-        this.notifyPlayersSoundDay = configFile.getNotifyPlayersSoundDay();
-        this.notifyPlayersSoundNight = configFile.getNotifyPlayersSoundNight();
+        this.notifyPlayersSoundDay = configFile.getNotifyPlayersSoundDaySound();
+        this.notifyPlayersSoundNight = configFile.getNotifyPlayersSoundNightSound();
         this.worldList = configFile.getDayNightPvpWorlds();
         this.fadeIn = configFile.getNotifyPlayersTitleFadeIn();
         this.stay = configFile.getNotifyPlayersTitleStay();
         this.fadeOut = configFile.getNotifyPlayersTitleFadeOut();
+        this.soundNightVolume = configFile.getNotifyPlayersSoundNightVolume();
+        this.soundDayVolume = configFile.getNotifyPlayersSoundDayVolume();
     }
 
     @Override
@@ -126,7 +130,8 @@ public class AutomaticPvp extends BukkitRunnable {
         }
         if (notifyPlayersSoundEnabled) {
             PlayerUtils.playSoundToAllPlayers(world,
-                    isNight ? notifyPlayersSoundNight : notifyPlayersSoundDay);
+                    isNight ? notifyPlayersSoundNight : notifyPlayersSoundDay,
+                    isNight ? soundNightVolume : soundDayVolume);
         }
     }
 
