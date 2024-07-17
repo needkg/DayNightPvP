@@ -28,8 +28,8 @@ public class ConfigFile {
     }
 
     private void verifyFileVersion() {
-        int lastestFileVersion = 16;
-        if (lastestFileVersion != getVersion()) {
+        int latestFileVersion = 17;
+        if (latestFileVersion != getVersion()) {
             resetFile();
             String fileOutdated = "[DayNightPvP] The \"config.yml\" file was an outdated version. it has been replaced by the new version.";
             ConsoleUtils.sendWarningMessage(fileOutdated);
@@ -61,7 +61,7 @@ public class ConfigFile {
         ConsoleUtils.sendWarningMessage("[DayNightPvP] The \"" + configName + "\" configuration was set incorrectly and has been reset.");
     }
 
-    private int getInt(String path, Integer defaultValue, int minValue, int maxValue) {
+    private int getInt(String path, Integer defaultValue, Integer minValue, Integer maxValue) {
 
         String configValue = fileContent.getString(path);
 
@@ -75,6 +75,30 @@ public class ConfigFile {
 
             if (intValue >= minValue && intValue <= maxValue) {
                 return intValue;
+            } else {
+                resetValueToDefault(path, defaultValue);
+                return defaultValue;
+            }
+        } catch (Exception e) {
+            resetValueToDefault(path, defaultValue);
+            return defaultValue;
+        }
+    }
+
+    private float getFloat(String path, Float defaultValue, Float minValue, Float maxValue) {
+
+        String configValue = fileContent.getString(path);
+
+        if (configValue == null) {
+            resetFile();
+            return defaultValue;
+        }
+
+        try {
+            float floatValue = Float.parseFloat(configValue);
+
+            if (floatValue >= minValue && floatValue <= maxValue) {
+                return floatValue;
             } else {
                 resetValueToDefault(path, defaultValue);
                 return defaultValue;
@@ -255,12 +279,20 @@ public class ConfigFile {
         return getBoolean("notify-players.sound.enabled", true);
     }
 
-    public Sound getNotifyPlayersSoundDay() {
-        return getSound("notify-players.sound.day", Sound.ENTITY_CHICKEN_AMBIENT);
+    public Sound getNotifyPlayersSoundDaySound() {
+        return getSound("notify-players.sound.day.sound", Sound.ENTITY_CHICKEN_AMBIENT);
     }
 
-    public Sound getNotifyPlayersSoundNight() {
-        return getSound("notify-players.sound.night", Sound.ENTITY_GHAST_AMBIENT);
+    public float getNotifyPlayersSoundDayVolume() {
+        return getFloat("notify-players.sound.day.volume", 1.0f, 0.0f, 1.0f);
+    }
+
+    public float getNotifyPlayersSoundNightVolume() {
+        return getFloat("notify-players.sound.night.volume", 1.0f, 0.0f, 1.0f);
+    }
+
+    public Sound getNotifyPlayersSoundNightSound() {
+        return getSound("notify-players.sound.night.sound", Sound.ENTITY_GHAST_AMBIENT);
     }
 
     public boolean getPvpKeepInventoryWhenKilledByPlayer() {

@@ -17,9 +17,9 @@ public class PlayerUtils {
         }
     }
 
-    public static void playSoundToAllPlayers(World world, Sound sound) {
+    public static void playSoundToAllPlayers(World world, Sound sound, Float volume) {
         for (Player player : world.getPlayers()) {
-            player.playSound(player.getLocation(), sound, 1, 1);
+            player.playSound(player.getLocation(), sound, volume, 1);
         }
     }
 
