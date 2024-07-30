@@ -31,7 +31,7 @@ public class LangFile {
     }
 
     private void verifyFileVersion() {
-        int latestFileVersion = 13;
+        int latestFileVersion = 14;
         if (latestFileVersion != getVersion()) {
             resetFile();
             loadFileContent();
@@ -88,6 +88,14 @@ public class LangFile {
 
     public String getNotifyPvpDisabled() {
         return formatMessage("notify-pvp-disabled");
+    }
+
+    public String getNotifyPlayerImmune() {
+        return formatMessage("notify-player-immune");
+    }
+
+    public String getNotifySelfImmune() {
+        return formatMessage("notify-self-immune");
     }
 
     // Feedback
