@@ -33,10 +33,23 @@ public class LangFile {
     private void verifyFileVersion() {
         int latestFileVersion = 14;
         if (latestFileVersion != getVersion()) {
+            // Renomeia o arquivo desatualizado
+            File outdatedFile = new File(DayNightPvP.getInstance().getDataFolder(), "lang/" + configFile.getLanguage() + ".yml.old");
+            if (outdatedFile.exists()) {
+                outdatedFile.delete();
+            }
+            boolean success = fileLocation.renameTo(outdatedFile);
+            if (success) {
+                String fileRenamed = "[DayNightPvP] The \"lang/" + configFile.getLanguage() + "\".yml file was outdated and has been renamed to \"lang/" + configFile.getLanguage() + "\".yml.old\".";
+                ConsoleUtils.sendWarningMessage(fileRenamed);
+            } else {
+                String fileRenameFailed = "[DayNightPvP] Failed to rename the \"lang/" + configFile.getLanguage() + "\".yml file.";
+                ConsoleUtils.sendWarningMessage(fileRenameFailed);
+            }
+
+            // Cria um novo arquivo de configuração
             resetFile();
-            loadFileContent();
-            String fileOutdated = "[DayNightPvP] The " + configFile.getLanguage() + ".yml file was an outdated version. It has been replaced by the new version.";
-            ConsoleUtils.sendWarningMessage(fileOutdated);
+            fileContent = YamlConfiguration.loadConfiguration(fileLocation);
         }
     }
 
