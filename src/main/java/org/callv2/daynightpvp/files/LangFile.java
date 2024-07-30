@@ -33,7 +33,6 @@ public class LangFile {
     private void verifyFileVersion() {
         int latestFileVersion = 14;
         if (latestFileVersion != getVersion()) {
-            // Renomeia o arquivo desatualizado
             File outdatedFile = new File(DayNightPvP.getInstance().getDataFolder(), "lang/" + configFile.getLanguage() + ".yml.old");
             if (outdatedFile.exists()) {
                 outdatedFile.delete();
@@ -47,7 +46,6 @@ public class LangFile {
                 ConsoleUtils.sendWarningMessage(fileRenameFailed);
             }
 
-            // Cria um novo arquivo de configuração
             resetFile();
             fileContent = YamlConfiguration.loadConfiguration(fileLocation);
         }

@@ -30,7 +30,6 @@ public class ConfigFile {
     private void verifyFileVersion() {
         int latestFileVersion = 17;
         if (latestFileVersion != getVersion()) {
-            // Renomeia o arquivo desatualizado
             File outdatedFile = new File(DayNightPvP.getInstance().getDataFolder(), "config.yml.old");
             if (outdatedFile.exists()) {
                 outdatedFile.delete();
@@ -44,7 +43,6 @@ public class ConfigFile {
                 ConsoleUtils.sendWarningMessage(fileRenameFailed);
             }
 
-            // Cria um novo arquivo de configuração
             resetFile();
             fileContent = YamlConfiguration.loadConfiguration(fileLocation);
         }
