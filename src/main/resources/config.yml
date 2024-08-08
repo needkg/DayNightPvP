@@ -1,138 +1,140 @@
-# This is the version of the file, DO NOT MODIFY.
-version: 17
+# Configuration file version, DO NOT MODIFY.
+version: 18
 
-# Enables or disables the update checker (recommended to use as true).
-# Setting type: Boolean
+# Enables or disables the update checker (recommended to keep as true).
+# Configuration type: Boolean
 # Default value: true
 update-checker: true
 
 # Available languages: en-US, pt-BR, es-ES, ru-RU.
-# Setting type: String
+# Configuration type: String
 language: en-US
 
-# Custom day/night duration settings.
-day-night-duration:
-  # Enable or disable day/night duration customization.
-  # Setting type: Boolean
-  # Default value: false
-  enabled: false
-  # Day/night duration in seconds
-  # Setting type: Int
-  # Default value: 600
-  # Setting range: 1 - 2147483647
-  day-duration: 600
-  night-duration: 600
-  # List of worlds where the plugin should alter the day/night duration
-  # Setting type: String List
-  worlds:
-  - world
-  - worldNameExample
-  - MiningWorld
-
-# Automatic pvp settings.
-automatic-pvp:
-  # List of worlds where the DayNightPvP effect should take place.
-  # Setting type: String List
-  worlds:
-  - world
-  - worldNameExample
-  - MiningWorld
-  # Defines when the day should end.
-  # Setting type: Int
-  # Default value: 12000
-  # Setting range: 1 - 24000
-  day-end: 12000
-
-# Automatic difficulty settings.
-automatic-difficulty:
-  # If set to true, the difficulty in the world should be changed to the configured value.
-  # Setting type: Boolean
-  # Default value: false
-  enabled: false
-  # Setting type: String
-  # Acceptable values: PEACEFUL, EASY, NORMAL, HARd
-  day: NORMAL
-  night: HARD
-
-# Notification settings.
-notify-players:
-  chat:
-    # Notifies players when it becomes night/day.
-    # The notification is only for players present in that world.
-    # Setting type: Boolean
-    # Default value: true
-    day-night-starts: true
-    # Notifies the player that they cannot engage in combat because it's daytime.
-    # Setting type: Boolean
-    # Default value: true
-    hit-another-player-during-the-day: true
-  title:
-    # Setting type: Boolean
-    # Default value: true
-    enabled: true
-    # This value determines how long the fade-in animation should last.
-    # Setting type: Int
-    # Note: 20 = 1sec.
-    fade-in: 20
-    # This value determines how long the warning message should stay on the screen.
-    # Setting type: Int
-    # Note: 20 = 1sec.
-    stay: 20
-    # This value determines how long the fade-out animation should last.
-    # Setting type: Int
-    # Note: 20 = 1sec.
-    fade-out: 20
-  sound:
-    enabled: true
-    day:
-      # Setting type: String
-      # Acceptable values: https://github.com/CallVDois/DayNightPvP/wiki/Sounds
-      sound: ENTITY_CHICKEN_AMBIENT
-      # Setting type: Float
-      # Default value: 1.0
-      # Setting range: 0.0 - 1.0
-      volume: 1.0
-    night:
-      # Setting type: String
-      # Acceptable values: https://github.com/CallVDois/DayNightPvP/wiki/Sounds
-      sound: ENTITY_GHAST_AMBIENT
-      # Setting type: Float
-      # Default value: 1.0
-      # Setting range: 0.0 - 1.0
-      volume: 1.0
-
-pvp:
-  # If set to true, the killed player should not lose items when killed by another player.
-  # Setting type: Boolean
-  # Default value: false
-  keep-inventory-when-killed-by-player: false
-
-# Vault settings.
-vault:
-  # To configure the amount of money a player should lose, use the permission "dnp.losemoney.<percentage>".
-  # For instance: "dnp.losemoney.10" - The player loses 10% of their money (between 1 and 100).
-  lose-money-on-death:
-    # If enabled, players with the permission 'dnp.losemoney.<percentage>' should lose money upon death.
-    # Setting type: Boolean
-    # Default value: false
-    enabled: false
-    # If enabled, players will only lose money upon death in worlds that are nighttime.
-    # Setting type: Boolean
-    # Default value: true
-    only-at-night: true
-    # If enabled, players will only lose money in worlds where DayNightPvP controls PvP.
-    # Setting type: Boolean
-    # Default value: true
-    only-in-configured-worlds: true
-    # The killer will earn the same amount of money that the deceased player lost.
-    # Setting type: Boolean
-    # Default value: true
-    killer-reward-money: true
-
-# GriefPrevention settings.
-griefprevention:
-  # Setting this option to TRUE does not mean PvP will always be active in GriefPrevention territories.
-  # It means that if combat is initiated outside the territory and a player runs inside, the combat might continue.
-  # Setting type: Boolean
-  # Default value: false
-  pvp-in-land: false
+worlds:
+  world:
+    # Custom day/night duration settings.
+    day-night-duration:
+      # Enables or disables day/night duration customization.
+      # Configuration type: Boolean
+      # Default value: false
+      enabled: false
+      # Day duration in seconds.
+      # Configuration type: Integer
+      # Default value: 600
+      # Configuration range: 1 - 2147483647
+      day-duration: 600
+      # Night duration in seconds.
+      # Configuration type: Integer
+      # Default value: 600
+      # Configuration range: 1 - 2147483647
+      night-duration: 600
+    # Automatic PvP settings.
+    automatic-pvp:
+      # Enables or disables automatic PvP.
+      # Configuration type: Boolean
+      # Default value: true
+      enabled: true
+      # Defines when the day should end.
+      # Configuration type: Integer
+      # Default value: 12000
+      # Configuration range: 1 - 24000
+      day-end: 12000
+    # Automatic difficulty settings.
+    automatic-difficulty:
+      # If enabled, the world difficulty will be changed to the configured value.
+      # Configuration type: Boolean
+      # Default value: false
+      enabled: false
+      # Difficulty during the day.
+      # Configuration type: String
+      # Acceptable values: PEACEFUL, EASY, NORMAL, HARD
+      day: NORMAL
+      # Difficulty during the night.
+      # Configuration type: String
+      # Acceptable values: PEACEFUL, EASY, NORMAL, HARD
+      night: HARD
+    # PvP settings.
+    pvp-settings:
+      # If enabled, the player killed by another player will not lose items.
+      # Configuration type: Boolean
+      # Default value: false
+      keep-inventory-when-killed-by-player: false
+    # Notification settings.
+    notify-players:
+      # Chat notification settings.
+      chat:
+        # Notifies players when it becomes night/day.
+        # The notification is only for players present in the world.
+        # Configuration type: Boolean
+        # Default value: true
+        day-night-starts: true
+        # Notifies the player that they cannot engage in combat because it is daytime.
+        # Configuration type: Boolean
+        # Default value: true
+        hit-another-player-during-day: true
+      # Title notification settings.
+      title:
+        # Enables or disables title notifications.
+        # Configuration type: Boolean
+        # Default value: true
+        enabled: true
+        # Duration of the fade-in animation.
+        # Configuration type: Integer
+        # Note: 20 = 1 second.
+        fade-in: 20
+        # Duration of the message staying on the screen.
+        # Configuration type: Integer
+        # Note: 20 = 1 second.
+        stay: 20
+        # Duration of the fade-out animation.
+        # Configuration type: Integer
+        # Note: 20 = 1 second.
+        fade-out: 20
+      # Sound notification settings.
+      sound:
+        # Enables or disables sound notifications.
+        enabled: true
+        day:
+          # Sound played during the day.
+          # Configuration type: String
+          # Acceptable values: https://github.com/CallVDois/DayNightPvP/wiki/Sounds
+          sound: ENTITY_CHICKEN_AMBIENT
+          # Sound volume.
+          # Configuration type: Float
+          # Default value: 1.0
+          # Configuration range: 0.0 - 1.0
+          volume: 1.0
+        night:
+          # Sound played during the night.
+          # Configuration type: String
+          # Acceptable values: https://github.com/CallVDois/DayNightPvP/wiki/Sounds
+          sound: ENTITY_GHAST_AMBIENT
+          # Sound volume.
+          # Configuration type: Float
+          # Default value: 1.0
+          # Configuration range: 0.0 - 1.0
+          volume: 1.0
+    # Vault settings.
+    vault:
+      # To configure the amount of money a player should lose, use the permission "dnp.losemoney.<percentage>".
+      # For example: "dnp.losemoney.10" - The player loses 10% of their money (between 1 and 100).
+      lose-money-on-death:
+        # If enabled, players with the 'dnp.losemoney.<percentage>' permission will lose money upon death.
+        # Configuration type: Boolean
+        # Default value: false
+        enabled: false
+        # If enabled, players will lose money upon death only in worlds where it is nighttime.
+        # Configuration type: Boolean
+        # Default value: true
+        only-at-night: true
+        # The killer will earn the same amount of money that the deceased player lost.
+        # Configuration type: Boolean
+        # Default value: true
+        killer-reward-money: true
+    # GriefPrevention settings.
+    grief-prevention:
+      # Enabling this option does not mean PvP will always be active in GriefPrevention territories.
+      # It means that if combat is initiated outside the territory and a player runs inside, the combat might continue for a time.
+      # Configuration type: Boolean
+      # Default value: false
+      pvp-in-land: false

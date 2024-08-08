@@ -4,11 +4,10 @@ import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.callv2.daynightpvp.files.ConfigFile;
 import org.callv2.daynightpvp.files.LangFile;
-import org.callv2.daynightpvp.utils.SearchUtils;
-
-import java.util.List;
+import org.callv2.daynightpvp.runnables.AutomaticPvp;
 
 public class LoseMoneyOnDeath {
 
@@ -20,54 +19,43 @@ public class LoseMoneyOnDeath {
         this.langFile = langFile;
     }
 
-    public void loseMoneyOnDeath(Player killed, Player killer, World world, List<World> worldList, String percentage) {
-        boolean vaultLoseMoneyOnDeathOnlyAtNight = configFile.getVaultLoseMoneyOnDeathOnlyAtNight();
-        boolean vaultLoseMoneyOnDeathOnlyInConfiguredWorlds = configFile.getVaultLoseMoneyOnDeathOnlyInConfiguredWorlds();
+    public void loseMoneyOnDeath(Player killed, Player killer, World world, String percentage) {
 
-        Economy economy = Bukkit.getServicesManager().getRegistration(Economy.class).getProvider();
-        if (killed != null && !percentage.isEmpty() && percentage.matches("[1-9][0-9]?|100")) {
+        RegisteredServiceProvider<Economy> rsp = Bukkit.getServicesManager().getRegistration(Economy.class);
+        if (rsp == null) {
+            Bukkit.getLogger().severe("No Economy provider found! Disabling loseMoneyOnDeath functionality.");
+            return;
+        }
+
+        Economy economy = rsp.getProvider();
+
+        if (!percentage.isEmpty() && percentage.matches("[1-9][0-9]?|100")) {
             boolean shouldWithdraw = false;
             double currentBalance = economy.getBalance(killed);
             int parsedPercentage = Integer.parseInt(percentage);
             double amount = currentBalance * (parsedPercentage / 100.0);
             double amountRounded = Math.round(amount * 100.0) / 100.0;
 
-            if (vaultLoseMoneyOnDeathOnlyAtNight) {
-                if (world.getPVP()) {
-                    if (vaultLoseMoneyOnDeathOnlyInConfiguredWorlds) {
-                        if (SearchUtils.worldExistsInWorldList(worldList, world.getName())) {
-                            economy.withdrawPlayer(killed, amountRounded);
-                            shouldWithdraw = true;
-                            // noite e configurado
-                        }
-                    } else {
-                        shouldWithdraw = true;
-                        economy.withdrawPlayer(killed, amountRounded);
-                        // noite e qualquer mundo
-                    }
-                }
-            } else if (vaultLoseMoneyOnDeathOnlyInConfiguredWorlds) {
-                if (SearchUtils.worldExistsInWorldList(worldList, world.getName())) {
-                    shouldWithdraw = true;
+            if (configFile.getVaultLoseMoneyOnDeathOnlyAtNight(world.getName())) {
+                if (AutomaticPvp.worldsPvpOn.contains(world)) {
                     economy.withdrawPlayer(killed, amountRounded);
-                    // dia/noite e configurado
+                    shouldWithdraw = true;
                 }
             } else {
-                shouldWithdraw = true;
                 economy.withdrawPlayer(killed, amountRounded);
-                // dia/noite e qualquer
+                shouldWithdraw = true;
             }
+
             if (shouldWithdraw) {
                 String money = Double.toString(amountRounded);
                 String killedName = killed.getName();
-                String killerName = killed.getName();
+                String killerName = killer.getName(); // Corrigido killerName para pegar o nome do killer
                 killed.sendMessage(langFile.getFeedbackLoseMoney().replace("{0}", killerName).replace("{1}", money));
-                if (configFile.getVaultLoseMoneyOnDeathKillerRewardMoney()) {
+                if (configFile.getVaultLoseMoneyOnDeathKillerRewardMoney(world.getName())) {
                     economy.depositPlayer(killer, amountRounded);
                     killer.sendMessage(langFile.getFeedbackWinMoney().replace("{0}", killedName).replace("{1}", money));
                 }
             }
         }
     }
-
 }

@@ -55,6 +55,8 @@ Need assistance or have a suggestion? Join our Discord community: [click here](h
 
     /dnp → Show all available commands
     /dnp reload → Reload the plugin
+    /dnp addworld <worldName> → Adds a world to the configuration file
+    /dnp delworld <worldName> → Deletes a world from the configuration file
 
 # WorldGuard Flags
 

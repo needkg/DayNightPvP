@@ -12,6 +12,7 @@ import org.callv2.daynightpvp.utils.ConsoleUtils;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class ConfigFile {
 
@@ -28,7 +29,7 @@ public class ConfigFile {
     }
 
     private void verifyFileVersion() {
-        int latestFileVersion = 17;
+        int latestFileVersion = 18;
         if (latestFileVersion != getVersion()) {
             File outdatedFile = new File(DayNightPvP.getInstance().getDataFolder(), "config.yml.old");
             if (outdatedFile.exists()) {
@@ -48,12 +49,16 @@ public class ConfigFile {
         }
     }
 
+    public boolean contains(String text) {
+        return fileContent.contains(text);
+    }
+
     public void setValue(String path, Object value) {
         fileContent.set(path, value);
         saveConfig();
     }
 
-    private void saveConfig() {
+    public void saveConfig() {
         try {
             fileContent.save(fileLocation);
         } catch (Exception e) {
@@ -78,6 +83,8 @@ public class ConfigFile {
 
         if (configValue == null) {
             resetFile();
+            String configName = path.replace(".", "/");
+            ConsoleUtils.sendWarningMessage("[DayNightPvP] The \"" + configName + "\" não foi encontrado e o arquivo foi redefinido.");
             return defaultValue;
         }
 
@@ -102,6 +109,8 @@ public class ConfigFile {
 
         if (configValue == null) {
             resetFile();
+            String configName = path.replace(".", "/");
+            ConsoleUtils.sendWarningMessage("[DayNightPvP] The \"" + configName + "\" não foi encontrado e o arquivo foi redefinido.");
             return defaultValue;
         }
 
@@ -126,6 +135,8 @@ public class ConfigFile {
 
         if (configValue == null) {
             resetFile();
+            String configName = path.replace(".", "/");
+            ConsoleUtils.sendWarningMessage("[DayNightPvP] The \"" + configName + "\" não foi encontrado e o arquivo foi redefinido.");
             return defaultValue;
         }
 
@@ -143,6 +154,8 @@ public class ConfigFile {
 
         if (configValue == null) {
             resetFile();
+            String configName = path.replace(".", "/");
+            ConsoleUtils.sendWarningMessage("[DayNightPvP] The \"" + configName + "\" não foi encontrado e o arquivo foi redefinido.");
             return defaultValue;
         }
 
@@ -159,6 +172,8 @@ public class ConfigFile {
 
         if (configValue == null) {
             resetFile();
+            String configName = path.replace(".", "/");
+            ConsoleUtils.sendWarningMessage("[DayNightPvP] The \"" + configName + "\" não foi encontrado e o arquivo foi redefinido.");
             return defaultValue;
         }
 
@@ -170,6 +185,8 @@ public class ConfigFile {
 
         if (configValue == null) {
             resetFile();
+            String configName = path.replace(".", "/");
+            ConsoleUtils.sendWarningMessage("[DayNightPvP] The \"" + configName + "\" não foi encontrado e o arquivo foi redefinido.");
             return defaultValue;
         }
 
@@ -206,6 +223,10 @@ public class ConfigFile {
         return worldList;
     }
 
+    public Set<String> getWorlds() {
+        return fileContent.getConfigurationSection("worlds").getKeys(false);
+    }
+
     public int getVersion() {
         return fileContent.getInt("version");
     }
@@ -218,115 +239,100 @@ public class ConfigFile {
         return getString("language", "en-US");
     }
 
-    public Boolean getDayNightDurationEnabled() {
-        return getBoolean("day-night-duration.enabled", false);
+    public boolean getDayNightDurationEnabled(String worldName) {
+        return getBoolean("worlds." + worldName + ".day-night-duration.enabled", false);
     }
 
-    public int getDayNightDurationDayDuration() {
-        return getInt("day-night-duration.day-duration", 600, 1, 2147483647);
+    public int getDayNightDurationDayDuration(String worldName) {
+        return getInt("worlds." + worldName + ".day-night-duration.day-duration", 600, 1, 2147483647);
     }
 
-    public int getDayNightDurationNightDuration() {
-        return getInt("day-night-duration.night-duration", 600, 1, 2147483647);
+    public int getDayNightDurationNightDuration(String worldName) {
+        return getInt("worlds." + worldName + ".day-night-duration.night-duration", 600, 1, 2147483647);
     }
 
-    public List<World> getDayNightDurationWorlds() {
-        List<String> defaultValue = new ArrayList<>();
-        defaultValue.add("world");
-        defaultValue.add("worldNameExample");
-        defaultValue.add("MiningWorld");
-        return getWorldList("day-night-duration.worlds", defaultValue);
+    public boolean getAutomaticPvpEnabled(String worldName) {
+        return getBoolean("worlds." + worldName + ".automatic-pvp.enabled", true);
     }
 
-    public List<World> getDayNightPvpWorlds() {
-        List<String> defaultValue = new ArrayList<>();
-        defaultValue.add("world");
-        defaultValue.add("worldNameExample");
-        defaultValue.add("MiningWorld");
-        return getWorldList("automatic-pvp.worlds", defaultValue);
+    public int getAutomaticPvpDayEnd(String worldName) {
+        return getInt("worlds." + worldName + ".automatic-pvp.day-end", 12000, 1, 24000);
     }
 
-    public int getDayNightPvpDayEnd() {
-        return getInt("automatic-pvp.day-end", 12000, 1, 24000);
+    public boolean getAutomaticDifficultyEnabled(String worldName) {
+        return getBoolean("worlds." + worldName + ".automatic-difficulty.enabled", false);
     }
 
-    public boolean getDayNightPvpAutomaticDifficultyEnabled() {
-        return getBoolean("automatic-difficulty.enabled", false);
+    public Difficulty getAutomaticDifficultyDay(String worldName) {
+        return getDifficulty("worlds." + worldName + ".automatic-difficulty.day", Difficulty.NORMAL);
     }
 
-    public Difficulty getDayNightPvpAutomaticDifficultyDay() {
-        return getDifficulty("automatic-difficulty.day", Difficulty.NORMAL);
+    public Difficulty getAutomaticDifficultyNight(String worldName) {
+        return getDifficulty("worlds." + worldName + ".automatic-difficulty.night", Difficulty.HARD);
     }
 
-    public Difficulty getDayNightPvpAutomaticDifficultyNight() {
-        return getDifficulty("automatic-difficulty.night", Difficulty.HARD);
+    public boolean getPvpSettingsKeepInventoryWhenKilledByPlayersEnabled(String worldName) {
+        return getBoolean("worlds." + worldName + ".pvp-settings.keep-inventory-when-killed-by-player", false);
     }
 
-    public boolean getNotifyPlayersChatDayNightStarts() {
-        return getBoolean("notify-players.chat.day-night-starts", true);
+    public boolean getNotifyPlayersChatDayNightStartsEnabled(String worldName) {
+        return getBoolean("worlds." + worldName + ".notify-players.chat.day-night-starts", true);
     }
 
-    public boolean getNotifyPlayersChatHitAnotherPlayerDuringTheDay() {
-        return getBoolean("notify-players.chat.hit-another-player-during-the-day", true);
+    public boolean getNotifyPlayersChatHitAnotherPlayerDuringDay(String worldName) {
+        return getBoolean("worlds." + worldName + ".notify-players.chat.hit-another-player-during-day", true);
     }
 
-    public boolean getNotifyPlayersTitleEnabled() {
-        return getBoolean("notify-players.title.enabled", true);
+    public boolean getNotifyPlayersTitleEnabled(String worldName) {
+        return getBoolean("worlds." + worldName + ".notify-players.title.enabled", true);
     }
 
-    public int getNotifyPlayersTitleFadeIn() {
-        return getInt("notify-players.title.fade-in", 20, 0, 2147483647);
+    public int getNotifyPlayersTitleFadeIn(String worldName) {
+        return getInt("worlds." + worldName + ".notify-players.title.fade-in", 20, 1, 2147483647);
     }
 
-    public int getNotifyPlayersTitleStay() {
-        return getInt("notify-players.title.stay", 20, 0, 2147483647);
+    public int getNotifyPlayersTitleStay(String worldName) {
+        return getInt("worlds." + worldName + ".notify-players.title.stay", 20, 1, 2147483647);
     }
 
-    public int getNotifyPlayersTitleFadeOut() {
-        return getInt("notify-players.title.fade-out", 20, 0, 2147483647);
+    public int getNotifyPlayersTitleFadeOut(String worldName) {
+        return getInt("worlds." + worldName + ".notify-players.title.fade-out", 20, 1, 2147483647);
     }
 
-    public boolean getNotifyPlayersSoundEnabled() {
-        return getBoolean("notify-players.sound.enabled", true);
+    public boolean getNotifyPlayersSoundEnabled(String worldName) {
+        return getBoolean("worlds." + worldName + ".notify-players.sound.enabled", true);
     }
 
-    public Sound getNotifyPlayersSoundDaySound() {
-        return getSound("notify-players.sound.day.sound", Sound.ENTITY_CHICKEN_AMBIENT);
+    public Sound getNotifyPlayersSoundDay(String worldName) {
+        return getSound("worlds." + worldName + ".notify-players.sound.day.sound", Sound.ENTITY_CHICKEN_AMBIENT);
     }
 
-    public float getNotifyPlayersSoundDayVolume() {
-        return getFloat("notify-players.sound.day.volume", 1.0f, 0.0f, 1.0f);
+    public float getNotifyPlayersSoundDayVolume(String worldName) {
+        return getFloat("worlds." + worldName + ".notify-players.sound.day.volume", 1.0F, 0.0F, 1.0F);
     }
 
-    public float getNotifyPlayersSoundNightVolume() {
-        return getFloat("notify-players.sound.night.volume", 1.0f, 0.0f, 1.0f);
+    public Sound getNotifyPlayersSoundNight(String worldName) {
+        return getSound("worlds." + worldName + ".notify-players.sound.night.sound", Sound.ENTITY_GHAST_AMBIENT);
     }
 
-    public Sound getNotifyPlayersSoundNightSound() {
-        return getSound("notify-players.sound.night.sound", Sound.ENTITY_GHAST_AMBIENT);
+    public float getNotifyPlayersSoundNightVolume(String worldName) {
+        return getFloat("worlds." + worldName + ".notify-players.sound.night.volume", 1.0F, 0.0F, 1.0F);
     }
 
-    public boolean getPvpKeepInventoryWhenKilledByPlayer() {
-        return getBoolean("pvp.keep-inventory-when-killed-by-player", false);
+    public boolean getVaultLoseMoneyOnDeathEnabled(String worldName) {
+        return getBoolean("worlds." + worldName + ".vault.lose-money-on-death.enabled", false);
     }
 
-    public boolean getVaultLoseMoneyOnDeathEnabled() {
-        return getBoolean("vault.lose-money-on-death.enabled", false);
+    public boolean getVaultLoseMoneyOnDeathOnlyAtNight(String worldName) {
+        return getBoolean("worlds." + worldName + ".vault.lose-money-on-death.only-at-night", true);
     }
 
-    public boolean getVaultLoseMoneyOnDeathOnlyAtNight() {
-        return getBoolean("vault.lose-money-on-death.only-at-night", true);
+    public boolean getVaultLoseMoneyOnDeathKillerRewardMoney(String worldName) {
+        return getBoolean("worlds." + worldName + ".vault.lose-money-on-death.killer-reward-money", true);
     }
 
-    public boolean getVaultLoseMoneyOnDeathOnlyInConfiguredWorlds() {
-        return getBoolean("vault.lose-money-on-death.only-in-configured-worlds", true);
+    public boolean getGriefPreventionPvpInLand(String worldName) {
+        return getBoolean("worlds." + worldName + ".grief-prevention.pvp-in-land", false);
     }
 
-    public boolean getVaultLoseMoneyOnDeathKillerRewardMoney() {
-        return getBoolean("vault.lose-money-on-death.killer-reward-money", true);
-    }
-
-    public boolean getGriefPreventionPvpInLandEnabled() {
-        return getBoolean("griefprevention.pvp-in-land", false);
-    }
 }

@@ -9,24 +9,16 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.permissions.PermissionAttachmentInfo;
 import org.callv2.daynightpvp.DayNightPvP;
 import org.callv2.daynightpvp.files.ConfigFile;
-import org.callv2.daynightpvp.utils.SearchUtils;
 import org.callv2.daynightpvp.vault.LoseMoneyOnDeath;
 
-import java.util.List;
+public class DeathListener  implements Listener {
 
-public class DeathListener implements Listener {
-
+    private final ConfigFile configFile;
     private final LoseMoneyOnDeath loseMoneyOnDeath;
-    private final List<World> dayNightPvpWorlds;
-    private final boolean keepInventoryWhenKilledByPlayer;
-    private final boolean vaultLoseMoneyOnDeathEnabled;
 
-    public DeathListener(ConfigFile configFile,  LoseMoneyOnDeath loseMoneyOnDeath) {
+    public DeathListener(ConfigFile configFile, LoseMoneyOnDeath loseMoneyOnDeath) {
+        this.configFile = configFile;
         this.loseMoneyOnDeath = loseMoneyOnDeath;
-
-        dayNightPvpWorlds = configFile.getDayNightPvpWorlds();
-        keepInventoryWhenKilledByPlayer = configFile.getPvpKeepInventoryWhenKilledByPlayer();
-        vaultLoseMoneyOnDeathEnabled = configFile.getVaultLoseMoneyOnDeathEnabled();
     }
 
     @EventHandler
@@ -34,20 +26,17 @@ public class DeathListener implements Listener {
         Player killed = event.getEntity();
         Player killer = event.getEntity().getKiller();
         World world = event.getEntity().getWorld();
+        String worldName = world.getName();
 
-        if (keepInventoryWhenKilledByPlayer) {
-            if (killer != null) {
-                if (SearchUtils.worldExistsInWorldList(dayNightPvpWorlds, world.getName())) {
-                    event.setKeepInventory(true);
-                    event.getDrops().clear();
-                    event.setKeepLevel(true);
-                }
+        if (killer != null) {
+
+            if (configFile.getPvpSettingsKeepInventoryWhenKilledByPlayersEnabled(worldName)) {
+                event.setKeepInventory(true);
+                event.getDrops().clear();
             }
-        }
 
-        Bukkit.getScheduler().runTaskAsynchronously(DayNightPvP.getInstance(), () -> {
-            if (vaultLoseMoneyOnDeathEnabled && DayNightPvP.vaultIsPresent) {
-                if (killer != null) {
+            Bukkit.getScheduler().runTaskAsynchronously(DayNightPvP.getInstance(), () -> {
+                if (configFile.getVaultLoseMoneyOnDeathEnabled(worldName) && DayNightPvP.vaultIsPresent) {
                     for (PermissionAttachmentInfo permission : event.getEntity().getEffectivePermissions()) {
                         if (permission.getPermission().startsWith("dnp.losemoney")) {
                             String percentage = killed.getEffectivePermissions().stream()
@@ -56,12 +45,14 @@ public class DeathListener implements Listener {
                                     .map(perm -> perm.getPermission().replace("dnp.losemoney.", ""))
                                     .orElse("");
 
-                            loseMoneyOnDeath.loseMoneyOnDeath(killed, killer, world, dayNightPvpWorlds, percentage);
+                            loseMoneyOnDeath.loseMoneyOnDeath(killed, killer, world, percentage);
                         }
                     }
                 }
-            }
-        });
+            });
+
+        }
+
     }
 
 }

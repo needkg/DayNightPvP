@@ -8,7 +8,7 @@ load: POSTWORLD
 
 commands:
   daynightpvp:
-    description: "Show all available commands."
+    description: "Show all available commands"
     usage: "/dnp"
     aliases: [dnp]
     permission: dnp.admin
@@ -16,6 +16,16 @@ commands:
     description: "Reload the plugin"
     usage: "/dnp reload"
     aliases: [dnp reload]
+    permission: dnp.admin
+  daynightpvp addworld:
+    description: "Adds a world to the configuration file"
+    usage: "/dnp addworld"
+    aliases: [dnp addworld]
+    permission: dnp.admin
+  daynightpvp delworld:
+    description: "Deletes a world from the configuration file"
+    usage: "/dnp delworld"
+    aliases: [dnp delworld]
     permission: dnp.admin
 
 permissions:

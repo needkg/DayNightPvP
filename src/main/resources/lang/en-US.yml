@@ -1,31 +1,37 @@
 # This is the version of the file, DO NOT MODIFY.
-version: 14
+version: 15
 
 # Notifications
-notify-day-chat: "&a&lDay! PvP Disabled!"
-notify-night-chat: "&c&lNight! PvP Enabled!"
-notify-day-title: "&a&lDay!"
-notify-day-subtitle: "&a&lPvP Disabled!"
-notify-night-title: "&c&lNight!"
-notify-night-subtitle: "&c&lPvP Enabled!"
-notify-pvp-disabled: "&7You cannot enter combat at the moment, it's daytime!"
-notify-player-immune: "&7This player is immune to PvP!"
-notify-self-immune: "&7You are immune to PvP, you cannot enter combat"
+notify-day-chat: "&a&lDia! PvP Desativado!"
+notify-night-chat: "&c&lNoite! PvP Ativado!"
+notify-day-title: "&a&lDia!"
+notify-day-subtitle: "&a&lPvP Desativado!"
+notify-night-title: "&c&lNoite!"
+notify-night-subtitle: "&c&lPvP Ativado!"
+notify-pvp-disabled: "&7Você não pode entrar em combate no momento, está de dia!"
+notify-player-immune: "&7Este jogador é imune ao PvP!"
+notify-self-immune: "&7Você é imune ao PvP, não pode entrar em combate"
 
 # Feedback
-feedback-update-available: "&9&lDayNightPvP &8-> &7Update available!!"
-feedback-update-current-version: "&7Current version: &c{0}"
-feedback-update-latest-version: "&7Latest version: &b{0}"
-feedback-update-check-failed: "&9&lDayNightPvP &8-> &7Unable to check for updates."
-feedback-reload-plugin: "&a&lSuccess! &7Plugin reloaded!"
-feedback-lose-money: "&e&lWarning! &7You died to &b{0} &7and lost &c${1}"
-feedback-win-money: "&e&lWarning! &7You killed &b{0} &7and won &a${1}"
-feedback-non-existent-command: "&c&lError! &7Command not found!"
-feedback-error: "&c&lERROR!"
+feedback-update-available: "&9&lDayNightPvP &8-> &7Atualização disponível!!"
+feedback-update-check-failed: "&9&lDayNightPvP &8-> &7Não foi possível verificar por atualizações."
+feedback-update-current-version: "&7Versão atual: &c{0}"
+feedback-update-latest-version: "&7Ultima versão: &b{0}"
+feedback-reload-plugin: "&8[&aDayNightPvP&8] &7Plugin recarregado!"
+feedback-lose-money: "&7Você morreu para &b{0} &7e perdeu &c${1}"
+feedback-win-money: "&7Você matou &b{0} &7e ganhou &a${1}"
+feedback-added-world: "&8[&aDayNightPvP&8] &7O mundo &b{0} &7foi adicionado nas configurações."
+feedback-deleted-world: "&8[&aDayNightPvP&8] &7O mundo &b{0} &7foi deletado das configurações."
+feedback-world-is-not-in-settings: "&8[&aDayNightPvP&8] &7O mundo &b{0} &7não existe nas configurações."
+feedback-world-already-exists: "&8[&aDayNightPvP&8] &7O mundo &b{0} &7já existe nas configurações."
+feedback-world-does-not-exist: "&8[&aDayNightPvP&8] &7O mundo &b{0} &7não existe."
+feedback-incorrect-command: "&8[&aDayNightPvP&8] &7Comando incorreto, use: &b{0}"
+feedback-non-existent-command: "&8[&aDayNightPvP&8] &7Comando não encontrado!"
+feedback-error: "&c&lERRO!"
 
 # Actions
-action-update-found-click: "&a&nClick here to open the plugin page"
+action-update-found-click: "&a&nClique aqui para abrir a página do plugin"
 
 # Placeholder
-placeholder-pvp-enabled: "&aEnabled"
-placeholder-pvp-disabled: "&cDisabled"
+placeholder-pvp-enabled: "&aAtivado"
+placeholder-pvp-disabled: "&cDesativado"
