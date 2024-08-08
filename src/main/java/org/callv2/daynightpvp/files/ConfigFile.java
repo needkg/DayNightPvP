@@ -29,7 +29,7 @@ public class ConfigFile {
     }
 
     private void verifyFileVersion() {
-        int latestFileVersion = 17;
+        int latestFileVersion = 18;
         if (latestFileVersion != getVersion()) {
             File outdatedFile = new File(DayNightPvP.getInstance().getDataFolder(), "config.yml.old");
             if (outdatedFile.exists()) {

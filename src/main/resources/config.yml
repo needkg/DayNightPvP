@@ -1,5 +1,5 @@
 # Configuration file version, DO NOT MODIFY.
-version: 17
+version: 18
 
 # Enables or disables the update checker (recommended to keep as true).
 # Configuration type: Boolean
@@ -28,7 +28,6 @@ worlds:
       # Default value: 600
       # Configuration range: 1 - 2147483647
       night-duration: 600
-
     # Automatic PvP settings.
     automatic-pvp:
       # Enables or disables automatic PvP.
@@ -40,7 +39,6 @@ worlds:
       # Default value: 12000
       # Configuration range: 1 - 24000
       day-end: 12000
-
     # Automatic difficulty settings.
     automatic-difficulty:
       # If enabled, the world difficulty will be changed to the configured value.
@@ -55,14 +53,12 @@ worlds:
       # Configuration type: String
       # Acceptable values: PEACEFUL, EASY, NORMAL, HARD
       night: HARD
-
     # PvP settings.
     pvp-settings:
       # If enabled, the player killed by another player will not lose items.
       # Configuration type: Boolean
       # Default value: false
       keep-inventory-when-killed-by-player: false
-
     # Notification settings.
     notify-players:
       # Chat notification settings.
@@ -76,7 +72,6 @@ worlds:
         # Configuration type: Boolean
         # Default value: true
         hit-another-player-during-day: true
-
       # Title notification settings.
       title:
         # Enables or disables title notifications.
@@ -95,7 +90,6 @@ worlds:
         # Configuration type: Integer
         # Note: 20 = 1 second.
         fade-out: 20
-
       # Sound notification settings.
       sound:
         # Enables or disables sound notifications.
@@ -120,7 +114,6 @@ worlds:
           # Default value: 1.0
           # Configuration range: 0.0 - 1.0
           volume: 1.0
-
     # Vault settings.
     vault:
       # To configure the amount of money a player should lose, use the permission "dnp.losemoney.<percentage>".
@@ -138,7 +131,6 @@ worlds:
         # Configuration type: Boolean
         # Default value: true
         killer-reward-money: true
-
     # GriefPrevention settings.
     grief-prevention:
       # Enabling this option does not mean PvP will always be active in GriefPrevention territories.
