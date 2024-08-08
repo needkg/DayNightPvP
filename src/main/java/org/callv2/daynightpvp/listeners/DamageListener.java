@@ -53,7 +53,9 @@ public class DamageListener implements Listener {
         Player damager = (Player) event.getDamager();
         Player damaged = (Player) event.getEntity();
 
-        event.setCancelled(checkHooks(damaged, damager, damaged.getWorld().getName()));
+        if (checkHooks(damaged, damager, damaged.getWorld().getName())) {
+            event.setCancelled(true);
+        }
     }
 
     @EventHandler(priority = EventPriority.HIGH)
