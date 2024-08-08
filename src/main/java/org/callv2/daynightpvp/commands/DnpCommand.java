@@ -4,7 +4,10 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
+import org.callv2.daynightpvp.commands.subcommands.AddWorldSubCommand;
+import org.callv2.daynightpvp.commands.subcommands.DelWorldSubCommand;
 import org.callv2.daynightpvp.commands.subcommands.ReloadSubCommand;
+import org.callv2.daynightpvp.files.ConfigFile;
 import org.callv2.daynightpvp.files.LangFile;
 import org.callv2.daynightpvp.runnables.RunnableHandler;
 import org.callv2.daynightpvp.services.PluginServices;
@@ -13,27 +16,30 @@ import org.callv2.daynightpvp.vault.LoseMoneyOnDeath;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
-
-import static java.util.stream.Collectors.toList;
+import java.util.stream.Collectors;
 
 public class DnpCommand implements CommandExecutor, TabCompleter {
 
     private final LangFile langFile;
-    private final LoseMoneyOnDeath loseMoneyOnDeath;
+    private final ConfigFile configFile;
     private final RunnableHandler runnableHandler;
+    private final LoseMoneyOnDeath loseMoneyOnDeath;
 
     private final Map<String, ISubCommand> subCommands = new HashMap<>();
 
-    public DnpCommand(LangFile langFile, LoseMoneyOnDeath loseMoneyOnDeath, RunnableHandler runnableHandler) {
+    public DnpCommand(LangFile langFile, ConfigFile configFile, RunnableHandler runnableHandler, LoseMoneyOnDeath loseMoneyOnDeath) {
         this.langFile = langFile;
-        this.loseMoneyOnDeath = loseMoneyOnDeath;
+        this.configFile = configFile;
         this.runnableHandler = runnableHandler;
+        this.loseMoneyOnDeath = loseMoneyOnDeath;
 
         registerSubCommands();
     }
 
     private void registerSubCommands() {
         subCommands.put("reload", new ReloadSubCommand(langFile, new PluginServices(loseMoneyOnDeath, runnableHandler)));
+        subCommands.put("addworld", new AddWorldSubCommand(langFile, configFile));
+        subCommands.put("delworld", new DelWorldSubCommand(langFile, configFile));
     }
 
     @Override
@@ -67,9 +73,9 @@ public class DnpCommand implements CommandExecutor, TabCompleter {
         if (args.length == 1) {
             return this.subCommands.keySet().stream()
                     .filter(subCmd -> sender.hasPermission("dnp.admin"))
-                    .filter(subCmd -> subCmd.contains(args[0]) || subCmd.equalsIgnoreCase(args[0]))
+                    .filter(subCmd -> subCmd.toLowerCase().startsWith(args[0].toLowerCase()))  // Use startsWith para filtrar sugestões
                     .sorted()
-                    .collect(toList());
+                    .collect(Collectors.toList());
         }
 
         String cmdName = this.subCommands.keySet().stream()

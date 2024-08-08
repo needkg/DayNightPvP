@@ -4,7 +4,6 @@ import org.bukkit.Difficulty;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.callv2.daynightpvp.files.ConfigFile;
 import org.callv2.daynightpvp.files.LangFile;
 import org.callv2.daynightpvp.utils.ConsoleUtils;
 import org.callv2.daynightpvp.utils.PlayerUtils;
@@ -18,7 +17,6 @@ public class AutomaticPvp extends BukkitRunnable {
     public static List<World> worldsPvpOn = new ArrayList<>();
     private final long dayEnd;
     private final boolean automaticDifficultyEnabled;
-    private final boolean notifyPlayersChat;
     private final boolean notifyPlayersTitleEnabled;
     private final boolean notifyPlayersSoundEnabled;
     private final Difficulty automaticDifficultyDay;
@@ -31,47 +29,62 @@ public class AutomaticPvp extends BukkitRunnable {
     private final String notifyNightSubtitle;
     private final Sound notifyPlayersSoundDay;
     private final Sound notifyPlayersSoundNight;
-    private final List<World> worldList;
     private final int fadeIn;
     private final int stay;
     private final int fadeOut;
     private final float soundNightVolume;
     private final float soundDayVolume;
+    private final boolean notifyPlayersChatDayNightStarts;
+    private final World world;
 
-    public AutomaticPvp(ConfigFile configFile, LangFile langFile) {
-        this.dayEnd = configFile.getDayNightPvpDayEnd();
-        this.automaticDifficultyEnabled = configFile.getDayNightPvpAutomaticDifficultyEnabled();
-        this.notifyPlayersChat = configFile.getNotifyPlayersChatDayNightStarts();
-        this.notifyPlayersTitleEnabled = configFile.getNotifyPlayersTitleEnabled();
-        this.notifyPlayersSoundEnabled = configFile.getNotifyPlayersSoundEnabled();
-        this.automaticDifficultyDay = configFile.getDayNightPvpAutomaticDifficultyDay();
-        this.automaticDifficultyNight = configFile.getDayNightPvpAutomaticDifficultyNight();
+    public AutomaticPvp(
+            LangFile langFile,
+            long dayEnd,
+            boolean automaticDifficultyEnabled,
+            boolean notifyPlayersTitleEnabled,
+            boolean notifyPlayersSoundEnabled,
+            Difficulty automaticDifficultyDay,
+            Difficulty automaticDifficultyNight,
+            Sound notifyPlayersSoundDay,
+            Sound notifyPlayersSoundNight,
+            int fadeIn,
+            int stay,
+            int fadeOut,
+            float soundNightVolume,
+            float soundDayVolume,
+            boolean notifyPlayersChatDayNightStarts,
+            World world) {
+        this.dayEnd = dayEnd;
+        this.automaticDifficultyEnabled = automaticDifficultyEnabled;
+        this.notifyPlayersTitleEnabled = notifyPlayersTitleEnabled;
+        this.notifyPlayersSoundEnabled = notifyPlayersSoundEnabled;
+        this.automaticDifficultyDay = automaticDifficultyDay;
+        this.automaticDifficultyNight = automaticDifficultyNight;
         this.notifyDayChat = langFile.getNotifyDayChat();
         this.notifyDayTitle = langFile.getNotifyDayTitle();
         this.notifyDaySubtitle = langFile.getNotifyDaySubtitle();
         this.notifyNightChat = langFile.getNotifyNightChat();
         this.notifyNightTitle = langFile.getNotifyNightTitle();
         this.notifyNightSubtitle = langFile.getNotifyNightSubtitle();
-        this.notifyPlayersSoundDay = configFile.getNotifyPlayersSoundDaySound();
-        this.notifyPlayersSoundNight = configFile.getNotifyPlayersSoundNightSound();
-        this.worldList = configFile.getDayNightPvpWorlds();
-        this.fadeIn = configFile.getNotifyPlayersTitleFadeIn();
-        this.stay = configFile.getNotifyPlayersTitleStay();
-        this.fadeOut = configFile.getNotifyPlayersTitleFadeOut();
-        this.soundNightVolume = configFile.getNotifyPlayersSoundNightVolume();
-        this.soundDayVolume = configFile.getNotifyPlayersSoundDayVolume();
+        this.notifyPlayersSoundDay = notifyPlayersSoundDay;
+        this.notifyPlayersSoundNight = notifyPlayersSoundNight;
+        this.fadeIn = fadeIn;
+        this.stay = stay;
+        this.fadeOut = fadeOut;
+        this.soundNightVolume = soundNightVolume;
+        this.soundDayVolume = soundDayVolume;
+        this.notifyPlayersChatDayNightStarts = notifyPlayersChatDayNightStarts;
+        this.world = world;
     }
 
     @Override
     public void run() {
-        for (World world : worldList) {
-            if (checkTime(world)) {
-                handleNight(world);
-            } else {
-                handleDay(world);
-            }
-            verifyPvpStatus(world);
+        if (checkTime(world)) {
+            handleNight(world);
+        } else {
+            handleDay(world);
         }
+        verifyPvpStatus(world);
     }
 
     private void handleNight(World world) {
@@ -119,7 +132,7 @@ public class AutomaticPvp extends BukkitRunnable {
         if (automaticDifficultyEnabled) {
             world.setDifficulty(isNight ? automaticDifficultyNight : automaticDifficultyDay);
         }
-        if (notifyPlayersChat) {
+        if (notifyPlayersChatDayNightStarts) {
             PlayerUtils.sendMessageToAllPlayers(world, isNight ? notifyNightChat : notifyDayChat);
         }
         if (notifyPlayersTitleEnabled) {

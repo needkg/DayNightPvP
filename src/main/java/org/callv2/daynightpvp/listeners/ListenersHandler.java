@@ -40,12 +40,7 @@ public class ListenersHandler {
     }
 
     private void registerDeathListener() {
-        boolean vaultLoseMoneyOnDeath = configFile.getVaultLoseMoneyOnDeathEnabled();
-        boolean keepInventoryWhenKilledByPlayer = configFile.getPvpKeepInventoryWhenKilledByPlayer();
-
-        if (vaultLoseMoneyOnDeath || keepInventoryWhenKilledByPlayer) {
-            Bukkit.getPluginManager().registerEvents(new DeathListener(configFile, loseMoneyOnDeath), DayNightPvP.getInstance());
-        }
+        Bukkit.getPluginManager().registerEvents(new DeathListener(configFile, loseMoneyOnDeath), DayNightPvP.getInstance());
     }
 
 }

@@ -3,6 +3,7 @@ package org.callv2.daynightpvp.listeners;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PotionSplashEvent;
@@ -17,47 +18,48 @@ import org.callv2.daynightpvp.utils.PlayerUtils;
 import org.callv2.daynightpvp.utils.WorldUtils;
 import org.callv2.daynightpvp.worldguard.AllowDaytimePvpFlag;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 public class DamageListener implements Listener {
 
     private final GriefPreventionHandler griefPreventionHandler;
-    private final boolean notifyPlayersChatHitAnotherPlayerDuringDay;
+    private final Map<UUID, UUID> explosionCauserMap = new HashMap<>();
+    private final ConfigFile configFile;
     private final String notifyPvpDisabled;
     private final String notifyPlayerImmune;
     private final String notifySelfImmune;
-    private final boolean griefPreventionPvpInLandEnabled;
 
     public DamageListener(ConfigFile configFile, LangFile langFile) {
         this.griefPreventionHandler = new GriefPreventionHandler();
-
-        this.notifyPlayersChatHitAnotherPlayerDuringDay = configFile.getNotifyPlayersChatHitAnotherPlayerDuringTheDay();
+        this.configFile = configFile;
         this.notifyPvpDisabled = langFile.getNotifyPvpDisabled();
         this.notifyPlayerImmune = langFile.getNotifyPlayerImmune();
         this.notifySelfImmune = langFile.getNotifySelfImmune();
-        this.griefPreventionPvpInLandEnabled = configFile.getGriefPreventionPvpInLandEnabled();
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
-        if (!PlayerUtils.isRealPlayer(event.getEntity())) {
-            return;
-        }
 
         if (!PlayerUtils.isRealPlayer(event.getDamager())) {
             return;
         }
 
-        Player damager = (Player) event.getDamager();
-        Player damagedPlayer = (Player) event.getEntity();
-
-        if (checkHooks(damagedPlayer, damager)) {
-            event.setCancelled(true);
+        if (!PlayerUtils.isRealPlayer(event.getEntity())) {
+            return;
         }
+
+        Player damager = (Player) event.getDamager();
+        Player damaged = (Player) event.getEntity();
+
+        event.setCancelled(checkHooks(damaged, damager, damaged.getWorld().getName()));
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public void onProjectileHitEvent(ProjectileHitEvent event) {
 
-        if (!PlayerUtils.isRealPlayer(event.getEntity())) {
+        if (!PlayerUtils.isRealPlayer(event.getHitEntity())) {
             return;
         }
 
@@ -66,15 +68,15 @@ public class DamageListener implements Listener {
         }
 
         Player damager = (Player) event.getEntity().getShooter();
-        Player damagedPlayer = (Player) event.getEntity();
+        Player damagedPlayer = (Player) event.getHitEntity();
 
-        if (checkHooks(damagedPlayer, damager)) {
+        if (checkHooks(damagedPlayer, damager, damagedPlayer.getWorld().getName())) {
             event.setCancelled(true);
         }
 
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public void onPotionSplash(PotionSplashEvent event) {
         if (PlayerUtils.isRealPlayer(event.getPotion().getShooter())) {
             Player damager = (Player) event.getPotion().getShooter();
@@ -82,7 +84,7 @@ public class DamageListener implements Listener {
                 if (isPotionEffectHarmful(effectType.getType())) {
                     for (Player damagedPlayer : Bukkit.getServer().getOnlinePlayers()) {
                         if (event.getAffectedEntities().contains(damagedPlayer) && damagedPlayer != damager) {
-                            if (checkHooks(damagedPlayer, damager)) {
+                            if (checkHooks(damagedPlayer, damager, damagedPlayer.getWorld().getName())) {
                                 event.setIntensity(damagedPlayer, 0.0);
                             }
                         }
@@ -100,7 +102,7 @@ public class DamageListener implements Listener {
         );
     }
 
-    private boolean checkHooks(Player damagedPlayer, Player damager) {
+    private boolean checkHooks(Player damagedPlayer, Player damager, String worldName) {
         if (damager.hasPermission("dnp.bypass")) {
             return false;
         }
@@ -117,15 +119,12 @@ public class DamageListener implements Listener {
         }
         if (WorldUtils.checkPlayerIsInWorld(damagedPlayer))
         {
-            if (notifyPlayersChatHitAnotherPlayerDuringDay) {
+            if (configFile.getNotifyPlayersChatHitAnotherPlayerDuringDay(worldName)) {
                 damager.sendMessage(notifyPvpDisabled);
             }
             return true;
         }
-        if (DayNightPvP.griefIsPresent && !griefPreventionPvpInLandEnabled && griefPreventionHandler.verify(damagedPlayer, damager)) {
-            if (notifyPlayersChatHitAnotherPlayerDuringDay) {
-                damager.sendMessage(notifyPvpDisabled);
-            }
+        if (DayNightPvP.griefIsPresent && !configFile.getGriefPreventionPvpInLand(worldName) && griefPreventionHandler.verify(damagedPlayer, damager)) {
             return true;
         }
         return false;

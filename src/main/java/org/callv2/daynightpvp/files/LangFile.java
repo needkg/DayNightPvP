@@ -31,7 +31,7 @@ public class LangFile {
     }
 
     private void verifyFileVersion() {
-        int latestFileVersion = 14;
+        int latestFileVersion = 15;
         if (latestFileVersion != getVersion()) {
             File outdatedFile = new File(DayNightPvP.getInstance().getDataFolder(), "lang/" + configFile.getLanguage() + ".yml.old");
             if (outdatedFile.exists()) {
@@ -114,16 +114,16 @@ public class LangFile {
         return formatMessage("feedback-update-available");
     }
 
+    public String getFeedbackUpdateCheckFailed() {
+        return formatMessage("feedback-update-check-failed");
+    }
+
     public String getFeedbackUpdateCurrentVersion() {
         return formatMessage("feedback-update-current-version");
     }
 
     public String getFeedbackUpdateLatestVersion() {
         return formatMessage("feedback-update-latest-version");
-    }
-
-    public String getFeedbackUpdateCheckFailed() {
-        return formatMessage("feedback-update-check-failed");
     }
 
     public String getFeedbackReloadPlugin() {
@@ -136,6 +136,30 @@ public class LangFile {
 
     public String getFeedbackWinMoney() {
         return formatMessage("feedback-win-money");
+    }
+
+    public String getFeedbackAddedWorld() {
+        return formatMessage("feedback-added-world");
+    }
+
+    public String getFeedbackDeletedWorld() {
+        return formatMessage("feedback-deleted-world");
+    }
+
+    public String getFeedbackWorldIsNotInSettings() {
+        return formatMessage("feedback-world-is-not-in-settings");
+    }
+
+    public String getFeedbackWorldAlreadyExists() {
+        return formatMessage("feedback-world-already-exists");
+    }
+
+    public String getFeedbackWorldDoesNotExist() {
+        return formatMessage("feedback-world-does-not-exist");
+    }
+
+    public String getFeedbackIncorrectCommand() {
+        return formatMessage("feedback-incorrect-command");
     }
 
     public String getFeedbackNonExistentCommand() {
