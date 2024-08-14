@@ -1,5 +1,5 @@
 # Configuration file version, DO NOT MODIFY.
-version: 18
+version: 19
 
 # Enables or disables the update checker (recommended to keep as true).
 # Configuration type: Boolean
@@ -39,6 +39,10 @@ worlds:
       # Default value: 12000
       # Configuration range: 1 - 24000
       day-end: 12000
+    # BossBar settings.
+    boss-bar:
+      # Displays the time remaining until day/night starts.
+      time-remaining: false
     # Automatic difficulty settings.
     automatic-difficulty:
       # If enabled, the world difficulty will be changed to the configured value.

@@ -1,9 +1,8 @@
 package org.callv2.daynightpvp.runnables;
 
 import org.bukkit.World;
-import org.bukkit.scheduler.BukkitRunnable;
 
-public class CustomTimeDuration extends BukkitRunnable {
+public class CustomTimeDuration implements Runnable {
 
     private final double dayTickIncrement;
     private final double nightTickIncrement;

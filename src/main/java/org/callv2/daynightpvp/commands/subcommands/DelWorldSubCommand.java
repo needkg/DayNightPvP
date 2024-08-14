@@ -5,6 +5,7 @@ import org.bukkit.command.CommandSender;
 import org.callv2.daynightpvp.commands.ISubCommand;
 import org.callv2.daynightpvp.files.ConfigFile;
 import org.callv2.daynightpvp.files.LangFile;
+import org.callv2.daynightpvp.services.PluginServices;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +14,12 @@ public class DelWorldSubCommand implements ISubCommand {
 
     private final LangFile langFile;
     private final ConfigFile configFile;
+    private final PluginServices pluginServices;
 
-    public DelWorldSubCommand(LangFile langFile, ConfigFile configFile) {
+    public DelWorldSubCommand(LangFile langFile, ConfigFile configFile, PluginServices pluginServices) {
         this.langFile = langFile;
         this.configFile = configFile;
+        this.pluginServices = pluginServices;
     }
 
     @Override
@@ -24,6 +27,7 @@ public class DelWorldSubCommand implements ISubCommand {
         if (args.length == 2) {
             if (configFile.contains("worlds." + args[1])) {
                 removeWorldFromConfig(args[1]);
+                pluginServices.reloadPlugin();
                 sender.sendMessage(langFile.getFeedbackDeletedWorld().replace("{0}", args[1]));
                 return;
             }

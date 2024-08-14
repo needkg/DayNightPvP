@@ -33,18 +33,23 @@ public class PvpStatusPlaceholder extends PlaceholderExpansion {
 
     @Override
     public @NotNull String getVersion() {
-        return DayNightPvP.getInstance().getDescription().getVersion();
+        return "GENERIC";
+    }
+
+    @Override
+    public boolean canRegister() {
+        return true;
     }
 
     @Override
     public boolean persist() {
-        return true; // This is required or else PlaceholderAPI will unregister the Expansion on reload
+        return true;
     }
 
     @Override
-    public String onPlaceholderRequest(Player player, String params) {
+    public String onPlaceholderRequest(Player player, @NotNull String params) {
 
-        if (params.equalsIgnoreCase("current_world_pvpstatus")) {
+        if (params.equalsIgnoreCase("pvp_status_current_world")) {
             boolean pvpStatus;
 
             World world = player.getWorld();
@@ -57,9 +62,9 @@ public class PvpStatusPlaceholder extends PlaceholderExpansion {
             return pvpStatus ? langFile.getPlaceholderPvpEnabled() : langFile.getPlaceholderPvpDisabled();
         }
 
-        if (params.startsWith("pvpstatus_")) {
+        if (params.startsWith("pvp_status_world")) {
             boolean pvpStatus;
-            String worldName = params.substring("pvpstatus_".length());
+            String worldName = params.substring("pvp_status_world:".length());
             World world = Bukkit.getWorld(worldName);
             if (world != null) {
                 if (SearchUtils.worldExistsInWorldListSetString(configFile.getWorlds(), world.getName())) {
@@ -69,6 +74,7 @@ public class PvpStatusPlaceholder extends PlaceholderExpansion {
                 }
             }
         }
+
         return langFile.getFeedbackError();
     }
 

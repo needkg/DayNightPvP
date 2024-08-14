@@ -7,11 +7,11 @@
     <groupId>org.callv2</groupId>
     <artifactId>DayNightPvP</artifactId>
     <name>DayNightPvP</name>
-    <version>1.2.6.5</version>
+    <version>1.2.7.0</version>
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.8</java.version>
+        <java.version>17</java.version>
         <shade.base>org.callv2.daynightpvp</shade.base>
         <spigot.prefix>${project.name}</spigot.prefix>
         <spigot.main>${project.groupId}.daynightpvp.DayNightPvP</spigot.main>

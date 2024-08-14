@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.callv2.daynightpvp.commands.ISubCommand;
 import org.callv2.daynightpvp.files.ConfigFile;
 import org.callv2.daynightpvp.files.LangFile;
+import org.callv2.daynightpvp.services.PluginServices;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,10 +16,12 @@ public class AddWorldSubCommand implements ISubCommand {
 
     private final LangFile langFile;
     private final ConfigFile configFile;
+    private final PluginServices pluginServices;
 
-    public AddWorldSubCommand(LangFile langFile, ConfigFile configFile) {
+    public AddWorldSubCommand(LangFile langFile, ConfigFile configFile, PluginServices pluginServices) {
         this.langFile = langFile;
         this.configFile = configFile;
+        this.pluginServices = pluginServices;
     }
 
     @Override
@@ -27,6 +30,7 @@ public class AddWorldSubCommand implements ISubCommand {
             if (Bukkit.getWorlds().contains(Bukkit.getWorld(args[1]))) {
                 if (!configFile.contains("worlds." + args[1])) {
                     addWorldToConfig(args[1]);
+                    pluginServices.reloadPlugin();
                     sender.sendMessage(langFile.getFeedbackAddedWorld().replace("{0}", args[1]));
                     return;
                 }
@@ -44,7 +48,7 @@ public class AddWorldSubCommand implements ISubCommand {
         List<String> suggestions = new ArrayList<>();
 
         if (args.size() == 1) {
-            String prefix = args.get(0).toLowerCase(); // Obtenha o prefixo digitado
+            String prefix = args.get(0).toLowerCase();
             for (World world : Bukkit.getWorlds()) {
                 if (World.Environment.NORMAL == world.getEnvironment()) {
                     String worldName = world.getName().toLowerCase();
@@ -63,6 +67,7 @@ public class AddWorldSubCommand implements ISubCommand {
         configFile.setValue("worlds." + worldName + ".day-night-duration.night-duration", 600);
         configFile.setValue("worlds." + worldName + ".automatic-pvp.enabled", true);
         configFile.setValue("worlds." + worldName + ".automatic-pvp.day-end", 12000);
+        configFile.setValue("worlds." + worldName + ".boss-bar.time-remaining", false);
         configFile.setValue("worlds." + worldName + ".automatic-difficulty.enabled", false);
         configFile.setValue("worlds." + worldName + ".automatic-difficulty.day", "NORMAL");
         configFile.setValue("worlds." + worldName + ".automatic-difficulty.night", "HARD");

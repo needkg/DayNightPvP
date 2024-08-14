@@ -1,9 +1,9 @@
 package org.callv2.daynightpvp.runnables;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
 import org.bukkit.Sound;
 import org.bukkit.World;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.callv2.daynightpvp.files.LangFile;
 import org.callv2.daynightpvp.utils.ConsoleUtils;
 import org.callv2.daynightpvp.utils.PlayerUtils;
@@ -11,7 +11,7 @@ import org.callv2.daynightpvp.utils.PlayerUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AutomaticPvp extends BukkitRunnable {
+public class AutomaticPvp implements Runnable {
 
     public static List<World> worldsPvpOff = new ArrayList<>();
     public static List<World> worldsPvpOn = new ArrayList<>();
