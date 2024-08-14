@@ -48,10 +48,10 @@ public class DnpCommand implements CommandExecutor, TabCompleter {
         if (args.length == 0) {
 
             PlayerUtils.sendMessage(sender, "");
-            PlayerUtils.sendMessage(sender,"§7§l* §a§lCommands§7:");
-            PlayerUtils.sendMessage(sender,"");
-            PlayerUtils.sendMessage(sender,"§7§l* §7/§9dnp §8-> §7Show all available commands.");
-            PlayerUtils.sendMessage(sender,"§7§l* §7/§9dnp reload §8-> §7Reload the plugin.");
+            PlayerUtils.sendMessage(sender, "§7§l* §a§lCommands§7:");
+            PlayerUtils.sendMessage(sender, "");
+            PlayerUtils.sendMessage(sender, "§7§l* §7/§9dnp §8-> §7Show all available commands.");
+            PlayerUtils.sendMessage(sender, "§7§l* §7/§9dnp reload §8-> §7Reload the plugin.");
             return true;
         }
 

@@ -47,6 +47,10 @@ public class DayNightPvP extends JavaPlugin {
 
     }
 
+    public static DayNightPvP getInstance() {
+        return instance;
+    }
+
     @Override
     public void onLoad() {
         verifyCompatibilityPlugins();
@@ -77,10 +81,6 @@ public class DayNightPvP extends JavaPlugin {
     @Override
     public void onDisable() {
         runnableHandler.stopAllRunnables();
-    }
-
-    public static DayNightPvP getInstance() {
-        return instance;
     }
 
     private void verifyCompatibilityPlugins() {

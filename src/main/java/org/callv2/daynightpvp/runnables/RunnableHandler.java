@@ -23,7 +23,7 @@ public class RunnableHandler {
 
     public void startAllRunnables() {
 
-        for(String worldName : configFile.getWorlds()) {
+        for (String worldName : configFile.getWorlds()) {
             if (WorldUtils.checkWorldIsValid(worldName)) {
 
                 if (configFile.getDayNightDurationEnabled(worldName)) {
@@ -111,7 +111,7 @@ public class RunnableHandler {
         }
         serviceTasks.clear();
 
-        for(String worldName : configFile.getWorlds()) {
+        for (String worldName : configFile.getWorlds()) {
             if (WorldUtils.checkWorldIsValid(worldName)) {
                 Bukkit.getWorld(worldName).setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true);
             }

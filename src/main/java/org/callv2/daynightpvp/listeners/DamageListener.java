@@ -119,8 +119,7 @@ public class DamageListener implements Listener {
         if (DayNightPvP.worldGuardIsPresent && AllowDaytimePvpFlag.checkStateOnPosition(damagedPlayer) && AllowDaytimePvpFlag.checkStateOnPosition(damager)) {
             return false;
         }
-        if (WorldUtils.checkPlayerIsInWorld(damagedPlayer))
-        {
+        if (WorldUtils.checkPlayerIsInWorld(damagedPlayer)) {
             if (configFile.getNotifyPlayersChatHitAnotherPlayerDuringDay(worldName)) {
                 damager.sendMessage(notifyPvpDisabled);
             }
