@@ -27,6 +27,8 @@ feedback-world-already-exists: "&8[&aDayNightPvP&8] &7El mundo &b{0} &7ya existe
 feedback-world-does-not-exist: "&8[&aDayNightPvP&8] &7El mundo &b{0} &7no existe."
 feedback-incorrect-command: "&8[&aDayNightPvP&8] &7Comando incorrecto, usa: &b{0}"
 feedback-non-existent-command: "&8[&aDayNightPvP&8] &7¡Comando no encontrado!"
+feedback-boss-bar-sunset: "{0} hasta el atardecer"
+feedback-boss-bar-sunrise: "{0} hasta el amanecer"
 feedback-error: "&c&l¡ERROR!"
 
 # Actions

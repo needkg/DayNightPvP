@@ -166,6 +166,14 @@ public class LangFile {
         return formatMessage("feedback-non-existent-command");
     }
 
+    public String getFeedbackBossbarSunset() {
+        return formatMessage("feedback-boss-bar-sunset");
+    }
+
+    public String getFeedbackBossbarSunrise() {
+        return formatMessage("feedback-boss-bar-sunrise");
+    }
+
     public String getFeedbackError() {
         return formatMessage("feedback-error");
     }

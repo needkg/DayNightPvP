@@ -4,9 +4,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BossBar;
+import org.callv2.daynightpvp.files.LangFile;
 
 public class RemainingTimeBossBar implements Runnable {
 
+    private final LangFile langFile;
     private final BossBar bossBar;
     private final World world;
     private final boolean customDayNightDurationEnabled;
@@ -14,7 +16,8 @@ public class RemainingTimeBossBar implements Runnable {
     private final int nightDurationTicks;
     private final int dayEnd;
 
-    public RemainingTimeBossBar(BossBar bossbar, World world, boolean customDayNightDurationEnabled, int dayDurationSeconds, int nightDurationSeconds, int dayEnd) {
+    public RemainingTimeBossBar(LangFile langFile, BossBar bossbar, World world, boolean customDayNightDurationEnabled, int dayDurationSeconds, int nightDurationSeconds, int dayEnd) {
+        this.langFile = langFile;
         this.bossBar = bossbar;
         this.world = world;
         this.customDayNightDurationEnabled = customDayNightDurationEnabled;
@@ -42,12 +45,12 @@ public class RemainingTimeBossBar implements Runnable {
         if (time >= 0 && time < dayEnd) {
             remainingTicks = dayEnd - time;
             progress = (double) time / dayEnd;
-            title = formatTime(remainingTicks, dayDurationTicks) + " até o pôr do sol";
+            title = langFile.getFeedbackBossbarSunset().replace("{0}", formatTime(remainingTicks, dayDurationTicks));
             bossBar.setColor(BarColor.YELLOW);
         } else {
             remainingTicks = 24000 - time;
             progress = (double) (time - dayEnd) / (24000 - dayEnd);
-            title = formatTime(remainingTicks, nightDurationTicks) + " até o nascer do sol";
+            title = langFile.getFeedbackBossbarSunrise().replace("{0}", formatTime(remainingTicks, nightDurationTicks));
             bossBar.setColor(BarColor.PURPLE);
         }
 

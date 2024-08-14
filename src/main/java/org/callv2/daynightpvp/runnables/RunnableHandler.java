@@ -121,9 +121,9 @@ public class RunnableHandler {
             int dayDuration,
             int nightDuration,
             int dayEnd) {
-        BossBar bossbar = Bukkit.createBossBar("name", BarColor.BLUE, BarStyle.SOLID);
+        BossBar bossbar = Bukkit.createBossBar("bossbar", BarColor.BLUE, BarStyle.SOLID);
         bossBarList.add(bossbar);
-        tasks.add(Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(DayNightPvP.getInstance(), new RemainingTimeBossBar(bossbar, world, customDayNightDurationEnabled, dayDuration, nightDuration, dayEnd), 0, 20));
+        tasks.add(Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(DayNightPvP.getInstance(), new RemainingTimeBossBar(langFile, bossbar, world, customDayNightDurationEnabled, dayDuration, nightDuration, dayEnd), 0, 20));
     }
 
     public void stopAllRunnables() {
