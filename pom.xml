@@ -30,7 +30,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.4.2</version>
                 <configuration>
-                    <outputDirectory>D:\Tranqueiras\Minecraft\Servidores\Debug\plugins</outputDirectory>
+                    <outputDirectory>C:\Users\Usuario\Desktop\Debug\plugins</outputDirectory>
                 </configuration>
             </plugin>
 
