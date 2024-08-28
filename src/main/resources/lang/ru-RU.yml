@@ -1,5 +1,5 @@
 # This is the version of the file, DO NOT MODIFY.
-version: 15
+version: 16
 
 # Notifications
 notify-day-chat: "&a&lДень! PvP Отключен!"
@@ -27,6 +27,8 @@ feedback-world-already-exists: "&8[&aDayNightPvP&8] &7Мир &b{0} &7уже су
 feedback-world-does-not-exist: "&8[&aDayNightPvP&8] &7Мир &b{0} &7не существует."
 feedback-incorrect-command: "&8[&aDayNightPvP&8] &7Неверная команда, используйте: &b{0}"
 feedback-non-existent-command: "&8[&aDayNightPvP&8] &7Команда не найдена!"
+feedback-boss-bar-sunset: "{0} до заката"
+feedback-boss-bar-sunrise: "{0} до рассвета"
 feedback-error: "&c&lОШИБКА!"
 
 # Actions

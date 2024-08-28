@@ -38,8 +38,8 @@ public class DnpCommand implements CommandExecutor, TabCompleter {
 
     private void registerSubCommands() {
         subCommands.put("reload", new ReloadSubCommand(langFile, new PluginServices(loseMoneyOnDeath, runnableHandler)));
-        subCommands.put("addworld", new AddWorldSubCommand(langFile, configFile));
-        subCommands.put("delworld", new DelWorldSubCommand(langFile, configFile));
+        subCommands.put("addworld", new AddWorldSubCommand(langFile, configFile, new PluginServices(loseMoneyOnDeath, runnableHandler)));
+        subCommands.put("delworld", new DelWorldSubCommand(langFile, configFile, new PluginServices(loseMoneyOnDeath, runnableHandler)));
     }
 
     @Override
@@ -48,10 +48,12 @@ public class DnpCommand implements CommandExecutor, TabCompleter {
         if (args.length == 0) {
 
             PlayerUtils.sendMessage(sender, "");
-            PlayerUtils.sendMessage(sender, "§7§l* §a§lCommands§7:");
-            PlayerUtils.sendMessage(sender, "");
-            PlayerUtils.sendMessage(sender, "§7§l* §7/§9dnp §8-> §7Show all available commands.");
-            PlayerUtils.sendMessage(sender, "§7§l* §7/§9dnp reload §8-> §7Reload the plugin.");
+            PlayerUtils.sendMessage(sender,"§7§l* §a§lCommands§7:");
+            PlayerUtils.sendMessage(sender,"");
+            PlayerUtils.sendMessage(sender,"§7§l* §7/§9dnp §8-> §7Show all available commands.");
+            PlayerUtils.sendMessage(sender,"§7§l* §7/§9dnp reload §8-> §7Reload the plugin.");
+            PlayerUtils.sendMessage(sender,"§7§l* §7/§9dnp addworld §8-> §7Adds a world to the configuration file.");
+            PlayerUtils.sendMessage(sender,"§7§l* §7/§9dnp delworld §8-> §7Deletes a world from the configuration file.");
             return true;
         }
 

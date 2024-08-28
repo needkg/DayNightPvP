@@ -29,7 +29,7 @@ public class ConfigFile {
     }
 
     private void verifyFileVersion() {
-        int latestFileVersion = 18;
+        int latestFileVersion = 20;
         if (latestFileVersion != getVersion()) {
             File outdatedFile = new File(DayNightPvP.getInstance().getDataFolder(), "config.yml.old");
             if (outdatedFile.exists()) {
@@ -244,11 +244,11 @@ public class ConfigFile {
     }
 
     public int getDayNightDurationDayDuration(String worldName) {
-        return getInt("worlds." + worldName + ".day-night-duration.day-duration", 600, 1, 2147483647);
+        return getInt("worlds." + worldName + ".day-night-duration.day-duration", 600, 1, 86400);
     }
 
     public int getDayNightDurationNightDuration(String worldName) {
-        return getInt("worlds." + worldName + ".day-night-duration.night-duration", 600, 1, 2147483647);
+        return getInt("worlds." + worldName + ".day-night-duration.night-duration", 600, 1, 86400);
     }
 
     public boolean getAutomaticPvpEnabled(String worldName) {
@@ -257,6 +257,10 @@ public class ConfigFile {
 
     public int getAutomaticPvpDayEnd(String worldName) {
         return getInt("worlds." + worldName + ".automatic-pvp.day-end", 12000, 1, 24000);
+    }
+
+    public boolean getTimeRemainingBossBarEnabled(String worldName) {
+        return getBoolean("worlds." + worldName + ".boss-bar.time-remaining", false);
     }
 
     public boolean getAutomaticDifficultyEnabled(String worldName) {

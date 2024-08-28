@@ -31,7 +31,7 @@ public class LangFile {
     }
 
     private void verifyFileVersion() {
-        int latestFileVersion = 15;
+        int latestFileVersion = 16;
         if (latestFileVersion != getVersion()) {
             File outdatedFile = new File(DayNightPvP.getInstance().getDataFolder(), "lang/" + configFile.getLanguage() + ".yml.old");
             if (outdatedFile.exists()) {
@@ -164,6 +164,14 @@ public class LangFile {
 
     public String getFeedbackNonExistentCommand() {
         return formatMessage("feedback-non-existent-command");
+    }
+
+    public String getFeedbackBossbarSunset() {
+        return formatMessage("feedback-boss-bar-sunset");
+    }
+
+    public String getFeedbackBossbarSunrise() {
+        return formatMessage("feedback-boss-bar-sunrise");
     }
 
     public String getFeedbackError() {

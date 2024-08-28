@@ -1,7 +1,9 @@
 package org.callv2.daynightpvp.runnables;
 
 import org.bukkit.*;
-import org.bukkit.scheduler.BukkitTask;
+import org.bukkit.boss.BarColor;
+import org.bukkit.boss.BarStyle;
+import org.bukkit.boss.BossBar;
 import org.callv2.daynightpvp.DayNightPvP;
 import org.callv2.daynightpvp.files.ConfigFile;
 import org.callv2.daynightpvp.files.LangFile;
@@ -14,7 +16,8 @@ public class RunnableHandler {
 
     private final ConfigFile configFile;
     private final LangFile langFile;
-    private List<BukkitTask> serviceTasks = new ArrayList<>();
+    private List<Integer> tasks = new ArrayList<>();
+    private List<BossBar> bossBarList = new ArrayList<>();
 
     public RunnableHandler(ConfigFile configFile, LangFile langFile) {
         this.configFile = configFile;
@@ -32,6 +35,15 @@ public class RunnableHandler {
                             configFile.getDayNightDurationDayDuration(worldName),
                             configFile.getDayNightDurationNightDuration(worldName),
                             Bukkit.getWorld(worldName));
+                }
+
+                if (configFile.getTimeRemainingBossBarEnabled(worldName)) {
+                    startRemainingTimeBossBar(
+                            Bukkit.getWorld(worldName),
+                            configFile.getDayNightDurationEnabled(worldName),
+                            configFile.getDayNightDurationDayDuration(worldName),
+                            configFile.getDayNightDurationNightDuration(worldName),
+                            configFile.getAutomaticPvpDayEnd(worldName));
                 }
 
                 if (configFile.getAutomaticPvpEnabled(worldName)) {
@@ -63,8 +75,7 @@ public class RunnableHandler {
             int dayDuration,
             int nightDuration,
             World world) {
-        BukkitTask customTimeTask = new CustomTimeDuration(dayTicks, dayDuration, nightDuration, world).runTaskTimer(DayNightPvP.getInstance(), 0, 1);
-        serviceTasks.add(customTimeTask);
+        tasks.add(Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(DayNightPvP.getInstance(), new CustomTimeDuration(dayTicks, dayDuration, nightDuration, world), 0, 1));
         world.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
     }
 
@@ -85,7 +96,7 @@ public class RunnableHandler {
             float soundDayVolume,
             boolean notifyPlayersChatDayNightStarts,
             World world) {
-        BukkitTask automaticPvpTask = new AutomaticPvp(
+        tasks.add(Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(DayNightPvP.getInstance(), new AutomaticPvp(
                 langFile,
                 dayEnd,
                 automaticDifficultyEnabled,
@@ -101,15 +112,31 @@ public class RunnableHandler {
                 soundNightVolume,
                 soundDayVolume,
                 notifyPlayersChatDayNightStarts,
-                world).runTaskTimer(DayNightPvP.getInstance(), 0, 20);
-        serviceTasks.add(automaticPvpTask);
+                world), 0, 20));
+    }
+
+    private void startRemainingTimeBossBar(
+            World world,
+            boolean customDayNightDurationEnabled,
+            int dayDuration,
+            int nightDuration,
+            int dayEnd) {
+        BossBar bossbar = Bukkit.createBossBar("bossbar", BarColor.BLUE, BarStyle.SOLID);
+        bossBarList.add(bossbar);
+        tasks.add(Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(DayNightPvP.getInstance(), new RemainingTimeBossBar(langFile, bossbar, world, customDayNightDurationEnabled, dayDuration, nightDuration, dayEnd), 0, 20));
     }
 
     public void stopAllRunnables() {
-        for (BukkitTask task : serviceTasks) {
-            stopRunnable(task);
+
+        for (int task : tasks) {
+            Bukkit.getScheduler().cancelTask(task);
         }
-        serviceTasks.clear();
+
+        tasks.clear();
+
+        for (BossBar bossBar : bossBarList) {
+            bossBar.removeAll();
+        }
 
         for (String worldName : configFile.getWorlds()) {
             if (WorldUtils.checkWorldIsValid(worldName)) {
@@ -117,12 +144,6 @@ public class RunnableHandler {
             }
         }
 
-    }
-
-    private void stopRunnable(BukkitTask task) {
-        if (task != null && !task.isCancelled()) {
-            task.cancel();
-        }
     }
 
 }

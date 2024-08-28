@@ -1,14 +1,15 @@
 package org.callv2.daynightpvp.runnables;
 
+import org.bukkit.Bukkit;
 import org.bukkit.World;
-import org.bukkit.scheduler.BukkitRunnable;
 
-public class CustomTimeDuration extends BukkitRunnable {
+public class CustomTimeDuration implements Runnable {
 
     private final double dayTickIncrement;
     private final double nightTickIncrement;
     private final long dayTicks;
     private final World world;
+    private double tickAccumulator;
 
     public CustomTimeDuration(
             long dayTicks,
@@ -28,11 +29,23 @@ public class CustomTimeDuration extends BukkitRunnable {
     @Override
     public void run() {
         long time = world.getTime();
+        double increment;
+
+        // Determina o incremento de tempo com base na hora do dia
         if (time < dayTicks) {
-            world.setTime((long) (time + dayTickIncrement));
+            increment = dayTickIncrement;
         } else {
-            world.setTime((long) (time + nightTickIncrement));
+            increment = nightTickIncrement;
+        }
+
+        // Adiciona o incremento ao acumulador
+        tickAccumulator += increment;
+
+        // Só avança o tempo quando o acumulador excede 1 tick
+        if (tickAccumulator >= 1.0) {
+            long ticksToAdvance = (long) tickAccumulator;
+            world.setTime(time + ticksToAdvance);
+            tickAccumulator -= ticksToAdvance; // Reduz o acumulador
         }
     }
-
 }

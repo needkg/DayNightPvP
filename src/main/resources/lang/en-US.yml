@@ -1,5 +1,5 @@
 # This is the version of the file, DO NOT MODIFY.
-version: 15
+version: 16
 
 # Notifications
 notify-day-chat: "&a&lDay! PvP Disabled!"
@@ -27,6 +27,8 @@ feedback-world-already-exists: "&8[&aDayNightPvP&8] &7World &b{0} &7already exis
 feedback-world-does-not-exist: "&8[&aDayNightPvP&8] &7World &b{0} &7does not exist."
 feedback-incorrect-command: "&8[&aDayNightPvP&8] &7Incorrect command, use: &b{0}"
 feedback-non-existent-command: "&8[&aDayNightPvP&8] &7Command not found!"
+feedback-boss-bar-sunset: "{0} until sunset"
+feedback-boss-bar-sunrise: "{0} until sunrise"
 feedback-error: "&c&lERROR!"
 
 # Actions
