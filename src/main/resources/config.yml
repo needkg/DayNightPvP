@@ -1,5 +1,5 @@
 # Configuration file version, DO NOT MODIFY.
-version: 20
+version: 19
 
 # Enables or disables the update checker (recommended to keep as true).
 # Configuration type: Boolean
@@ -21,12 +21,12 @@ worlds:
       # Day duration in seconds.
       # Configuration type: Integer
       # Default value: 600
-      # Configuration range: 1 - 86400
+      # Configuration range: 1 - 2147483647
       day-duration: 600
       # Night duration in seconds.
       # Configuration type: Integer
       # Default value: 600
-      # Configuration range: 1 - 86400
+      # Configuration range: 1 - 2147483647
       night-duration: 600
     # Automatic PvP settings.
     automatic-pvp:
