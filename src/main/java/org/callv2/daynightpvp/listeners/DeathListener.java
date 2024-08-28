@@ -11,7 +11,7 @@ import org.callv2.daynightpvp.DayNightPvP;
 import org.callv2.daynightpvp.files.ConfigFile;
 import org.callv2.daynightpvp.vault.LoseMoneyOnDeath;
 
-public class DeathListener  implements Listener {
+public class DeathListener implements Listener {
 
     private final ConfigFile configFile;
     private final LoseMoneyOnDeath loseMoneyOnDeath;

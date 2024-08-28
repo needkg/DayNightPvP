@@ -3,29 +3,29 @@ version: '${project.version}'
 author: needkg
 main: org.callv2.daynightpvp.DayNightPvP
 api-version: '1.16'
-softdepend: [PlaceholderAPI, GriefPrevention, Vault, WorldGuard]
+softdepend: [ PlaceholderAPI, GriefPrevention, Vault, WorldGuard ]
 load: POSTWORLD
 
 commands:
   daynightpvp:
     description: "Show all available commands"
     usage: "/dnp"
-    aliases: [dnp]
+    aliases: [ dnp ]
     permission: dnp.admin
   daynightpvp reload:
     description: "Reload the plugin"
     usage: "/dnp reload"
-    aliases: [dnp reload]
+    aliases: [ dnp reload ]
     permission: dnp.admin
   daynightpvp addworld:
     description: "Adds a world to the configuration file"
     usage: "/dnp addworld"
-    aliases: [dnp addworld]
+    aliases: [ dnp addworld ]
     permission: dnp.admin
   daynightpvp delworld:
     description: "Deletes a world from the configuration file"
     usage: "/dnp delworld"
-    aliases: [dnp delworld]
+    aliases: [ dnp delworld ]
     permission: dnp.admin
 
 permissions:
