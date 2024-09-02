@@ -48,8 +48,8 @@ Need assistance or have a suggestion? Join our Discord community: [click here](h
 
 # PlaceHolders
 
-    %dnp_current_world_pvpstatus% → Status of PvP in the current world where the player is.
-    %dnp_pvpstatus_<worldName>% → PvP status of the defined world.
+    %dnp_pvp_status_current_world% → Status of PvP in the current world where the player is.
+    %dnp_pvp_status_world:<worldName>% → PvP status of the defined world.
 
 # Commands
 
