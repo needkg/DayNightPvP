@@ -79,7 +79,7 @@ language: en-US
 #           Type: Boolean
 #         - day/night:
 #             - sound: Sound to be played.
-#               Type: String (See sound link for values)
+#               Type: String (https://github.com/CallVDois/DayNightPvP/wiki/Sounds)
 #             - volume: Sound volume.
 #               Type: Float (Range: 0.0 - 1.0, Default: 1.0)
 # -----------------------------------------------------------
