@@ -1,20 +1,20 @@
 # Configuration file version, DO NOT MODIFY.
 version: 20
 
-# Enables or disables the update checker (recommended to keep as true).
-# Configuration type: Boolean
-# Default value: true
+# Enables or disables the update checker (recommended to keep true).
+# Type: Boolean (Default: true)
 update-checker: true
 
+# Language for the configuration file.
 # Available languages: en-US, pt-BR, es-ES, ru-RU.
-# Configuration type: String
+# Type: String
 language: en-US
 
 # -----------------------------------------------------------
 # Day/Night Duration Settings
 # -----------------------------------------------------------
 # - day-night-duration:
-#     - enabled: Toggles custom day/night duration.
+#     - enabled: Enables custom day/night duration.
 #       Type: Boolean (Default: false)
 #     - day-duration: Duration of the day in seconds.
 #       Type: Integer (Range: 1 - 86400, Default: 600)
@@ -26,9 +26,9 @@ language: en-US
 # Automatic PvP Settings
 # -----------------------------------------------------------
 # - automatic-pvp:
-#     - enabled: Toggles automatic PvP.
+#     - enabled: Enables automatic PvP.
 #       Type: Boolean (Default: true)
-#     - day-end: Time when the day ends.
+#     - day-end: Time in ticks when the day ends.
 #       Type: Integer (Range: 1 - 24000, Default: 12000)
 # -----------------------------------------------------------
 
@@ -36,7 +36,7 @@ language: en-US
 # BossBar Settings
 # -----------------------------------------------------------
 # - boss-bar:
-#     - time-remaining: Shows time remaining until day/night.
+#     - time-remaining: Shows time remaining until day/night starts.
 #       Type: Boolean (Default: true)
 # -----------------------------------------------------------
 
@@ -44,10 +44,10 @@ language: en-US
 # Automatic Difficulty Settings
 # -----------------------------------------------------------
 # - automatic-difficulty:
-#     - enabled: Toggles automatic difficulty change.
+#     - enabled: Enables automatic difficulty change.
 #       Type: Boolean (Default: false)
-#     - day: Difficulty during the day.
-#     - night: Difficulty during the night.
+#     - day: Difficulty level during the day.
+#     - night: Difficulty level during the night.
 #       Type: String (Values: PEACEFUL, EASY, NORMAL, HARD)
 # -----------------------------------------------------------
 
@@ -55,7 +55,7 @@ language: en-US
 # PvP Settings
 # -----------------------------------------------------------
 # - pvp-settings:
-#     - keep-inventory-when-killed-by-player: Players keep items when killed by another player.
+#     - keep-inventory-when-killed-by-player: Keeps items on death by player.
 #       Type: Boolean (Default: false)
 # -----------------------------------------------------------
 
@@ -64,23 +64,28 @@ language: en-US
 # -----------------------------------------------------------
 # - notify-players:
 #     - chat:
-#         - day-night-starts: Notifies when it becomes day/night.
-#         - hit-another-player-during-day: Notifies that combat is not allowed during the day.
+#         - day-night-starts: Alerts when day or night starts.
+#         - hit-another-player-during-day: Alerts that combat is disabled during the day.
 #           Type: Boolean (Default: true)
 #     - title:
-#         - enabled: Toggles title notifications.
+#         - enabled: Enables title notifications.
 #           Type: Boolean (Default: true)
-#         - fade-in: Fade-in duration (20 = 1 second).
-#         - stay: Duration the message stays on screen.
-#         - fade-out: Fade-out duration.
-#           Type: Integer
+#         - fade-in: Duration for the title fade-in effect.
+#         - stay: Duration the title remains on screen.
+#         - fade-out: Duration for the title fade-out effect.
+#           Type: Integer (20 = 1 second)
 #     - sound:
-#         - enabled: Toggles sound notifications.
+#         - enabled: Enables sound notifications.
 #           Type: Boolean
-#         - day/night:
-#             - sound: Sound to be played.
+#         - day:
+#             - sound: Sound played during the day.
 #               Type: String (https://github.com/CallVDois/DayNightPvP/wiki/Sounds)
-#             - volume: Sound volume.
+#             - volume: Volume of the sound.
+#               Type: Float (Range: 0.0 - 1.0, Default: 1.0)
+#         - night:
+#             - sound: Sound played during the night.
+#               Type: String (https://github.com/CallVDois/DayNightPvP/wiki/Sounds)
+#             - volume: Volume of the sound.
 #               Type: Float (Range: 0.0 - 1.0, Default: 1.0)
 # -----------------------------------------------------------
 
@@ -89,8 +94,8 @@ language: en-US
 # -----------------------------------------------------------
 # - vault:
 #     - lose-money-on-death:
-#         - enabled: Players lose money upon death if they have the 'dnp.losemoney.<percentage>' permission.
-#         - only-at-night: Players lose money only at night.
+#         - enabled: Players lose money upon death if they have 'dnp.losemoney.<percentage>' permission.
+#         - only-at-night: Money is lost only at night.
 #         - killer-reward-money: The killer receives the money lost by the victim.
 #           Type: Boolean (Default: true)
 # -----------------------------------------------------------
@@ -99,8 +104,7 @@ language: en-US
 # GriefPrevention Settings
 # -----------------------------------------------------------
 # - grief-prevention:
-#     - pvp-in-land: Allows PvP to continue inside GriefPrevention
-#       land if combat started outside.
+#     - pvp-in-land: Allows PvP to continue inside GriefPrevention land if combat started outside.
 #       Type: Boolean (Default: false)
 # -----------------------------------------------------------
 
