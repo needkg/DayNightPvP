@@ -10,135 +10,138 @@ update-checker: true
 # Configuration type: String
 language: en-US
 
+# -----------------------------------------------------------
+# Day/Night Duration Settings
+# -----------------------------------------------------------
+# - day-night-duration:
+#     - enabled: Toggles custom day/night duration.
+#       Type: Boolean (Default: false)
+#     - day-duration: Duration of the day in seconds.
+#       Type: Integer (Range: 1 - 86400, Default: 600)
+#     - night-duration: Duration of the night in seconds.
+#       Type: Integer (Range: 1 - 86400, Default: 600)
+# -----------------------------------------------------------
+
+# -----------------------------------------------------------
+# Automatic PvP Settings
+# -----------------------------------------------------------
+# - automatic-pvp:
+#     - enabled: Toggles automatic PvP.
+#       Type: Boolean (Default: true)
+#     - day-end: Time when the day ends.
+#       Type: Integer (Range: 1 - 24000, Default: 12000)
+# -----------------------------------------------------------
+
+# -----------------------------------------------------------
+# BossBar Settings
+# -----------------------------------------------------------
+# - boss-bar:
+#     - time-remaining: Shows time remaining until day/night.
+#       Type: Boolean (Default: true)
+# -----------------------------------------------------------
+
+# -----------------------------------------------------------
+# Automatic Difficulty Settings
+# -----------------------------------------------------------
+# - automatic-difficulty:
+#     - enabled: Toggles automatic difficulty change.
+#       Type: Boolean (Default: false)
+#     - day: Difficulty during the day.
+#     - night: Difficulty during the night.
+#       Type: String (Values: PEACEFUL, EASY, NORMAL, HARD)
+# -----------------------------------------------------------
+
+# -----------------------------------------------------------
+# PvP Settings
+# -----------------------------------------------------------
+# - pvp-settings:
+#     - keep-inventory-when-killed-by-player: Players keep items when killed by another player.
+#       Type: Boolean (Default: false)
+# -----------------------------------------------------------
+
+# -----------------------------------------------------------
+# Notification Settings
+# -----------------------------------------------------------
+# - notify-players:
+#     - chat:
+#         - day-night-starts: Notifies when it becomes day/night.
+#         - hit-another-player-during-day: Notifies that combat is not allowed during the day.
+#           Type: Boolean (Default: true)
+#     - title:
+#         - enabled: Toggles title notifications.
+#           Type: Boolean (Default: true)
+#         - fade-in: Fade-in duration (20 = 1 second).
+#         - stay: Duration the message stays on screen.
+#         - fade-out: Fade-out duration.
+#           Type: Integer
+#     - sound:
+#         - enabled: Toggles sound notifications.
+#           Type: Boolean
+#         - day/night:
+#             - sound: Sound to be played.
+#               Type: String (See sound link for values)
+#             - volume: Sound volume.
+#               Type: Float (Range: 0.0 - 1.0, Default: 1.0)
+# -----------------------------------------------------------
+
+# -----------------------------------------------------------
+# Vault Settings
+# -----------------------------------------------------------
+# - vault:
+#     - lose-money-on-death:
+#         - enabled: Players lose money upon death if they have the 'dnp.losemoney.<percentage>' permission.
+#         - only-at-night: Players lose money only at night.
+#         - killer-reward-money: The killer receives the money lost by the victim.
+#           Type: Boolean (Default: true)
+# -----------------------------------------------------------
+
+# -----------------------------------------------------------
+# GriefPrevention Settings
+# -----------------------------------------------------------
+# - grief-prevention:
+#     - pvp-in-land: Allows PvP to continue inside GriefPrevention
+#       land if combat started outside.
+#       Type: Boolean (Default: false)
+# -----------------------------------------------------------
+
 worlds:
   world:
-    # Custom day/night duration settings.
     day-night-duration:
-      # Enables or disables day/night duration customization.
-      # Configuration type: Boolean
-      # Default value: false
       enabled: false
-      # Day duration in seconds.
-      # Configuration type: Integer
-      # Default value: 600
-      # Configuration range: 1 - 86400
       day-duration: 600
-      # Night duration in seconds.
-      # Configuration type: Integer
-      # Default value: 600
-      # Configuration range: 1 - 86400
       night-duration: 600
-    # Automatic PvP settings.
     automatic-pvp:
-      # Enables or disables automatic PvP.
-      # Configuration type: Boolean
-      # Default value: true
       enabled: true
-      # Defines when the day should end.
-      # Configuration type: Integer
-      # Default value: 12000
-      # Configuration range: 1 - 24000
       day-end: 12000
-    # BossBar settings.
     boss-bar:
-      # Displays the time remaining until day/night starts.
       time-remaining: false
-    # Automatic difficulty settings.
     automatic-difficulty:
-      # If enabled, the world difficulty will be changed to the configured value.
-      # Configuration type: Boolean
-      # Default value: false
       enabled: false
-      # Difficulty during the day.
-      # Configuration type: String
-      # Acceptable values: PEACEFUL, EASY, NORMAL, HARD
       day: NORMAL
-      # Difficulty during the night.
-      # Configuration type: String
-      # Acceptable values: PEACEFUL, EASY, NORMAL, HARD
       night: HARD
-    # PvP settings.
     pvp-settings:
-      # If enabled, the player killed by another player will not lose items.
-      # Configuration type: Boolean
-      # Default value: false
       keep-inventory-when-killed-by-player: false
-    # Notification settings.
     notify-players:
-      # Chat notification settings.
       chat:
-        # Notifies players when it becomes night/day.
-        # The notification is only for players present in the world.
-        # Configuration type: Boolean
-        # Default value: true
         day-night-starts: true
-        # Notifies the player that they cannot engage in combat because it is daytime.
-        # Configuration type: Boolean
-        # Default value: true
         hit-another-player-during-day: true
-      # Title notification settings.
       title:
-        # Enables or disables title notifications.
-        # Configuration type: Boolean
-        # Default value: true
         enabled: true
-        # Duration of the fade-in animation.
-        # Configuration type: Integer
-        # Note: 20 = 1 second.
         fade-in: 20
-        # Duration of the message staying on the screen.
-        # Configuration type: Integer
-        # Note: 20 = 1 second.
         stay: 20
-        # Duration of the fade-out animation.
-        # Configuration type: Integer
-        # Note: 20 = 1 second.
         fade-out: 20
-      # Sound notification settings.
       sound:
-        # Enables or disables sound notifications.
         enabled: true
         day:
-          # Sound played during the day.
-          # Configuration type: String
-          # Acceptable values: https://github.com/CallVDois/DayNightPvP/wiki/Sounds
           sound: ENTITY_CHICKEN_AMBIENT
-          # Sound volume.
-          # Configuration type: Float
-          # Default value: 1.0
-          # Configuration range: 0.0 - 1.0
           volume: 1.0
         night:
-          # Sound played during the night.
-          # Configuration type: String
-          # Acceptable values: https://github.com/CallVDois/DayNightPvP/wiki/Sounds
           sound: ENTITY_GHAST_AMBIENT
-          # Sound volume.
-          # Configuration type: Float
-          # Default value: 1.0
-          # Configuration range: 0.0 - 1.0
           volume: 1.0
-    # Vault settings.
     vault:
-      # To configure the amount of money a player should lose, use the permission "dnp.losemoney.<percentage>".
-      # For example: "dnp.losemoney.10" - The player loses 10% of their money (between 1 and 100).
       lose-money-on-death:
-        # If enabled, players with the 'dnp.losemoney.<percentage>' permission will lose money upon death.
-        # Configuration type: Boolean
-        # Default value: false
         enabled: false
-        # If enabled, players will lose money upon death only in worlds where it is nighttime.
-        # Configuration type: Boolean
-        # Default value: true
         only-at-night: true
-        # The killer will earn the same amount of money that the deceased player lost.
-        # Configuration type: Boolean
-        # Default value: true
         killer-reward-money: true
-    # GriefPrevention settings.
     grief-prevention:
-      # Enabling this option does not mean PvP will always be active in GriefPrevention territories.
-      # It means that if combat is initiated outside the territory and a player runs inside, the combat might continue for a time.
-      # Configuration type: Boolean
-      # Default value: false
       pvp-in-land: false
