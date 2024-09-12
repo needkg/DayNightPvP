@@ -276,7 +276,11 @@ public class ConfigFile {
     }
 
     public boolean getPvpSettingsKeepInventoryWhenKilledByPlayersEnabled(String worldName) {
-        return getBoolean("worlds." + worldName + ".pvp-settings.keep-inventory-when-killed-by-player", false);
+        if (getWorlds().contains(worldName)) {
+            return getBoolean("worlds." + worldName + ".pvp-settings.keep-inventory-when-killed-by-player", false);
+        } else {
+            return false;
+        }
     }
 
     public boolean getNotifyPlayersChatDayNightStartsEnabled(String worldName) {
@@ -324,7 +328,11 @@ public class ConfigFile {
     }
 
     public boolean getVaultLoseMoneyOnDeathEnabled(String worldName) {
-        return getBoolean("worlds." + worldName + ".vault.lose-money-on-death.enabled", false);
+        if (getWorlds().contains(worldName)) {
+            return getBoolean("worlds." + worldName + ".vault.lose-money-on-death.enabled", false);
+        } else {
+            return false;
+        }
     }
 
     public boolean getVaultLoseMoneyOnDeathOnlyAtNight(String worldName) {
