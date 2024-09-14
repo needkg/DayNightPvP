@@ -49,6 +49,8 @@ public class PvpStatusPlaceholder extends PlaceholderExpansion {
     @Override
     public String onPlaceholderRequest(Player player, @NotNull String params) {
 
+        if (player == null) return langFile.getFeedbackError();
+
         if (params.equalsIgnoreCase("pvp_status_current_world")) {
             boolean pvpStatus;
 

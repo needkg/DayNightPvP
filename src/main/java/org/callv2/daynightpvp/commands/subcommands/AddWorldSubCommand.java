@@ -88,7 +88,7 @@ public class AddWorldSubCommand implements ISubCommand {
         configFile.setValue("worlds." + worldName + ".vault.lose-money-on-death.only-at-night", true);
         configFile.setValue("worlds." + worldName + ".vault.lose-money-on-death.only-in-configured-worlds", true);
         configFile.setValue("worlds." + worldName + ".vault.lose-money-on-death.killer-reward-money", true);
-        configFile.setValue("worlds." + worldName + ".griefprevention.pvp-in-land", false);
+        configFile.setValue("worlds." + worldName + ".grief-prevention.pvp-in-land", false);
         configFile.saveConfig();
     }
 
