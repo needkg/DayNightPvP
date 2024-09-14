@@ -7,7 +7,7 @@
     <groupId>org.callv2</groupId>
     <artifactId>DayNightPvP</artifactId>
     <name>DayNightPvP</name>
-    <version>1.2.7.1</version>
+    <version>1.2.7.2</version>
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -30,7 +30,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.4.2</version>
                 <configuration>
-                    <outputDirectory>C:\Users\Usuario\Desktop\Debug\plugins</outputDirectory>
+                    <outputDirectory>D:\Tranqueiras\Minecraft\Servidores\Debug\plugins</outputDirectory>
                 </configuration>
             </plugin>
 
