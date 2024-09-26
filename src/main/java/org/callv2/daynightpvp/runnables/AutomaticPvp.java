@@ -1,6 +1,5 @@
 package org.callv2.daynightpvp.runnables;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
 import org.bukkit.Sound;
 import org.bukkit.World;
@@ -13,8 +12,8 @@ import java.util.List;
 
 public class AutomaticPvp implements Runnable {
 
-    public static List<World> worldsPvpOff = new ArrayList<>();
-    public static List<World> worldsPvpOn = new ArrayList<>();
+    public static List<World> dayWorlds = new ArrayList<>();
+    public static List<World> nightWorlds = new ArrayList<>();
     private final long dayEnd;
     private final boolean automaticDifficultyEnabled;
     private final boolean notifyPlayersTitleEnabled;
@@ -88,26 +87,26 @@ public class AutomaticPvp implements Runnable {
     }
 
     private void handleNight(World world) {
-        if (!worldsPvpOn.contains(world)) {
-            worldsPvpOn.add(world);
+        if (!nightWorlds.contains(world)) {
+            nightWorlds.add(world);
             notifyPlayers(world, true);
-            ConsoleUtils.sendInfoMessage("[DayNightPvP] It's night in \"" + world.getName() + "\"");
+            ConsoleUtils.sendInfoMessage("[DayNightPvP] It's night in '" + world.getName() + "'");
         }
-        worldsPvpOff.remove(world);
+        dayWorlds.remove(world);
     }
 
     private void handleDay(World world) {
-        if (!worldsPvpOff.contains(world)) {
-            worldsPvpOff.add(world);
+        if (!dayWorlds.contains(world)) {
+            dayWorlds.add(world);
             notifyPlayers(world, false);
-            ConsoleUtils.sendInfoMessage("[DayNightPvP] It's day in \"" + world.getName() + "\"");
+            ConsoleUtils.sendInfoMessage("[DayNightPvP] It's day in '" + world.getName() + "'");
         }
-        worldsPvpOn.remove(world);
+        nightWorlds.remove(world);
     }
 
     public void verifyPvpStatus(World world) {
         if (!world.getPVP()) {
-            ConsoleUtils.sendWarningMessage("[DayNightPvP] Warning! Another plugin forced PvP to be disabled in the world " + world.getName() + " , trying to resolve...");
+            ConsoleUtils.sendWarningMessage("[DayNightPvP] Warning! Another plugin forced PvP to be disabled in the world '" + world.getName() + "' , trying to resolve...");
         }
     }
 
@@ -116,11 +115,11 @@ public class AutomaticPvp implements Runnable {
         boolean isNight = currentWorldTime >= dayEnd;
 
         if (isNight) {
-            if (!worldsPvpOn.contains(world)) {
+            if (!nightWorlds.contains(world)) {
                 handleNight(world);
             }
         } else {
-            if (!worldsPvpOff.contains(world)) {
+            if (!dayWorlds.contains(world)) {
                 handleDay(world);
             }
         }

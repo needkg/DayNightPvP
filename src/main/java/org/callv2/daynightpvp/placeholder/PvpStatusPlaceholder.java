@@ -4,7 +4,6 @@ import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
-import org.callv2.daynightpvp.DayNightPvP;
 import org.callv2.daynightpvp.files.ConfigFile;
 import org.callv2.daynightpvp.files.LangFile;
 import org.callv2.daynightpvp.utils.SearchUtils;
@@ -55,7 +54,7 @@ public class PvpStatusPlaceholder extends PlaceholderExpansion {
             boolean pvpStatus;
 
             World world = player.getWorld();
-            if (SearchUtils.worldExistsInWorldListSetString(configFile.getWorlds(), world.getName())) {
+            if (SearchUtils.worldExistsInWorldListSetString(configFile.getWorldNames(), world.getName())) {
                 long time = world.getTime();
                 pvpStatus = time >= configFile.getAutomaticPvpDayEnd(world.getName());
             } else {
@@ -69,7 +68,7 @@ public class PvpStatusPlaceholder extends PlaceholderExpansion {
             String worldName = params.substring("pvp_status_world:".length());
             World world = Bukkit.getWorld(worldName);
             if (world != null) {
-                if (SearchUtils.worldExistsInWorldListSetString(configFile.getWorlds(), world.getName())) {
+                if (SearchUtils.worldExistsInWorldListSetString(configFile.getWorldNames(), world.getName())) {
                     long time = world.getTime();
                     pvpStatus = time >= configFile.getAutomaticPvpDayEnd(world.getName());
                     return pvpStatus ? langFile.getPlaceholderPvpEnabled() : langFile.getPlaceholderPvpDisabled();

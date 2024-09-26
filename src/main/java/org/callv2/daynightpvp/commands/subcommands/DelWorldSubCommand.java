@@ -42,8 +42,8 @@ public class DelWorldSubCommand implements ISubCommand {
         List<String> suggestions = new ArrayList<>();
 
         if (args.size() == 1) {
-            String prefix = args.get(0).toLowerCase(); // Obtenha o prefixo digitado
-            for (String worldName : configFile.getWorlds()) {
+            String prefix = args.get(0).toLowerCase();
+            for (String worldName : configFile.getWorldNames()) {
                 if (worldName.startsWith(prefix)) {
                     suggestions.add(worldName);
                 }

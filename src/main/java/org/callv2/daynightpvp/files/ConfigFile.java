@@ -1,13 +1,12 @@
 package org.callv2.daynightpvp.files;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
 import org.bukkit.Sound;
-import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.callv2.daynightpvp.DayNightPvP;
 import org.callv2.daynightpvp.utils.ConsoleUtils;
+import org.callv2.daynightpvp.utils.WorldUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -37,10 +36,10 @@ public class ConfigFile {
             }
             boolean success = fileLocation.renameTo(outdatedFile);
             if (success) {
-                String fileRenamed = "[DayNightPvP] The \"config.yml\" file was outdated and has been renamed to \"config.yml.old\".";
+                String fileRenamed = "[DayNightPvP] The 'config.yml' file was outdated and has been renamed to 'config.yml.old'.";
                 ConsoleUtils.sendWarningMessage(fileRenamed);
             } else {
-                String fileRenameFailed = "[DayNightPvP] Failed to rename the \"config.yml\" file.";
+                String fileRenameFailed = "[DayNightPvP] Failed to rename the 'config.yml' file.";
                 ConsoleUtils.sendWarningMessage(fileRenameFailed);
             }
 
@@ -73,8 +72,8 @@ public class ConfigFile {
 
     private void resetValueToDefault(String path, Object value) {
         setValue(path, value);
-        String configName = path.replace(".", "/");
-        ConsoleUtils.sendWarningMessage("[DayNightPvP] The \"" + configName + "\" configuration was set incorrectly and has been reset.");
+        String configPath = path.replace(".", "/");
+        ConsoleUtils.sendWarningMessage("[DayNightPvP] The '" + configPath + "' configuration was not found and the file was reset.");
     }
 
     private int getInt(String path, Integer defaultValue, Integer minValue, Integer maxValue) {
@@ -83,8 +82,8 @@ public class ConfigFile {
 
         if (configValue == null) {
             resetFile();
-            String configName = path.replace(".", "/");
-            ConsoleUtils.sendWarningMessage("[DayNightPvP] The \"" + configName + "\" configuration was not found and the file was reset.");
+            String configPath = path.replace(".", "/");
+            ConsoleUtils.sendWarningMessage("[DayNightPvP] The '" + configPath + "' configuration was not found and the file was reset.");
             return defaultValue;
         }
 
@@ -109,8 +108,8 @@ public class ConfigFile {
 
         if (configValue == null) {
             resetFile();
-            String configName = path.replace(".", "/");
-            ConsoleUtils.sendWarningMessage("[DayNightPvP] The \"" + configName + "\" configuration was not found and the file was reset.");
+            String configPath = path.replace(".", "/");
+            ConsoleUtils.sendWarningMessage("[DayNightPvP] The '" + configPath + "' configuration was not found and the file was reset.");
             return defaultValue;
         }
 
@@ -135,8 +134,8 @@ public class ConfigFile {
 
         if (configValue == null) {
             resetFile();
-            String configName = path.replace(".", "/");
-            ConsoleUtils.sendWarningMessage("[DayNightPvP] The \"" + configName + "\" configuration was not found and the file was reset.");
+            String configPath = path.replace(".", "/");
+            ConsoleUtils.sendWarningMessage("[DayNightPvP] The '" + configPath + "' configuration was not found and the file was reset.");
             return defaultValue;
         }
 
@@ -154,8 +153,8 @@ public class ConfigFile {
 
         if (configValue == null) {
             resetFile();
-            String configName = path.replace(".", "/");
-            ConsoleUtils.sendWarningMessage("[DayNightPvP] The \"" + configName + "\" configuration was not found and the file was reset.");
+            String configPath = path.replace(".", "/");
+            ConsoleUtils.sendWarningMessage("[DayNightPvP] The '" + configPath + "' configuration was not found and the file was reset.");
             return defaultValue;
         }
 
@@ -172,8 +171,8 @@ public class ConfigFile {
 
         if (configValue == null) {
             resetFile();
-            String configName = path.replace(".", "/");
-            ConsoleUtils.sendWarningMessage("[DayNightPvP] The \"" + configName + "\" configuration was not found and the file was reset.");
+            String configPath = path.replace(".", "/");
+            ConsoleUtils.sendWarningMessage("[DayNightPvP] The '" + configPath + "' configuration was not found and the file was reset.");
             return defaultValue;
         }
 
@@ -185,8 +184,8 @@ public class ConfigFile {
 
         if (configValue == null) {
             resetFile();
-            String configName = path.replace(".", "/");
-            ConsoleUtils.sendWarningMessage("[DayNightPvP] The \"" + configName + "\" configuration was not found and the file was reset.");
+            String configPath = path.replace(".", "/");
+            ConsoleUtils.sendWarningMessage("[DayNightPvP] The '" + configPath + "' configuration was not found and the file was reset.");
             return defaultValue;
         }
 
@@ -198,33 +197,19 @@ public class ConfigFile {
         }
     }
 
-    private List<World> getWorldList(String path, List<String> defaultValue) {
-
-        List<String> configValue = fileContent.getStringList(path);
-        List<World> worldList = new ArrayList<>();
-
-        if (configValue.isEmpty()) {
-            resetFile();
-
-            for (String worldName : defaultValue) {
-                if (Bukkit.getWorld(worldName) != null) {
-                    worldList.add(Bukkit.getWorld(worldName));
-                }
-            }
-            resetValueToDefault(path, defaultValue);
-            return worldList;
-        }
-
-        for (String worldName : configValue) {
-            if (Bukkit.getWorld(worldName) != null) {
-                worldList.add(Bukkit.getWorld(worldName));
-            }
-        }
-        return worldList;
+    public Set<String> getWorldNames() {
+        return fileContent.getConfigurationSection("worlds").getKeys(false);
     }
 
-    public Set<String> getWorlds() {
-        return fileContent.getConfigurationSection("worlds").getKeys(false);
+    public List<String> getValidWorldNames() {
+        Set<String> worldNames = getWorldNames();
+        List<String> validWorldNames = new ArrayList<>();
+        for (String worldName : worldNames) {
+            if (WorldUtils.checkWorldIsValid(worldName)) {
+                validWorldNames.add(worldName);
+            }
+        }
+        return validWorldNames;
     }
 
     public int getVersion() {
@@ -276,7 +261,7 @@ public class ConfigFile {
     }
 
     public boolean getPvpSettingsKeepInventoryWhenKilledByPlayersEnabled(String worldName) {
-        if (getWorlds().contains(worldName)) {
+        if (getWorldNames().contains(worldName)) {
             return getBoolean("worlds." + worldName + ".pvp-settings.keep-inventory-when-killed-by-player", false);
         } else {
             return false;
@@ -328,7 +313,7 @@ public class ConfigFile {
     }
 
     public boolean getVaultLoseMoneyOnDeathEnabled(String worldName) {
-        if (getWorlds().contains(worldName)) {
+        if (getWorldNames().contains(worldName)) {
             return getBoolean("worlds." + worldName + ".vault.lose-money-on-death.enabled", false);
         } else {
             return false;
@@ -344,7 +329,7 @@ public class ConfigFile {
     }
 
     public boolean getGriefPreventionPvpInLand(String worldName) {
-        if (getWorlds().contains(worldName)) {
+        if (getWorldNames().contains(worldName)) {
             return getBoolean("worlds." + worldName + ".grief-prevention.pvp-in-land", false);
         } else {
             return false;

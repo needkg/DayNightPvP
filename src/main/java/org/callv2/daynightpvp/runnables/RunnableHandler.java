@@ -26,7 +26,7 @@ public class RunnableHandler {
 
     public void startAllRunnables() {
 
-        for (String worldName : configFile.getWorlds()) {
+        for (String worldName : configFile.getWorldNames()) {
             if (WorldUtils.checkWorldIsValid(worldName)) {
 
                 if (configFile.getDayNightDurationEnabled(worldName)) {
@@ -134,14 +134,15 @@ public class RunnableHandler {
 
         tasks.clear();
 
+        AutomaticPvp.dayWorlds.clear();
+        AutomaticPvp.nightWorlds.clear();
+
         for (BossBar bossBar : bossBarList) {
             bossBar.removeAll();
         }
 
-        for (String worldName : configFile.getWorlds()) {
-            if (WorldUtils.checkWorldIsValid(worldName)) {
-                Bukkit.getWorld(worldName).setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true);
-            }
+        for (String worldName : configFile.getValidWorldNames()) {
+            Bukkit.getWorld(worldName).setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true);
         }
 
     }

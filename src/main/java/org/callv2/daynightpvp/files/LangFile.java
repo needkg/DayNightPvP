@@ -39,10 +39,10 @@ public class LangFile {
             }
             boolean success = fileLocation.renameTo(outdatedFile);
             if (success) {
-                String fileRenamed = "[DayNightPvP] The \"lang/" + configFile.getLanguage() + "\".yml file was outdated and has been renamed to \"lang/" + configFile.getLanguage() + "\".yml.old\".";
+                String fileRenamed = "[DayNightPvP] The 'lang/" + configFile.getLanguage() + ".yml' file was outdated and has been renamed to 'lang/" + configFile.getLanguage() + ".yml.old'.";
                 ConsoleUtils.sendWarningMessage(fileRenamed);
             } else {
-                String fileRenameFailed = "[DayNightPvP] Failed to rename the \"lang/" + configFile.getLanguage() + "\".yml file.";
+                String fileRenameFailed = "[DayNightPvP] Failed to rename the 'lang/" + configFile.getLanguage() + ".yml' file.";
                 ConsoleUtils.sendWarningMessage(fileRenameFailed);
             }
 

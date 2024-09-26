@@ -41,6 +41,7 @@ public class DayNightPvP extends JavaPlugin {
         LoseMoneyOnDeath loseMoneyOnDeath = new LoseMoneyOnDeath(configFile, langFile);
 
         commandHandler = new CommandHandler(langFile, configFile, runnableHandler, loseMoneyOnDeath);
+
         listenersHandler = new ListenersHandler(configFile, langFile, loseMoneyOnDeath);
         placeholderHandler = new PlaceholderHandler(langFile, configFile);
         bStatsHandler = new BStatsHandler();

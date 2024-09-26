@@ -3,12 +3,15 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://maven.apache.org/POM/4.0.0"
         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>org.callv2</groupId>
     <artifactId>DayNightPvP</artifactId>
     <name>DayNightPvP</name>
-    <version>1.2.7.2</version>
+    <version>1.2.7.3</version>
     <packaging>jar</packaging>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>17</java.version>
@@ -16,6 +19,7 @@
         <spigot.prefix>${project.name}</spigot.prefix>
         <spigot.main>${project.groupId}.daynightpvp.DayNightPvP</spigot.main>
     </properties>
+
     <build>
         <resources>
             <resource>
@@ -23,17 +27,19 @@
                 <filtering>true</filtering>
             </resource>
         </resources>
-        <plugins>
 
+        <plugins>
+            <!-- Maven Jar Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.4.2</version>
                 <configuration>
-                    <outputDirectory>D:\Tranqueiras\Minecraft\Servidores\Debug\plugins</outputDirectory>
+                    <outputDirectory>C:\Users\Claudinei-TI\Desktop\Debug\plugins</outputDirectory>
                 </configuration>
             </plugin>
 
+            <!-- Maven Compiler Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -44,6 +50,7 @@
                 </configuration>
             </plugin>
 
+            <!-- Maven Shade Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -65,34 +72,30 @@
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
     </build>
-    <repositories>
 
+    <repositories>
         <repository>
             <id>spigotmc-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
-
         <repository>
             <id>placeholderapi</id>
             <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
         </repository>
-
         <repository>
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
         </repository>
-
         <repository>
             <id>sk89q-repo</id>
             <url>https://maven.enginehub.org/repo/</url>
         </repository>
-
     </repositories>
-    <dependencies>
 
+    <dependencies>
+        <!-- Spigot API -->
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
@@ -100,6 +103,7 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- BStats Bukkit -->
         <dependency>
             <groupId>org.bstats</groupId>
             <artifactId>bstats-bukkit</artifactId>
@@ -107,6 +111,7 @@
             <scope>compile</scope>
         </dependency>
 
+        <!-- PlaceholderAPI -->
         <dependency>
             <groupId>me.clip</groupId>
             <artifactId>placeholderapi</artifactId>
@@ -114,6 +119,7 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- Grief Prevention -->
         <dependency>
             <groupId>com.github.GriefPrevention</groupId>
             <artifactId>GriefPrevention</artifactId>
@@ -121,6 +127,7 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- VaultAPI -->
         <dependency>
             <groupId>com.github.MilkBowl</groupId>
             <artifactId>VaultAPI</artifactId>
@@ -128,12 +135,12 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- WorldGuard Bukkit -->
         <dependency>
             <groupId>com.sk89q.worldguard</groupId>
             <artifactId>worldguard-bukkit</artifactId>
             <version>7.0.9</version>
             <scope>provided</scope>
         </dependency>
-
     </dependencies>
 </project>

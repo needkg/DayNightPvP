@@ -37,7 +37,7 @@ public class LoseMoneyOnDeath {
             double amountRounded = Math.round(amount * 100.0) / 100.0;
 
             if (configFile.getVaultLoseMoneyOnDeathOnlyAtNight(world.getName())) {
-                if (AutomaticPvp.worldsPvpOn.contains(world)) {
+                if (AutomaticPvp.nightWorlds.contains(world)) {
                     economy.withdrawPlayer(killed, amountRounded);
                     shouldWithdraw = true;
                 }
