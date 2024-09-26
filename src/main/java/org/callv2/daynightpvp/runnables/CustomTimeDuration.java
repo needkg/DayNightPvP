@@ -1,6 +1,5 @@
 package org.callv2.daynightpvp.runnables;
 
-import org.bukkit.Bukkit;
 import org.bukkit.World;
 
 public class CustomTimeDuration implements Runnable {
