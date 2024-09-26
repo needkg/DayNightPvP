@@ -1,6 +1,6 @@
-name: Compile
+name: Prepare Release
 
-on: [push]
+on: [push, release]
 
 jobs:
   build:
@@ -8,6 +8,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
       - name: Set up BuildTools
         run: wget -O BuildTools.jar https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
 
@@ -18,13 +19,6 @@ jobs:
           java-version: '21'
           cache: 'maven'
 
-      - name: Install CraftBukkit
-        run: |
-          java -jar BuildTools.jar --rev 1.21.1 --compile craftbukkit --remapped
-
-      - name: Compile DayNightPvP
-        run: mvn clean package install --batch-mode --update-snapshots
-
       - name: Create tagged release
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
@@ -32,7 +26,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
-            target/DayNightPvP.jar
+            target/DayNightPvP.jar  # Você pode ajustar isso conforme necessário, ou remover se não estiver usando
 
       - name: Deploy Javadoc
         uses: MathieuSoysal/Javadoc-publisher.yml@v2.4.0
@@ -41,7 +35,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           javadoc-branch: javadoc
           java-distribution: temurin
-          java-version: 17
+          java-version: 21  # Ajustado para usar a mesma versão do JDK que você está instalando
           custom-command: 'mvn package javadoc:aggregate -pl :DayNightPvP'
           target-folder: javadoc
           project: maven
