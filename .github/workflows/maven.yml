@@ -1,32 +1,105 @@
-name: Build and Deploy
-
+name: 'Build & Run'
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
-    branches:
-      - main
 
 jobs:
+  # Make sure clean build works properly
   build:
     runs-on: ubuntu-latest
-    
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install dependencies and build
+        run: |
+          npm ci
+          npm run build --  --loader:.node=file
 
-    - name: Set up JDK
-      uses: actions/setup-java@v2
-      with:
-        java-version: '8'
-        distribution: 'adopt'
+  # Make sure the action works on a clean machine without building it
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
 
-    - name: Build with Maven
-      run: mvn clean package
+      # Setup JDK version
+      - uses: actions/setup-java@v4
+        with:
+          java-version: 8
+          distribution: temurin
 
-    - name: Upload Plugin Artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: meu-plugin
-        path: target/DayNightPvP.jar
+      - name: Compile 1.8 spigot version
+        uses: ./
+        with:
+          versions: 1.8
+
+      - uses: actions/setup-java@v4
+        with:
+          java-version: 17
+          distribution: temurin
+
+      - name: Compile latest spigot version
+        uses: ./
+        with:
+          versions: latest
+
+      # Run again. The Action should detect that the requested versions are already inside the local maven repo
+      - name: Compile the same version again (latest)
+        uses: ./
+        with:
+          # These versions should match the ones above
+          versions: latest
+
+      - uses: actions/setup-java@v4
+        with:
+          java-version: 8
+          distribution: temurin
+
+      - name: Compile the same version again (1.8)
+        uses: ./
+        with:
+          # These versions should match the ones above
+          versions: 1.8
+
+      - name: Upload logs
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: logs
+          path: /tmp/SpraxDev-Action-SpigotMC/logs/
+
+  # Run the original BuildTools in GitHub Actions to easily compare the build times etc.
+  original-run:
+    runs-on: ubuntu-latest
+    steps:
+      # Setup JDK version
+      - uses: actions/setup-java@v4
+        with:
+          # This version should probably match the ones from the 'run'-job
+          java-version: 8
+          distribution: temurin
+
+      - name: Run original Spigot-BuildTools (1.8)
+        # These versions should match the ones from the 'run'-job
+        # Using '--compile Spigot' as this action does the same by default
+        run: |
+          wget https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar -O BuildTools.jar
+          java -jar BuildTools.jar --rev 1.8 --compile Spigot
+
+      - uses: actions/setup-java@v4
+        with:
+          # This version should probably match the ones from the 'run'-job
+          java-version: 17
+          distribution: temurin
+
+      - name: Run original Spigot-BuildTools (latest)
+        # These versions should match the ones from the 'run'-job
+        # Using '--compile Spigot' as this action does the same by default
+        run: |
+          wget https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar -O BuildTools.jar
+          java -jar BuildTools.jar --rev latest --compile Spigot
