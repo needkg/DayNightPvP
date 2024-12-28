@@ -60,11 +60,11 @@ Need assistance or have a suggestion? Join our Discord community: [click here](h
 
 # WorldGuard Flags
 
-	allow-pvp-on-day → Allows players to enter in combat even when it's daytime in a WorldGuard region (the "pvp" flag must be set to allow for it to work).
+    allow-pvp-on-day → Allows players to enter in combat even when it's daytime in a WorldGuard region (the "pvp" flag must be set to allow for it to work).
 
 # Permissions
 
     dnp.admin → /dnp command access.
-    dnp.losemoney.<percentage> → Percentage of money the user should lose upon death.
-	dnp.bypass → Allows the user to enter in combat even during the day.
+    dnp.losemoney.<0-100> → Percentage of money the user should lose upon death.
+    dnp.bypass → Allows the user to enter in combat even during the day.
     dnp.immune → Allows the user to become immune to PvP.
