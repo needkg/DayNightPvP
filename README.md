@@ -65,6 +65,6 @@ Need assistance or have a suggestion? Join our Discord community: [click here](h
 # Permissions
 
     dnp.admin → /dnp command access.
-    dnp.losemoney.<0-100> → Percentage of money the user should lose upon death.
+    dnp.losemoney.<1-100> → Percentage of money the user should lose upon death.
     dnp.bypass → Allows the user to enter in combat even during the day.
     dnp.immune → Allows the user to become immune to PvP.
