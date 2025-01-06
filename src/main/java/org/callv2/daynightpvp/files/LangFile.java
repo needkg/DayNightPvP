@@ -7,6 +7,8 @@ import org.callv2.daynightpvp.DayNightPvP;
 import org.callv2.daynightpvp.utils.ConsoleUtils;
 
 import java.io.File;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class LangFile {
 
@@ -62,7 +64,25 @@ public class LangFile {
     private String formatMessage(String path) {
         String text = fileContent.getString(path);
         if (text != null) {
-            return ChatColor.translateAlternateColorCodes('&', text);
+            // Regex para encontrar códigos hexadecimais no formato <#RRGGBB>
+            Pattern hexPattern = Pattern.compile("<#([A-Fa-f0-9]{6})>");
+            Matcher matcher = hexPattern.matcher(text);
+            StringBuffer buffer = new StringBuffer();
+
+            // Substitui cada código hexadecimal encontrado pelo formato §x§R§R§G§G§B§B
+            while (matcher.find()) {
+                String hexCode = matcher.group(1);
+                StringBuilder hexColor = new StringBuilder("§x");
+                for (char c : hexCode.toCharArray()) {
+                    hexColor.append('§').append(c);
+                }
+                matcher.appendReplacement(buffer, hexColor.toString());
+            }
+            matcher.appendTail(buffer);
+
+            // Substitui os códigos '&' por '§'
+            text = ChatColor.translateAlternateColorCodes('&', buffer.toString());
+            return text;
         }
         return "Invalid message syntax";
     }
