@@ -205,7 +205,7 @@ public class ConfigFile {
         Set<String> worldNames = getWorldNames();
         List<String> validWorldNames = new ArrayList<>();
         for (String worldName : worldNames) {
-            if (WorldUtils.checkWorldIsValid(worldName)) {
+            if (WorldUtils.isWorldValid(worldName)) {
                 validWorldNames.add(worldName);
             }
         }
