@@ -9,7 +9,7 @@
     <groupId>org.callv2</groupId>
     <artifactId>DayNightPvP</artifactId>
     <name>DayNightPvP</name>
-    <version>1.2.7.3</version>
+    <version>1.2.9.0</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -35,7 +35,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.4.2</version>
                 <configuration>
-                    <outputDirectory>C:\Users\Claudinei-TI\Desktop\Debug\plugins</outputDirectory>
+                    <outputDirectory>C:\Users\ADM\Desktop\Debug\plugins</outputDirectory>
                 </configuration>
             </plugin>
 
