@@ -1,39 +1,39 @@
-# This is the version of the file, DO NOT MODIFY.
+# Версия - НЕ ИЗМЕНЯТЬ
 version: 16
 
-# Notifications
-notify-day-chat: "&a&lДень! PvP Отключен!"
-notify-night-chat: "&c&lНочь! PvP Включен!"
-notify-day-title: "&a&lДень!"
-notify-day-subtitle: "&a&lPvP Отключен!"
-notify-night-title: "&c&lНочь!"
-notify-night-subtitle: "&c&lPvP Включен!"
-notify-pvp-disabled: "&7Вы не можете вступить в бой в данный момент, сейчас день!"
-notify-player-immune: "&7Этот игрок неуязвим для PvP!"
-notify-self-immune: "&7Вы неуязвимы для PvP, вы не можете вступить в бой"
+# Уведомления
+notify-day-chat: "&a&lРассвет! Бой Отключен!"
+notify-night-chat: "&c&lЗакат! Бой Включен!"
+notify-day-title: "&a&lРассвет!"
+notify-day-subtitle: "&a&lБой Отключен!"
+notify-night-title: "&c&lЗакат!"
+notify-night-subtitle: "&c&lБой Включен!"
+notify-pvp-disabled: "&7Бой отключен в дневное время!"
+notify-player-immune: "&7Этот игрок имеет иммунитет к бою!"
+notify-self-immune: "&7У вас иммунитет к бою!"
 
-# Feedback
-feedback-update-available: "&9&lDayNightPvP &8-> &7Доступно обновление!!"
-feedback-update-check-failed: "&9&lDayNightPvP &8-> &7Не удалось проверить наличие обновлений."
+# Обратная связь
+feedback-update-available: "&9&lDayNightPvP &8&l» &7Доступно обновление!"
+feedback-update-check-failed: "&9&lDayNightPvP &8&l» &7Ошибка проверки обновлений"
 feedback-update-current-version: "&7Текущая версия: &c{0}"
-feedback-update-latest-version: "&7Последняя версия: &b{0}"
-feedback-reload-plugin: "&8[&aDayNightPvP&8] &7Плагин перезагружен!"
-feedback-lose-money: "&7Вы умерли от &b{0} &7и потеряли &c${1}"
-feedback-win-money: "&7Вы убили &b{0} &7и заработали &a${1}"
-feedback-added-world: "&8[&aDayNightPvP&8] &7Мир &b{0} &7добавлен в настройки."
-feedback-deleted-world: "&8[&aDayNightPvP&8] &7Мир &b{0} &7удален из настроек."
-feedback-world-is-not-in-settings: "&8[&aDayNightPvP&8] &7Мир &b{0} &7не существует в настройках."
-feedback-world-already-exists: "&8[&aDayNightPvP&8] &7Мир &b{0} &7уже существует в настройках."
-feedback-world-does-not-exist: "&8[&aDayNightPvP&8] &7Мир &b{0} &7не существует."
-feedback-incorrect-command: "&8[&aDayNightPvP&8] &7Неверная команда, используйте: &b{0}"
-feedback-non-existent-command: "&8[&aDayNightPvP&8] &7Команда не найдена!"
+feedback-update-latest-version: "&7Новая версия: &b{0}"
+feedback-reload-plugin: "&8[&aDayNightPvP&8] &7Настройки успешно перезагружены!"
+feedback-lose-money: "&7Вас победил &b{0} &7и вы потеряли &c${1}"
+feedback-win-money: "&7Вы победили &b{0} &7и получили &a${1}"
+feedback-added-world: "&8[&aDayNightPvP&8] &7Мир &b{0} &7добавлен"
+feedback-deleted-world: "&8[&aDayNightPvP&8] &7Мир &b{0} &7удален"
+feedback-world-is-not-in-settings: "&8[&aDayNightPvP&8] &7Мир &b{0} &7не настроен"
+feedback-world-already-exists: "&8[&aDayNightPvP&8] &7Мир &b{0} &7уже настроен"
+feedback-world-does-not-exist: "&8[&aDayNightPvP&8] &7Мир &b{0} &7не существует"
+feedback-incorrect-command: "&8[&aDayNightPvP&8] &7Неверная команда. Используйте: &b{0}"
+feedback-non-existent-command: "&8[&aDayNightPvP&8] &7Команда не найдена"
 feedback-boss-bar-sunset: "{0} до заката"
 feedback-boss-bar-sunrise: "{0} до рассвета"
-feedback-error: "&c&lОШИБКА!"
+feedback-error: "&c&lОШИБКА"
 
-# Actions
-action-update-found-click: "&a&nНажмите здесь, чтобы открыть страницу плагина"
+# Действия
+action-update-found-click: "&a&nНажмите для перехода на страницу плагина"
 
-# Placeholder
+# Плейсхолдеры
 placeholder-pvp-enabled: "&aВключен"
 placeholder-pvp-disabled: "&cОтключен"
