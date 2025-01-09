@@ -33,7 +33,7 @@ public class DelWorldSubCommand implements ISubCommand {
             }
             sender.sendMessage(langFile.getFeedbackWorldIsNotInSettings().replace("{0}", args[1]));
         } else {
-            sender.sendMessage(langFile.getFeedbackIncorrectCommand().replace("{0}", "Comando incorreto, use: /dnp delworld <worldName>"));
+            sender.sendMessage(langFile.getFeedbackIncorrectCommand().replace("{0}", "/dnp delworld <worldName>"));
         }
     }
 
