@@ -25,7 +25,6 @@ import java.util.UUID;
 public class DamageListener implements Listener {
 
     private final GriefPreventionHandler griefPreventionHandler;
-    private final Map<UUID, UUID> explosionCauserMap = new HashMap<>();
     private final ConfigFile configFile;
     private final String notifyPvpDisabled;
     private final String notifyPlayerImmune;
