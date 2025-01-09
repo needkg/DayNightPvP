@@ -5,7 +5,7 @@ import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.callv2.daynightpvp.DayNightPvP;
-import org.callv2.daynightpvp.utils.ConsoleUtils;
+import org.callv2.daynightpvp.utils.LoggingUtils;
 import org.callv2.daynightpvp.utils.WorldUtils;
 
 import java.io.File;
@@ -37,10 +37,10 @@ public class ConfigFile {
             boolean success = fileLocation.renameTo(outdatedFile);
             if (success) {
                 String fileRenamed = "[DayNightPvP] The 'config.yml' file was outdated and has been renamed to 'config.yml.old'.";
-                ConsoleUtils.sendWarningMessage(fileRenamed);
+                LoggingUtils.sendWarningMessage(fileRenamed);
             } else {
                 String fileRenameFailed = "[DayNightPvP] Failed to rename the 'config.yml' file.";
-                ConsoleUtils.sendWarningMessage(fileRenameFailed);
+                LoggingUtils.sendWarningMessage(fileRenameFailed);
             }
 
             resetFile();
@@ -61,7 +61,7 @@ public class ConfigFile {
         try {
             fileContent.save(fileLocation);
         } catch (Exception e) {
-            ConsoleUtils.sendWarningMessage("[DayNightPvP] Error saving configuration file, resetting...");
+            LoggingUtils.sendWarningMessage("[DayNightPvP] Error saving configuration file, resetting...");
             resetFile();
         }
     }
@@ -73,7 +73,7 @@ public class ConfigFile {
     private void resetValueToDefault(String path, Object value) {
         setValue(path, value);
         String configPath = path.replace(".", "/");
-        ConsoleUtils.sendWarningMessage("[DayNightPvP] The '" + configPath + "' configuration was not found and the file was reset.");
+        LoggingUtils.sendWarningMessage("[DayNightPvP] The '" + configPath + "' configuration was not found and the file was reset.");
     }
 
     private int getInt(String path, Integer defaultValue, Integer minValue, Integer maxValue) {
@@ -83,7 +83,7 @@ public class ConfigFile {
         if (configValue == null) {
             resetFile();
             String configPath = path.replace(".", "/");
-            ConsoleUtils.sendWarningMessage("[DayNightPvP] The '" + configPath + "' configuration was not found and the file was reset.");
+            LoggingUtils.sendWarningMessage("[DayNightPvP] The '" + configPath + "' configuration was not found and the file was reset.");
             return defaultValue;
         }
 
@@ -109,7 +109,7 @@ public class ConfigFile {
         if (configValue == null) {
             resetFile();
             String configPath = path.replace(".", "/");
-            ConsoleUtils.sendWarningMessage("[DayNightPvP] The '" + configPath + "' configuration was not found and the file was reset.");
+            LoggingUtils.sendWarningMessage("[DayNightPvP] The '" + configPath + "' configuration was not found and the file was reset.");
             return defaultValue;
         }
 
@@ -135,7 +135,7 @@ public class ConfigFile {
         if (configValue == null) {
             resetFile();
             String configPath = path.replace(".", "/");
-            ConsoleUtils.sendWarningMessage("[DayNightPvP] The '" + configPath + "' configuration was not found and the file was reset.");
+            LoggingUtils.sendWarningMessage("[DayNightPvP] The '" + configPath + "' configuration was not found and the file was reset.");
             return defaultValue;
         }
 
@@ -154,7 +154,7 @@ public class ConfigFile {
         if (configValue == null) {
             resetFile();
             String configPath = path.replace(".", "/");
-            ConsoleUtils.sendWarningMessage("[DayNightPvP] The '" + configPath + "' configuration was not found and the file was reset.");
+            LoggingUtils.sendWarningMessage("[DayNightPvP] The '" + configPath + "' configuration was not found and the file was reset.");
             return defaultValue;
         }
 
@@ -172,7 +172,7 @@ public class ConfigFile {
         if (configValue == null) {
             resetFile();
             String configPath = path.replace(".", "/");
-            ConsoleUtils.sendWarningMessage("[DayNightPvP] The '" + configPath + "' configuration was not found and the file was reset.");
+            LoggingUtils.sendWarningMessage("[DayNightPvP] The '" + configPath + "' configuration was not found and the file was reset.");
             return defaultValue;
         }
 
@@ -185,7 +185,7 @@ public class ConfigFile {
         if (configValue == null) {
             resetFile();
             String configPath = path.replace(".", "/");
-            ConsoleUtils.sendWarningMessage("[DayNightPvP] The '" + configPath + "' configuration was not found and the file was reset.");
+            LoggingUtils.sendWarningMessage("[DayNightPvP] The '" + configPath + "' configuration was not found and the file was reset.");
             return defaultValue;
         }
 

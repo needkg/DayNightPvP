@@ -4,7 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.callv2.daynightpvp.DayNightPvP;
-import org.callv2.daynightpvp.utils.ConsoleUtils;
+import org.callv2.daynightpvp.utils.LoggingUtils;
 
 import java.io.File;
 import java.util.regex.Matcher;
@@ -42,10 +42,10 @@ public class LangFile {
             boolean success = fileLocation.renameTo(outdatedFile);
             if (success) {
                 String fileRenamed = "[DayNightPvP] The 'lang/" + configFile.getLanguage() + ".yml' file was outdated and has been renamed to 'lang/" + configFile.getLanguage() + ".yml.old'.";
-                ConsoleUtils.sendWarningMessage(fileRenamed);
+                LoggingUtils.sendWarningMessage(fileRenamed);
             } else {
                 String fileRenameFailed = "[DayNightPvP] Failed to rename the 'lang/" + configFile.getLanguage() + ".yml' file.";
-                ConsoleUtils.sendWarningMessage(fileRenameFailed);
+                LoggingUtils.sendWarningMessage(fileRenameFailed);
             }
 
             resetFile();

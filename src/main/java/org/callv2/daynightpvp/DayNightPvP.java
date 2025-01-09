@@ -8,7 +8,7 @@ import org.callv2.daynightpvp.files.LangFile;
 import org.callv2.daynightpvp.listeners.ListenersHandler;
 import org.callv2.daynightpvp.placeholder.PlaceholderHandler;
 import org.callv2.daynightpvp.runnables.RunnableHandler;
-import org.callv2.daynightpvp.utils.ConsoleUtils;
+import org.callv2.daynightpvp.utils.LoggingUtils;
 import org.callv2.daynightpvp.utils.PluginUtils;
 import org.callv2.daynightpvp.vault.LoseMoneyOnDeath;
 import org.callv2.daynightpvp.worldguard.FlagHandler;
@@ -63,7 +63,7 @@ public class DayNightPvP extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        ConsoleUtils.sendStartupMessage();
+        LoggingUtils.sendStartupMessage();
 
         configFile.createFile();
         langFile.createFile();
