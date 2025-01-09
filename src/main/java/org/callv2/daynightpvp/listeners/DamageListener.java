@@ -18,10 +18,6 @@ import org.callv2.daynightpvp.utils.PlayerUtils;
 import org.callv2.daynightpvp.utils.WorldUtils;
 import org.callv2.daynightpvp.worldguard.AllowDaytimePvpFlag;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-
 public class DamageListener implements Listener {
 
     private final GriefPreventionHandler griefPreventionHandler;
