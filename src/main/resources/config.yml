@@ -1,112 +1,132 @@
-# Configuration file version, DO NOT MODIFY.
+# ============================================================================================= #
+#   ██████╗  █████╗ ██╗   ██╗███╗   ██╗██╗ ██████╗ ██╗  ██╗████████╗██████╗ ██╗   ██╗██████╗    #
+#   ██╔══██╗██╔══██╗╚██╗ ██╔╝████╗  ██║██║██╔════╝ ██║  ██║╚══██╔══╝██╔══██╗██║   ██║██╔══██╗   #
+#   ██║  ██║███████║ ╚████╔╝ ██╔██╗ ██║██║██║  ███╗███████║   ██║   ██████╔╝██║   ██║██████╔╝   #
+#   ██║  ██║██╔══██║  ╚██╔╝  ██║╚██╗██║██║██║   ██║██╔══██║   ██║   ██╔═══╝ ╚██╗ ██╔╝██╔═══╝    #
+#   ██████╔╝██║  ██║   ██║   ██║ ╚████║██║╚██████╔╝██║  ██║   ██║   ██║      ╚████╔╝ ██║        #
+#   ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═══╝╚═╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝       ╚═══╝  ╚═╝        #
+# ============================================================================================= #
+
+# Configuration file version
+# DO NOT MODIFY THIS VALUE! Used internally by the plugin
 version: 20
 
-# Enables or disables the update checker (recommended to keep true).
-# Type: Boolean (Default: true)
+# Enables or disables the update checker
+# Recommended to keep enabled for notification of new versions
 update-checker: true
 
-# Language for the configuration file.
-# Available languages: en-US, pt-BR, es-ES, ru-RU.
-# Type: String
+# Plugin language
+# Available languages:
+# - en-US (English)
+# - pt-BR (Portuguese Brazil)
+# - es-ES (Spanish)
+# - ru-RU (Russian)
 language: en-US
 
-# -----------------------------------------------------------
-# Day/Night Duration Settings
-# -----------------------------------------------------------
-# - day-night-duration:
-#     - enabled: Enables custom day/night duration.
-#       Type: Boolean (Default: false)
-#     - day-duration: Duration of the day in seconds.
-#       Type: Integer (Range: 1 - 86400, Default: 600)
-#     - night-duration: Duration of the night in seconds.
-#       Type: Integer (Range: 1 - 86400, Default: 600)
-# -----------------------------------------------------------
+# =========================================================
+# DAY/NIGHT CYCLE CONFIGURATION
+# =========================================================
+# Customize the duration of day/night cycle for each world
+#
+# day-duration: Duration of daytime in seconds
+# - Minimum: 1 second
+# - Maximum: 86400 seconds (24 hours)
+# - Minecraft Default: 14400 seconds (10 minutes)
+#
+# night-duration: Duration of nighttime in seconds
+# - Same rules as day-duration
+# - Minecraft Default: 7200 seconds (5 minutes)
+# =========================================================
 
-# -----------------------------------------------------------
-# Automatic PvP Settings
-# -----------------------------------------------------------
-# - automatic-pvp:
-#     - enabled: Enables automatic PvP.
-#       Type: Boolean (Default: true)
-#     - day-end: Time in ticks when the day ends.
-#       Type: Integer (Range: 1 - 24000, Default: 12000)
-# -----------------------------------------------------------
+# =========================================================
+# AUTOMATIC PVP CONFIGURATION
+# =========================================================
+# Automatic PvP control system based on day/night cycle
+#
+# enabled: Enables/disables the system
+# day-end: Time in ticks when the day ends
+# - 0 = Sunrise
+# - 6000 = Noon
+# - 12000 = Sunset
+# - 18000 = Midnight
+# =========================================================
 
-# -----------------------------------------------------------
-# BossBar Settings
-# -----------------------------------------------------------
-# - boss-bar:
-#     - time-remaining: Shows time remaining until day/night starts.
-#       Type: Boolean (Default: true)
-# -----------------------------------------------------------
+# =========================================================
+# BOSSBAR CONFIGURATION
+# =========================================================
+# Displays a bar at the top of the screen showing:
+# - Time remaining until next transition (day/night)
+# - Visual indicator of current cycle
+# - PvP status (enabled/disabled)
+# =========================================================
 
-# -----------------------------------------------------------
-# Automatic Difficulty Settings
-# -----------------------------------------------------------
-# - automatic-difficulty:
-#     - enabled: Enables automatic difficulty change.
-#       Type: Boolean (Default: false)
-#     - day: Difficulty level during the day.
-#     - night: Difficulty level during the night.
-#       Type: String (Values: PEACEFUL, EASY, NORMAL, HARD)
-# -----------------------------------------------------------
+# =========================================================
+# AUTOMATIC DIFFICULTY
+# =========================================================
+# Automatically changes world difficulty:
+# 
+# day: Difficulty during daytime
+# night: Difficulty during nighttime
+#
+# Available difficulties:
+# - PEACEFUL
+# - EASY
+# - NORMAL
+# - HARD
+# =========================================================
 
-# -----------------------------------------------------------
-# PvP Settings
-# -----------------------------------------------------------
-# - pvp-settings:
-#     - keep-inventory-when-killed-by-player: Keeps items on death by player.
-#       Type: Boolean (Default: false)
-# -----------------------------------------------------------
+# =========================================================
+# PVP SETTINGS
+# =========================================================
+# Advanced PvP system control:
+#
+# keep-inventory-when-killed-by-player:
+# - true: Players keep inventory when dying in PvP
+# - false: Items are dropped normally
+#
+# =========================================================
 
-# -----------------------------------------------------------
-# Notification Settings
-# -----------------------------------------------------------
-# - notify-players:
-#     - chat:
-#         - day-night-starts: Alerts when day or night starts.
-#         - hit-another-player-during-day: Alerts that combat is disabled during the day.
-#           Type: Boolean (Default: true)
-#     - title:
-#         - enabled: Enables title notifications.
-#           Type: Boolean (Default: true)
-#         - fade-in: Duration for the title fade-in effect.
-#         - stay: Duration the title remains on screen.
-#         - fade-out: Duration for the title fade-out effect.
-#           Type: Integer (20 = 1 second)
-#     - sound:
-#         - enabled: Enables sound notifications.
-#           Type: Boolean
-#         - day:
-#             - sound: Sound played during the day.
-#               Type: String (https://github.com/CallVDois/DayNightPvP/wiki/Sounds)
-#             - volume: Volume of the sound.
-#               Type: Float (Range: 0.0 - 1.0, Default: 1.0)
-#         - night:
-#             - sound: Sound played during the night.
-#               Type: String (https://github.com/CallVDois/DayNightPvP/wiki/Sounds)
-#             - volume: Volume of the sound.
-#               Type: Float (Range: 0.0 - 1.0, Default: 1.0)
-# -----------------------------------------------------------
+# =========================================================
+# NOTIFICATION SYSTEM
+# =========================================================
+# Customize how players are notified:
+#
+# chat: Chat messages
+# - day-night-starts: Day/night start announcement
+# - hit-another-player-during-day: PvP attempt during day
+#
+# title: Screen messages
+# - fade-in: Appearance time (ticks)
+# - stay: Display duration (ticks)
+# - fade-out: Disappearance time (ticks)
+# 
+# sound: Sound effects
+# - Complete sound list:
+#   https://github.com/CallVDois/needkg/wiki/Sounds
+# =========================================================
 
-# -----------------------------------------------------------
-# Vault Settings
-# -----------------------------------------------------------
-# - vault:
-#     - lose-money-on-death:
-#         - enabled: Players lose money upon death if they have 'dnp.losemoney.<percentage>' permission.
-#         - only-at-night: Money is lost only at night.
-#         - killer-reward-money: The killer receives the money lost by the victim.
-#           Type: Boolean (Default: true)
-# -----------------------------------------------------------
+# =========================================================
+# VAULT INTEGRATION
+# =========================================================
+# Economic system for PvP:
+#
+# lose-money-on-death:
+# - enabled: Enables/disables money loss
+# - only-at-night: Only during nighttime
+# - killer-reward-money: Killer receives the money
+#
+# Required permission: dnp.losemoney.<0-100> (Percentage of money the user should lose upon death.)
+# =========================================================
 
-# -----------------------------------------------------------
-# GriefPrevention Settings
-# -----------------------------------------------------------
-# - grief-prevention:
-#     - pvp-in-land: Allows PvP to continue inside GriefPrevention land if combat started outside.
-#       Type: Boolean (Default: false)
-# -----------------------------------------------------------
+# =========================================================
+# GRIEFPREVENTION INTEGRATION
+# =========================================================
+# PvP control in protected areas:
+#
+# pvp-in-land:
+# - true: Allows PvP in claims
+# - false: Blocks PvP in claims
+# =========================================================
 
 worlds:
   world:
