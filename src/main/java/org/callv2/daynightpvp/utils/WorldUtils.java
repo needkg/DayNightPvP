@@ -8,7 +8,7 @@ public class WorldUtils {
 
     public static boolean isPlayerInWorld(Player player) {
         String worldName = player.getWorld().getName();
-        return SearchUtils.worldExistsInWorldListSetString(AutomaticPvp.dayWorlds, worldName);
+        return SearchUtils.containsWorldName(AutomaticPvp.dayWorlds, worldName);
     }
 
     public static boolean isWorldValid(String worldName) {
