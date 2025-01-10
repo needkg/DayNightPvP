@@ -18,9 +18,14 @@ import org.callv2.daynightpvp.utils.PlayerUtils;
 import org.callv2.daynightpvp.utils.WorldUtils;
 import org.callv2.daynightpvp.worldguard.AllowDaytimePvpFlag;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 public class DamageListener implements Listener {
 
     private final GriefPreventionHandler griefPreventionHandler;
+    private final Map<UUID, UUID> explosionCauserMap = new HashMap<>();
     private final ConfigFile configFile;
     private final String notifyPvpDisabled;
     private final String notifyPlayerImmune;
@@ -114,7 +119,7 @@ public class DamageListener implements Listener {
         if (DayNightPvP.worldGuardIsPresent && AllowDaytimePvpFlag.checkStateOnPosition(damagedPlayer) && AllowDaytimePvpFlag.checkStateOnPosition(damager)) {
             return false;
         }
-        if (WorldUtils.isPlayerInWorld(damagedPlayer)) {
+        if (WorldUtils.checkPlayerIsInWorld(damagedPlayer)) {
             if (configFile.getNotifyPlayersChatHitAnotherPlayerDuringDay(worldName)) {
                 damager.sendMessage(notifyPvpDisabled);
             }

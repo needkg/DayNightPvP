@@ -3,7 +3,7 @@ package org.callv2.daynightpvp.utils;
 import org.bukkit.Bukkit;
 import org.callv2.daynightpvp.DayNightPvP;
 
-public class LoggingUtils {
+public class ConsoleUtils {
 
     public static void sendWarningMessage(String message) {
         Bukkit.getLogger().warning(message);

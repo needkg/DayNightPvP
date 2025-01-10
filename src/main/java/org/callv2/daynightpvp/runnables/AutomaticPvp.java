@@ -4,7 +4,7 @@ import org.bukkit.Difficulty;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.callv2.daynightpvp.files.LangFile;
-import org.callv2.daynightpvp.utils.LoggingUtils;
+import org.callv2.daynightpvp.utils.ConsoleUtils;
 import org.callv2.daynightpvp.utils.PlayerUtils;
 
 import java.util.ArrayList;
@@ -90,7 +90,7 @@ public class AutomaticPvp implements Runnable {
         if (!nightWorlds.contains(world)) {
             nightWorlds.add(world);
             notifyPlayers(world, true);
-            LoggingUtils.sendInfoMessage("[DayNightPvP] It's night in '" + world.getName() + "'");
+            ConsoleUtils.sendInfoMessage("[DayNightPvP] It's night in '" + world.getName() + "'");
         }
         dayWorlds.remove(world);
     }
@@ -99,14 +99,14 @@ public class AutomaticPvp implements Runnable {
         if (!dayWorlds.contains(world)) {
             dayWorlds.add(world);
             notifyPlayers(world, false);
-            LoggingUtils.sendInfoMessage("[DayNightPvP] It's day in '" + world.getName() + "'");
+            ConsoleUtils.sendInfoMessage("[DayNightPvP] It's day in '" + world.getName() + "'");
         }
         nightWorlds.remove(world);
     }
 
     public void verifyPvpStatus(World world) {
         if (!world.getPVP()) {
-            LoggingUtils.sendWarningMessage("[DayNightPvP] Warning! Another plugin forced PvP to be disabled in the world '" + world.getName() + "' , trying to resolve...");
+            ConsoleUtils.sendWarningMessage("[DayNightPvP] Warning! Another plugin forced PvP to be disabled in the world '" + world.getName() + "' , trying to resolve...");
         }
     }
 

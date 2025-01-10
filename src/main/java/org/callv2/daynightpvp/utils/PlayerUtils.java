@@ -33,8 +33,4 @@ public class PlayerUtils {
         return object instanceof Player;
     }
 
-    public static boolean hasPermission(CommandSender sender, String permission) {
-        return sender.hasPermission(permission);
-    }
-
 }
