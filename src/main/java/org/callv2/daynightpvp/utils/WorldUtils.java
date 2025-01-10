@@ -6,12 +6,12 @@ import org.callv2.daynightpvp.runnables.AutomaticPvp;
 
 public class WorldUtils {
 
-    public static boolean checkPlayerIsInWorld(Player player) {
+    public static boolean isPlayerInWorld(Player player) {
         String worldName = player.getWorld().getName();
-        return SearchUtils.worldExistsInWorldListSetString(AutomaticPvp.dayWorlds, worldName);
+        return SearchUtils.containsWorldName(AutomaticPvp.dayWorlds, worldName);
     }
 
-    public static boolean checkWorldIsValid(String worldName) {
+    public static boolean isWorldValid(String worldName) {
         return Bukkit.getWorlds().contains(Bukkit.getWorld(worldName));
     }
 

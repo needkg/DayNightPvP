@@ -27,6 +27,16 @@ commands:
     usage: "/dnp delworld"
     aliases: [ dnp delworld ]
     permission: dnp.admin
+  daynightpvp editworld:
+    description: "Edit world settings in the configuration file."
+    usage: "/dnp editworld"
+    aliases: [ dnp editworld ]
+    permission: dnp.admin
+  daynightpvp lang:
+    description: "Change the plugin language"
+    usage: "/dnp lang"
+    aliases: [ dnp lang ]
+    permission: dnp.admin
 
 permissions:
   dnp.admin:

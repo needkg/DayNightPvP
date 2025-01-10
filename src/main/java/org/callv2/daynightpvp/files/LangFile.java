@@ -4,7 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.callv2.daynightpvp.DayNightPvP;
-import org.callv2.daynightpvp.utils.ConsoleUtils;
+import org.callv2.daynightpvp.utils.LoggingUtils;
 
 import java.io.File;
 import java.util.regex.Matcher;
@@ -33,7 +33,7 @@ public class LangFile {
     }
 
     private void verifyFileVersion() {
-        int latestFileVersion = 16;
+        int latestFileVersion = 17;
         if (latestFileVersion != getVersion()) {
             File outdatedFile = new File(DayNightPvP.getInstance().getDataFolder(), "lang/" + configFile.getLanguage() + ".yml.old");
             if (outdatedFile.exists()) {
@@ -42,10 +42,10 @@ public class LangFile {
             boolean success = fileLocation.renameTo(outdatedFile);
             if (success) {
                 String fileRenamed = "[DayNightPvP] The 'lang/" + configFile.getLanguage() + ".yml' file was outdated and has been renamed to 'lang/" + configFile.getLanguage() + ".yml.old'.";
-                ConsoleUtils.sendWarningMessage(fileRenamed);
+                LoggingUtils.sendWarningMessage(fileRenamed);
             } else {
                 String fileRenameFailed = "[DayNightPvP] Failed to rename the 'lang/" + configFile.getLanguage() + ".yml' file.";
-                ConsoleUtils.sendWarningMessage(fileRenameFailed);
+                LoggingUtils.sendWarningMessage(fileRenameFailed);
             }
 
             resetFile();
@@ -198,6 +198,68 @@ public class LangFile {
         return formatMessage("feedback-error");
     }
 
+    public String getFeedbackLangChanged() {
+        return formatMessage("feedback-lang-changed");
+    }
+
+    // EditWorld Command Messages
+    public String getFeedbackEditWorldCurrentValue() {
+        return formatMessage("feedback-editworld-current-value");
+    }
+
+    public String getFeedbackEditWorldInvalidSetting() {
+        return formatMessage("feedback-editworld-invalid-setting");
+    }
+
+    public String getFeedbackEditWorldInvalidValue() {
+        return formatMessage("feedback-editworld-invalid-value");
+    }
+
+    public String getFeedbackEditWorldSuccess() {
+        return formatMessage("feedback-editworld-success");
+    }
+
+    public String getFeedbackEditWorldUsage() {
+        return formatMessage("feedback-editworld-usage");
+    }
+
+    public String getFeedbackEditWorldAvailableSettings() {
+        return formatMessage("feedback-editworld-available-settings");
+    }
+
+    // EditWorld Command UI
+    public String getEditWorldTitle() {
+        return formatMessage("feedback-editworld-title");
+    }
+
+    public String getEditWorldSettingDetailsTitle() {
+        return formatMessage("feedback-editworld-setting-details-title");
+    }
+
+    public String getEditWorldSettingDescription() {
+        return formatMessage("feedback-editworld-setting-description");
+    }
+
+    public String getEditWorldSettingCurrentValue() {
+        return formatMessage("feedback-editworld-setting-current-value");
+    }
+
+    public String getEditWorldSettingType() {
+        return formatMessage("feedback-editworld-setting-type");
+    }
+
+    public String getEditWorldSettingRange() {
+        return formatMessage("feedback-editworld-setting-range");
+    }
+
+    public String getEditWorldSettingSuggestions() {
+        return formatMessage("feedback-editworld-setting-suggestions");
+    }
+
+    public String getFeedbackEditWorldSameValue() {
+        return formatMessage("feedback-editworld-same-value");
+    }
+
     // Ações
     public String getActionUpdateFoundClick() {
         return formatMessage("action-update-found-click");
@@ -210,6 +272,14 @@ public class LangFile {
 
     public String getPlaceholderPvpDisabled() {
         return formatMessage("placeholder-pvp-disabled");
+    }
+
+    public String getFeedbackErrorNoPermission() {
+        return formatMessage("feedback-error-no-permission");
+    }
+
+    public String getFeedbackErrorLanguageInUse() {
+        return formatMessage("feedback-error-language-in-use");
     }
 
 }

@@ -54,7 +54,7 @@ public class PvpStatusPlaceholder extends PlaceholderExpansion {
             boolean pvpStatus;
 
             World world = player.getWorld();
-            if (SearchUtils.worldExistsInWorldListSetString(configFile.getWorldNames(), world.getName())) {
+            if (SearchUtils.containsWorldName(configFile.getWorldNames(), world.getName())) {
                 long time = world.getTime();
                 pvpStatus = time >= configFile.getAutomaticPvpDayEnd(world.getName());
             } else {
@@ -68,7 +68,7 @@ public class PvpStatusPlaceholder extends PlaceholderExpansion {
             String worldName = params.substring("pvp_status_world:".length());
             World world = Bukkit.getWorld(worldName);
             if (world != null) {
-                if (SearchUtils.worldExistsInWorldListSetString(configFile.getWorldNames(), world.getName())) {
+                if (SearchUtils.containsWorldName(configFile.getWorldNames(), world.getName())) {
                     long time = world.getTime();
                     pvpStatus = time >= configFile.getAutomaticPvpDayEnd(world.getName());
                     return pvpStatus ? langFile.getPlaceholderPvpEnabled() : langFile.getPlaceholderPvpDisabled();

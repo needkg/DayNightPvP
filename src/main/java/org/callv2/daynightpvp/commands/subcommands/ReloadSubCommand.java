@@ -19,6 +19,11 @@ public class ReloadSubCommand implements ISubCommand {
 
     @Override
     public void executeCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+        if (!PlayerUtils.hasPermission(sender, "dnp.admin")) {
+            PlayerUtils.sendMessage(sender, langFile.getFeedbackError());
+            return;
+        }
+
         pluginServices.reloadPlugin();
         PlayerUtils.sendMessage(sender, langFile.getFeedbackReloadPlugin());
     }
