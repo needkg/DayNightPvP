@@ -1,70 +1,78 @@
 # DayNightPvP
 
-Dynamic Minecraft PvP Plugin for your server!
+<div align="center">
 
-DayNightPvP is a plugin that adds a unique and thrilling PvP experience to your Minecraft server. With advanced features
-and an easy-to-use interface, you can create a dynamic PvP cycle, activated during the night and deactivated during the
-day.
+![DayNightPvP Logo](https://www.spigotmc.org/data/resource_icons/102/102250.jpg?1653715145)
 
-# Download
+**Dynamic PvP Plugin for your Minecraft server!**
 
-[Spigot](https://www.spigotmc.org/resources/daynightpvp-dynamic-pvp-for-day-night.102250/)
+[Spigot](https://www.spigotmc.org/resources/daynightpvp-dynamic-pvp-for-day-night.102250/) | 
+[Modrinth](https://modrinth.com/plugin/daynightpvp) | 
+[Discord](https://discord.gg/FpzhnnCN3H)
 
-[Modrinth](https://modrinth.com/plugin/daynightpvp)
+</div>
 
-# Support
+## 📝 Description
 
-Need assistance or have a suggestion? Join our Discord community: [click here](https://discord.needkg.com)
+DayNightPvP is a plugin that adds a unique and thrilling PvP experience to your Minecraft server. With advanced features and an easy-to-use interface, you can create a dynamic PvP cycle, activated during the night and deactivated during the day.
 
-# Features
+## ✨ Features
 
-- Automatic PvP:  Forget the need to manually enable or disable PvP. DayNightPvP takes care of this automatically,
-  activating exciting PvP during the night and safely deactivating it during the day.
+- **🌙 Automatic PvP**: Forget the need to manually enable or disable PvP. DayNightPvP takes care of this automatically.
+  
+- **⚔️ Difficulty Adjustment**: Add an extra challenge by automatically adjusting game difficulty when day or night begins.
+  
+- **🌍 Multi-World Support**: Works seamlessly across different worlds, allowing specific settings for each one.
+  
+- **⚙️ Custom Configuration**: Personalize sounds and messages to notify players about PvP events.
+  
+- **🔌 Integrations**:
+  - PlaceholderAPI: Display PvP status on Scoreboard or TAB
+  - GriefPrevention: Configure protected areas during night PvP
+  - Vault: Money rewards system in combat
+  - WorldGuard: Define regions with permanent PvP
 
-- Difficulty Adjustment: To add an extra challenge to your server, the plugin automatically adjusts the game difficulty
-  when day or night begins.
+## 📌 Placeholders
 
-- Support for Multiple Worlds: DayNightPvP works seamlessly across different worlds, allowing specific settings for each
-  one.
+```
+%dnp_pvp_status_current_world% → PvP status in player's current world
+%dnp_pvp_status_world:<worldName>% → PvP status of the specified world
+```
 
-- Customizable Configuration: Personalize the sounds that play at the start and end of PvP, and set custom messages to
-  notify players.
+## 🛠️ Commands
 
-- PlaceholderAPI Support: Easily display whether PvP is enabled or disabled on the player's Scoreboard or TAB.
+```
+/dnp → Show all available commands
+/dnp reload → Reload the plugin
+/dnp addworld <worldName> → Add a world to configuration
+/dnp delworld <worldName> → Remove a world from configuration
+/dnp editworld <worldName> → Edit specific world settings
+/dnp lang <language> → Change plugin language
+```
 
-- GriefPrevention Compatibility: You can choose whether GriefPrevention-protected lands will be safe during the night or
-  also subject to PvP.
+## 🚩 WorldGuard Flags
 
-- Vault Support: With Vault support, you can determine if players should lose money upon dying during PvP and if the
-  killer will receive the reward.
+```
+allow-pvp-on-day → Allows PvP during day in specific regions
+```
 
-- WorldGuard Support: Easily define whether a WorldGuard region should have PvP enabled even during the day.
+## 👮 Permissions
 
-- Custom Day/Night Duration: Adjust the length of day and night cycles to suit your preferences.
+```
+dnp.admin → Access to /dnp command
+dnp.losemoney.<1-100> → Percentage of money lost on death
+dnp.bypass → Allows combat entry during day
+dnp.immune → Makes player immune to PvP
+```
 
-# Metrics
+## 📊 Metrics
 
 [<img src="https://bstats.org/signatures/bukkit/daynightpvp.svg">](https://bstats.org/plugin/bukkit/DayNightPvP/19067/)
 
-# PlaceHolders
+## 🤝 Support
 
-    %dnp_pvp_status_current_world% → Status of PvP in the current world where the player is.
-    %dnp_pvp_status_world:<worldName>% → PvP status of the defined world.
+Need help or have a suggestion? Join our community on [Discord](https://discord.needkg.com)!
 
-# Commands
+## 📄 License
 
-    /dnp → Show all available commands
-    /dnp reload → Reload the plugin
-    /dnp addworld <worldName> → Adds a world to the configuration file
-    /dnp delworld <worldName> → Deletes a world from the configuration file
-
-# WorldGuard Flags
-
-    allow-pvp-on-day → Allows players to enter in combat even when it's daytime in a WorldGuard region (the "pvp" flag must be set to allow for it to work).
-
-# Permissions
-
-    dnp.admin → /dnp command access.
-    dnp.losemoney.<1-100> → Percentage of money the user should lose upon death.
-    dnp.bypass → Allows the user to enter in combat even during the day.
-    dnp.immune → Allows the user to become immune to PvP.
+This project is licensed under the [MIT License](LICENSE).
