@@ -6,6 +6,7 @@ import org.callv2.daynightpvp.commands.ISubCommand;
 import org.callv2.daynightpvp.files.ConfigFile;
 import org.callv2.daynightpvp.files.LangFile;
 import org.callv2.daynightpvp.services.PluginServices;
+import org.callv2.daynightpvp.utils.PlayerUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,11 @@ public class DelWorldSubCommand implements ISubCommand {
 
     @Override
     public void executeCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+        if (!PlayerUtils.hasPermission(sender, "dnp.admin")) {
+            PlayerUtils.sendMessage(sender, langFile.getFeedbackError());
+            return;
+        }
+
         if (args.length == 2) {
             if (configFile.contains("worlds." + args[1])) {
                 removeWorldFromConfig(args[1]);
@@ -33,7 +39,7 @@ public class DelWorldSubCommand implements ISubCommand {
             }
             sender.sendMessage(langFile.getFeedbackWorldIsNotInSettings().replace("{0}", args[1]));
         } else {
-            sender.sendMessage(langFile.getFeedbackIncorrectCommand().replace("{0}", "Comando incorreto, use: /dnp delworld <worldName>"));
+            sender.sendMessage(langFile.getFeedbackIncorrectCommand().replace("{0}", "/dnp delworld <worldName>"));
         }
     }
 

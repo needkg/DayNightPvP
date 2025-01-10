@@ -27,7 +27,7 @@ public class RunnableHandler {
     public void startAllRunnables() {
 
         for (String worldName : configFile.getWorldNames()) {
-            if (WorldUtils.checkWorldIsValid(worldName)) {
+            if (WorldUtils.isWorldValid(worldName)) {
 
                 if (configFile.getDayNightDurationEnabled(worldName)) {
                     startCustomTimeDuration(
