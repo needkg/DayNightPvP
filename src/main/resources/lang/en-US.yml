@@ -1,39 +1,65 @@
-# Version - DO NOT MODIFY
-version: 16
+# DayNightPvP Language File
+# DO NOT MODIFY
+version: 17
 
-# Notifications
-notify-day-chat: "&a&lSunrise! Combat Disabled!"
-notify-night-chat: "&c&lSunset! Combat Enabled!"
-notify-day-title: "&a&lSunrise!"
-notify-day-subtitle: "&a&lCombat Disabled!"
-notify-night-title: "&c&lSunset!"
-notify-night-subtitle: "&c&lCombat Enabled!"
-notify-pvp-disabled: "&7Combat is disabled during daytime!"
-notify-player-immune: "&7This player is immune to combat!"
-notify-self-immune: "&7You are immune to combat!"
+# =====================
+#     Notifications
+# =====================
+notify-day-chat: "§8[§a§l!§8] §7Combat has been §aDisabled §8(§7Daybreak§8)"
+notify-night-chat: "§8[§c§l!§8] §7Combat has been §cEnabled §8(§7Nightfall§8)"
+notify-day-title: "§a§lDAYBREAK"
+notify-day-subtitle: "§7Combat has been §aDisabled"
+notify-night-title: "§c§lNIGHTFALL"
+notify-night-subtitle: "§7Combat has been §cEnabled"
+notify-pvp-disabled: "§8[§c§l!§8] §7Combat is §cnot allowed §7during daytime"
+notify-player-immune: "§8[§c§l!§8] §7This player is §cimmune §7to combat"
+notify-self-immune: "§8[§c§l!§8] §7You are §cimmune §7to combat"
 
-# Feedback
-feedback-update-available: "&9&lDayNightPvP &8&l» &7New update available!"
-feedback-update-check-failed: "&9&lDayNightPvP &8&l» &7Failed to check for updates"
-feedback-update-current-version: "&7Current version: &c{0}"
-feedback-update-latest-version: "&7Latest version: &b{0}"
-feedback-reload-plugin: "&8[&aDayNightPvP&8] &7Configuration reloaded successfully!"
-feedback-lose-money: "&7You were defeated by &b{0} &7and lost &c${1}"
-feedback-win-money: "&7You defeated &b{0} &7and earned &a${1}"
-feedback-added-world: "&8[&aDayNightPvP&8] &7World &b{0} &7has been added"
-feedback-deleted-world: "&8[&aDayNightPvP&8] &7World &b{0} &7has been removed"
-feedback-world-is-not-in-settings: "&8[&aDayNightPvP&8] &7World &b{0} &7is not configured"
-feedback-world-already-exists: "&8[&aDayNightPvP&8] &7World &b{0} &7is already configured"
-feedback-world-does-not-exist: "&8[&aDayNightPvP&8] &7World &b{0} &7does not exist"
-feedback-incorrect-command: "&8[&aDayNightPvP&8] &7Invalid command. Use: &b{0}"
-feedback-non-existent-command: "&8[&aDayNightPvP&8] &7Command not found"
-feedback-boss-bar-sunset: "{0} until sunset"
-feedback-boss-bar-sunrise: "{0} until sunrise"
-feedback-error: "&c&lERROR"
+# =====================
+#      Feedback
+# =====================
+feedback-lose-money: "§8[§c§l!§8] §7Defeated by §b{0} §8» §cLost ${1}"
+feedback-win-money: "§8[§a§l!§8] §7Defeated §b{0} §8» §aGained ${1}"
+feedback-added-world: "§8[§a§l!§8] §7World §b{0} §7has been §aadded"
+feedback-deleted-world: "§8[§c§l!§8] §7World §b{0} §7has been §cremoved"
+feedback-world-is-not-in-settings: "§8[§c§l!§8] §7World §b{0} §7is §cnot configured"
+feedback-world-already-exists: "§8[§c§l!§8] §7World §b{0} §7is §calready configured"
+feedback-world-does-not-exist: "§8[§c§l!§8] §7World §b{0} §7does §cnot exist"
+feedback-editworld-current-value: "§8[§b§l!§8] §7Value of '§b{0}§7' is §b{1}"
+feedback-editworld-invalid-setting: "§8[§c§l!§8] §7Setting '§b{0}§7' does §cnot exist"
+feedback-editworld-invalid-value: "§8[§c§l!§8] §7Value '§b{0}§7' is §cinvalid §7for '§b{1}§7'"
+feedback-editworld-success: "§8[§a§l!§8] §7Setting '§b{0}§7' changed to §b{1}"
+feedback-editworld-usage: "§8[§b§l!§8] §7Usage: §b/dnp editworld <world> <setting> [value]"
+feedback-editworld-available-settings: "§8[§b§l!§8] §7Settings: §b{0}"
+feedback-editworld-same-value: "§8[§e§l!§8] §7Setting §b{0} §7is already §b{1}"
+feedback-editworld-title: "§a§lAvailable settings"
+feedback-editworld-setting-details-title: "§8[§b§l!§8] §7Setting: §b{0}"
+feedback-editworld-setting-description: "§8[§7§l!§8] §7Description: §7{0}"
+feedback-editworld-setting-current-value: "§8[§7§l!§8] §7Current: §b{0}"
+feedback-editworld-setting-type: "§8[§7§l!§8] §7Type: §7{0}"
+feedback-editworld-setting-range: "§8[§7§l!§8] §7Range: §7{0} §8to §7{1}"
+feedback-editworld-setting-suggestions: "§8[§7§l!§8] §7Suggestions: §b{0}"
+feedback-incorrect-command: "§8[§c§l!§8] §7Incorrect command §8» §b{0}"
+feedback-non-existent-command: "§8[§c§l!§8] §7Command not found"
+feedback-error-no-permission: "§8[§c§l!§8] §7You don't have §cpermission"
+feedback-error-language-in-use: "§8[§e§l!§8] §7This language is already in use"
+feedback-lang-changed: "§8[§a§l!§8] §7Language changed to §b{0}"
+feedback-update-available: "§8[§e§lDayNightPvP§8] §7New update available"
+feedback-update-check-failed: "§8[§c§l!§8] §7Failed to check for updates"
+feedback-update-current-version: "§8[§7§l!§8] §7Current: §c{0}"
+feedback-update-latest-version: "§8[§7§l!§8] §7Latest: §b{0}"
+feedback-reload-plugin: "§8[§a§l!§8] §7Plugin reloaded successfully"
+feedback-error: "§c§lERROR"
+feedback-boss-bar-sunset: "§7{0} until §cNightfall"
+feedback-boss-bar-sunrise: "§7{0} until §aDaybreak"
 
-# Actions
-action-update-found-click: "&a&nClick to visit plugin page"
+# =====================
+#      Actions
+# =====================
+action-update-found-click: "§a§nClick here to update"
 
-# Placeholders
-placeholder-pvp-enabled: "&aEnabled"
-placeholder-pvp-disabled: "&cDisabled"
+# =====================
+#      Placeholders
+# =====================
+placeholder-pvp-enabled: "§cEnabled"
+placeholder-pvp-disabled: "§aDisabled"

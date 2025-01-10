@@ -1,39 +1,65 @@
-# Версия - НЕ ИЗМЕНЯТЬ
-version: 16
+# DayNightPvP Language File
+# DO NOT MODIFY
+version: 17
 
-# Уведомления
-notify-day-chat: "&a&lРассвет! Бой Отключен!"
-notify-night-chat: "&c&lЗакат! Бой Включен!"
-notify-day-title: "&a&lРассвет!"
-notify-day-subtitle: "&a&lБой Отключен!"
-notify-night-title: "&c&lЗакат!"
-notify-night-subtitle: "&c&lБой Включен!"
-notify-pvp-disabled: "&7Бой отключен в дневное время!"
-notify-player-immune: "&7Этот игрок имеет иммунитет к бою!"
-notify-self-immune: "&7У вас иммунитет к бою!"
+# =====================
+#     Notifications
+# =====================
+notify-day-chat: "§8[§a§l!§8] §7Бой §aОтключен §8(§7Рассвело§8)"
+notify-night-chat: "§8[§c§l!§8] §7Бой §cВключен §8(§7Стемнело§8)"
+notify-day-title: "§a§lРАССВЕТ"
+notify-day-subtitle: "§7Бой §aОтключен"
+notify-night-title: "§c§lЗАКАТ"
+notify-night-subtitle: "§7Бой §cВключен"
+notify-pvp-disabled: "§8[§c§l!§8] §7Бой §cзапрещен §7днем"
+notify-player-immune: "§8[§c§l!§8] §7Этот игрок §cиммунен §7к бою"
+notify-self-immune: "§8[§c§l!§8] §7Вы §cиммунны §7к бою"
 
-# Обратная связь
-feedback-update-available: "&9&lDayNightPvP &8&l» &7Доступно обновление!"
-feedback-update-check-failed: "&9&lDayNightPvP &8&l» &7Ошибка проверки обновлений"
-feedback-update-current-version: "&7Текущая версия: &c{0}"
-feedback-update-latest-version: "&7Новая версия: &b{0}"
-feedback-reload-plugin: "&8[&aDayNightPvP&8] &7Настройки успешно перезагружены!"
-feedback-lose-money: "&7Вас победил &b{0} &7и вы потеряли &c${1}"
-feedback-win-money: "&7Вы победили &b{0} &7и получили &a${1}"
-feedback-added-world: "&8[&aDayNightPvP&8] &7Мир &b{0} &7добавлен"
-feedback-deleted-world: "&8[&aDayNightPvP&8] &7Мир &b{0} &7удален"
-feedback-world-is-not-in-settings: "&8[&aDayNightPvP&8] &7Мир &b{0} &7не настроен"
-feedback-world-already-exists: "&8[&aDayNightPvP&8] &7Мир &b{0} &7уже настроен"
-feedback-world-does-not-exist: "&8[&aDayNightPvP&8] &7Мир &b{0} &7не существует"
-feedback-incorrect-command: "&8[&aDayNightPvP&8] &7Неверная команда. Используйте: &b{0}"
-feedback-non-existent-command: "&8[&aDayNightPvP&8] &7Команда не найдена"
-feedback-boss-bar-sunset: "{0} до заката"
-feedback-boss-bar-sunrise: "{0} до рассвета"
-feedback-error: "&c&lОШИБКА"
+# =====================
+#      Feedback
+# =====================
+feedback-lose-money: "§8[§c§l!§8] §7Поражение от §b{0} §8» §cПотеряно ${1}"
+feedback-win-money: "§8[§a§l!§8] §7Победа над §b{0} §8» §aПолучено ${1}"
+feedback-added-world: "§8[§a§l!§8] §7Мир §b{0} §7был §aдобавлен"
+feedback-deleted-world: "§8[§c§l!§8] §7Мир §b{0} §7был §cудален"
+feedback-world-is-not-in-settings: "§8[§c§l!§8] §7Мир §b{0} §7не §cнастроен"
+feedback-world-already-exists: "§8[§c§l!§8] §7Мир §b{0} §7уже §cнастроен"
+feedback-world-does-not-exist: "§8[§c§l!§8] §7Мир §b{0} §7не §cсуществует"
+feedback-editworld-current-value: "§8[§b§l!§8] §7Значение '§b{0}§7' равно §b{1}"
+feedback-editworld-invalid-setting: "§8[§c§l!§8] §7Настройка '§b{0}§7' не §cсуществует"
+feedback-editworld-invalid-value: "§8[§c§l!§8] §7Значение '§b{0}§7' §cнедопустимо §7для '§b{1}§7'"
+feedback-editworld-success: "§8[§a§l!§8] §7Настройка '§b{0}§7' изменена на §b{1}"
+feedback-editworld-usage: "§8[§b§l!§8] §7Использование: §b/dnp editworld <мир> <настройка> [значение]"
+feedback-editworld-available-settings: "§8[§b§l!§8] §7Настройки: §b{0}"
+feedback-editworld-same-value: "§8[§e§l!§8] §7Настройка §b{0} §7уже равна §b{1}"
+feedback-editworld-title: "§a§lДоступные настройки"
+feedback-editworld-setting-details-title: "§8[§b§l!§8] §7Настройка: §b{0}"
+feedback-editworld-setting-description: "§8[§7§l!§8] §7Описание: §7{0}"
+feedback-editworld-setting-current-value: "§8[§7§l!§8] §7Текущее: §b{0}"
+feedback-editworld-setting-type: "§8[§7§l!§8] §7Тип: §7{0}"
+feedback-editworld-setting-range: "§8[§7§l!§8] §7Диапазон: §7{0} §8до §7{1}"
+feedback-editworld-setting-suggestions: "§8[§7§l!§8] §7Предложения: §b{0}"
+feedback-incorrect-command: "§8[§c§l!§8] §7Неверная команда §8» §b{0}"
+feedback-non-existent-command: "§8[§c§l!§8] §7Команда не найдена"
+feedback-error-no-permission: "§8[§c§l!§8] §7У вас нет §cправ"
+feedback-error-language-in-use: "§8[§e§l!§8] §7Этот язык уже используется"
+feedback-lang-changed: "§8[§a§l!§8] §7Язык изменен на §b{0}"
+feedback-update-available: "§8[§e§lDayNightPvP§8] §7Доступно обновление"
+feedback-update-check-failed: "§8[§c§l!§8] §7Ошибка проверки обновлений"
+feedback-update-current-version: "§8[§7§l!§8] §7Текущая: §c{0}"
+feedback-update-latest-version: "§8[§7§l!§8] §7Новая: §b{0}"
+feedback-reload-plugin: "§8[§a§l!§8] §7Плагин перезагружен"
+feedback-error: "§c§lОШИБКА"
+feedback-boss-bar-sunset: "§7{0} до §cЗаката"
+feedback-boss-bar-sunrise: "§7{0} до §aРассвета"
 
-# Действия
-action-update-found-click: "&a&nНажмите для перехода на страницу плагина"
+# =====================
+#      Actions
+# =====================
+action-update-found-click: "§a§nНажмите для обновления"
 
-# Плейсхолдеры
-placeholder-pvp-enabled: "&aВключен"
-placeholder-pvp-disabled: "&cОтключен"
+# =====================
+#      Placeholders
+# =====================
+placeholder-pvp-enabled: "§cВключен"
+placeholder-pvp-disabled: "§aОтключен"

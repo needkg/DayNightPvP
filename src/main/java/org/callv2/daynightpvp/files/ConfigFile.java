@@ -281,15 +281,15 @@ public class ConfigFile {
     }
 
     public int getNotifyPlayersTitleFadeIn(String worldName) {
-        return getInt("worlds." + worldName + ".notify-players.title.fade-in", 20, 1, 2147483647);
+        return getInt("worlds." + worldName + ".notify-players.title.fade-in", 20, 1, 86400);
     }
 
     public int getNotifyPlayersTitleStay(String worldName) {
-        return getInt("worlds." + worldName + ".notify-players.title.stay", 20, 1, 2147483647);
+        return getInt("worlds." + worldName + ".notify-players.title.stay", 20, 1, 86400);
     }
 
     public int getNotifyPlayersTitleFadeOut(String worldName) {
-        return getInt("worlds." + worldName + ".notify-players.title.fade-out", 20, 1, 2147483647);
+        return getInt("worlds." + worldName + ".notify-players.title.fade-out", 20, 1, 86400);
     }
 
     public boolean getNotifyPlayersSoundEnabled(String worldName) {
