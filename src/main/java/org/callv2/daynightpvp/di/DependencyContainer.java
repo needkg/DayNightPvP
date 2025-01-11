@@ -13,7 +13,6 @@ import org.callv2.daynightpvp.vault.LoseMoneyOnDeath;
 
 public class DependencyContainer {
     private static DependencyContainer instance;
-    private final DayNightPvP plugin;
 
     private ConfigFile configFile;
     private LangFile langFile;
@@ -25,13 +24,12 @@ public class DependencyContainer {
     private BStatsHandler bStatsHandler;
     private PluginServices pluginServices;
 
-    private DependencyContainer(DayNightPvP plugin) {
-        this.plugin = plugin;
+    private DependencyContainer() {
         initializeDependencies();
     }
 
-    public static void initialize(DayNightPvP plugin) {
-        instance = new DependencyContainer(plugin);
+    public static void initialize() {
+        instance = new DependencyContainer();
     }
 
     public static DependencyContainer getInstance() {
