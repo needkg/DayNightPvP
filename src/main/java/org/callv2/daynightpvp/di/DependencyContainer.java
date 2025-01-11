@@ -1,6 +1,5 @@
 package org.callv2.daynightpvp.di;
 
-import org.callv2.daynightpvp.DayNightPvP;
 import org.callv2.daynightpvp.bstats.BStatsHandler;
 import org.callv2.daynightpvp.commands.CommandHandler;
 import org.callv2.daynightpvp.files.ConfigFile;
