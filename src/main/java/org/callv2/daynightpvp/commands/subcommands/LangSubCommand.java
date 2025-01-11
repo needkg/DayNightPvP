@@ -3,6 +3,7 @@ package org.callv2.daynightpvp.commands.subcommands;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.callv2.daynightpvp.commands.ISubCommand;
+import org.callv2.daynightpvp.di.DependencyContainer;
 import org.callv2.daynightpvp.files.ConfigFile;
 import org.callv2.daynightpvp.files.LangFile;
 import org.callv2.daynightpvp.services.PluginServices;
@@ -19,10 +20,11 @@ public class LangSubCommand implements ISubCommand {
     private final ConfigFile configFile;
     private final PluginServices pluginServices;
 
-    public LangSubCommand(LangFile langFile, ConfigFile configFile, PluginServices pluginServices) {
-        this.langFile = langFile;
-        this.configFile = configFile;
-        this.pluginServices = pluginServices;
+    public LangSubCommand() {
+        DependencyContainer container = DependencyContainer.getInstance();
+        this.langFile = container.getLangFile();
+        this.configFile = container.getConfigFile();
+        this.pluginServices = container.getPluginServices();
     }
 
     @Override

@@ -11,6 +11,7 @@ import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.callv2.daynightpvp.DayNightPvP;
+import org.callv2.daynightpvp.di.DependencyContainer;
 import org.callv2.daynightpvp.files.ConfigFile;
 import org.callv2.daynightpvp.files.LangFile;
 import org.callv2.daynightpvp.griefprevention.GriefPreventionHandler;
@@ -26,9 +27,11 @@ public class DamageListener implements Listener {
     private final String notifyPlayerImmune;
     private final String notifySelfImmune;
 
-    public DamageListener(ConfigFile configFile, LangFile langFile) {
+    public DamageListener() {
+        DependencyContainer container = DependencyContainer.getInstance();
         this.griefPreventionHandler = new GriefPreventionHandler();
-        this.configFile = configFile;
+        this.configFile = container.getConfigFile();
+        LangFile langFile = container.getLangFile();
         this.notifyPvpDisabled = langFile.getNotifyPvpDisabled();
         this.notifyPlayerImmune = langFile.getNotifyPlayerImmune();
         this.notifySelfImmune = langFile.getNotifySelfImmune();

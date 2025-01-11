@@ -5,8 +5,6 @@ import org.callv2.daynightpvp.files.LangFile;
 import org.callv2.daynightpvp.listeners.ListenersHandler;
 import org.callv2.daynightpvp.placeholder.PlaceholderHandler;
 import org.callv2.daynightpvp.runnables.RunnableHandler;
-import org.callv2.daynightpvp.vault.LoseMoneyOnDeath;
-
 
 public class PluginServices {
 
@@ -16,12 +14,12 @@ public class PluginServices {
     private final PlaceholderHandler placeholderHandler;
     private final RunnableHandler runnableHandler;
 
-    public PluginServices(LoseMoneyOnDeath loseMoneyOnDeath, RunnableHandler runnableHandler) {
-        configFile = new ConfigFile();
-        langFile = new LangFile(configFile);
+    public PluginServices(ConfigFile configFile, LangFile langFile, RunnableHandler runnableHandler, ListenersHandler listenersHandler, PlaceholderHandler placeholderHandler) {
+        this.configFile = configFile;
+        this.langFile = langFile;
         this.runnableHandler = runnableHandler;
-        listenersHandler = new ListenersHandler(configFile, langFile, loseMoneyOnDeath);
-        placeholderHandler = new PlaceholderHandler(langFile, configFile);
+        this.listenersHandler = listenersHandler;
+        this.placeholderHandler = placeholderHandler;
     }
 
     public void reloadPlugin() {
@@ -50,5 +48,4 @@ public class PluginServices {
         runnableHandler.stopAllRunnables();
         runnableHandler.startAllRunnables();
     }
-
 }

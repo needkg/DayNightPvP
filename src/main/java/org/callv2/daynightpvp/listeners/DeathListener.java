@@ -8,6 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.permissions.PermissionAttachmentInfo;
 import org.callv2.daynightpvp.DayNightPvP;
+import org.callv2.daynightpvp.di.DependencyContainer;
 import org.callv2.daynightpvp.files.ConfigFile;
 import org.callv2.daynightpvp.vault.LoseMoneyOnDeath;
 
@@ -16,9 +17,10 @@ public class DeathListener implements Listener {
     private final ConfigFile configFile;
     private final LoseMoneyOnDeath loseMoneyOnDeath;
 
-    public DeathListener(ConfigFile configFile, LoseMoneyOnDeath loseMoneyOnDeath) {
-        this.configFile = configFile;
-        this.loseMoneyOnDeath = loseMoneyOnDeath;
+    public DeathListener() {
+        DependencyContainer container = DependencyContainer.getInstance();
+        this.configFile = container.getConfigFile();
+        this.loseMoneyOnDeath = container.getLoseMoneyOnDeath();
     }
 
     @EventHandler

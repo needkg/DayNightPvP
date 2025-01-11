@@ -5,13 +5,12 @@ import org.callv2.daynightpvp.files.ConfigFile;
 import org.callv2.daynightpvp.files.LangFile;
 
 public class PlaceholderHandler {
-
-    private final LangFile langFile;
     private final ConfigFile configFile;
+    private final LangFile langFile;
 
-    public PlaceholderHandler(LangFile langFile, ConfigFile configFile) {
-        this.langFile = langFile;
+    public PlaceholderHandler(ConfigFile configFile, LangFile langFile) {
         this.configFile = configFile;
+        this.langFile = langFile;
     }
 
     public void register() {
@@ -25,5 +24,4 @@ public class PlaceholderHandler {
             new PvpStatusPlaceholder(langFile, configFile).unregister();
         }
     }
-
 }

@@ -203,10 +203,6 @@ public class LangFile {
     }
 
     // EditWorld Command Messages
-    public String getFeedbackEditWorldCurrentValue() {
-        return formatMessage("feedback-editworld-current-value");
-    }
-
     public String getFeedbackEditWorldInvalidSetting() {
         return formatMessage("feedback-editworld-invalid-setting");
     }
@@ -217,14 +213,6 @@ public class LangFile {
 
     public String getFeedbackEditWorldSuccess() {
         return formatMessage("feedback-editworld-success");
-    }
-
-    public String getFeedbackEditWorldUsage() {
-        return formatMessage("feedback-editworld-usage");
-    }
-
-    public String getFeedbackEditWorldAvailableSettings() {
-        return formatMessage("feedback-editworld-available-settings");
     }
 
     // EditWorld Command UI

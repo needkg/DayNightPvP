@@ -4,7 +4,7 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.callv2.daynightpvp.DayNightPvP;
-import org.callv2.daynightpvp.files.ConfigFile;
+import org.callv2.daynightpvp.di.DependencyContainer;
 import org.callv2.daynightpvp.files.LangFile;
 
 import java.io.BufferedReader;
@@ -17,8 +17,9 @@ public class UpdateServices {
 
     private final LangFile langFile;
 
-    public UpdateServices(ConfigFile configFile) {
-        langFile = new LangFile(configFile);
+    public UpdateServices() {
+        DependencyContainer container = DependencyContainer.getInstance();
+        this.langFile = container.getLangFile();
     }
 
     public void checkUpdate(PlayerJoinEvent event) {
@@ -68,5 +69,4 @@ public class UpdateServices {
             }
         }
     }
-
 }

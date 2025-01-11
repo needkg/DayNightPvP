@@ -5,12 +5,9 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.callv2.daynightpvp.commands.subcommands.*;
-import org.callv2.daynightpvp.files.ConfigFile;
+import org.callv2.daynightpvp.di.DependencyContainer;
 import org.callv2.daynightpvp.files.LangFile;
-import org.callv2.daynightpvp.runnables.RunnableHandler;
-import org.callv2.daynightpvp.services.PluginServices;
 import org.callv2.daynightpvp.utils.PlayerUtils;
-import org.callv2.daynightpvp.vault.LoseMoneyOnDeath;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -19,34 +16,26 @@ import java.util.stream.Collectors;
 public class DnpCommand implements CommandExecutor, TabCompleter {
 
     private final LangFile langFile;
-    private final ConfigFile configFile;
-    private final RunnableHandler runnableHandler;
-    private final LoseMoneyOnDeath loseMoneyOnDeath;
-
     private final Map<String, ISubCommand> subCommands = new HashMap<>();
 
-    public DnpCommand(LangFile langFile, ConfigFile configFile, RunnableHandler runnableHandler, LoseMoneyOnDeath loseMoneyOnDeath) {
-        this.langFile = langFile;
-        this.configFile = configFile;
-        this.runnableHandler = runnableHandler;
-        this.loseMoneyOnDeath = loseMoneyOnDeath;
-
+    public DnpCommand() {
+        DependencyContainer container = DependencyContainer.getInstance();
+        this.langFile = container.getLangFile();
         registerSubCommands();
     }
 
     private void registerSubCommands() {
-        subCommands.put("reload", new ReloadSubCommand(langFile, new PluginServices(loseMoneyOnDeath, runnableHandler)));
-        subCommands.put("addworld", new AddWorldSubCommand(langFile, configFile, new PluginServices(loseMoneyOnDeath, runnableHandler)));
-        subCommands.put("delworld", new DelWorldSubCommand(langFile, configFile, new PluginServices(loseMoneyOnDeath, runnableHandler)));
-        subCommands.put("editworld", new EditWorldSubCommand(langFile, configFile, new PluginServices(loseMoneyOnDeath, runnableHandler)));
-        subCommands.put("lang", new LangSubCommand(langFile, configFile, new PluginServices(loseMoneyOnDeath, runnableHandler)));
+        subCommands.put("reload", new ReloadSubCommand());
+        subCommands.put("addworld", new AddWorldSubCommand());
+        subCommands.put("delworld", new DelWorldSubCommand());
+        subCommands.put("editworld", new EditWorldSubCommand());
+        subCommands.put("lang", new LangSubCommand());
     }
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String commandLabel, String[] args) {
 
         if (args.length == 0) {
-
             PlayerUtils.sendMessage(sender, "");
             PlayerUtils.sendMessage(sender, "  §a§lDayNightPvP");
             PlayerUtils.sendMessage(sender, "");
@@ -112,5 +101,4 @@ public class DnpCommand implements CommandExecutor, TabCompleter {
 
         return new ArrayList<>();
     }
-
 }

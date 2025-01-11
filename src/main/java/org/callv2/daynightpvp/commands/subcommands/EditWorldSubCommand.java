@@ -5,6 +5,7 @@ import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.callv2.daynightpvp.commands.ISubCommand;
+import org.callv2.daynightpvp.di.DependencyContainer;
 import org.callv2.daynightpvp.files.ConfigFile;
 import org.callv2.daynightpvp.files.LangFile;
 import org.callv2.daynightpvp.services.PluginServices;
@@ -21,10 +22,11 @@ public class EditWorldSubCommand implements ISubCommand {
     private final PluginServices pluginServices;
     private final Map<String, SettingInfo> settingsMap;
 
-    public EditWorldSubCommand(LangFile langFile, ConfigFile configFile, PluginServices pluginServices) {
-        this.langFile = langFile;
-        this.configFile = configFile;
-        this.pluginServices = pluginServices;
+    public EditWorldSubCommand() {
+        DependencyContainer container = DependencyContainer.getInstance();
+        this.langFile = container.getLangFile();
+        this.configFile = container.getConfigFile();
+        this.pluginServices = container.getPluginServices();
         this.settingsMap = initializeSettingsMap();
     }
 

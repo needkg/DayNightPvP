@@ -3,6 +3,7 @@ package org.callv2.daynightpvp.runnables;
 import org.bukkit.Difficulty;
 import org.bukkit.Sound;
 import org.bukkit.World;
+import org.callv2.daynightpvp.di.DependencyContainer;
 import org.callv2.daynightpvp.files.LangFile;
 import org.callv2.daynightpvp.utils.LoggingUtils;
 import org.callv2.daynightpvp.utils.PlayerUtils;
@@ -37,7 +38,6 @@ public class AutomaticPvp implements Runnable {
     private final World world;
 
     public AutomaticPvp(
-            LangFile langFile,
             long dayEnd,
             boolean automaticDifficultyEnabled,
             boolean notifyPlayersTitleEnabled,
@@ -53,6 +53,9 @@ public class AutomaticPvp implements Runnable {
             float soundDayVolume,
             boolean notifyPlayersChatDayNightStarts,
             World world) {
+        DependencyContainer container = DependencyContainer.getInstance();
+        LangFile langFile = container.getLangFile();
+
         this.dayEnd = dayEnd;
         this.automaticDifficultyEnabled = automaticDifficultyEnabled;
         this.notifyPlayersTitleEnabled = notifyPlayersTitleEnabled;

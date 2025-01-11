@@ -1,16 +1,9 @@
 package org.callv2.daynightpvp;
 
 import org.bukkit.plugin.java.JavaPlugin;
-import org.callv2.daynightpvp.bstats.BStatsHandler;
-import org.callv2.daynightpvp.commands.CommandHandler;
-import org.callv2.daynightpvp.files.ConfigFile;
-import org.callv2.daynightpvp.files.LangFile;
-import org.callv2.daynightpvp.listeners.ListenersHandler;
-import org.callv2.daynightpvp.placeholder.PlaceholderHandler;
-import org.callv2.daynightpvp.runnables.RunnableHandler;
+import org.callv2.daynightpvp.di.DependencyContainer;
 import org.callv2.daynightpvp.utils.LoggingUtils;
 import org.callv2.daynightpvp.utils.PluginUtils;
-import org.callv2.daynightpvp.vault.LoseMoneyOnDeath;
 import org.callv2.daynightpvp.worldguard.FlagHandler;
 
 public class DayNightPvP extends JavaPlugin {
@@ -22,30 +15,8 @@ public class DayNightPvP extends JavaPlugin {
 
     private static DayNightPvP instance;
 
-    private final ConfigFile configFile;
-    private final LangFile langFile;
-    private final CommandHandler commandHandler;
-    private final ListenersHandler listenersHandler;
-    private final PlaceholderHandler placeholderHandler;
-    private final RunnableHandler runnableHandler;
-    private final BStatsHandler bStatsHandler;
-
     public DayNightPvP() {
         instance = this;
-
-        configFile = new ConfigFile();
-        langFile = new LangFile(configFile);
-
-        runnableHandler = new RunnableHandler(configFile, langFile);
-
-        LoseMoneyOnDeath loseMoneyOnDeath = new LoseMoneyOnDeath(configFile, langFile);
-
-        commandHandler = new CommandHandler(langFile, configFile, runnableHandler, loseMoneyOnDeath);
-
-        listenersHandler = new ListenersHandler(configFile, langFile, loseMoneyOnDeath);
-        placeholderHandler = new PlaceholderHandler(langFile, configFile);
-        bStatsHandler = new BStatsHandler();
-
     }
 
     public static DayNightPvP getInstance() {
@@ -54,6 +25,7 @@ public class DayNightPvP extends JavaPlugin {
 
     @Override
     public void onLoad() {
+
         verifyCompatibilityPlugins();
 
         if (worldGuardIsPresent) {
@@ -65,23 +37,18 @@ public class DayNightPvP extends JavaPlugin {
     public void onEnable() {
         LoggingUtils.sendStartupMessage();
 
-        configFile.createFile();
-        langFile.createFile();
+        // Inicializa o container de dependências
+        DependencyContainer.initialize(this);
+        DependencyContainer container = DependencyContainer.getInstance();
 
-        bStatsHandler.start();
-
-        commandHandler.register();
-
-        listenersHandler.register();
-
-        placeholderHandler.register();
-
-        runnableHandler.startAllRunnables();
-    }
-
-    @Override
-    public void onDisable() {
-        runnableHandler.stopAllRunnables();
+        // Inicializa os componentes usando o container
+        container.getConfigFile().createFile();
+        container.getLangFile().createFile();
+        container.getBStatsHandler().start();
+        container.getCommandHandler().register();
+        container.getListenersHandler().register();
+        container.getPlaceholderHandler().register();
+        container.getRunnableHandler().startAllRunnables();
     }
 
     private void verifyCompatibilityPlugins() {
@@ -90,5 +57,4 @@ public class DayNightPvP extends JavaPlugin {
         griefIsPresent = PluginUtils.isPluginInstalled("GriefPrevention");
         placeHolderIsPresent = PluginUtils.isPluginInstalled("PlaceholderAPI");
     }
-
 }

@@ -48,7 +48,6 @@ public class RunnableHandler {
 
                 if (configFile.getAutomaticPvpEnabled(worldName)) {
                     startAutomaticPvp(
-                            langFile,
                             configFile.getAutomaticPvpDayEnd(worldName),
                             configFile.getAutomaticDifficultyEnabled(worldName),
                             configFile.getNotifyPlayersTitleEnabled(worldName),
@@ -80,7 +79,6 @@ public class RunnableHandler {
     }
 
     private void startAutomaticPvp(
-            LangFile langFile,
             long dayEnd,
             boolean automaticDifficultyEnabled,
             boolean notifyPlayersTitleEnabled,
@@ -97,7 +95,6 @@ public class RunnableHandler {
             boolean notifyPlayersChatDayNightStarts,
             World world) {
         tasks.add(Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(DayNightPvP.getInstance(), new AutomaticPvp(
-                langFile,
                 dayEnd,
                 automaticDifficultyEnabled,
                 notifyPlayersTitleEnabled,
