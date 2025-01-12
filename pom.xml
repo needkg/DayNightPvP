@@ -6,7 +6,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.callv2</groupId>
+    <groupId>com.needkg</groupId>
     <artifactId>DayNightPvP</artifactId>
     <name>DayNightPvP</name>
     <version>1.2.10</version>
@@ -15,7 +15,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>17</java.version>
-        <shade.base>org.callv2.daynightpvp</shade.base>
+        <shade.base>com.needkg.daynightpvp</shade.base>
         <spigot.prefix>${project.name}</spigot.prefix>
         <spigot.main>${project.groupId}.daynightpvp.DayNightPvP</spigot.main>
     </properties>
