@@ -11,17 +11,17 @@ import java.util.List;
 import java.util.Set;
 
 public class WorldSettings {
-    private final ConfigManager configManager;
     private final ConfigValidator validator;
 
-    public WorldSettings(ConfigManager configManager, ConfigValidator configValidator) {
-        this.configManager = configManager;
-        this.validator = configValidator;
+    public WorldSettings(ConfigValidator validator) {
+        this.validator = validator;
     }
 
     public Set<String> getWorldNames() {
-        return configManager.getFileContent().getConfigurationSection("worlds").getKeys(false);
+        return validator.getConfigSection("worlds");
     }
+
+
 
     public List<String> getValidWorldNames() {
         Set<String> worldNames = getWorldNames();

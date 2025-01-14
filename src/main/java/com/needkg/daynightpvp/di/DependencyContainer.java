@@ -55,7 +55,7 @@ public class DependencyContainer {
         configManager = new ConfigManager();
         configValidator = new ConfigValidator(configManager);
         generalSettings = new GeneralSettings(configValidator);
-        worldSettings = new WorldSettings(configManager, configValidator);
+        worldSettings = new WorldSettings(configValidator);
 
         langManager = new LangManager(generalSettings);
         langValidator = new LangValidator(langManager);
