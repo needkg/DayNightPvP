@@ -1,13 +1,14 @@
 package com.needkg.daynightpvp.commands.subcommands;
 
+import com.needkg.daynightpvp.config.ConfigManager;
+import com.needkg.daynightpvp.config.settings.MessageSettings;
+import com.needkg.daynightpvp.config.settings.WorldSettings;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import com.needkg.daynightpvp.commands.ISubCommand;
 import com.needkg.daynightpvp.di.DependencyContainer;
-import com.needkg.daynightpvp.files.ConfigFile;
-import com.needkg.daynightpvp.files.LangFile;
 import com.needkg.daynightpvp.services.PluginServices;
 import com.needkg.daynightpvp.utils.PlayerUtils;
 
@@ -16,38 +17,38 @@ import java.util.List;
 
 public class AddWorldSubCommand implements ISubCommand {
 
-    private final LangFile langFile;
-    private final ConfigFile configFile;
+    private final ConfigManager configManager;
+    private final MessageSettings messageSettings;
     private final PluginServices pluginServices;
 
     public AddWorldSubCommand() {
         DependencyContainer container = DependencyContainer.getInstance();
-        this.langFile = container.getLangFile();
-        this.configFile = container.getConfigFile();
+        this.configManager = container.getConfigManager();
+        this.messageSettings = container.getMessageSettings();
         this.pluginServices = container.getPluginServices();
     }
 
     @Override
     public void executeCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         if (!PlayerUtils.hasPermission(sender, "dnp.admin")) {
-            PlayerUtils.sendMessage(sender, langFile.getFeedbackError());
+            PlayerUtils.sendMessage(sender, messageSettings.getFeedbackError());
             return;
         }
 
         if (args.length == 2) {
             if (Bukkit.getWorlds().contains(Bukkit.getWorld(args[1]))) {
-                if (!configFile.contains("worlds." + args[1])) {
+                if (!configManager.contains("worlds." + args[1])) {
                     addWorldToConfig(args[1]);
                     pluginServices.reloadPlugin();
-                    sender.sendMessage(langFile.getFeedbackAddedWorld().replace("{0}", args[1]));
+                    sender.sendMessage(messageSettings.getFeedbackAddedWorld().replace("{0}", args[1]));
                     return;
                 }
-                sender.sendMessage(langFile.getFeedbackWorldAlreadyExists().replace("{0}", args[1]));
+                    sender.sendMessage(messageSettings.getFeedbackWorldAlreadyExists().replace("{0}", args[1]));
                 return;
             }
-            sender.sendMessage(langFile.getFeedbackWorldDoesNotExist().replace("{0}", args[1]));
+            sender.sendMessage(messageSettings.getFeedbackWorldDoesNotExist().replace("{0}", args[1]));
         } else {
-            sender.sendMessage(langFile.getFeedbackIncorrectCommand().replace("{0}", "/dnp addworld <worldName>"));
+            sender.sendMessage(messageSettings.getFeedbackIncorrectCommand().replace("{0}", "/dnp addworld <worldName>"));
         }
     }
 
@@ -70,34 +71,34 @@ public class AddWorldSubCommand implements ISubCommand {
     }
 
     private void addWorldToConfig(String worldName) {
-        configFile.setValue("worlds." + worldName + ".day-night-duration.enabled", false);
-        configFile.setValue("worlds." + worldName + ".day-night-duration.day-duration", 600);
-        configFile.setValue("worlds." + worldName + ".day-night-duration.night-duration", 600);
-        configFile.setValue("worlds." + worldName + ".automatic-pvp.enabled", true);
-        configFile.setValue("worlds." + worldName + ".automatic-pvp.day-end", 12000);
-        configFile.setValue("worlds." + worldName + ".boss-bar.time-remaining", false);
-        configFile.setValue("worlds." + worldName + ".automatic-difficulty.enabled", false);
-        configFile.setValue("worlds." + worldName + ".automatic-difficulty.day", "NORMAL");
-        configFile.setValue("worlds." + worldName + ".automatic-difficulty.night", "HARD");
-        configFile.setValue("worlds." + worldName + ".pvp-settings.keep-inventory-when-killed-by-player", false);
-        configFile.setValue("worlds." + worldName + ".notify-players.chat.enabled", true);
-        configFile.setValue("worlds." + worldName + ".notify-players.chat.day-night-starts", true);
-        configFile.setValue("worlds." + worldName + ".notify-players.chat.hit-another-player-during-day", true);
-        configFile.setValue("worlds." + worldName + ".notify-players.title.enabled", true);
-        configFile.setValue("worlds." + worldName + ".notify-players.title.fade-in", 20);
-        configFile.setValue("worlds." + worldName + ".notify-players.title.stay", 20);
-        configFile.setValue("worlds." + worldName + ".notify-players.title.fade-out", 20);
-        configFile.setValue("worlds." + worldName + ".notify-players.sound.enabled", true);
-        configFile.setValue("worlds." + worldName + ".notify-players.sound.day.sound", "ENTITY_CHICKEN_AMBIENT");
-        configFile.setValue("worlds." + worldName + ".notify-players.sound.day.volume", 1.0);
-        configFile.setValue("worlds." + worldName + ".notify-players.sound.night.sound", "ENTITY_GHAST_AMBIENT");
-        configFile.setValue("worlds." + worldName + ".notify-players.sound.night.volume", 1.0);
-        configFile.setValue("worlds." + worldName + ".vault.lose-money-on-death.enabled", false);
-        configFile.setValue("worlds." + worldName + ".vault.lose-money-on-death.only-at-night", true);
-        configFile.setValue("worlds." + worldName + ".vault.lose-money-on-death.only-in-configured-worlds", true);
-        configFile.setValue("worlds." + worldName + ".vault.lose-money-on-death.killer-reward-money", true);
-        configFile.setValue("worlds." + worldName + ".grief-prevention.pvp-in-land", false);
-        configFile.saveConfig();
+        configManager.setValue("worlds." + worldName + ".day-night-duration.enabled", false);
+        configManager.setValue("worlds." + worldName + ".day-night-duration.day-duration", 600);
+        configManager.setValue("worlds." + worldName + ".day-night-duration.night-duration", 600);
+        configManager.setValue("worlds." + worldName + ".automatic-pvp.enabled", true);
+        configManager.setValue("worlds." + worldName + ".automatic-pvp.day-end", 12000);
+        configManager.setValue("worlds." + worldName + ".boss-bar.time-remaining", false);
+        configManager.setValue("worlds." + worldName + ".automatic-difficulty.enabled", false);
+        configManager.setValue("worlds." + worldName + ".automatic-difficulty.day", "NORMAL");
+        configManager.setValue("worlds." + worldName + ".automatic-difficulty.night", "HARD");
+        configManager.setValue("worlds." + worldName + ".pvp-settings.keep-inventory-when-killed-by-player", false);
+        configManager.setValue("worlds." + worldName + ".notify-players.chat.enabled", true);
+        configManager.setValue("worlds." + worldName + ".notify-players.chat.day-night-starts", true);
+        configManager.setValue("worlds." + worldName + ".notify-players.chat.hit-another-player-during-day", true);
+        configManager.setValue("worlds." + worldName + ".notify-players.title.enabled", true);
+        configManager.setValue("worlds." + worldName + ".notify-players.title.fade-in", 20);
+        configManager.setValue("worlds." + worldName + ".notify-players.title.stay", 20);
+        configManager.setValue("worlds." + worldName + ".notify-players.title.fade-out", 20);
+        configManager.setValue("worlds." + worldName + ".notify-players.sound.enabled", true);
+        configManager.setValue("worlds." + worldName + ".notify-players.sound.day.sound", "ENTITY_CHICKEN_AMBIENT");
+        configManager.setValue("worlds." + worldName + ".notify-players.sound.day.volume", 1.0);
+        configManager.setValue("worlds." + worldName + ".notify-players.sound.night.sound", "ENTITY_GHAST_AMBIENT");
+        configManager.setValue("worlds." + worldName + ".notify-players.sound.night.volume", 1.0);
+        configManager.setValue("worlds." + worldName + ".vault.lose-money-on-death.enabled", false);
+        configManager.setValue("worlds." + worldName + ".vault.lose-money-on-death.only-at-night", true);
+        configManager.setValue("worlds." + worldName + ".vault.lose-money-on-death.only-in-configured-worlds", true);
+        configManager.setValue("worlds." + worldName + ".vault.lose-money-on-death.killer-reward-money", true);
+        configManager.setValue("worlds." + worldName + ".grief-prevention.pvp-in-land", false);
+        configManager.saveConfig();
     }
 
 }

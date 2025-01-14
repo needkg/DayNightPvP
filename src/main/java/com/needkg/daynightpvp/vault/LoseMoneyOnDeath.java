@@ -1,22 +1,22 @@
 package com.needkg.daynightpvp.vault;
 
+import com.needkg.daynightpvp.config.settings.MessageSettings;
+import com.needkg.daynightpvp.config.settings.WorldSettings;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
-import com.needkg.daynightpvp.files.ConfigFile;
-import com.needkg.daynightpvp.files.LangFile;
 import com.needkg.daynightpvp.runnables.AutomaticPvp;
 
 public class LoseMoneyOnDeath {
 
-    private final ConfigFile configFile;
-    private final LangFile langFile;
+    private final WorldSettings worldSettings;
+    private final MessageSettings messageSettings;
 
-    public LoseMoneyOnDeath(ConfigFile configFile, LangFile langFile) {
-        this.configFile = configFile;
-        this.langFile = langFile;
+    public LoseMoneyOnDeath(WorldSettings worldSettings, MessageSettings messageSettings) {
+        this.worldSettings = worldSettings;
+        this.messageSettings = messageSettings;
     }
 
     public void loseMoneyOnDeath(Player killed, Player killer, World world, String percentage) {
@@ -36,7 +36,7 @@ public class LoseMoneyOnDeath {
             double amount = currentBalance * (parsedPercentage / 100.0);
             double amountRounded = Math.round(amount * 100.0) / 100.0;
 
-            if (configFile.getVaultLoseMoneyOnDeathOnlyAtNight(world.getName())) {
+            if (worldSettings.getVaultLoseMoneyOnDeathOnlyAtNight(world.getName())) {
                 if (AutomaticPvp.nightWorlds.contains(world)) {
                     economy.withdrawPlayer(killed, amountRounded);
                     shouldWithdraw = true;
@@ -50,10 +50,10 @@ public class LoseMoneyOnDeath {
                 String money = Double.toString(amountRounded);
                 String killedName = killed.getName();
                 String killerName = killer.getName(); // Corrigido killerName para pegar o nome do killer
-                killed.sendMessage(langFile.getFeedbackLoseMoney().replace("{0}", killerName).replace("{1}", money));
-                if (configFile.getVaultLoseMoneyOnDeathKillerRewardMoney(world.getName())) {
+                killed.sendMessage(messageSettings.getFeedbackLoseMoney().replace("{0}", killerName).replace("{1}", money));
+                if (worldSettings.getVaultLoseMoneyOnDeathKillerRewardMoney(world.getName())) {
                     economy.depositPlayer(killer, amountRounded);
-                    killer.sendMessage(langFile.getFeedbackWinMoney().replace("{0}", killedName).replace("{1}", money));
+                    killer.sendMessage(messageSettings.getFeedbackWinMoney().replace("{0}", killedName).replace("{1}", money));
                 }
             }
         }

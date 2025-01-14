@@ -1,14 +1,15 @@
 package com.needkg.daynightpvp.runnables;
 
+import com.needkg.daynightpvp.config.settings.MessageSettings;
+import com.needkg.daynightpvp.di.DependencyContainer;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BossBar;
-import com.needkg.daynightpvp.files.LangFile;
 
 public class RemainingTimeBossBar implements Runnable {
 
-    private final LangFile langFile;
+    private final MessageSettings messageSettings;
     private final BossBar bossBar;
     private final World world;
     private final boolean customDayNightDurationEnabled;
@@ -16,8 +17,9 @@ public class RemainingTimeBossBar implements Runnable {
     private final int nightDurationTicks;
     private final int dayEnd;
 
-    public RemainingTimeBossBar(LangFile langFile, BossBar bossbar, World world, boolean customDayNightDurationEnabled, int dayDurationSeconds, int nightDurationSeconds, int dayEnd) {
-        this.langFile = langFile;
+    public RemainingTimeBossBar(BossBar bossbar, World world, boolean customDayNightDurationEnabled, int dayDurationSeconds, int nightDurationSeconds, int dayEnd) {
+        DependencyContainer container = DependencyContainer.getInstance();
+        this.messageSettings = container.getMessageSettings();
         this.bossBar = bossbar;
         this.world = world;
         this.customDayNightDurationEnabled = customDayNightDurationEnabled;
@@ -45,12 +47,12 @@ public class RemainingTimeBossBar implements Runnable {
         if (time >= 0 && time < dayEnd) {
             remainingTicks = dayEnd - time;
             progress = (double) time / dayEnd;
-            title = langFile.getFeedbackBossbarSunset().replace("{0}", formatTime(remainingTicks, dayDurationTicks));
+            title = messageSettings.getFeedbackBossbarSunset().replace("{0}", formatTime(remainingTicks, dayDurationTicks));
             bossBar.setColor(BarColor.YELLOW);
         } else {
             remainingTicks = 24000 - time;
             progress = (double) (time - dayEnd) / (24000 - dayEnd);
-            title = langFile.getFeedbackBossbarSunrise().replace("{0}", formatTime(remainingTicks, nightDurationTicks));
+            title = messageSettings.getFeedbackBossbarSunrise().replace("{0}", formatTime(remainingTicks, nightDurationTicks));
             bossBar.setColor(BarColor.PURPLE);
         }
 

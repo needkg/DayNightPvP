@@ -2,8 +2,13 @@ package com.needkg.daynightpvp.di;
 
 import com.needkg.daynightpvp.bstats.BStatsHandler;
 import com.needkg.daynightpvp.commands.CommandHandler;
-import com.needkg.daynightpvp.files.ConfigFile;
-import com.needkg.daynightpvp.files.LangFile;
+import com.needkg.daynightpvp.config.ConfigManager;
+import com.needkg.daynightpvp.config.LangManager;
+import com.needkg.daynightpvp.config.settings.GeneralSettings;
+import com.needkg.daynightpvp.config.settings.MessageSettings;
+import com.needkg.daynightpvp.config.settings.WorldSettings;
+import com.needkg.daynightpvp.config.validator.ConfigValidator;
+import com.needkg.daynightpvp.config.validator.LangValidator;
 import com.needkg.daynightpvp.listeners.ListenersHandler;
 import com.needkg.daynightpvp.placeholder.PlaceholderHandler;
 import com.needkg.daynightpvp.runnables.RunnableHandler;
@@ -13,8 +18,15 @@ import com.needkg.daynightpvp.vault.LoseMoneyOnDeath;
 public class DependencyContainer {
     private static DependencyContainer instance;
 
-    private ConfigFile configFile;
-    private LangFile langFile;
+    private ConfigManager configManager;
+    private ConfigValidator configValidator;
+    private GeneralSettings generalSettings;
+    private WorldSettings worldSettings;
+
+    private LangManager langManager;
+    private LangValidator langValidator;
+    private MessageSettings messageSettings;
+
     private RunnableHandler runnableHandler;
     private LoseMoneyOnDeath loseMoneyOnDeath;
     private CommandHandler commandHandler;
@@ -39,23 +51,56 @@ public class DependencyContainer {
     }
 
     private void initializeDependencies() {
-        configFile = new ConfigFile();
-        langFile = new LangFile(configFile);
-        runnableHandler = new RunnableHandler(configFile, langFile);
-        loseMoneyOnDeath = new LoseMoneyOnDeath(configFile, langFile);
+
+        configManager = new ConfigManager();
+        configValidator = new ConfigValidator(configManager);
+        generalSettings = new GeneralSettings(configValidator);
+        worldSettings = new WorldSettings(configManager, configValidator);
+
+        langManager = new LangManager(generalSettings);
+        langValidator = new LangValidator(langManager);
+        messageSettings = new MessageSettings(langValidator);
+
+        runnableHandler = new RunnableHandler(worldSettings);
+
+        loseMoneyOnDeath = new LoseMoneyOnDeath(worldSettings, messageSettings);
+
+        listenersHandler = new ListenersHandler(generalSettings);
+
+        placeholderHandler = new PlaceholderHandler();
+
+        pluginServices = new PluginServices(this, runnableHandler, listenersHandler, placeholderHandler);
+
         commandHandler = new CommandHandler();
-        listenersHandler = new ListenersHandler(configFile);
-        placeholderHandler = new PlaceholderHandler(configFile, langFile);
-        pluginServices = new PluginServices(configFile, langFile, runnableHandler, listenersHandler, placeholderHandler);
         bStatsHandler = new BStatsHandler();
     }
 
-    public ConfigFile getConfigFile() {
-        return configFile;
+    public ConfigManager getConfigManager() {
+        return configManager;
     }
 
-    public LangFile getLangFile() {
-        return langFile;
+    public ConfigValidator getConfigValidator() {
+        return configValidator;
+    }
+
+    public GeneralSettings getGeneralSettings() {
+        return generalSettings;
+    }
+
+    public WorldSettings getWorldSettings() {
+        return worldSettings;
+    }
+
+    public LangManager getLangManager() {
+        return langManager;
+    }
+
+    public LangValidator getLangValidator() {
+        return langValidator;
+    }
+
+    public MessageSettings getMessageSettings() {
+        return messageSettings;
     }
 
     public RunnableHandler getRunnableHandler() {

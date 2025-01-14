@@ -1,5 +1,7 @@
 package com.needkg.daynightpvp.listeners;
 
+import com.needkg.daynightpvp.config.settings.MessageSettings;
+import com.needkg.daynightpvp.config.settings.WorldSettings;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -12,8 +14,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import com.needkg.daynightpvp.DayNightPvP;
 import com.needkg.daynightpvp.di.DependencyContainer;
-import com.needkg.daynightpvp.files.ConfigFile;
-import com.needkg.daynightpvp.files.LangFile;
 import com.needkg.daynightpvp.griefprevention.GriefPreventionHandler;
 import com.needkg.daynightpvp.utils.PlayerUtils;
 import com.needkg.daynightpvp.utils.WorldUtils;
@@ -22,19 +22,20 @@ import com.needkg.daynightpvp.worldguard.AllowDaytimePvpFlag;
 public class DamageListener implements Listener {
 
     private final GriefPreventionHandler griefPreventionHandler;
-    private final ConfigFile configFile;
-    private final String notifyPvpDisabled;
-    private final String notifyPlayerImmune;
-    private final String notifySelfImmune;
+    private final WorldSettings worldSettings;
+    private final MessageSettings messageSettings;
+    //private final String notifyPvpDisabled;
+    //private final String notifyPlayerImmune;
+    //private final String notifySelfImmune;
 
     public DamageListener() {
         DependencyContainer container = DependencyContainer.getInstance();
         this.griefPreventionHandler = new GriefPreventionHandler();
-        this.configFile = container.getConfigFile();
-        LangFile langFile = container.getLangFile();
-        this.notifyPvpDisabled = langFile.getNotifyPvpDisabled();
-        this.notifyPlayerImmune = langFile.getNotifyPlayerImmune();
-        this.notifySelfImmune = langFile.getNotifySelfImmune();
+        this.worldSettings = container.getWorldSettings();
+        this.messageSettings = container.getMessageSettings();
+        //this.notifyPvpDisabled = langFile.getNotifyPvpDisabled();
+        //this.notifyPlayerImmune = langFile.getNotifyPlayerImmune();
+        //this.notifySelfImmune = langFile.getNotifySelfImmune();
     }
 
     @EventHandler(priority = EventPriority.HIGH)
@@ -107,23 +108,26 @@ public class DamageListener implements Listener {
             return false;
         }
         if (damager.hasPermission("dnp.immune")) {
-            damager.sendMessage(notifySelfImmune);
+            //damager.sendMessage(notifySelfImmune);
+            damager.sendMessage(messageSettings.getNotifySelfImmune());
             return true;
         }
         if (damagedPlayer.hasPermission("dnp.immune")) {
-            damager.sendMessage(notifyPlayerImmune);
+            //damager.sendMessage(notifyPlayerImmune);
+            damager.sendMessage(messageSettings.getNotifyPlayerImmune());
             return true;
         }
         if (DayNightPvP.worldGuardIsPresent && AllowDaytimePvpFlag.checkStateOnPosition(damagedPlayer) && AllowDaytimePvpFlag.checkStateOnPosition(damager)) {
             return false;
         }
         if (WorldUtils.isPlayerInWorld(damagedPlayer)) {
-            if (configFile.getNotifyPlayersChatHitAnotherPlayerDuringDay(worldName)) {
-                damager.sendMessage(notifyPvpDisabled);
+            if (worldSettings.getNotifyPlayersChatHitAnotherPlayerDuringDay(worldName)) {
+                //damager.sendMessage(notifyPvpDisabled);
+                damager.sendMessage(messageSettings.getNotifyPvpDisabled());
             }
             return true;
         }
-        if (DayNightPvP.griefIsPresent && !configFile.getGriefPreventionPvpInLand(worldName) && griefPreventionHandler.verify(damagedPlayer, damager)) {
+        if (DayNightPvP.griefIsPresent && !worldSettings.getGriefPreventionPvpInLand(worldName) && griefPreventionHandler.verify(damagedPlayer, damager)) {
             return true;
         }
         return false;

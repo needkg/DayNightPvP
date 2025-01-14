@@ -1,22 +1,19 @@
 package com.needkg.daynightpvp.services;
 
-import com.needkg.daynightpvp.files.ConfigFile;
-import com.needkg.daynightpvp.files.LangFile;
+import com.needkg.daynightpvp.di.DependencyContainer;
 import com.needkg.daynightpvp.listeners.ListenersHandler;
 import com.needkg.daynightpvp.placeholder.PlaceholderHandler;
 import com.needkg.daynightpvp.runnables.RunnableHandler;
 
 public class PluginServices {
 
-    private final ConfigFile configFile;
-    private final LangFile langFile;
     private final ListenersHandler listenersHandler;
     private final PlaceholderHandler placeholderHandler;
     private final RunnableHandler runnableHandler;
+    private final DependencyContainer dependencyContainer;
 
-    public PluginServices(ConfigFile configFile, LangFile langFile, RunnableHandler runnableHandler, ListenersHandler listenersHandler, PlaceholderHandler placeholderHandler) {
-        this.configFile = configFile;
-        this.langFile = langFile;
+    public PluginServices(DependencyContainer dependencyContainer, RunnableHandler runnableHandler, ListenersHandler listenersHandler, PlaceholderHandler placeholderHandler) {
+        this.dependencyContainer = dependencyContainer;
         this.runnableHandler = runnableHandler;
         this.listenersHandler = listenersHandler;
         this.placeholderHandler = placeholderHandler;
@@ -30,8 +27,8 @@ public class PluginServices {
     }
 
     private void reloadFiles() {
-        configFile.createFile();
-        langFile.createFile();
+        dependencyContainer.getConfigManager().createFile();
+        dependencyContainer.getLangManager().createFile();
     }
 
     private void restartListeners() {

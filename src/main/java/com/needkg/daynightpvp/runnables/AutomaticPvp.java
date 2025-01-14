@@ -1,10 +1,10 @@
 package com.needkg.daynightpvp.runnables;
 
+import com.needkg.daynightpvp.config.settings.MessageSettings;
 import org.bukkit.Difficulty;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import com.needkg.daynightpvp.di.DependencyContainer;
-import com.needkg.daynightpvp.files.LangFile;
 import com.needkg.daynightpvp.utils.LoggingUtils;
 import com.needkg.daynightpvp.utils.PlayerUtils;
 
@@ -36,6 +36,7 @@ public class AutomaticPvp implements Runnable {
     private final float soundDayVolume;
     private final boolean notifyPlayersChatDayNightStarts;
     private final World world;
+    private final MessageSettings messageSettings;
 
     public AutomaticPvp(
             long dayEnd,
@@ -54,7 +55,7 @@ public class AutomaticPvp implements Runnable {
             boolean notifyPlayersChatDayNightStarts,
             World world) {
         DependencyContainer container = DependencyContainer.getInstance();
-        LangFile langFile = container.getLangFile();
+        messageSettings = container.getMessageSettings();
 
         this.dayEnd = dayEnd;
         this.automaticDifficultyEnabled = automaticDifficultyEnabled;
@@ -62,12 +63,12 @@ public class AutomaticPvp implements Runnable {
         this.notifyPlayersSoundEnabled = notifyPlayersSoundEnabled;
         this.automaticDifficultyDay = automaticDifficultyDay;
         this.automaticDifficultyNight = automaticDifficultyNight;
-        this.notifyDayChat = langFile.getNotifyDayChat();
-        this.notifyDayTitle = langFile.getNotifyDayTitle();
-        this.notifyDaySubtitle = langFile.getNotifyDaySubtitle();
-        this.notifyNightChat = langFile.getNotifyNightChat();
-        this.notifyNightTitle = langFile.getNotifyNightTitle();
-        this.notifyNightSubtitle = langFile.getNotifyNightSubtitle();
+        this.notifyDayChat = messageSettings.getNotifyDayChat();
+        this.notifyDayTitle = messageSettings.getNotifyDayTitle();
+        this.notifyDaySubtitle = messageSettings.getNotifyDaySubtitle();
+        this.notifyNightChat = messageSettings.getNotifyNightChat();
+        this.notifyNightTitle = messageSettings.getNotifyNightTitle();
+        this.notifyNightSubtitle = messageSettings.getNotifyNightSubtitle();
         this.notifyPlayersSoundDay = notifyPlayersSoundDay;
         this.notifyPlayersSoundNight = notifyPlayersSoundNight;
         this.fadeIn = fadeIn;

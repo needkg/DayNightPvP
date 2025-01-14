@@ -1,11 +1,12 @@
 package com.needkg.daynightpvp.commands.subcommands;
 
+import com.needkg.daynightpvp.config.ConfigManager;
+import com.needkg.daynightpvp.config.settings.GeneralSettings;
+import com.needkg.daynightpvp.config.settings.MessageSettings;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import com.needkg.daynightpvp.commands.ISubCommand;
 import com.needkg.daynightpvp.di.DependencyContainer;
-import com.needkg.daynightpvp.files.ConfigFile;
-import com.needkg.daynightpvp.files.LangFile;
 import com.needkg.daynightpvp.services.PluginServices;
 import com.needkg.daynightpvp.utils.PlayerUtils;
 
@@ -16,40 +17,42 @@ import java.util.List;
 public class LangSubCommand implements ISubCommand {
 
     private static final List<String> AVAILABLE_LANGUAGES = Arrays.asList("en-US", "pt-BR", "es-ES", "ru-RU");
-    private final LangFile langFile;
-    private final ConfigFile configFile;
+    private final GeneralSettings generalSettings;
+    private final MessageSettings messageSettings;
+    private final ConfigManager configManager;
     private final PluginServices pluginServices;
 
     public LangSubCommand() {
         DependencyContainer container = DependencyContainer.getInstance();
-        this.langFile = container.getLangFile();
-        this.configFile = container.getConfigFile();
+        this.messageSettings = container.getMessageSettings();
+        this.generalSettings = container.getGeneralSettings();
+        this.configManager = container.getConfigManager();
         this.pluginServices = container.getPluginServices();
     }
 
     @Override
     public void executeCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         if (!PlayerUtils.hasPermission(sender, "dnp.admin")) {
-            PlayerUtils.sendMessage(sender, langFile.getFeedbackErrorNoPermission());
+            PlayerUtils.sendMessage(sender, messageSettings.getFeedbackErrorNoPermission());
             return;
         }
 
         if (args.length == 2) {
             if (AVAILABLE_LANGUAGES.contains(args[1])) {
-                String currentLang = configFile.getLanguage();
+                String currentLang = generalSettings.getLanguage();
                 if (currentLang.equals(args[1])) {
-                    sender.sendMessage(langFile.getFeedbackErrorLanguageInUse());
+                    sender.sendMessage(messageSettings.getFeedbackErrorLanguageInUse());
                     return;
                 }
 
-                configFile.setValue("language", args[1]);
+                configManager.setValue("language", args[1]);
                 pluginServices.reloadPlugin();
-                sender.sendMessage(langFile.getFeedbackLangChanged().replace("{0}", args[1]));
+                sender.sendMessage(messageSettings.getFeedbackLangChanged().replace("{0}", args[1]));
             } else {
-                sender.sendMessage(langFile.getFeedbackIncorrectCommand().replace("{0}", "/dnp lang <" + String.join("/", AVAILABLE_LANGUAGES) + ">"));
+                sender.sendMessage(messageSettings.getFeedbackIncorrectCommand().replace("{0}", "/dnp lang <" + String.join("/", AVAILABLE_LANGUAGES) + ">"));
             }
         } else {
-            sender.sendMessage(langFile.getFeedbackIncorrectCommand().replace("{0}", "/dnp lang <lang>"));
+            sender.sendMessage(messageSettings.getFeedbackIncorrectCommand().replace("{0}", "/dnp lang <lang>"));
         }
     }
 

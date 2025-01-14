@@ -1,12 +1,11 @@
 package com.needkg.daynightpvp.runnables;
 
+import com.needkg.daynightpvp.config.settings.WorldSettings;
 import org.bukkit.*;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import com.needkg.daynightpvp.DayNightPvP;
-import com.needkg.daynightpvp.files.ConfigFile;
-import com.needkg.daynightpvp.files.LangFile;
 import com.needkg.daynightpvp.utils.WorldUtils;
 
 import java.util.ArrayList;
@@ -14,54 +13,52 @@ import java.util.List;
 
 public class RunnableHandler {
 
-    private final ConfigFile configFile;
-    private final LangFile langFile;
+    private final WorldSettings worldSettings;
     private List<Integer> tasks = new ArrayList<>();
     private List<BossBar> bossBarList = new ArrayList<>();
 
-    public RunnableHandler(ConfigFile configFile, LangFile langFile) {
-        this.configFile = configFile;
-        this.langFile = langFile;
+    public RunnableHandler(WorldSettings worldSettings) {
+        this.worldSettings = worldSettings;
     }
 
     public void startAllRunnables() {
 
-        for (String worldName : configFile.getWorldNames()) {
+        for (String worldName : worldSettings.getWorldNames()) {
             if (WorldUtils.isWorldValid(worldName)) {
 
-                if (configFile.getDayNightDurationEnabled(worldName)) {
+                if (worldSettings.getDayNightDurationEnabled(worldName)) {
                     startCustomTimeDuration(
-                            configFile.getAutomaticPvpDayEnd(worldName),
-                            configFile.getDayNightDurationDayDuration(worldName),
-                            configFile.getDayNightDurationNightDuration(worldName),
+                            worldSettings.getAutomaticPvpDayEnd(worldName),
+                            worldSettings.getDayNightDurationDayDuration(worldName),
+                            worldSettings.getDayNightDurationNightDuration(worldName),
                             Bukkit.getWorld(worldName));
                 }
 
-                if (configFile.getTimeRemainingBossBarEnabled(worldName)) {
+                if (worldSettings.getTimeRemainingBossBarEnabled(worldName)) {
                     startRemainingTimeBossBar(
                             Bukkit.getWorld(worldName),
-                            configFile.getDayNightDurationEnabled(worldName),
-                            configFile.getDayNightDurationDayDuration(worldName),
-                            configFile.getDayNightDurationNightDuration(worldName),
-                            configFile.getAutomaticPvpDayEnd(worldName));
+                            worldSettings.getDayNightDurationEnabled(worldName),
+                            worldSettings.getDayNightDurationDayDuration(worldName),
+                            worldSettings.getDayNightDurationNightDuration(worldName),
+                            worldSettings.getAutomaticPvpDayEnd(worldName));
                 }
 
-                if (configFile.getAutomaticPvpEnabled(worldName)) {
+                if (worldSettings.getAutomaticPvpEnabled(worldName)) {
                     startAutomaticPvp(
-                            configFile.getAutomaticPvpDayEnd(worldName),
-                            configFile.getAutomaticDifficultyEnabled(worldName),
-                            configFile.getNotifyPlayersTitleEnabled(worldName),
-                            configFile.getNotifyPlayersSoundEnabled(worldName),
-                            configFile.getAutomaticDifficultyDay(worldName),
-                            configFile.getAutomaticDifficultyNight(worldName),
-                            configFile.getNotifyPlayersSoundDay(worldName),
-                            configFile.getNotifyPlayersSoundNight(worldName),
-                            configFile.getNotifyPlayersTitleFadeIn(worldName),
-                            configFile.getNotifyPlayersTitleStay(worldName),
-                            configFile.getNotifyPlayersTitleFadeOut(worldName),
-                            configFile.getNotifyPlayersSoundNightVolume(worldName),
-                            configFile.getNotifyPlayersSoundDayVolume(worldName),
-                            configFile.getNotifyPlayersChatDayNightStartsEnabled(worldName),
+                            worldSettings.getAutomaticPvpDayEnd(worldName),
+                            worldSettings.getAutomaticDifficultyEnabled(worldName),
+                            worldSettings.getNotifyPlayersTitleEnabled(worldName),
+                            worldSettings.getNotifyPlayersSoundEnabled(worldName),
+                            worldSettings.getAutomaticDifficultyDay(worldName),
+                            worldSettings.getAutomaticDifficultyNight(worldName),
+                            worldSettings.getNotifyPlayersSoundDay(worldName),
+                            worldSettings.getNotifyPlayersSoundNight(worldName),
+                            worldSettings.getNotifyPlayersTitleFadeIn(worldName),
+                            worldSettings.getNotifyPlayersTitleStay(worldName),
+                            worldSettings.getNotifyPlayersTitleFadeOut(worldName),
+                            worldSettings.getNotifyPlayersSoundNightVolume(worldName),
+                            worldSettings.getNotifyPlayersSoundDayVolume(worldName),
+                            worldSettings.getNotifyPlayersChatDayNightStartsEnabled(worldName),
                             Bukkit.getWorld(worldName));
                 }
 
@@ -120,7 +117,7 @@ public class RunnableHandler {
             int dayEnd) {
         BossBar bossbar = Bukkit.createBossBar("bossbar", BarColor.BLUE, BarStyle.SOLID);
         bossBarList.add(bossbar);
-        tasks.add(Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(DayNightPvP.getInstance(), new RemainingTimeBossBar(langFile, bossbar, world, customDayNightDurationEnabled, dayDuration, nightDuration, dayEnd), 0, 20));
+        tasks.add(Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(DayNightPvP.getInstance(), new RemainingTimeBossBar(bossbar, world, customDayNightDurationEnabled, dayDuration, nightDuration, dayEnd), 0, 20));
     }
 
     public void stopAllRunnables() {
@@ -138,7 +135,7 @@ public class RunnableHandler {
             bossBar.removeAll();
         }
 
-        for (String worldName : configFile.getValidWorldNames()) {
+        for (String worldName : worldSettings.getValidWorldNames()) {
             Bukkit.getWorld(worldName).setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true);
         }
 

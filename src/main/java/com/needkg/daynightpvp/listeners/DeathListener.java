@@ -1,5 +1,6 @@
 package com.needkg.daynightpvp.listeners;
 
+import com.needkg.daynightpvp.config.settings.WorldSettings;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -9,17 +10,16 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.permissions.PermissionAttachmentInfo;
 import com.needkg.daynightpvp.DayNightPvP;
 import com.needkg.daynightpvp.di.DependencyContainer;
-import com.needkg.daynightpvp.files.ConfigFile;
 import com.needkg.daynightpvp.vault.LoseMoneyOnDeath;
 
 public class DeathListener implements Listener {
 
-    private final ConfigFile configFile;
+    private final WorldSettings worldSettings;
     private final LoseMoneyOnDeath loseMoneyOnDeath;
 
     public DeathListener() {
         DependencyContainer container = DependencyContainer.getInstance();
-        this.configFile = container.getConfigFile();
+        this.worldSettings = container.getWorldSettings();
         this.loseMoneyOnDeath = container.getLoseMoneyOnDeath();
     }
 
@@ -32,13 +32,13 @@ public class DeathListener implements Listener {
 
         if (killer != null) {
 
-            if (configFile.getPvpSettingsKeepInventoryWhenKilledByPlayersEnabled(worldName)) {
+            if (worldSettings.getPvpSettingsKeepInventoryWhenKilledByPlayersEnabled(worldName)) {
                 event.setKeepInventory(true);
                 event.getDrops().clear();
             }
 
             Bukkit.getScheduler().runTaskAsynchronously(DayNightPvP.getInstance(), () -> {
-                if (configFile.getVaultLoseMoneyOnDeathEnabled(worldName) && DayNightPvP.vaultIsPresent) {
+                if (worldSettings.getVaultLoseMoneyOnDeathEnabled(worldName) && DayNightPvP.vaultIsPresent) {
                     for (PermissionAttachmentInfo permission : event.getEntity().getEffectivePermissions()) {
                         if (permission.getPermission().startsWith("dnp.losemoney")) {
                             String percentage = killed.getEffectivePermissions().stream()

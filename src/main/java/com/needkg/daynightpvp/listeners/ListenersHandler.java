@@ -1,16 +1,16 @@
 package com.needkg.daynightpvp.listeners;
 
+import com.needkg.daynightpvp.config.settings.GeneralSettings;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import com.needkg.daynightpvp.DayNightPvP;
-import com.needkg.daynightpvp.files.ConfigFile;
 
 public class ListenersHandler {
 
-    private final ConfigFile configFile;
+    private final GeneralSettings generalSettings;
 
-    public ListenersHandler(ConfigFile configFile) {
-        this.configFile = configFile;
+    public ListenersHandler(GeneralSettings generalSettings) {
+        this.generalSettings = generalSettings;
     }
 
     public void register() {
@@ -24,7 +24,7 @@ public class ListenersHandler {
     }
 
     private void registerJoinListener() {
-        if (configFile.getUpdateChecker()) {
+        if (generalSettings.getUpdateChecker()) {
             Bukkit.getPluginManager().registerEvents(new JoinListener(), DayNightPvP.getInstance());
         }
     }

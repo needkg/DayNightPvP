@@ -1,11 +1,11 @@
 package com.needkg.daynightpvp.services;
 
+import com.needkg.daynightpvp.config.settings.MessageSettings;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import com.needkg.daynightpvp.DayNightPvP;
 import com.needkg.daynightpvp.di.DependencyContainer;
-import com.needkg.daynightpvp.files.LangFile;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,11 +15,11 @@ import java.net.URL;
 
 public class UpdateServices {
 
-    private final LangFile langFile;
+    private final MessageSettings messageSettings;
 
     public UpdateServices() {
         DependencyContainer container = DependencyContainer.getInstance();
-        this.langFile = container.getLangFile();
+        this.messageSettings = container.getMessageSettings();
     }
 
     public void checkUpdate(PlayerJoinEvent event) {
@@ -28,16 +28,16 @@ public class UpdateServices {
             String latestVersion = verifyPluginVersion();
 
             if (!currentVersion.equals(latestVersion)) {
-                TextComponent link = new TextComponent(langFile.getActionUpdateFoundClick());
+                TextComponent link = new TextComponent(messageSettings.getActionUpdateFoundClick());
                 link.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.spigotmc.org/resources/daynightpvp-dynamic-pvp-for-day-night.102250/updates"));
 
-                event.getPlayer().sendMessage(langFile.getFeedbackUpdateAvailable());
-                event.getPlayer().sendMessage(langFile.getFeedbackUpdateCurrentVersion().replace("{0}", currentVersion));
-                event.getPlayer().sendMessage(langFile.getFeedbackUpdateLatestVersion().replace("{0}", latestVersion));
+                event.getPlayer().sendMessage(messageSettings.getFeedbackUpdateAvailable());
+                event.getPlayer().sendMessage(messageSettings.getFeedbackUpdateCurrentVersion().replace("{0}", currentVersion));
+                event.getPlayer().sendMessage(messageSettings.getFeedbackUpdateLatestVersion().replace("{0}", latestVersion));
                 event.getPlayer().spigot().sendMessage(link);
             }
         } catch (IOException ex) {
-            event.getPlayer().sendMessage(langFile.getFeedbackUpdateCheckFailed());
+            event.getPlayer().sendMessage(messageSettings.getFeedbackUpdateCheckFailed());
         }
     }
 

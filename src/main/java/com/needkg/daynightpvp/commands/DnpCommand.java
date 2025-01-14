@@ -1,12 +1,12 @@
 package com.needkg.daynightpvp.commands;
 
 import com.needkg.daynightpvp.commands.subcommands.*;
+import com.needkg.daynightpvp.config.settings.MessageSettings;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import com.needkg.daynightpvp.di.DependencyContainer;
-import com.needkg.daynightpvp.files.LangFile;
 import com.needkg.daynightpvp.utils.PlayerUtils;
 import org.jetbrains.annotations.NotNull;
 
@@ -15,12 +15,12 @@ import java.util.stream.Collectors;
 
 public class DnpCommand implements CommandExecutor, TabCompleter {
 
-    private final LangFile langFile;
+    private final MessageSettings messageSettings;
     private final Map<String, ISubCommand> subCommands = new HashMap<>();
 
     public DnpCommand() {
         DependencyContainer container = DependencyContainer.getInstance();
-        this.langFile = container.getLangFile();
+        this.messageSettings = container.getMessageSettings();
         registerSubCommands();
     }
 
@@ -52,7 +52,7 @@ public class DnpCommand implements CommandExecutor, TabCompleter {
         ISubCommand dnpSubCommand = subCommands.get(args[0]);
 
         if (dnpSubCommand == null) {
-            PlayerUtils.sendMessage(sender, langFile.getFeedbackNonExistentCommand());
+            PlayerUtils.sendMessage(sender, messageSettings.getFeedbackNonExistentCommand());
             return true;
         }
 

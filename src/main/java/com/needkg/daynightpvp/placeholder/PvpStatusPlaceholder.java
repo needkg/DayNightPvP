@@ -1,22 +1,24 @@
 package com.needkg.daynightpvp.placeholder;
 
+import com.needkg.daynightpvp.config.settings.MessageSettings;
+import com.needkg.daynightpvp.config.settings.WorldSettings;
+import com.needkg.daynightpvp.di.DependencyContainer;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
-import com.needkg.daynightpvp.files.ConfigFile;
-import com.needkg.daynightpvp.files.LangFile;
 import com.needkg.daynightpvp.utils.SearchUtils;
 import org.jetbrains.annotations.NotNull;
 
 public class PvpStatusPlaceholder extends PlaceholderExpansion {
 
-    private final LangFile langFile;
-    private final ConfigFile configFile;
+    private final WorldSettings worldSettings;
+    private final MessageSettings messageSettings;
 
-    public PvpStatusPlaceholder(LangFile langFile, ConfigFile configFile) {
-        this.langFile = langFile;
-        this.configFile = configFile;
+    public PvpStatusPlaceholder() {
+        DependencyContainer container = DependencyContainer.getInstance();
+        this.worldSettings = container.getWorldSettings();
+        this.messageSettings = container.getMessageSettings();
     }
 
 
@@ -48,19 +50,19 @@ public class PvpStatusPlaceholder extends PlaceholderExpansion {
     @Override
     public String onPlaceholderRequest(Player player, @NotNull String params) {
 
-        if (player == null) return langFile.getFeedbackError();
+        if (player == null) return messageSettings.getFeedbackError();
 
         if (params.equalsIgnoreCase("pvp_status_current_world")) {
             boolean pvpStatus;
 
             World world = player.getWorld();
-            if (SearchUtils.containsWorldName(configFile.getWorldNames(), world.getName())) {
+            if (SearchUtils.containsWorldName(worldSettings.getWorldNames(), world.getName())) {
                 long time = world.getTime();
-                pvpStatus = time >= configFile.getAutomaticPvpDayEnd(world.getName());
+                pvpStatus = time >= worldSettings.getAutomaticPvpDayEnd(world.getName());
             } else {
-                return langFile.getFeedbackError();
+                return messageSettings.getFeedbackError();
             }
-            return pvpStatus ? langFile.getPlaceholderPvpEnabled() : langFile.getPlaceholderPvpDisabled();
+            return pvpStatus ? messageSettings.getPlaceholderPvpEnabled() : messageSettings.getPlaceholderPvpDisabled();
         }
 
         if (params.startsWith("pvp_status_world")) {
@@ -68,15 +70,15 @@ public class PvpStatusPlaceholder extends PlaceholderExpansion {
             String worldName = params.substring("pvp_status_world:".length());
             World world = Bukkit.getWorld(worldName);
             if (world != null) {
-                if (SearchUtils.containsWorldName(configFile.getWorldNames(), world.getName())) {
+                if (SearchUtils.containsWorldName(worldSettings.getWorldNames(), world.getName())) {
                     long time = world.getTime();
-                    pvpStatus = time >= configFile.getAutomaticPvpDayEnd(world.getName());
-                    return pvpStatus ? langFile.getPlaceholderPvpEnabled() : langFile.getPlaceholderPvpDisabled();
+                    pvpStatus = time >= worldSettings.getAutomaticPvpDayEnd(world.getName());
+                    return pvpStatus ? messageSettings.getPlaceholderPvpEnabled() : messageSettings.getPlaceholderPvpDisabled();
                 }
             }
         }
 
-        return langFile.getFeedbackError();
+        return messageSettings.getFeedbackError();
     }
 
 }
