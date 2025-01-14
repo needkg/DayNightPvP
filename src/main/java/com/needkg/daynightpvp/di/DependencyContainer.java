@@ -1,6 +1,5 @@
 package com.needkg.daynightpvp.di;
 
-import com.needkg.daynightpvp.bstats.BStatsHandler;
 import com.needkg.daynightpvp.commands.CommandHandler;
 import com.needkg.daynightpvp.config.ConfigManager;
 import com.needkg.daynightpvp.config.LangManager;
@@ -10,6 +9,7 @@ import com.needkg.daynightpvp.config.settings.WorldSettings;
 import com.needkg.daynightpvp.config.validator.ConfigValidator;
 import com.needkg.daynightpvp.config.validator.LangValidator;
 import com.needkg.daynightpvp.listeners.ListenersHandler;
+import com.needkg.daynightpvp.metrics.BStatsHandler;
 import com.needkg.daynightpvp.placeholder.PlaceholderHandler;
 import com.needkg.daynightpvp.runnables.RunnableHandler;
 import com.needkg.daynightpvp.services.PluginServices;

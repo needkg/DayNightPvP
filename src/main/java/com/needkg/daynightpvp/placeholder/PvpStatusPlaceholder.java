@@ -3,11 +3,11 @@ package com.needkg.daynightpvp.placeholder;
 import com.needkg.daynightpvp.config.settings.MessageSettings;
 import com.needkg.daynightpvp.config.settings.WorldSettings;
 import com.needkg.daynightpvp.di.DependencyContainer;
+import com.needkg.daynightpvp.utils.SearchUtils;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
-import com.needkg.daynightpvp.utils.SearchUtils;
 import org.jetbrains.annotations.NotNull;
 
 public class PvpStatusPlaceholder extends PlaceholderExpansion {

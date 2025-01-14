@@ -1,17 +1,17 @@
 package com.needkg.daynightpvp.config;
 
+import com.needkg.daynightpvp.DayNightPvP;
 import com.needkg.daynightpvp.config.settings.GeneralSettings;
+import com.needkg.daynightpvp.utils.LoggingUtils;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import com.needkg.daynightpvp.DayNightPvP;
-import com.needkg.daynightpvp.utils.LoggingUtils;
 
 import java.io.File;
 
 public class LangManager {
+    private final GeneralSettings generalSettings;
     private File fileLocation;
     private FileConfiguration fileContent;
-    private final GeneralSettings generalSettings;
 
     public LangManager(GeneralSettings generalSettings) {
         this.generalSettings = generalSettings;

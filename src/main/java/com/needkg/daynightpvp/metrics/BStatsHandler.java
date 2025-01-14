@@ -1,7 +1,7 @@
-package com.needkg.daynightpvp.bstats;
+package com.needkg.daynightpvp.metrics;
 
-import org.bstats.bukkit.Metrics;
 import com.needkg.daynightpvp.DayNightPvP;
+import org.bstats.bukkit.Metrics;
 
 public class BStatsHandler {
 

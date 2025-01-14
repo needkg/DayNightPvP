@@ -1,11 +1,11 @@
 package com.needkg.daynightpvp.services;
 
+import com.needkg.daynightpvp.DayNightPvP;
 import com.needkg.daynightpvp.config.settings.MessageSettings;
+import com.needkg.daynightpvp.di.DependencyContainer;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import com.needkg.daynightpvp.DayNightPvP;
-import com.needkg.daynightpvp.di.DependencyContainer;
 
 import java.io.BufferedReader;
 import java.io.IOException;

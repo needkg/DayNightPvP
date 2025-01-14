@@ -1,9 +1,9 @@
 package com.needkg.daynightpvp.listeners;
 
+import com.needkg.daynightpvp.DayNightPvP;
 import com.needkg.daynightpvp.config.settings.GeneralSettings;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
-import com.needkg.daynightpvp.DayNightPvP;
 
 public class ListenersHandler {
 

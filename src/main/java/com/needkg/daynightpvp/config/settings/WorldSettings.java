@@ -2,9 +2,9 @@ package com.needkg.daynightpvp.config.settings;
 
 import com.needkg.daynightpvp.config.ConfigManager;
 import com.needkg.daynightpvp.config.validator.ConfigValidator;
+import com.needkg.daynightpvp.utils.WorldUtils;
 import org.bukkit.Difficulty;
 import org.bukkit.Sound;
-import com.needkg.daynightpvp.utils.WorldUtils;
 
 import java.util.ArrayList;
 import java.util.List;

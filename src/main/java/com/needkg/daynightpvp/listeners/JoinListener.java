@@ -1,11 +1,11 @@
 package com.needkg.daynightpvp.listeners;
 
+import com.needkg.daynightpvp.DayNightPvP;
+import com.needkg.daynightpvp.services.UpdateServices;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import com.needkg.daynightpvp.DayNightPvP;
-import com.needkg.daynightpvp.services.UpdateServices;
 
 public class JoinListener implements Listener {
 

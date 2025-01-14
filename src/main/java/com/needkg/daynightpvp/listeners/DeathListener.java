@@ -1,6 +1,9 @@
 package com.needkg.daynightpvp.listeners;
 
+import com.needkg.daynightpvp.DayNightPvP;
 import com.needkg.daynightpvp.config.settings.WorldSettings;
+import com.needkg.daynightpvp.di.DependencyContainer;
+import com.needkg.daynightpvp.vault.LoseMoneyOnDeath;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -8,9 +11,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.permissions.PermissionAttachmentInfo;
-import com.needkg.daynightpvp.DayNightPvP;
-import com.needkg.daynightpvp.di.DependencyContainer;
-import com.needkg.daynightpvp.vault.LoseMoneyOnDeath;
 
 public class DeathListener implements Listener {
 

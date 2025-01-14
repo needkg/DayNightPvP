@@ -1,8 +1,8 @@
 package com.needkg.daynightpvp.utils;
 
+import com.needkg.daynightpvp.runnables.AutomaticPvp;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import com.needkg.daynightpvp.runnables.AutomaticPvp;
 
 public class WorldUtils {
 

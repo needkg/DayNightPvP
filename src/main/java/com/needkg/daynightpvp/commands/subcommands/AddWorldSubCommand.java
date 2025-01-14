@@ -1,16 +1,15 @@
 package com.needkg.daynightpvp.commands.subcommands;
 
+import com.needkg.daynightpvp.commands.ISubCommand;
 import com.needkg.daynightpvp.config.ConfigManager;
 import com.needkg.daynightpvp.config.settings.MessageSettings;
-import com.needkg.daynightpvp.config.settings.WorldSettings;
+import com.needkg.daynightpvp.di.DependencyContainer;
+import com.needkg.daynightpvp.services.PluginServices;
+import com.needkg.daynightpvp.utils.PlayerUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import com.needkg.daynightpvp.commands.ISubCommand;
-import com.needkg.daynightpvp.di.DependencyContainer;
-import com.needkg.daynightpvp.services.PluginServices;
-import com.needkg.daynightpvp.utils.PlayerUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +42,7 @@ public class AddWorldSubCommand implements ISubCommand {
                     sender.sendMessage(messageSettings.getFeedbackAddedWorld().replace("{0}", args[1]));
                     return;
                 }
-                    sender.sendMessage(messageSettings.getFeedbackWorldAlreadyExists().replace("{0}", args[1]));
+                sender.sendMessage(messageSettings.getFeedbackWorldAlreadyExists().replace("{0}", args[1]));
                 return;
             }
             sender.sendMessage(messageSettings.getFeedbackWorldDoesNotExist().replace("{0}", args[1]));

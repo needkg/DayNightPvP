@@ -1,9 +1,9 @@
 package com.needkg.daynightpvp.config.validator;
 
 import com.needkg.daynightpvp.config.ConfigManager;
+import com.needkg.daynightpvp.utils.LoggingUtils;
 import org.bukkit.Difficulty;
 import org.bukkit.Sound;
-import com.needkg.daynightpvp.utils.LoggingUtils;
 
 public class ConfigValidator {
     private final ConfigManager configManager;

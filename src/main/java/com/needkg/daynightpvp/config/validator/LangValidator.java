@@ -2,6 +2,7 @@ package com.needkg.daynightpvp.config.validator;
 
 import com.needkg.daynightpvp.config.LangManager;
 import org.bukkit.ChatColor;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

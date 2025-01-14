@@ -1,7 +1,7 @@
 package com.needkg.daynightpvp.utils;
 
-import org.bukkit.Bukkit;
 import com.needkg.daynightpvp.DayNightPvP;
+import org.bukkit.Bukkit;
 
 public class LoggingUtils {
 

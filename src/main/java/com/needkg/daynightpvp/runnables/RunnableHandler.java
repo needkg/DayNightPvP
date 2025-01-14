@@ -1,12 +1,12 @@
 package com.needkg.daynightpvp.runnables;
 
+import com.needkg.daynightpvp.DayNightPvP;
 import com.needkg.daynightpvp.config.settings.WorldSettings;
+import com.needkg.daynightpvp.utils.WorldUtils;
 import org.bukkit.*;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
-import com.needkg.daynightpvp.DayNightPvP;
-import com.needkg.daynightpvp.utils.WorldUtils;
 
 import java.util.ArrayList;
 import java.util.List;

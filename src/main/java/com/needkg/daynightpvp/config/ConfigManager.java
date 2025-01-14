@@ -1,9 +1,9 @@
 package com.needkg.daynightpvp.config;
 
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import com.needkg.daynightpvp.DayNightPvP;
 import com.needkg.daynightpvp.utils.LoggingUtils;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 

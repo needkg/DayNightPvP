@@ -1,7 +1,13 @@
 package com.needkg.daynightpvp.listeners;
 
+import com.needkg.daynightpvp.DayNightPvP;
 import com.needkg.daynightpvp.config.settings.MessageSettings;
 import com.needkg.daynightpvp.config.settings.WorldSettings;
+import com.needkg.daynightpvp.di.DependencyContainer;
+import com.needkg.daynightpvp.griefprevention.GriefPreventionHandler;
+import com.needkg.daynightpvp.utils.PlayerUtils;
+import com.needkg.daynightpvp.utils.WorldUtils;
+import com.needkg.daynightpvp.worldguard.AllowDaytimePvpFlag;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -12,12 +18,6 @@ import org.bukkit.event.entity.PotionSplashEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import com.needkg.daynightpvp.DayNightPvP;
-import com.needkg.daynightpvp.di.DependencyContainer;
-import com.needkg.daynightpvp.griefprevention.GriefPreventionHandler;
-import com.needkg.daynightpvp.utils.PlayerUtils;
-import com.needkg.daynightpvp.utils.WorldUtils;
-import com.needkg.daynightpvp.worldguard.AllowDaytimePvpFlag;
 
 public class DamageListener implements Listener {
 

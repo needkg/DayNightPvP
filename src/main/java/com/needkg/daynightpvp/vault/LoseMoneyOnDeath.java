@@ -2,12 +2,12 @@ package com.needkg.daynightpvp.vault;
 
 import com.needkg.daynightpvp.config.settings.MessageSettings;
 import com.needkg.daynightpvp.config.settings.WorldSettings;
+import com.needkg.daynightpvp.runnables.AutomaticPvp;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
-import com.needkg.daynightpvp.runnables.AutomaticPvp;
 
 public class LoseMoneyOnDeath {
 
