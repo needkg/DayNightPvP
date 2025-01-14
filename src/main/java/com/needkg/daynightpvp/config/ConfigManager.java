@@ -8,12 +8,16 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 
 public class ConfigManager {
+
+    private static final int LATEST_FILE_VERSION = 20;
+
     private File fileLocation;
     private FileConfiguration fileContent;
 
     public void createFile() {
         fileLocation = new File(DayNightPvP.getInstance().getDataFolder(), "config.yml");
         if (!fileLocation.exists()) {
+            LoggingUtils.sendWarningMessage("[DayNightPvP] Config file not found, creating a new one...");
             DayNightPvP.getInstance().saveResource("config.yml", false);
         }
         fileContent = YamlConfiguration.loadConfiguration(fileLocation);
@@ -21,15 +25,14 @@ public class ConfigManager {
     }
 
     private void verifyFileVersion() {
-        int latestFileVersion = 20;
-        if (latestFileVersion != getVersion()) {
+        if (LATEST_FILE_VERSION != getVersion()) {
             File outdatedFile = new File(DayNightPvP.getInstance().getDataFolder(), "config.yml.old");
             if (outdatedFile.exists()) {
                 outdatedFile.delete();
             }
             boolean success = fileLocation.renameTo(outdatedFile);
             if (success) {
-                String fileRenamed = "[DayNightPvP] The 'config.yml' file was outdated and has been renamed to 'config.yml.old'.";
+                String fileRenamed = "[DayNightPvP] Outdated configuration file detected - 'config.yml' has been backed up as 'config.yml.old'";
                 LoggingUtils.sendWarningMessage(fileRenamed);
             } else {
                 String fileRenameFailed = "[DayNightPvP] Failed to rename the 'config.yml' file.";

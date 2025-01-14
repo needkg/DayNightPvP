@@ -9,6 +9,9 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 
 public class LangManager {
+
+    private static final int LATEST_FILE_VERSION = 17;
+
     private final GeneralSettings generalSettings;
     private File fileLocation;
     private FileConfiguration fileContent;
@@ -22,6 +25,7 @@ public class LangManager {
         fileLocation = new File(DayNightPvP.getInstance().getDataFolder(), filePath);
 
         if (!fileLocation.exists()) {
+            LoggingUtils.sendWarningMessage("[DayNightPvP] Language file " + generalSettings.getLanguage() + ".yml not found, creating a new one...");
             DayNightPvP.getInstance().saveResource(filePath, false);
         }
 
@@ -30,15 +34,14 @@ public class LangManager {
     }
 
     private void verifyFileVersion() {
-        int latestFileVersion = 17;
-        if (latestFileVersion != getVersion()) {
+        if (LATEST_FILE_VERSION != getVersion()) {
             File outdatedFile = new File(DayNightPvP.getInstance().getDataFolder(), "lang/" + generalSettings.getLanguage() + ".yml.old");
             if (outdatedFile.exists()) {
                 outdatedFile.delete();
             }
             boolean success = fileLocation.renameTo(outdatedFile);
             if (success) {
-                String fileRenamed = "[DayNightPvP] The 'lang/" + generalSettings.getLanguage() + ".yml' file was outdated and has been renamed to 'lang/" + generalSettings.getLanguage() + ".yml.old'.";
+                String fileRenamed = "[DayNightPvP] Outdated configuration file detected - 'lang/" + generalSettings.getLanguage() + ".yml' has been backed up as 'lang/" + generalSettings.getLanguage() + ".yml.old'";
                 LoggingUtils.sendWarningMessage(fileRenamed);
             } else {
                 String fileRenameFailed = "[DayNightPvP] Failed to rename the 'lang/" + generalSettings.getLanguage() + ".yml' file.";
