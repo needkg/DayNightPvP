@@ -25,7 +25,7 @@ public class ListenersHandler {
 
     private void registerJoinListener() {
         if (generalSettings.getUpdateChecker()) {
-            Bukkit.getPluginManager().registerEvents(new JoinListener(), DayNightPvP.getInstance());
+            Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(), DayNightPvP.getInstance());
         }
     }
 
@@ -34,7 +34,7 @@ public class ListenersHandler {
     }
 
     private void registerDeathListener() {
-        Bukkit.getPluginManager().registerEvents(new DeathListener(), DayNightPvP.getInstance());
+        Bukkit.getPluginManager().registerEvents(new PlayerDeathListener(), DayNightPvP.getInstance());
     }
 
 }
