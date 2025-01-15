@@ -9,7 +9,7 @@ import me.needkg.daynightpvp.config.settings.WorldSettings;
 import me.needkg.daynightpvp.config.validator.ConfigValidator;
 import me.needkg.daynightpvp.config.validator.LangValidator;
 import me.needkg.daynightpvp.listeners.ListenersHandler;
-import me.needkg.daynightpvp.metrics.BStatsHandler;
+import me.needkg.daynightpvp.metrics.MetricsHandler;
 import me.needkg.daynightpvp.placeholder.PlaceholderHandler;
 import me.needkg.daynightpvp.runnables.RunnableHandler;
 import me.needkg.daynightpvp.services.PluginServices;
@@ -32,7 +32,7 @@ public class DependencyContainer {
     private CommandHandler commandHandler;
     private ListenersHandler listenersHandler;
     private PlaceholderHandler placeholderHandler;
-    private BStatsHandler bStatsHandler;
+    private MetricsHandler metricsHandler;
     private PluginServices pluginServices;
 
     private DependencyContainer() {
@@ -72,7 +72,7 @@ public class DependencyContainer {
         pluginServices = new PluginServices(this, runnableHandler, listenersHandler, placeholderHandler);
 
         commandHandler = new CommandHandler();
-        bStatsHandler = new BStatsHandler();
+        metricsHandler = new MetricsHandler();
     }
 
     public ConfigManager getConfigManager() {
@@ -123,8 +123,8 @@ public class DependencyContainer {
         return placeholderHandler;
     }
 
-    public BStatsHandler getBStatsHandler() {
-        return bStatsHandler;
+    public MetricsHandler getBStatsHandler() {
+        return metricsHandler;
     }
 
     public PluginServices getPluginServices() {
