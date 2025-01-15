@@ -7,7 +7,7 @@ import me.needkg.daynightpvp.di.DependencyContainer;
 import me.needkg.daynightpvp.griefprevention.GriefPreventionHandler;
 import me.needkg.daynightpvp.utils.PlayerUtils;
 import me.needkg.daynightpvp.utils.WorldUtils;
-import me.needkg.daynightpvp.worldguard.AllowDaytimePvpFlag;
+import me.needkg.daynightpvp.worldguard.flags.AllowDaytimePvpFlag;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

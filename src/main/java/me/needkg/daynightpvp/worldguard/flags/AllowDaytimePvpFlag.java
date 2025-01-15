@@ -1,4 +1,4 @@
-package me.needkg.daynightpvp.worldguard;
+package me.needkg.daynightpvp.worldguard.flags;
 
 import com.sk89q.worldedit.util.Location;
 import com.sk89q.worldguard.LocalPlayer;
