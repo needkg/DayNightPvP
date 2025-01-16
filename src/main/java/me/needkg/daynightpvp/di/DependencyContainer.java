@@ -1,6 +1,6 @@
 package me.needkg.daynightpvp.di;
 
-import me.needkg.daynightpvp.commands.CommandHandler;
+import me.needkg.daynightpvp.commands.CommandManager;
 import me.needkg.daynightpvp.config.ConfigManager;
 import me.needkg.daynightpvp.config.LangManager;
 import me.needkg.daynightpvp.config.settings.GeneralSettings;
@@ -8,10 +8,10 @@ import me.needkg.daynightpvp.config.settings.MessageSettings;
 import me.needkg.daynightpvp.config.settings.WorldSettings;
 import me.needkg.daynightpvp.config.validator.ConfigValidator;
 import me.needkg.daynightpvp.config.validator.LangValidator;
-import me.needkg.daynightpvp.listeners.ListenersHandler;
-import me.needkg.daynightpvp.metrics.MetricsHandler;
-import me.needkg.daynightpvp.placeholder.PlaceholderHandler;
-import me.needkg.daynightpvp.runnables.RunnableHandler;
+import me.needkg.daynightpvp.listeners.ListenersManager;
+import me.needkg.daynightpvp.metrics.MetricsManager;
+import me.needkg.daynightpvp.placeholder.PlaceholderManager;
+import me.needkg.daynightpvp.runnables.RunnableManager;
 import me.needkg.daynightpvp.services.PluginServices;
 import me.needkg.daynightpvp.vault.LoseMoneyOnDeath;
 
@@ -27,12 +27,12 @@ public class DependencyContainer {
     private LangValidator langValidator;
     private MessageSettings messageSettings;
 
-    private RunnableHandler runnableHandler;
+    private RunnableManager runnableManager;
     private LoseMoneyOnDeath loseMoneyOnDeath;
-    private CommandHandler commandHandler;
-    private ListenersHandler listenersHandler;
-    private PlaceholderHandler placeholderHandler;
-    private MetricsHandler metricsHandler;
+    private CommandManager commandManager;
+    private ListenersManager listenersManager;
+    private PlaceholderManager placeholderManager;
+    private MetricsManager metricsManager;
     private PluginServices pluginServices;
 
     private DependencyContainer() {
@@ -61,18 +61,18 @@ public class DependencyContainer {
         langValidator = new LangValidator(langManager);
         messageSettings = new MessageSettings(langValidator);
 
-        runnableHandler = new RunnableHandler(worldSettings);
+        runnableManager = new RunnableManager(worldSettings);
 
         loseMoneyOnDeath = new LoseMoneyOnDeath(worldSettings, messageSettings);
 
-        listenersHandler = new ListenersHandler(generalSettings);
+        listenersManager = new ListenersManager(generalSettings);
 
-        placeholderHandler = new PlaceholderHandler();
+        placeholderManager = new PlaceholderManager();
 
-        pluginServices = new PluginServices(configManager, langManager, runnableHandler, listenersHandler, placeholderHandler);
+        pluginServices = new PluginServices(configManager, langManager, runnableManager, listenersManager, placeholderManager);
 
-        commandHandler = new CommandHandler();
-        metricsHandler = new MetricsHandler();
+        commandManager = new CommandManager();
+        metricsManager = new MetricsManager();
     }
 
     public ConfigManager getConfigManager() {
@@ -103,28 +103,28 @@ public class DependencyContainer {
         return messageSettings;
     }
 
-    public RunnableHandler getRunnableHandler() {
-        return runnableHandler;
+    public RunnableManager getRunnableHandler() {
+        return runnableManager;
     }
 
     public LoseMoneyOnDeath getLoseMoneyOnDeath() {
         return loseMoneyOnDeath;
     }
 
-    public CommandHandler getCommandHandler() {
-        return commandHandler;
+    public CommandManager getCommandHandler() {
+        return commandManager;
     }
 
-    public ListenersHandler getListenersHandler() {
-        return listenersHandler;
+    public ListenersManager getListenersHandler() {
+        return listenersManager;
     }
 
-    public PlaceholderHandler getPlaceholderHandler() {
-        return placeholderHandler;
+    public PlaceholderManager getPlaceholderHandler() {
+        return placeholderManager;
     }
 
-    public MetricsHandler getBStatsHandler() {
-        return metricsHandler;
+    public MetricsManager getBStatsHandler() {
+        return metricsManager;
     }
 
     public PluginServices getPluginServices() {

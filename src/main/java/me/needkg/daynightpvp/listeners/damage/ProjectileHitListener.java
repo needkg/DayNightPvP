@@ -9,7 +9,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileHitEvent;
 
-public class ProjectileHitListener extends AbstractDamageHandler implements Listener {
+public class ProjectileHitListener extends AbstractDamageManager implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onProjectileHitEvent(ProjectileHitEvent event) {

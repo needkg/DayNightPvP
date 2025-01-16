@@ -4,21 +4,21 @@ import me.needkg.daynightpvp.DayNightPvP;
 import me.needkg.daynightpvp.config.settings.MessageSettings;
 import me.needkg.daynightpvp.config.settings.WorldSettings;
 import me.needkg.daynightpvp.di.DependencyContainer;
-import me.needkg.daynightpvp.griefprevention.GriefPreventionHandler;
+import me.needkg.daynightpvp.griefprevention.GriefPreventionManager;
 import me.needkg.daynightpvp.utils.WorldUtils;
 import me.needkg.daynightpvp.worldguard.flags.AllowDaytimePvpFlag;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class AbstractDamageHandler {
+public abstract class AbstractDamageManager {
 
-    private final GriefPreventionHandler griefPreventionHandler;
+    private final GriefPreventionManager griefPreventionManager;
     private final WorldSettings worldSettings;
     private final MessageSettings messageSettings;
 
-    protected AbstractDamageHandler() {
+    protected AbstractDamageManager() {
         DependencyContainer container = DependencyContainer.getInstance();
-        this.griefPreventionHandler = new GriefPreventionHandler();
+        this.griefPreventionManager = new GriefPreventionManager();
         this.worldSettings = container.getWorldSettings();
         this.messageSettings = container.getMessageSettings();
     }
@@ -75,7 +75,7 @@ public abstract class AbstractDamageHandler {
 
     private boolean isGriefPreventionBlocking(@NotNull Player victim, @NotNull Player attacker, @NotNull String worldName) {
         return DayNightPvP.isGriefPresent 
-            && !worldSettings.getGriefPreventionPvpInLand(worldName) 
-            && griefPreventionHandler.verify(victim, attacker);
+            && !worldSettings.getGriefPreventionPvpInLand(worldName)
+                && griefPreventionManager.verify(victim, attacker);
     }
 }

@@ -34,7 +34,7 @@ feedback-editworld-setting-details-title: "&8[&b&l!&8] &7Настройка: &b{
 feedback-editworld-setting-description: "&8[&7&l!&8] &7Описание: &7{0}"
 feedback-editworld-setting-current-value: "&8[&7&l!&8] &7Текущее: &b{0}"
 feedback-editworld-setting-type: "&8[&7&l!&8] &7Тип: &7{0}"
-feedback-editworld-setting-range: "&8[&7&l!&8] &7Диапазон: &7{0} &8до &7{1}"
+feedback-editworld-setting-range: "&8[&7&l!&8] &7Диапазон: &b{0} &7до &b{1}"
 feedback-editworld-setting-suggestions: "&8[&7&l!&8] &7Предложения: &b{0}"
 feedback-incorrect-command: "&8[&c&l!&8] &7Неверная команда &8» &b{0}"
 feedback-non-existent-command: "&8[&c&l!&8] &7Команда не найдена"

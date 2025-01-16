@@ -2,7 +2,7 @@ package me.needkg.daynightpvp.commands;
 
 import me.needkg.daynightpvp.DayNightPvP;
 
-public class CommandHandler {
+public class CommandManager {
 
     public void register() {
         DnpCommand dnpCommand = new DnpCommand();

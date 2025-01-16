@@ -10,11 +10,11 @@ import me.needkg.daynightpvp.listeners.player.PlayerJoinListener;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 
-public class ListenersHandler {
+public class ListenersManager {
 
     private final GeneralSettings generalSettings;
 
-    public ListenersHandler(GeneralSettings generalSettings) {
+    public ListenersManager(GeneralSettings generalSettings) {
         this.generalSettings = generalSettings;
     }
 

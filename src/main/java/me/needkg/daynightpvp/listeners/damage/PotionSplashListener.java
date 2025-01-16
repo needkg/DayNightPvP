@@ -13,7 +13,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.Set;
 
-public class PotionSplashListener extends AbstractDamageHandler implements Listener {
+public class PotionSplashListener extends AbstractDamageManager implements Listener {
 
     private static final Set<PotionEffectType> HARMFUL_EFFECTS = Set.of(
             PotionEffectType.HARM,

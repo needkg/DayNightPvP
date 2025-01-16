@@ -3,7 +3,7 @@ package me.needkg.daynightpvp;
 import me.needkg.daynightpvp.di.DependencyContainer;
 import me.needkg.daynightpvp.utils.LoggingUtils;
 import me.needkg.daynightpvp.utils.PluginUtils;
-import me.needkg.daynightpvp.worldguard.FlagHandler;
+import me.needkg.daynightpvp.worldguard.FlagManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class DayNightPvP extends JavaPlugin {
@@ -29,7 +29,7 @@ public class DayNightPvP extends JavaPlugin {
         verifyCompatibilityPlugins();
 
         if (isWorldGuardPresent) {
-            FlagHandler.register();
+            FlagManager.register();
         }
     }
 

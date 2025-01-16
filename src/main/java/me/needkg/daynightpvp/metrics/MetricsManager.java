@@ -3,7 +3,7 @@ package me.needkg.daynightpvp.metrics;
 import me.needkg.daynightpvp.DayNightPvP;
 import org.bstats.bukkit.Metrics;
 
-public class MetricsHandler {
+public class MetricsManager {
 
     private static final int BSTATS_ID = 19067;
 

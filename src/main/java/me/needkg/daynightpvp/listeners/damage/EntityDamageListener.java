@@ -8,7 +8,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
-public class EntityDamageListener extends AbstractDamageHandler implements Listener {
+public class EntityDamageListener extends AbstractDamageManager implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {

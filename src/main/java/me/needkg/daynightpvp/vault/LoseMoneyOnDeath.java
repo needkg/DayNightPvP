@@ -2,7 +2,7 @@ package me.needkg.daynightpvp.vault;
 
 import me.needkg.daynightpvp.config.settings.MessageSettings;
 import me.needkg.daynightpvp.config.settings.WorldSettings;
-import me.needkg.daynightpvp.runnables.AutomaticPvp;
+import me.needkg.daynightpvp.runnables.WorldStateController;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -37,7 +37,7 @@ public class LoseMoneyOnDeath {
             double amountRounded = Math.round(amount * 100.0) / 100.0;
 
             if (worldSettings.getVaultLoseMoneyOnDeathOnlyAtNight(world.getName())) {
-                if (AutomaticPvp.nightWorlds.contains(world)) {
+                if (WorldStateController.nightWorlds.contains(world)) {
                     economy.withdrawPlayer(killed, amountRounded);
                     shouldWithdraw = true;
                 }

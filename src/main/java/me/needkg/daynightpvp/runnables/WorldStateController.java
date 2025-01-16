@@ -11,7 +11,7 @@ import org.bukkit.World;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AutomaticPvp implements Runnable {
+public class WorldStateController implements Runnable {
 
     public static List<World> dayWorlds = new ArrayList<>();
     public static List<World> nightWorlds = new ArrayList<>();
@@ -38,7 +38,7 @@ public class AutomaticPvp implements Runnable {
     private final World world;
     private final MessageSettings messageSettings;
 
-    public AutomaticPvp(
+    public WorldStateController(
             long dayEnd,
             boolean automaticDifficultyEnabled,
             boolean notifyPlayersTitleEnabled,

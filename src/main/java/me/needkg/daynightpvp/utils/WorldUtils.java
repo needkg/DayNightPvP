@@ -1,6 +1,6 @@
 package me.needkg.daynightpvp.utils;
 
-import me.needkg.daynightpvp.runnables.AutomaticPvp;
+import me.needkg.daynightpvp.runnables.WorldStateController;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -8,7 +8,7 @@ public class WorldUtils {
 
     public static boolean isPlayerInDayWorld(Player player) {
         String worldName = player.getWorld().getName();
-        return SearchUtils.containsWorldName(AutomaticPvp.dayWorlds, worldName);
+        return SearchUtils.containsWorldName(WorldStateController.dayWorlds, worldName);
     }
 
     public static boolean isWorldValid(String worldName) {

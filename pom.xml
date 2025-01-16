@@ -9,7 +9,7 @@
     <groupId>me.needkg</groupId>
     <artifactId>DayNightPvP</artifactId>
     <name>DayNightPvP</name>
-    <version>1.2.10</version>
+    <version>1.3.0</version>
     <packaging>jar</packaging>
 
     <properties>
