@@ -28,7 +28,7 @@ public class ConfigValidator {
     private String getConfigValue(String path, Object defaultValue) {
         String configValue = configManager.getFileContent().getString(path);
         if (configValue == null) {
-            configManager.resetFile();
+            configManager.restoreDefaultFile();
             notifyConfigReset(path);
             return defaultValue.toString();
         }

@@ -46,7 +46,7 @@ public class LangSubCommand implements ISubCommand {
                 }
 
                 configManager.setValue("language", args[1]);
-                pluginServices.reloadPlugin();
+                pluginServices.reloadFiles();
                 sender.sendMessage(messageSettings.getFeedbackLangChanged().replace("{0}", args[1]));
             } else {
                 sender.sendMessage(messageSettings.getFeedbackIncorrectCommand().replace("{0}", "/dnp lang <" + String.join("/", AVAILABLE_LANGUAGES) + ">"));

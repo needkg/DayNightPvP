@@ -26,9 +26,9 @@ public class PluginServices {
         restartRunnables();
     }
 
-    private void reloadFiles() {
-        dependencyContainer.getConfigManager().createFile();
-        dependencyContainer.getLangManager().createFile();
+    public void reloadFiles() {
+        dependencyContainer.getConfigManager().initializeFile();
+        dependencyContainer.getLangManager().initializeFile();
     }
 
     private void restartListeners() {

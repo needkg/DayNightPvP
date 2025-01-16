@@ -36,7 +36,7 @@ public class DelWorldSubCommand implements ISubCommand {
         }
 
         if (args.length == 2) {
-            if (configManager.contains("worlds." + args[1])) {
+            if (configManager.hasPath("worlds." + args[1])) {
                 removeWorldFromConfig(args[1]);
                 pluginServices.reloadPlugin();
                 sender.sendMessage(messageSettings.getFeedbackDeletedWorld().replace("{0}", args[1]));
@@ -64,9 +64,9 @@ public class DelWorldSubCommand implements ISubCommand {
     }
 
     private void removeWorldFromConfig(String worldName) {
-        if (configManager.contains("worlds." + worldName)) {
+        if (configManager.hasPath("worlds." + worldName)) {
             configManager.setValue("worlds." + worldName, null);
-            configManager.saveConfig();
+            configManager.saveFile();
         }
     }
 

@@ -36,7 +36,7 @@ public class AddWorldSubCommand implements ISubCommand {
 
         if (args.length == 2) {
             if (Bukkit.getWorlds().contains(Bukkit.getWorld(args[1]))) {
-                if (!configManager.contains("worlds." + args[1])) {
+                if (!configManager.hasPath("worlds." + args[1])) {
                     addWorldToConfig(args[1]);
                     pluginServices.reloadPlugin();
                     sender.sendMessage(messageSettings.getFeedbackAddedWorld().replace("{0}", args[1]));
@@ -97,7 +97,7 @@ public class AddWorldSubCommand implements ISubCommand {
         configManager.setValue("worlds." + worldName + ".vault.lose-money-on-death.only-in-configured-worlds", true);
         configManager.setValue("worlds." + worldName + ".vault.lose-money-on-death.killer-reward-money", true);
         configManager.setValue("worlds." + worldName + ".grief-prevention.pvp-in-land", false);
-        configManager.saveConfig();
+        configManager.saveFile();
     }
 
 }

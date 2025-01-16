@@ -14,18 +14,18 @@ public abstract class AbstractConfigurationFile {
     protected abstract String getFilePath();
     protected abstract int getLatestFileVersion();
     
-    public void createFile() {
+    public void initializeFile() {
         fileLocation = new File(DayNightPvP.getInstance().getDataFolder(), getFilePath());
         if (!fileLocation.exists()) {
             LoggingUtils.sendWarningMessage("[DayNightPvP] File " + getFilePath() + " not found, creating a new one...");
             DayNightPvP.getInstance().saveResource(getFilePath(), false);
         }
         loadFileContent();
-        verifyFileVersion();
+        validateFileVersion();
     }
     
-    protected void verifyFileVersion() {
-        if (getLatestFileVersion() != getVersion()) {
+    protected void validateFileVersion() {
+        if (getLatestFileVersion() != getCurrentVersion()) {
             String backupPath = getFilePath() + ".old";
             File outdatedFile = new File(DayNightPvP.getInstance().getDataFolder(), backupPath);
             if (outdatedFile.exists()) {
@@ -38,7 +38,7 @@ public abstract class AbstractConfigurationFile {
                 LoggingUtils.sendWarningMessage("[DayNightPvP] Failed to rename the '" + getFilePath() + "' file.");
             }
 
-            resetFile();
+            restoreDefaultFile();
             loadFileContent();
         }
     }
@@ -47,20 +47,20 @@ public abstract class AbstractConfigurationFile {
         fileContent = YamlConfiguration.loadConfiguration(fileLocation);
     }
     
-    public void resetFile() {
+    public void restoreDefaultFile() {
         DayNightPvP.getInstance().saveResource(getFilePath(), true);
     }
     
-    public void saveConfig() {
+    public void saveFile() {
         try {
             fileContent.save(fileLocation);
         } catch (Exception e) {
             LoggingUtils.sendWarningMessage("[DayNightPvP] Error saving file " + getFilePath() + ", resetting...");
-            resetFile();
+            restoreDefaultFile();
         }
     }
     
-    public int getVersion() {
+    public int getCurrentVersion() {
         return fileContent.getInt("version");
     }
     
@@ -68,12 +68,12 @@ public abstract class AbstractConfigurationFile {
         return fileContent;
     }
     
-    public boolean contains(String path) {
+    public boolean hasPath(String path) {
         return fileContent.contains(path);
     }
     
     public void setValue(String path, Object value) {
         fileContent.set(path, value);
-        saveConfig();
+        saveFile();
     }
 } 
