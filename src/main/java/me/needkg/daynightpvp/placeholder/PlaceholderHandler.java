@@ -15,4 +15,9 @@ public class PlaceholderHandler {
             new PvpStatusPlaceholder().unregister();
         }
     }
+
+    public void restart() {
+        unregister();
+        register();
+    }
 }

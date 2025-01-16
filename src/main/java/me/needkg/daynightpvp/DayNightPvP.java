@@ -37,11 +37,9 @@ public class DayNightPvP extends JavaPlugin {
     public void onEnable() {
         LoggingUtils.sendStartupMessage();
 
-        // Inicializa o container de dependências
         DependencyContainer.initialize();
         DependencyContainer container = DependencyContainer.getInstance();
 
-        // Inicializa os componentes usando o container
         container.getConfigManager().initializeFile();
         container.getLangManager().initializeFile();
         container.getBStatsHandler().start();

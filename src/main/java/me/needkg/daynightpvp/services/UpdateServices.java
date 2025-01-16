@@ -5,6 +5,7 @@ import me.needkg.daynightpvp.config.settings.MessageSettings;
 import me.needkg.daynightpvp.di.DependencyContainer;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.io.BufferedReader;
@@ -15,58 +16,86 @@ import java.net.URL;
 
 public class UpdateServices {
 
+    private static final String SPIGOT_UPDATE_URL = "https://api.spigotmc.org/legacy/update.php";
+    private static final String SPIGOT_RESOURCE_ID = "102250";
+    private static final String PLUGIN_UPDATE_PAGE = "https://www.spigotmc.org/resources/daynightpvp-dynamic-pvp-for-day-night.102250/updates";
+
     private final MessageSettings messageSettings;
+    private final String currentVersion;
 
     public UpdateServices() {
         DependencyContainer container = DependencyContainer.getInstance();
         this.messageSettings = container.getMessageSettings();
+        this.currentVersion = DayNightPvP.getInstance().getDescription().getVersion();
     }
 
     public void checkUpdate(PlayerJoinEvent event) {
         try {
-            String currentVersion = DayNightPvP.getInstance().getDescription().getVersion();
-            String latestVersion = verifyPluginVersion();
-
+            String latestVersion = fetchLatestVersion();
             if (!currentVersion.equals(latestVersion)) {
-                TextComponent link = new TextComponent(messageSettings.getActionUpdateFoundClick());
-                link.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.spigotmc.org/resources/daynightpvp-dynamic-pvp-for-day-night.102250/updates"));
-
-                event.getPlayer().sendMessage(messageSettings.getFeedbackUpdateAvailable());
-                event.getPlayer().sendMessage(messageSettings.getFeedbackUpdateCurrentVersion().replace("{0}", currentVersion));
-                event.getPlayer().sendMessage(messageSettings.getFeedbackUpdateLatestVersion().replace("{0}", latestVersion));
-                event.getPlayer().spigot().sendMessage(link);
+                notifyUpdateAvailable(event.getPlayer(), latestVersion);
             }
         } catch (IOException ex) {
             event.getPlayer().sendMessage(messageSettings.getFeedbackUpdateCheckFailed());
         }
     }
 
-    private String verifyPluginVersion() throws IOException {
-        HttpURLConnection connection = null;
+    private void notifyUpdateAvailable(Player player, String latestVersion) {
+        TextComponent updateLink = createUpdateLink();
+
+        player.sendMessage(messageSettings.getFeedbackUpdateAvailable());
+        player.sendMessage(messageSettings.getFeedbackUpdateCurrentVersion().replace("{0}", currentVersion));
+        player.sendMessage(messageSettings.getFeedbackUpdateLatestVersion().replace("{0}", latestVersion));
+        player.spigot().sendMessage(updateLink);
+    }
+
+    private TextComponent createUpdateLink() {
+        TextComponent link = new TextComponent(messageSettings.getActionUpdateFoundClick());
+        link.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, PLUGIN_UPDATE_PAGE));
+        return link;
+    }
+
+    private String fetchLatestVersion() throws IOException {
+        String urlString = String.format("%s?resource=%s&t=%d",
+                SPIGOT_UPDATE_URL,
+                SPIGOT_RESOURCE_ID,
+                generateRandomToken());
+
+        HttpURLConnection connection = createConnection(urlString);
         try {
-            long random = (long) Math.floor(Math.random() * (Long.MAX_VALUE - 1 + 1) + 1);
-            URL urlForGetRequest = new URL("https://api.spigotmc.org/legacy/update.php?resource=102250&t=" + random);
-            connection = (HttpURLConnection) urlForGetRequest.openConnection();
-            connection.setRequestMethod("GET");
-
-            int responseCode = connection.getResponseCode();
-
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-                    StringBuilder response = new StringBuilder();
-                    String readLine;
-                    while ((readLine = in.readLine()) != null) {
-                        response.append(readLine);
-                    }
-                    return response.toString();
-                }
-            } else {
-                throw new IOException("HTTP error code: " + responseCode);
-            }
+            validateResponse(connection);
+            return readResponse(connection);
         } finally {
-            if (connection != null) {
-                connection.disconnect();
+            connection.disconnect();
+        }
+    }
+
+    private long generateRandomToken() {
+        return (long) Math.floor(Math.random() * (Long.MAX_VALUE - 1 + 1) + 1);
+    }
+
+    private HttpURLConnection createConnection(String urlString) throws IOException {
+        URL url = new URL(urlString);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+        return connection;
+    }
+
+    private void validateResponse(HttpURLConnection connection) throws IOException {
+        int responseCode = connection.getResponseCode();
+        if (responseCode != HttpURLConnection.HTTP_OK) {
+            throw new IOException("HTTP error code: " + responseCode);
+        }
+    }
+
+    private String readResponse(HttpURLConnection connection) throws IOException {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+            StringBuilder response = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                response.append(line);
             }
+            return response.toString();
         }
     }
 }

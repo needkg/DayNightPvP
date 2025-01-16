@@ -141,4 +141,9 @@ public class RunnableHandler {
 
     }
 
+    public void restart() {
+        stopAllRunnables();
+        startAllRunnables();
+    }
+
 }

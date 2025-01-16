@@ -23,7 +23,11 @@ public abstract class AbstractConfigurationFile {
         loadFileContent();
         validateFileVersion();
     }
-    
+
+    protected void loadFileContent() {
+        fileContent = YamlConfiguration.loadConfiguration(fileLocation);
+    }
+
     protected void validateFileVersion() {
         if (getLatestFileVersion() != getCurrentVersion()) {
             String backupPath = getFilePath() + ".old";
@@ -42,9 +46,9 @@ public abstract class AbstractConfigurationFile {
             loadFileContent();
         }
     }
-    
-    protected void loadFileContent() {
-        fileContent = YamlConfiguration.loadConfiguration(fileLocation);
+
+    public void refreshFile() {
+        initializeFile();
     }
     
     public void restoreDefaultFile() {
@@ -59,7 +63,12 @@ public abstract class AbstractConfigurationFile {
             restoreDefaultFile();
         }
     }
-    
+
+    public void setValue(String path, Object value) {
+        fileContent.set(path, value);
+        saveFile();
+    }
+
     public int getCurrentVersion() {
         return fileContent.getInt("version");
     }
@@ -70,10 +79,5 @@ public abstract class AbstractConfigurationFile {
     
     public boolean hasPath(String path) {
         return fileContent.contains(path);
-    }
-    
-    public void setValue(String path, Object value) {
-        fileContent.set(path, value);
-        saveFile();
     }
 } 

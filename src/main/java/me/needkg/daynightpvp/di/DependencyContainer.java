@@ -69,7 +69,7 @@ public class DependencyContainer {
 
         placeholderHandler = new PlaceholderHandler();
 
-        pluginServices = new PluginServices(this, runnableHandler, listenersHandler, placeholderHandler);
+        pluginServices = new PluginServices(configManager, langManager, runnableHandler, listenersHandler, placeholderHandler);
 
         commandHandler = new CommandHandler();
         metricsHandler = new MetricsHandler();

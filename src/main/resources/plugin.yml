@@ -3,48 +3,49 @@ version: '${project.version}'
 author: needkg
 main: me.needkg.daynightpvp.DayNightPvP
 api-version: '1.16'
+website: https://github.com/needkg/DayNightPvP
 softdepend: [ PlaceholderAPI, GriefPrevention, Vault, WorldGuard ]
 load: POSTWORLD
 
 commands:
   daynightpvp:
-    description: "Show all available commands"
+    description: "Shows all available commands"
     usage: "/dnp"
     aliases: [ dnp ]
     permission: dnp.admin
   daynightpvp reload:
-    description: "Reload the plugin"
+    description: "Reloads all plugin configurations"
     usage: "/dnp reload"
     aliases: [ dnp reload ]
     permission: dnp.admin
   daynightpvp addworld:
-    description: "Adds a world to the configuration file"
-    usage: "/dnp addworld"
+    description: "Adds a world to plugin configuration"
+    usage: "/dnp addworld <world>"
     aliases: [ dnp addworld ]
     permission: dnp.admin
   daynightpvp delworld:
-    description: "Deletes a world from the configuration file"
-    usage: "/dnp delworld"
+    description: "Removes a world from plugin configuration"
+    usage: "/dnp delworld <world>"
     aliases: [ dnp delworld ]
     permission: dnp.admin
   daynightpvp editworld:
-    description: "Edit world settings in the configuration file."
-    usage: "/dnp editworld"
+    description: "Edit specific world settings"
+    usage: "/dnp editworld <world> <setting> <value>"
     aliases: [ dnp editworld ]
     permission: dnp.admin
   daynightpvp lang:
-    description: "Change the plugin language"
-    usage: "/dnp lang"
+    description: "Change plugin language"
+    usage: "/dnp lang <language>"
     aliases: [ dnp lang ]
     permission: dnp.admin
 
 permissions:
   dnp.admin:
-    description: Ensures access to all DNP commands.
+    description: "Ensures access to all plugin commands"
     default: op
   dnp.bypass:
-    description: Allows the user to engage in combat even during the day.
+    description: "Allows the player to engage in combat even during daytime"
     default: false
   dnp.immune:
-    description: Allows the user to become immune to PvP.
+    description: "Makes the player immune to PvP at any time"
     default: false

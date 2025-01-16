@@ -30,6 +30,11 @@ public class ListenersHandler {
         HandlerList.unregisterAll(DayNightPvP.getInstance());
     }
 
+    public void restart() {
+        unregisterAll();
+        register();
+    }
+
     private void registerJoinListener() {
         if (generalSettings.getUpdateChecker()) {
             Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(), DayNightPvP.getInstance());

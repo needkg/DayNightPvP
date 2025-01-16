@@ -1,19 +1,22 @@
 package me.needkg.daynightpvp.services;
 
-import me.needkg.daynightpvp.di.DependencyContainer;
+import me.needkg.daynightpvp.config.ConfigManager;
+import me.needkg.daynightpvp.config.LangManager;
 import me.needkg.daynightpvp.listeners.ListenersHandler;
 import me.needkg.daynightpvp.placeholder.PlaceholderHandler;
 import me.needkg.daynightpvp.runnables.RunnableHandler;
 
 public class PluginServices {
 
+    private final ConfigManager configManager;
+    private final LangManager langManager;
     private final ListenersHandler listenersHandler;
     private final PlaceholderHandler placeholderHandler;
     private final RunnableHandler runnableHandler;
-    private final DependencyContainer dependencyContainer;
 
-    public PluginServices(DependencyContainer dependencyContainer, RunnableHandler runnableHandler, ListenersHandler listenersHandler, PlaceholderHandler placeholderHandler) {
-        this.dependencyContainer = dependencyContainer;
+    public PluginServices(ConfigManager configManager, LangManager langManager, RunnableHandler runnableHandler, ListenersHandler listenersHandler, PlaceholderHandler placeholderHandler) {
+        this.configManager = configManager;
+        this.langManager = langManager;
         this.runnableHandler = runnableHandler;
         this.listenersHandler = listenersHandler;
         this.placeholderHandler = placeholderHandler;
@@ -21,28 +24,14 @@ public class PluginServices {
 
     public void reloadPlugin() {
         reloadFiles();
-        restartListeners();
-        restartPlaceholders();
-        restartRunnables();
+        runnableHandler.restart();
+        listenersHandler.restart();
+        placeholderHandler.restart();
     }
 
     public void reloadFiles() {
-        dependencyContainer.getConfigManager().initializeFile();
-        dependencyContainer.getLangManager().initializeFile();
+        configManager.refreshFile();
+        langManager.refreshFile();
     }
 
-    private void restartListeners() {
-        listenersHandler.unregisterAll();
-        listenersHandler.register();
-    }
-
-    private void restartPlaceholders() {
-        placeholderHandler.unregister();
-        placeholderHandler.register();
-    }
-
-    private void restartRunnables() {
-        runnableHandler.stopAllRunnables();
-        runnableHandler.startAllRunnables();
-    }
 }
