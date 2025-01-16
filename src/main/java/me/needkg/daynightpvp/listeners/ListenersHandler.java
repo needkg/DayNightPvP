@@ -2,6 +2,11 @@ package me.needkg.daynightpvp.listeners;
 
 import me.needkg.daynightpvp.DayNightPvP;
 import me.needkg.daynightpvp.config.settings.GeneralSettings;
+import me.needkg.daynightpvp.listeners.damage.EntityDamageListener;
+import me.needkg.daynightpvp.listeners.damage.PotionSplashListener;
+import me.needkg.daynightpvp.listeners.damage.ProjectileHitListener;
+import me.needkg.daynightpvp.listeners.player.PlayerDeathListener;
+import me.needkg.daynightpvp.listeners.player.PlayerJoinListener;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 
@@ -15,7 +20,9 @@ public class ListenersHandler {
 
     public void register() {
         registerJoinListener();
-        registerEntityListener();
+        registerEntityDamageListener();
+        registerPotionSplashListener();
+        registerProjectileHitListener();
         registerDeathListener();
     }
 
@@ -29,8 +36,16 @@ public class ListenersHandler {
         }
     }
 
-    private void registerEntityListener() {
-        Bukkit.getPluginManager().registerEvents(new DamageListener(), DayNightPvP.getInstance());
+    private void registerEntityDamageListener() {
+        Bukkit.getPluginManager().registerEvents(new EntityDamageListener(), DayNightPvP.getInstance());
+    }
+
+    private void registerPotionSplashListener() {
+        Bukkit.getPluginManager().registerEvents(new PotionSplashListener(), DayNightPvP.getInstance());
+    }
+
+    private void registerProjectileHitListener() {
+        Bukkit.getPluginManager().registerEvents(new ProjectileHitListener(), DayNightPvP.getInstance());
     }
 
     private void registerDeathListener() {

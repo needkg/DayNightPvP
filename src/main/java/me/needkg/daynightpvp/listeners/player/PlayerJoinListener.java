@@ -1,4 +1,4 @@
-package me.needkg.daynightpvp.listeners;
+package me.needkg.daynightpvp.listeners.player;
 
 import me.needkg.daynightpvp.DayNightPvP;
 import me.needkg.daynightpvp.services.UpdateServices;

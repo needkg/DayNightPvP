@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 
 public class WorldUtils {
 
-    public static boolean isPlayerInWorld(Player player) {
+    public static boolean isPlayerInDayWorld(Player player) {
         String worldName = player.getWorld().getName();
         return SearchUtils.containsWorldName(AutomaticPvp.dayWorlds, worldName);
     }
