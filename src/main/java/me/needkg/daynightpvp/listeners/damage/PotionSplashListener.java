@@ -1,6 +1,7 @@
 package me.needkg.daynightpvp.listeners.damage;
 
-import me.needkg.daynightpvp.utils.PlayerUtils;
+import me.needkg.daynightpvp.listeners.damage.base.AbstractDamageListener;
+import me.needkg.daynightpvp.util.PlayerUtil;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.ThrownPotion;
@@ -13,7 +14,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.Set;
 
-public class PotionSplashListener extends AbstractDamageManager implements Listener {
+public class PotionSplashListener extends AbstractDamageListener implements Listener {
 
     private static final Set<PotionEffectType> HARMFUL_EFFECTS = Set.of(
             PotionEffectType.HARM,
@@ -39,7 +40,7 @@ public class PotionSplashListener extends AbstractDamageManager implements Liste
     }
 
     private boolean isValidPotionAttack(ThrownPotion potion) {
-        return potion.getShooter() != null && PlayerUtils.isRealPlayer(potion.getShooter());
+        return potion.getShooter() != null && PlayerUtil.isRealPlayer(potion.getShooter());
     }
 
     private boolean hasHarmfulEffect(Iterable<PotionEffect> effects) {

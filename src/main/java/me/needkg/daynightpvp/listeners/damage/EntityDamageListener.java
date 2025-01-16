@@ -1,6 +1,7 @@
 package me.needkg.daynightpvp.listeners.damage;
 
-import me.needkg.daynightpvp.utils.PlayerUtils;
+import me.needkg.daynightpvp.listeners.damage.base.AbstractDamageListener;
+import me.needkg.daynightpvp.util.PlayerUtil;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -8,7 +9,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
-public class EntityDamageListener extends AbstractDamageManager implements Listener {
+public class EntityDamageListener extends AbstractDamageListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
@@ -26,6 +27,6 @@ public class EntityDamageListener extends AbstractDamageManager implements Liste
     }
 
     private boolean isValidPvPInteraction(Entity attacker, Entity victim) {
-        return PlayerUtils.isRealPlayer(attacker) && PlayerUtils.isRealPlayer(victim);
+        return PlayerUtil.isRealPlayer(attacker) && PlayerUtil.isRealPlayer(victim);
     }
 }

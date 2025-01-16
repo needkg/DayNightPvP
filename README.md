@@ -6,31 +6,34 @@
 
 **Dynamic PvP Plugin for your Minecraft server!**
 
-[Spigot](https://www.spigotmc.org/resources/daynightpvp-dynamic-pvp-for-day-night.102250/) | 
-[Modrinth](https://modrinth.com/plugin/daynightpvp) | 
+[Spigot](https://www.spigotmc.org/resources/daynightpvp-dynamic-pvp-for-day-night.102250/) |
+[Modrinth](https://modrinth.com/plugin/daynightpvp) |
 [Discord](https://discord.gg/FpzhnnCN3H)
 
 </div>
 
 ## 📝 Description
 
-DayNightPvP is a plugin that adds a unique and thrilling PvP experience to your Minecraft server. With advanced features and an easy-to-use interface, you can create a dynamic PvP cycle, activated during the night and deactivated during the day.
+DayNightPvP is a plugin that adds a unique and thrilling PvP experience to your Minecraft server. With advanced features
+and an easy-to-use interface, you can create a dynamic PvP cycle, activated during the night and deactivated during the
+day.
 
 ## ✨ Features
 
 - **🌙 Automatic PvP**: Forget the need to manually enable or disable PvP. DayNightPvP takes care of this automatically.
-  
-- **⚔️ Difficulty Adjustment**: Add an extra challenge by automatically adjusting game difficulty when day or night begins.
-  
+
+- **⚔️ Difficulty Adjustment**: Add an extra challenge by automatically adjusting game difficulty when day or night
+  begins.
+
 - **🌍 Multi-World Support**: Works seamlessly across different worlds, allowing specific settings for each one.
-  
+
 - **⚙️ Custom Configuration**: Personalize sounds and messages to notify players about PvP events.
-  
+
 - **🔌 Integrations**:
-  - PlaceholderAPI: Display PvP status on Scoreboard or TAB
-  - GriefPrevention: Configure protected areas during night PvP
-  - Vault: Money rewards system in combat
-  - WorldGuard: Define regions with permanent PvP
+    - PlaceholderAPI: Display PvP status on Scoreboard or TAB
+    - GriefPrevention: Configure protected areas during night PvP
+    - Vault: Money rewards system in combat
+    - WorldGuard: Define regions with permanent PvP
 
 ## 📌 Placeholders
 

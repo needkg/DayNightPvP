@@ -1,9 +1,9 @@
 package me.needkg.daynightpvp;
 
-import me.needkg.daynightpvp.di.DependencyContainer;
-import me.needkg.daynightpvp.utils.LoggingUtils;
-import me.needkg.daynightpvp.utils.PluginUtils;
-import me.needkg.daynightpvp.worldguard.FlagManager;
+import me.needkg.daynightpvp.core.di.DependencyContainer;
+import me.needkg.daynightpvp.feature.worldguard.FlagManager;
+import me.needkg.daynightpvp.util.LoggingUtil;
+import me.needkg.daynightpvp.util.PluginUtil;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class DayNightPvP extends JavaPlugin {
@@ -35,7 +35,7 @@ public class DayNightPvP extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        LoggingUtils.sendStartupMessage();
+        LoggingUtil.sendStartupMessage();
 
         DependencyContainer.initialize();
         DependencyContainer container = DependencyContainer.getInstance();
@@ -50,9 +50,9 @@ public class DayNightPvP extends JavaPlugin {
     }
 
     private void verifyCompatibilityPlugins() {
-        isVaultPresent = PluginUtils.isPluginInstalled("Vault");
-        isWorldGuardPresent = PluginUtils.isPluginInstalled("WorldGuard");
-        isGriefPresent = PluginUtils.isPluginInstalled("GriefPrevention");
-        isPlaceholderPresent = PluginUtils.isPluginInstalled("PlaceholderAPI");
+        isVaultPresent = PluginUtil.isPluginInstalled("Vault");
+        isWorldGuardPresent = PluginUtil.isPluginInstalled("WorldGuard");
+        isGriefPresent = PluginUtil.isPluginInstalled("GriefPrevention");
+        isPlaceholderPresent = PluginUtil.isPluginInstalled("PlaceholderAPI");
     }
 }
