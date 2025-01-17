@@ -110,7 +110,8 @@ public class WorldStateController implements Runnable {
 
     public void verifyPvpStatus(World world) {
         if (!world.getPVP()) {
-            LoggingUtil.sendWarningMessage("[DayNightPvP] Warning! Another plugin forced PvP to be disabled in the world '" + world.getName() + "' , trying to resolve...");
+            LoggingUtil.sendWarningMessage("[DayNightPvP] Warning! Another plugin is preventing automatic PvP from working in the world '" + world.getName() + "', attempting to resolve...");
+            world.setPVP(true);
         }
     }
 
