@@ -227,43 +227,49 @@ public class EditWorldSubCommand implements ISubCommand {
     private Map<String, SettingInfo> initializeSettingsMap() {
         Map<String, SettingInfo> map = new HashMap<>();
 
+        // Day/Night Duration Settings
         map.put("day-night-duration.enabled", new SettingInfo(Boolean.class, Arrays.asList("true", "false"), "Enable/disable custom day/night duration"));
         map.put("day-night-duration.day-duration", new SettingInfo(Integer.class, Arrays.asList("600", "1200", "1800", "3600"), 1, 86400, "Day duration in seconds"));
         map.put("day-night-duration.night-duration", new SettingInfo(Integer.class, Arrays.asList("600", "1200", "1800", "3600"), 1, 86400, "Night duration in seconds"));
 
-        map.put("automatic-pvp.enabled", new SettingInfo(Boolean.class, Arrays.asList("true", "false"), "Enable/disable automatic PvP switching"));
-        map.put("automatic-pvp.day-end", new SettingInfo(Integer.class, Arrays.asList("12000", "13000", "14000"), 1, 24000, "Time in ticks when day ends (12000 = 6:00 PM)"));
-        map.put("pvp-settings.keep-inventory-when-killed-by-player", new SettingInfo(Boolean.class, Arrays.asList("true", "false"), "Keep inventory on PvP death"));
+        // PvP Settings
+        map.put("pvp.automatic.enabled", new SettingInfo(Boolean.class, Arrays.asList("true", "false"), "Enable/disable automatic PvP switching"));
+        map.put("pvp.automatic.day-end", new SettingInfo(Integer.class, Arrays.asList("12000", "13000", "14000"), 1, 24000, "Time in ticks when day ends"));
+        map.put("pvp.keep-inventory-on-pvp", new SettingInfo(Boolean.class, Arrays.asList("true", "false"), "Keep inventory on PvP death"));
 
-        map.put("boss-bar.time-remaining", new SettingInfo(Boolean.class, Arrays.asList("true", "false"), "Show countdown until next cycle"));
+        // Boss Bar Settings
+        map.put("boss-bar.enabled", new SettingInfo(Boolean.class, Arrays.asList("true", "false"), "Show boss bar with time remaining"));
 
-        map.put("automatic-difficulty.enabled", new SettingInfo(Boolean.class, Arrays.asList("true", "false"), "Enable/disable automatic difficulty changes"));
-        map.put("automatic-difficulty.day", new SettingInfo(String.class,
+        // Difficulty Settings
+        map.put("difficulty.enabled", new SettingInfo(Boolean.class, Arrays.asList("true", "false"), "Enable/disable automatic difficulty changes"));
+        map.put("difficulty.day", new SettingInfo(String.class,
                 Arrays.stream(Difficulty.values()).map(Enum::name).collect(Collectors.toList()), "Server difficulty during daytime"));
-        map.put("automatic-difficulty.night", new SettingInfo(String.class,
+        map.put("difficulty.night", new SettingInfo(String.class,
                 Arrays.stream(Difficulty.values()).map(Enum::name).collect(Collectors.toList()), "Server difficulty during nighttime"));
 
-        map.put("notify-players.chat.day-night-starts", new SettingInfo(Boolean.class, Arrays.asList("true", "false"), "Announce cycle changes in chat"));
-        map.put("notify-players.chat.hit-another-player-during-day", new SettingInfo(Boolean.class, Arrays.asList("true", "false"), "Show PvP warning during day"));
+        // Notification Settings
+        map.put("notifications.chat.day-night-change", new SettingInfo(Boolean.class, Arrays.asList("true", "false"), "Announce cycle changes in chat"));
+        map.put("notifications.chat.no-pvp-warn", new SettingInfo(Boolean.class, Arrays.asList("true", "false"), "Show PvP warning during day"));
 
-        map.put("notify-players.title.enabled", new SettingInfo(Boolean.class, Arrays.asList("true", "false"), "Enable title notifications"));
-        map.put("notify-players.title.fade-in", new SettingInfo(Integer.class, Arrays.asList("10", "20", "30", "40"), 1, 100, "Title fade in duration in ticks"));
-        map.put("notify-players.title.stay", new SettingInfo(Integer.class, Arrays.asList("20", "40", "60", "80"), 1, 200, "Title stay duration in ticks"));
-        map.put("notify-players.title.fade-out", new SettingInfo(Integer.class, Arrays.asList("10", "20", "30", "40"), 1, 100, "Title fade out duration in ticks"));
+        map.put("notifications.title.enabled", new SettingInfo(Boolean.class, Arrays.asList("true", "false"), "Enable title notifications"));
+        map.put("notifications.title.fade-in", new SettingInfo(Integer.class, Arrays.asList("10", "20", "30", "40"), 1, 100, "Title fade in duration in ticks"));
+        map.put("notifications.title.stay", new SettingInfo(Integer.class, Arrays.asList("20", "40", "60", "80"), 1, 200, "Title stay duration in ticks"));
+        map.put("notifications.title.fade-out", new SettingInfo(Integer.class, Arrays.asList("10", "20", "30", "40"), 1, 100, "Title fade out duration in ticks"));
 
-        map.put("notify-players.sound.enabled", new SettingInfo(Boolean.class, Arrays.asList("true", "false"), "Enable sound notifications"));
-        map.put("notify-players.sound.day.sound", new SettingInfo(String.class,
+        map.put("notifications.sound.enabled", new SettingInfo(Boolean.class, Arrays.asList("true", "false"), "Enable sound notifications"));
+        map.put("notifications.sound.day.type", new SettingInfo(String.class,
                 Arrays.asList("ENTITY_CHICKEN_AMBIENT", "ENTITY_PLAYER_LEVELUP", "BLOCK_NOTE_BLOCK_PLING"), "Sound played at day start", Sound.class));
-        map.put("notify-players.sound.night.sound", new SettingInfo(String.class,
+        map.put("notifications.sound.night.type", new SettingInfo(String.class,
                 Arrays.asList("ENTITY_GHAST_AMBIENT", "ENTITY_WOLF_HOWL", "ENTITY_WITHER_SPAWN"), "Sound played at night start", Sound.class));
-        map.put("notify-players.sound.day.volume", new SettingInfo(Double.class, Arrays.asList("0.1", "0.5", "1.0"), 0.0, 1.0, "Day sound volume (0.0 to 1.0)"));
-        map.put("notify-players.sound.night.volume", new SettingInfo(Double.class, Arrays.asList("0.1", "0.5", "1.0"), 0.0, 1.0, "Night sound volume (0.0 to 1.0)"));
+        map.put("notifications.sound.day.volume", new SettingInfo(Double.class, Arrays.asList("0.1", "0.5", "1.0"), 0.0, 1.0, "Day sound volume (0.0 to 1.0)"));
+        map.put("notifications.sound.night.volume", new SettingInfo(Double.class, Arrays.asList("0.1", "0.5", "1.0"), 0.0, 1.0, "Night sound volume (0.0 to 1.0)"));
 
-        map.put("vault.lose-money-on-death.enabled", new SettingInfo(Boolean.class, Arrays.asList("true", "false"), "Enable money loss on death"));
-        map.put("vault.lose-money-on-death.only-at-night", new SettingInfo(Boolean.class, Arrays.asList("true", "false"), "Restrict money loss to night time"));
-        map.put("vault.lose-money-on-death.killer-reward-money", new SettingInfo(Boolean.class, Arrays.asList("true", "false"), "Give lost money to killer"));
+        // Integration Settings
+        map.put("integrations.vault.lose-money.enabled", new SettingInfo(Boolean.class, Arrays.asList("true", "false"), "Enable money loss on death"));
+        map.put("integrations.vault.lose-money.only-at-night", new SettingInfo(Boolean.class, Arrays.asList("true", "false"), "Restrict money loss to night time"));
+        map.put("integrations.vault.lose-money.reward-killer", new SettingInfo(Boolean.class, Arrays.asList("true", "false"), "Give lost money to killer"));
 
-        map.put("grief-prevention.pvp-in-land", new SettingInfo(Boolean.class, Arrays.asList("true", "false"), "Allow PvP in claimed land"));
+        map.put("integrations.grief-prevention.pvp-in-claims", new SettingInfo(Boolean.class, Arrays.asList("true", "false"), "Allow PvP in claimed land"));
 
         return map;
     }
