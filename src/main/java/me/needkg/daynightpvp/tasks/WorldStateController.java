@@ -40,16 +40,13 @@ public class WorldStateController implements Runnable {
     @Override
     public void run() {
         boolean isNight = isNightTime(world.getTime());
-        
-        if (isNight != lastStateWasNight) {
-            if (isNight) {
-                handleNight();
-            } else {
-                handleDay();
-            }
-            lastStateWasNight = isNight;
-            verifyPvpStatus();
+
+        if (isNight) {
+            handleNight();
+        } else {
+            handleDay();
         }
+        verifyPvpStatus();
     }
 
     private boolean isNightTime(long time) {
