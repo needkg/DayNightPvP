@@ -30,7 +30,7 @@ public class AddWorldSubCommand implements ISubCommand {
     public AddWorldSubCommand() {
         DependencyContainer container = DependencyContainer.getInstance();
         this.configurationManager = container.getConfigManager();
-        this.pluginService = container.getPluginServices();
+        this.pluginService = container.getPluginService();
         this.systemMessages = container.getMessageContainer().getSystem();
         this.worldEditorMessages = container.getMessageContainer().getWorldEditor();
 

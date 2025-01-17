@@ -41,12 +41,21 @@ public class DayNightPvP extends JavaPlugin {
         DependencyContainer container = DependencyContainer.getInstance();
 
         container.getConfigManager().initializeFile();
-        container.getLangManager().initializeFile();
-        container.getBStatsHandler().start();
-        container.getCommandHandler().register();
-        container.getListenersHandler().register();
+        container.getLanguageManager().initializeFile();
+        container.getMetricsManager().start();
+        container.getCommandManager().register();
+        container.getListenerManager().register();
         container.getPlaceholderHandler().register();
-        container.getRunnableHandler().startAllTasks();
+        container.getTaskManager().startAllTasks();
+    }
+
+    @Override
+    public void onDisable() {
+        DependencyContainer container = DependencyContainer.getInstance();
+
+        container.getListenerManager().unregisterAll();
+        container.getPlaceholderHandler().unregister();
+        container.getTaskManager().stopAllTasks();
     }
 
     private void verifyCompatibilityPlugins() {

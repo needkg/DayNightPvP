@@ -30,7 +30,7 @@ public class LangSubCommand implements ISubCommand {
         DependencyContainer container = DependencyContainer.getInstance();
         this.generalConfiguration = container.getConfigurationContainer().getGeneralConfiguration();
         this.configurationManager = container.getConfigManager();
-        this.pluginService = container.getPluginServices();
+        this.pluginService = container.getPluginService();
         this.systemMessages = container.getMessageContainer().getSystem();
 
         this.validators = new ArrayList<>();

@@ -32,7 +32,7 @@ public class DelWorldSubCommand implements ISubCommand {
         this.generalConfiguration = container.getConfigurationContainer().getGeneralConfiguration();
         this.worldEditorMessages = container.getMessageContainer().getWorldEditor();
         this.systemMessages = container.getMessageContainer().getSystem();
-        this.pluginService = container.getPluginServices();
+        this.pluginService = container.getPluginService();
 
         this.validators = new ArrayList<>();
         this.validators.add(new PermissionValidator("dnp.admin", systemMessages));

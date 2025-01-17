@@ -22,7 +22,7 @@ public class PlayerDeathListener implements Listener {
         DependencyContainer container = DependencyContainer.getInstance();
         this.pvpConfiguration = container.getConfigurationContainer().getPvpConfiguration();
         this.integrationConfiguration = container.getConfigurationContainer().getIntegrationConfiguration();
-        this.loseMoney = container.getLoseMoneyOnDeath();
+        this.loseMoney = container.getLoseMoney();
     }
 
     @EventHandler

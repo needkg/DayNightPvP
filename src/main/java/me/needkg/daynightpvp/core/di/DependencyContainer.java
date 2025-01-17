@@ -81,7 +81,7 @@ public class DependencyContainer {
         return configurationContainer;
     }
 
-    public LanguageManager getLangManager() {
+    public LanguageManager getLanguageManager() {
         return languageManager;
     }
 
@@ -89,19 +89,19 @@ public class DependencyContainer {
         return messageContainer;
     }
 
-    public TaskManager getRunnableHandler() {
+    public TaskManager getTaskManager() {
         return taskManager;
     }
 
-    public LoseMoney getLoseMoneyOnDeath() {
+    public LoseMoney getLoseMoney() {
         return loseMoney;
     }
 
-    public CommandManager getCommandHandler() {
+    public CommandManager getCommandManager() {
         return commandManager;
     }
 
-    public ListenerManager getListenersHandler() {
+    public ListenerManager getListenerManager() {
         return listenerManager;
     }
 
@@ -113,11 +113,11 @@ public class DependencyContainer {
         return griefPreventionManager;
     }
 
-    public MetricsManager getBStatsHandler() {
+    public MetricsManager getMetricsManager() {
         return metricsManager;
     }
 
-    public PluginService getPluginServices() {
+    public PluginService getPluginService() {
         return pluginService;
     }
 } 

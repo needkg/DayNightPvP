@@ -36,7 +36,7 @@ public class EditWorldSubCommand implements ISubCommand {
         this.generalConfiguration = container.getConfigurationContainer().getGeneralConfiguration();
         this.worldEditorMessages = container.getMessageContainer().getWorldEditor();
         this.systemMessages = container.getMessageContainer().getSystem();
-        this.pluginService = container.getPluginServices();
+        this.pluginService = container.getPluginService();
         this.settingsMap = initializeSettingsMap();
 
         this.validators = new ArrayList<>();

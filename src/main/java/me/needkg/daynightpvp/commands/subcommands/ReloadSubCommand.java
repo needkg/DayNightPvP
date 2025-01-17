@@ -20,7 +20,7 @@ public class ReloadSubCommand implements ISubCommand {
 
     public ReloadSubCommand() {
         DependencyContainer container = DependencyContainer.getInstance();
-        this.pluginService = container.getPluginServices();
+        this.pluginService = container.getPluginService();
         this.systemMessages = container.getMessageContainer().getSystem();
 
         this.validators = new ArrayList<>();
