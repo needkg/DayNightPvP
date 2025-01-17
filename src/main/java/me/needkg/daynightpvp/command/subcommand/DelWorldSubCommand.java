@@ -2,8 +2,9 @@ package me.needkg.daynightpvp.command.subcommand;
 
 import me.needkg.daynightpvp.command.subcommand.base.ISubCommand;
 import me.needkg.daynightpvp.configuration.ConfigurationManager;
-import me.needkg.daynightpvp.configuration.settings.MessageConfiguration;
-import me.needkg.daynightpvp.configuration.settings.WorldConfiguration;
+import me.needkg.daynightpvp.configuration.config.GeneralConfiguration;
+import me.needkg.daynightpvp.configuration.message.SystemMessages;
+import me.needkg.daynightpvp.configuration.message.WorldEditorMessages;
 import me.needkg.daynightpvp.core.di.DependencyContainer;
 import me.needkg.daynightpvp.service.PluginService;
 import org.bukkit.command.Command;
@@ -15,22 +16,24 @@ import java.util.List;
 public class DelWorldSubCommand implements ISubCommand {
 
     private final ConfigurationManager configurationManager;
-    private final WorldConfiguration worldConfiguration;
-    private final MessageConfiguration messageConfiguration;
+    private final GeneralConfiguration generalConfiguration;
     private final PluginService pluginService;
+    private final WorldEditorMessages worldEditorMessages;
+    private final SystemMessages systemMessages;
 
     public DelWorldSubCommand() {
         DependencyContainer container = DependencyContainer.getInstance();
         this.configurationManager = container.getConfigManager();
-        this.worldConfiguration = container.getWorldSettings();
-        this.messageConfiguration = container.getMessageSettings();
+        this.generalConfiguration = container.getConfigurationContainer().getGeneralConfiguration();
+        this.worldEditorMessages = container.getMessageContainer().getWorldEditor();
+        this.systemMessages = container.getMessageContainer().getSystem();
         this.pluginService = container.getPluginServices();
     }
 
     @Override
     public void executeCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         if (!sender.hasPermission("dnp.admin")) {
-            sender.sendMessage(messageConfiguration.getFeedbackError());
+            sender.sendMessage(systemMessages.getErrorMessage());
             return;
         }
 
@@ -38,12 +41,12 @@ public class DelWorldSubCommand implements ISubCommand {
             if (configurationManager.hasPath("worlds." + args[1])) {
                 removeWorldFromConfig(args[1]);
                 pluginService.reloadPlugin();
-                sender.sendMessage(messageConfiguration.getFeedbackDeletedWorld().replace("{0}", args[1]));
+                sender.sendMessage(worldEditorMessages.getWorldDeletedMessage().replace("{0}", args[1]));
                 return;
             }
-            sender.sendMessage(messageConfiguration.getFeedbackWorldIsNotInSettings().replace("{0}", args[1]));
+            sender.sendMessage(worldEditorMessages.getWorldNotConfiguredMessage().replace("{0}", args[1]));
         } else {
-            sender.sendMessage(messageConfiguration.getFeedbackIncorrectCommand().replace("{0}", "/dnp delworld <worldName>"));
+            sender.sendMessage(systemMessages.getIncorrectCommandMessage().replace("{0}", "/dnp delworld <worldName>"));
         }
     }
 
@@ -53,7 +56,7 @@ public class DelWorldSubCommand implements ISubCommand {
 
         if (args.size() == 1) {
             String prefix = args.get(0).toLowerCase();
-            for (String worldName : worldConfiguration.getWorldNames()) {
+            for (String worldName : generalConfiguration.getWorldNames()) {
                 if (worldName.startsWith(prefix)) {
                     suggestions.add(worldName);
                 }

@@ -1,6 +1,6 @@
 package me.needkg.daynightpvp.task;
 
-import me.needkg.daynightpvp.configuration.settings.MessageConfiguration;
+import me.needkg.daynightpvp.configuration.message.NotificationMessages;
 import me.needkg.daynightpvp.core.di.DependencyContainer;
 import me.needkg.daynightpvp.util.LoggingUtil;
 import me.needkg.daynightpvp.util.PlayerUtil;
@@ -36,7 +36,7 @@ public class WorldStateController implements Runnable {
     private final float soundDayVolume;
     private final boolean notifyPlayersChatDayNightStarts;
     private final World world;
-    private final MessageConfiguration messageConfiguration;
+    private final NotificationMessages notificationMessages;
 
     public WorldStateController(
             long dayEnd,
@@ -55,7 +55,7 @@ public class WorldStateController implements Runnable {
             boolean notifyPlayersChatDayNightStarts,
             World world) {
         DependencyContainer container = DependencyContainer.getInstance();
-        messageConfiguration = container.getMessageSettings();
+        notificationMessages = container.getMessageContainer().getNotifications();
 
         this.dayEnd = dayEnd;
         this.automaticDifficultyEnabled = automaticDifficultyEnabled;
@@ -63,12 +63,12 @@ public class WorldStateController implements Runnable {
         this.notifyPlayersSoundEnabled = notifyPlayersSoundEnabled;
         this.automaticDifficultyDay = automaticDifficultyDay;
         this.automaticDifficultyNight = automaticDifficultyNight;
-        this.notifyDayChat = messageConfiguration.getNotifyDayChat();
-        this.notifyDayTitle = messageConfiguration.getNotifyDayTitle();
-        this.notifyDaySubtitle = messageConfiguration.getNotifyDaySubtitle();
-        this.notifyNightChat = messageConfiguration.getNotifyNightChat();
-        this.notifyNightTitle = messageConfiguration.getNotifyNightTitle();
-        this.notifyNightSubtitle = messageConfiguration.getNotifyNightSubtitle();
+        this.notifyDayChat = notificationMessages.getDayChatMessage();
+        this.notifyDayTitle = notificationMessages.getDayTitle();
+        this.notifyDaySubtitle = notificationMessages.getDaySubtitle();
+        this.notifyNightChat = notificationMessages.getNightChatMessage();
+        this.notifyNightTitle = notificationMessages.getNightTitle();
+        this.notifyNightSubtitle = notificationMessages.getNightSubtitle();
         this.notifyPlayersSoundDay = notifyPlayersSoundDay;
         this.notifyPlayersSoundNight = notifyPlayersSoundNight;
         this.fadeIn = fadeIn;

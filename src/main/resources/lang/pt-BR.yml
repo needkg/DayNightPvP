@@ -2,61 +2,77 @@
 # DO NOT MODIFY THIS VALUE! Used internally by the plugin
 version: 17
 
-# =====================
-#     Notifications
-# =====================
-notify-day-chat: "&8[&a&l!&8] &7Combate foi &aDesativado &8(&7Amanheceu&8)"
-notify-night-chat: "&8[&c&l!&8] &7Combate foi &cAtivado &8(&7Anoiteceu&8)"
-notify-day-title: "&a&lAMANHECER"
-notify-day-subtitle: "&7Combate foi &aDesativado"
-notify-night-title: "&c&lANOITECER"
-notify-night-subtitle: "&7Combate foi &cAtivado"
-notify-pvp-disabled: "&8[&c&l!&8] &7Combate &cnão é permitido &7durante o dia"
-notify-player-immune: "&8[&c&l!&8] &7Este jogador está &cimune &7ao combate"
-notify-self-immune: "&8[&c&l!&8] &7Você está &cimune &7ao combate"
+notifications:
+  combat:
+    day:
+      chat: "&8[&a&l!&8] &7Combate foi &aDesativado &8(&7Amanheceu&8)"
+      title: "&a&lAMANHECER"
+      subtitle: "&7Combate foi &aDesativado"
+    night:
+      chat: "&8[&c&l!&8] &7Combate foi &cAtivado &8(&7Anoiteceu&8)"
+      title: "&c&lANOITECER"
+      subtitle: "&7Combate foi &cAtivado"
+  combat_restrictions:
+    daytime_disabled: "&8[&c&l!&8] &7Combate &cnão é permitido &7durante o dia"
+    player_immune: "&8[&c&l!&8] &7Este jogador está &cimune &7ao combate"
+    self_immune: "&8[&c&l!&8] &7Você está &cimune &7ao combate"
 
-# =====================
-#      Feedback
-# =====================
-feedback-lose-money: "&8[&c&l!&8] &7Derrotado por &b{0} &8» &cPerdeu ${1}"
-feedback-win-money: "&8[&a&l!&8] &7Derrotou &b{0} &8» &aGanhou ${1}"
-feedback-added-world: "&8[&a&l!&8] &7Mundo &b{0} &7foi &aadicionado"
-feedback-deleted-world: "&8[&c&l!&8] &7Mundo &b{0} &7foi &cremovido"
-feedback-world-is-not-in-settings: "&8[&c&l!&8] &7Mundo &b{0} &7não está &cconfigurado"
-feedback-world-already-exists: "&8[&c&l!&8] &7Mundo &b{0} &7já está &cconfigurado"
-feedback-world-does-not-exist: "&8[&c&l!&8] &7Mundo &b{0} &7não &cexiste"
-feedback-editworld-invalid-setting: "&8[&c&l!&8] &7Configuração '&b{0}&7' não &cexiste"
-feedback-editworld-invalid-value: "&8[&c&l!&8] &7Valor '&b{0}&7' é &cinválido &7para '&b{1}&7'"
-feedback-editworld-success: "&8[&a&l!&8] &7Configuração '&b{0}&7' alterada para &b{1}"
-feedback-editworld-same-value: "&8[&e&l!&8] &7Configuração &b{0} &7já está &b{1}"
-feedback-editworld-title: "&a&lConfigurações disponíveis"
-feedback-editworld-setting-details-title: "&8[&b&l!&8] &7Configuração: &b{0}"
-feedback-editworld-setting-description: "&8[&7&l!&8] &7Descrição: &7{0}"
-feedback-editworld-setting-current-value: "&8[&7&l!&8] &7Atual: &b{0}"
-feedback-editworld-setting-type: "&8[&7&l!&8] &7Tipo: &7{0}"
-feedback-editworld-setting-range: "&8[&7&l!&8] &7Intervalo: &b{0} &7até &b{1}"
-feedback-editworld-setting-suggestions: "&8[&7&l!&8] &7Sugestões: &b{0}"
-feedback-incorrect-command: "&8[&c&l!&8] &7Comando incorreto &8» &b{0}"
-feedback-non-existent-command: "&8[&c&l!&8] &7Comando não encontrado"
-feedback-error-no-permission: "&8[&c&l!&8] &7Você não tem &cpermissão"
-feedback-error-language-in-use: "&8[&e&l!&8] &7Este idioma já está em uso"
-feedback-lang-changed: "&8[&a&l!&8] &7Idioma alterado para &b{0}"
-feedback-update-available: "&8[&e&lDayNightPvP&8] &7Nova atualização disponível"
-feedback-update-check-failed: "&8[&c&l!&8] &7Falha ao verificar atualizações"
-feedback-update-current-version: "&8[&7&l!&8] &7Atual: &c{0}"
-feedback-update-latest-version: "&8[&7&l!&8] &7Nova: &b{0}"
-feedback-reload-plugin: "&8[&a&l!&8] &7Plugin recarregado com sucesso"
-feedback-error: "&c&lERRO"
-feedback-boss-bar-sunset: "&7{0} até o &cAnoitecer"
-feedback-boss-bar-sunrise: "&7{0} até o &aAmanhecer"
+combat:
+  economy:
+    lost: "&8[&c&l!&8] &7Derrotado por &b{0} &8» &cPerdeu ${1}"
+    won: "&8[&a&l!&8] &7Derrotou &b{0} &8» &aGanhou ${1}"
 
-# =====================
-#      Actions
-# =====================
-action-update-found-click: "&a&nClique aqui para atualizar"
+worlds:
+  editor:
+    title: "&a&lConfigurações do Mundo"
+    settings:
+      details:
+        title: "&8[&b&l!&8] &7Configuração: &b{0}"
+        description: "&8[&7&l!&8] &7Descrição: &7{0}"
+        current_value: "&8[&7&l!&8] &7Atual: &b{0}"
+        type: "&8[&7&l!&8] &7Tipo: &7{0}"
+        range: "&8[&7&l!&8] &7Intervalo: &b{0} &7até &b{1}"
+        suggestions: "&8[&7&l!&8] &7Sugestões: &b{0}"
+    feedback:
+      settings:
+        invalid_setting: "&8[&c&l!&8] &7Configuração '&b{0}&7' não &cexiste"
+        invalid_value: "&8[&c&l!&8] &7Valor '&b{0}&7' é &cinválido &7para '&b{1}&7'"
+        success: "&8[&a&l!&8] &7Configuração '&b{0}&7' alterada para &b{1}"
+        same_value: "&8[&e&l!&8] &7Configuração &b{0} &7já está &b{1}"
+      management:
+        success:
+          added: "&8[&a&l!&8] &7Mundo &b{0} &7foi &aadicionado"
+          deleted: "&8[&c&l!&8] &7Mundo &b{0} &7foi &cremovido"
+        errors:
+          not_configured: "&8[&c&l!&8] &7Mundo &b{0} &7não está &cconfigurado"
+          already_exists: "&8[&c&l!&8] &7Mundo &b{0} &7já está &cconfigurado"
+          not_exists: "&8[&c&l!&8] &7Mundo &b{0} &7não &cexiste"
 
-# =====================
-#      Placeholders
-# =====================
-placeholder-pvp-enabled: "&cAtivado"
-placeholder-pvp-disabled: "&aDesativado"
+system:
+  commands:
+    incorrect: "&8[&c&l!&8] &7Comando incorreto &8» &b{0}"
+    not_found: "&8[&c&l!&8] &7Comando não encontrado"
+  permissions:
+    denied: "&8[&c&l!&8] &7Você não tem &cpermissão"
+  language:
+    already_in_use: "&8[&e&l!&8] &7Este idioma já está em uso"
+    changed: "&8[&a&l!&8] &7Idioma alterado para &b{0}"
+  updates:
+    available: "&8[&e&lDayNightPvP&8] &7Nova atualização disponível"
+    check_failed: "&8[&c&l!&8] &7Falha ao verificar atualizações"
+    current_version: "&8[&7&l!&8] &7Atual: &c{0}"
+    latest_version: "&8[&7&l!&8] &7Nova: &b{0}"
+    click_to_update: "&a&nClique aqui para atualizar"
+  reload:
+    success: "&8[&a&l!&8] &7Plugin recarregado com sucesso"
+  error: "&c&lERRO"
+
+bossbar:
+  time:
+    until_sunset: "&7{0} até o &cAnoitecer"
+    until_sunrise: "&7{0} até o &aAmanhecer"
+
+placeholders:
+  pvp:
+    enabled: "&cAtivado"
+    disabled: "&aDesativado"

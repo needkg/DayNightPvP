@@ -1,6 +1,6 @@
 package me.needkg.daynightpvp.task;
 
-import me.needkg.daynightpvp.configuration.settings.MessageConfiguration;
+import me.needkg.daynightpvp.configuration.message.BossBarMessages;
 import me.needkg.daynightpvp.core.di.DependencyContainer;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -11,7 +11,7 @@ public class TimeBossBar implements Runnable {
 
     private static final int DEFAULT_DURATION_SECONDS = 600;
 
-    private final MessageConfiguration messageConfiguration;
+    private final BossBarMessages bossBarMessages;
     private final BossBar bossBar;
     private final World world;
     private final int dayDurationSeconds;
@@ -21,7 +21,8 @@ public class TimeBossBar implements Runnable {
 
     public TimeBossBar(BossBar bossbar, World world, boolean customDayNightDurationEnabled,
                        int dayDurationSeconds, int nightDurationSeconds, int dayEnd, TimeDurationController timeDurationController) {
-        this.messageConfiguration = DependencyContainer.getInstance().getMessageSettings();
+        DependencyContainer container = DependencyContainer.getInstance();
+        this.bossBarMessages = container.getMessageContainer().getBossBar();
         this.bossBar = bossbar;
         this.world = world;
         this.dayDurationSeconds = customDayNightDurationEnabled ? dayDurationSeconds : DEFAULT_DURATION_SECONDS;
@@ -63,7 +64,7 @@ public class TimeBossBar implements Runnable {
 
         bossBar.setProgress(progress);
         bossBar.setColor(BarColor.YELLOW);
-        bossBar.setTitle(messageConfiguration.getFeedbackBossbarSunset().replace("{0}", formatTime(remainingSeconds)));
+        bossBar.setTitle(bossBarMessages.getUntilSunsetMessage().replace("{0}", formatTime(remainingSeconds)));
     }
 
     private void updateNighttimeBossBar(double currentTime) {
@@ -73,7 +74,7 @@ public class TimeBossBar implements Runnable {
 
         bossBar.setProgress(progress);
         bossBar.setColor(BarColor.PURPLE);
-        bossBar.setTitle(messageConfiguration.getFeedbackBossbarSunrise().replace("{0}", formatTime(remainingSeconds)));
+        bossBar.setTitle(bossBarMessages.getUntilSunriseMessage().replace("{0}", formatTime(remainingSeconds)));
     }
 
     private long calculateRemainingSeconds(double remainingTicks, double totalTicks, int durationSeconds) {

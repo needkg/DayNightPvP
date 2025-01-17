@@ -4,11 +4,9 @@ import me.needkg.daynightpvp.api.placeholder.PlaceholderManager;
 import me.needkg.daynightpvp.command.CommandManager;
 import me.needkg.daynightpvp.configuration.ConfigurationManager;
 import me.needkg.daynightpvp.configuration.LanguageManager;
-import me.needkg.daynightpvp.configuration.settings.GeneralConfiguration;
-import me.needkg.daynightpvp.configuration.settings.MessageConfiguration;
-import me.needkg.daynightpvp.configuration.settings.WorldConfiguration;
 import me.needkg.daynightpvp.configuration.validator.ConfigurationValidator;
 import me.needkg.daynightpvp.configuration.validator.LanguageValidator;
+import me.needkg.daynightpvp.feature.griefprevention.GriefPreventionManager;
 import me.needkg.daynightpvp.feature.vault.LoseMoney;
 import me.needkg.daynightpvp.listeners.ListenerManager;
 import me.needkg.daynightpvp.metrics.MetricsManager;
@@ -20,18 +18,18 @@ public class DependencyContainer {
 
     private ConfigurationManager configurationManager;
     private ConfigurationValidator configurationValidator;
-    private GeneralConfiguration generalConfiguration;
-    private WorldConfiguration worldConfiguration;
+    private ConfigurationContainer configurationContainer;
 
     private LanguageManager languageManager;
     private LanguageValidator languageValidator;
-    private MessageConfiguration messageConfiguration;
+    private MessageContainer messageContainer;
 
     private TaskManager taskManager;
     private LoseMoney loseMoney;
     private CommandManager commandManager;
     private ListenerManager listenerManager;
     private PlaceholderManager placeholderManager;
+    private GriefPreventionManager griefPreventionManager;
     private MetricsManager metricsManager;
     private PluginService pluginService;
 
@@ -54,23 +52,23 @@ public class DependencyContainer {
 
         configurationManager = new ConfigurationManager();
         configurationValidator = new ConfigurationValidator(configurationManager);
-        generalConfiguration = new GeneralConfiguration(configurationValidator);
-        worldConfiguration = new WorldConfiguration(configurationValidator);
+        configurationContainer = new ConfigurationContainer(configurationValidator);
 
-        languageManager = new LanguageManager(generalConfiguration);
+        languageManager = new LanguageManager(configurationContainer);
         languageValidator = new LanguageValidator(languageManager);
-        messageConfiguration = new MessageConfiguration(languageValidator);
+        messageContainer = new MessageContainer(languageValidator);
 
-        taskManager = new TaskManager(worldConfiguration);
+        taskManager = new TaskManager(configurationContainer);
 
-        loseMoney = new LoseMoney(worldConfiguration, messageConfiguration);
+        loseMoney = new LoseMoney(configurationContainer, messageContainer);
 
-        listenerManager = new ListenerManager(generalConfiguration);
+        listenerManager = new ListenerManager(configurationContainer);
 
         placeholderManager = new PlaceholderManager();
 
         pluginService = new PluginService(configurationManager, languageManager, taskManager, listenerManager, placeholderManager);
 
+        griefPreventionManager = new GriefPreventionManager();
         commandManager = new CommandManager();
         metricsManager = new MetricsManager();
     }
@@ -79,20 +77,16 @@ public class DependencyContainer {
         return configurationManager;
     }
 
-    public GeneralConfiguration getGeneralSettings() {
-        return generalConfiguration;
-    }
-
-    public WorldConfiguration getWorldSettings() {
-        return worldConfiguration;
+    public ConfigurationContainer getConfigurationContainer() {
+        return configurationContainer;
     }
 
     public LanguageManager getLangManager() {
         return languageManager;
     }
 
-    public MessageConfiguration getMessageSettings() {
-        return messageConfiguration;
+    public MessageContainer getMessageContainer() {
+        return messageContainer;
     }
 
     public TaskManager getRunnableHandler() {
@@ -113,6 +107,10 @@ public class DependencyContainer {
 
     public PlaceholderManager getPlaceholderHandler() {
         return placeholderManager;
+    }
+
+    public GriefPreventionManager getGriefPreventionManager() {
+        return griefPreventionManager;
     }
 
     public MetricsManager getBStatsHandler() {

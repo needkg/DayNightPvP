@@ -2,7 +2,7 @@ package me.needkg.daynightpvp.command;
 
 import me.needkg.daynightpvp.command.subcommand.*;
 import me.needkg.daynightpvp.command.subcommand.base.ISubCommand;
-import me.needkg.daynightpvp.configuration.settings.MessageConfiguration;
+import me.needkg.daynightpvp.configuration.message.SystemMessages;
 import me.needkg.daynightpvp.core.di.DependencyContainer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -13,14 +13,14 @@ import org.jetbrains.annotations.NotNull;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class DayNightPvPCommand implements CommandExecutor, TabCompleter {
+public class DayNightPvpCommand implements CommandExecutor, TabCompleter {
 
-    private final MessageConfiguration messageConfiguration;
+    private final SystemMessages systemMessages;
     private final Map<String, ISubCommand> subCommands = new HashMap<>();
 
-    public DayNightPvPCommand() {
+    public DayNightPvpCommand() {
         DependencyContainer container = DependencyContainer.getInstance();
-        this.messageConfiguration = container.getMessageSettings();
+        this.systemMessages = container.getMessageContainer().getSystem();
         registerSubCommands();
     }
 
@@ -52,7 +52,7 @@ public class DayNightPvPCommand implements CommandExecutor, TabCompleter {
         ISubCommand dnpSubCommand = subCommands.get(args[0]);
 
         if (dnpSubCommand == null) {
-            sender.sendMessage(messageConfiguration.getFeedbackNonExistentCommand());
+            sender.sendMessage(systemMessages.getCommandNotFoundMessage());
             return true;
         }
 

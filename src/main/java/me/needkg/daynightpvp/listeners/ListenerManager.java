@@ -1,7 +1,8 @@
 package me.needkg.daynightpvp.listeners;
 
 import me.needkg.daynightpvp.DayNightPvP;
-import me.needkg.daynightpvp.configuration.settings.GeneralConfiguration;
+import me.needkg.daynightpvp.core.di.ConfigurationContainer;
+import me.needkg.daynightpvp.configuration.config.GeneralConfiguration;
 import me.needkg.daynightpvp.listeners.damage.EntityDamageListener;
 import me.needkg.daynightpvp.listeners.damage.PotionSplashListener;
 import me.needkg.daynightpvp.listeners.damage.ProjectileHitListener;
@@ -14,8 +15,8 @@ public class ListenerManager {
 
     private final GeneralConfiguration generalConfiguration;
 
-    public ListenerManager(GeneralConfiguration generalConfiguration) {
-        this.generalConfiguration = generalConfiguration;
+    public ListenerManager(ConfigurationContainer configurationContainer) {
+        this.generalConfiguration = configurationContainer.getGeneralConfiguration();
     }
 
     public void register() {

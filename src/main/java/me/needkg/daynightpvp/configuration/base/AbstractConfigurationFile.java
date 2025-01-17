@@ -31,7 +31,7 @@ public abstract class AbstractConfigurationFile {
 
     protected void validateFileVersion() {
         if (getLatestFileVersion() != getCurrentVersion()) {
-            String backupPath = getFilePath() + ".old";
+            String backupPath = getFilePath() + "_v" + getCurrentVersion();
             File outdatedFile = new File(DayNightPvP.getInstance().getDataFolder(), backupPath);
             if (outdatedFile.exists()) {
                 outdatedFile.delete();

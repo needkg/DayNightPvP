@@ -1,7 +1,9 @@
 package me.needkg.daynightpvp.feature.vault;
 
-import me.needkg.daynightpvp.configuration.settings.MessageConfiguration;
-import me.needkg.daynightpvp.configuration.settings.WorldConfiguration;
+import me.needkg.daynightpvp.core.di.ConfigurationContainer;
+import me.needkg.daynightpvp.configuration.config.IntegrationConfiguration;
+import me.needkg.daynightpvp.configuration.message.CombatMessages;
+import me.needkg.daynightpvp.core.di.MessageContainer;
 import me.needkg.daynightpvp.task.WorldStateController;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
@@ -11,12 +13,12 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 
 public class LoseMoney {
 
-    private final WorldConfiguration worldConfiguration;
-    private final MessageConfiguration messageConfiguration;
+    private final IntegrationConfiguration integrationConfiguration;
+    private final CombatMessages combatMessages;
 
-    public LoseMoney(WorldConfiguration worldConfiguration, MessageConfiguration messageConfiguration) {
-        this.worldConfiguration = worldConfiguration;
-        this.messageConfiguration = messageConfiguration;
+    public LoseMoney(ConfigurationContainer configurationContainer, MessageContainer messageContainer) {
+        this.integrationConfiguration = configurationContainer.getIntegrationConfiguration();
+        this.combatMessages = messageContainer.getCombat();
     }
 
     public void loseMoneyOnDeath(Player killed, Player killer, World world, String percentage) {
@@ -36,7 +38,7 @@ public class LoseMoney {
             double amount = currentBalance * (parsedPercentage / 100.0);
             double amountRounded = Math.round(amount * 100.0) / 100.0;
 
-            if (worldConfiguration.getIntegrationsVaultLoseMoneyOnlyAtNight(world.getName())) {
+            if (integrationConfiguration.getIntegrationsVaultLoseMoneyOnlyAtNight(world.getName())) {
                 if (WorldStateController.nightWorlds.contains(world)) {
                     economy.withdrawPlayer(killed, amountRounded);
                     shouldWithdraw = true;
@@ -50,10 +52,10 @@ public class LoseMoney {
                 String money = Double.toString(amountRounded);
                 String killedName = killed.getName();
                 String killerName = killer.getName(); // Corrigido killerName para pegar o nome do killer
-                killed.sendMessage(messageConfiguration.getFeedbackLoseMoney().replace("{0}", killerName).replace("{1}", money));
-                if (worldConfiguration.getIntegrationsVaultLoseMoneyRewardKiller(world.getName())) {
+                killed.sendMessage(combatMessages.getMoneyLostMessage().replace("{0}", killerName).replace("{1}", money));
+                if (integrationConfiguration.getIntegrationsVaultLoseMoneyRewardKiller(world.getName())) {
                     economy.depositPlayer(killer, amountRounded);
-                    killer.sendMessage(messageConfiguration.getFeedbackWinMoney().replace("{0}", killedName).replace("{1}", money));
+                    killer.sendMessage(combatMessages.getMoneyWonMessage().replace("{0}", killedName).replace("{1}", money));
                 }
             }
         }

@@ -1,8 +1,9 @@
 package me.needkg.daynightpvp.listeners.damage.base;
 
 import me.needkg.daynightpvp.DayNightPvP;
-import me.needkg.daynightpvp.configuration.settings.MessageConfiguration;
-import me.needkg.daynightpvp.configuration.settings.WorldConfiguration;
+import me.needkg.daynightpvp.configuration.config.IntegrationConfiguration;
+import me.needkg.daynightpvp.configuration.config.NotificationConfiguration;
+import me.needkg.daynightpvp.configuration.message.NotificationMessages;
 import me.needkg.daynightpvp.core.di.DependencyContainer;
 import me.needkg.daynightpvp.feature.griefprevention.GriefPreventionManager;
 import me.needkg.daynightpvp.feature.worldguard.flags.DaytimePvpFlag;
@@ -13,14 +14,16 @@ import org.jetbrains.annotations.NotNull;
 public abstract class AbstractDamageListener {
 
     private final GriefPreventionManager griefPreventionManager;
-    private final WorldConfiguration worldConfiguration;
-    private final MessageConfiguration messageConfiguration;
+    private final IntegrationConfiguration integrationConfiguration;
+    private final NotificationConfiguration notificationConfiguration;
+    private final NotificationMessages notificationMessages;
 
     protected AbstractDamageListener() {
         DependencyContainer container = DependencyContainer.getInstance();
-        this.griefPreventionManager = new GriefPreventionManager();
-        this.worldConfiguration = container.getWorldSettings();
-        this.messageConfiguration = container.getMessageSettings();
+        this.griefPreventionManager = container.getGriefPreventionManager();
+        this.integrationConfiguration = container.getConfigurationContainer().getIntegrationConfiguration();
+        this.notificationConfiguration = container.getConfigurationContainer().getNotificationConfiguration();
+        this.notificationMessages = container.getMessageContainer().getNotifications();
     }
 
     public boolean shouldCancelDamage(@NotNull Player victim, @NotNull Player attacker, @NotNull String worldName) {
@@ -45,12 +48,12 @@ public abstract class AbstractDamageListener {
 
     private boolean isPlayerImmune(@NotNull Player attacker, @NotNull Player victim) {
         if (attacker.hasPermission("dnp.immune")) {
-            attacker.sendMessage(messageConfiguration.getNotifySelfImmune());
+            attacker.sendMessage(notificationMessages.getSelfImmune());
             return true;
         }
 
         if (victim.hasPermission("dnp.immune")) {
-            attacker.sendMessage(messageConfiguration.getNotifyPlayerImmune());
+            attacker.sendMessage(notificationMessages.getPlayerImmune());
             return true;
         }
 
@@ -65,8 +68,8 @@ public abstract class AbstractDamageListener {
 
     private boolean isPlayerInDayWorld(@NotNull Player victim, @NotNull Player attacker, @NotNull String worldName) {
         if (WorldUtil.isPlayerInDayWorld(victim)) {
-            if (worldConfiguration.getNotificationsChatNoPvpWarn(worldName)) {
-                attacker.sendMessage(messageConfiguration.getNotifyPvpDisabled());
+            if (notificationConfiguration.getNotificationsChatNoPvpWarn(worldName)) {
+                attacker.sendMessage(notificationMessages.getDaytimeDisabled());
             }
             return true;
         }
@@ -75,7 +78,7 @@ public abstract class AbstractDamageListener {
 
     private boolean isGriefPreventionBlocking(@NotNull Player victim, @NotNull Player attacker, @NotNull String worldName) {
         return DayNightPvP.isGriefPresent
-                && !worldConfiguration.getIntegrationsGriefPreventionPvpInClaims(worldName)
+                && !integrationConfiguration.getIntegrationsGriefPreventionPvpInClaims(worldName)
                 && griefPreventionManager.verify(victim, attacker);
     }
 }

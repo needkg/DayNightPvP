@@ -2,61 +2,77 @@
 # DO NOT MODIFY THIS VALUE! Used internally by the plugin
 version: 17
 
-# =====================
-#     Notifications
-# =====================
-notify-day-chat: "&8[&a&l!&8] &7Combat was &aDisabled &8(&7Sunrise&8)"
-notify-night-chat: "&8[&c&l!&8] &7Combat was &cEnabled &8(&7Sunset&8)"
-notify-day-title: "&a&lSUNRISE"
-notify-day-subtitle: "&7Combat was &aDisabled"
-notify-night-title: "&c&lSUNSET"
-notify-night-subtitle: "&7Combat was &cEnabled"
-notify-pvp-disabled: "&8[&c&l!&8] &7Combat is &cnot allowed &7during the day"
-notify-player-immune: "&8[&c&l!&8] &7This player is &cimmune &7to combat"
-notify-self-immune: "&8[&c&l!&8] &7You are &cimmune &7to combat"
+notifications:
+  combat:
+    day:
+      chat: "&8[&a&l!&8] &7Combat has been &aDisabled &8(&7Sunrise&8)"
+      title: "&a&lSUNRISE"
+      subtitle: "&7Combat has been &aDisabled"
+    night:
+      chat: "&8[&c&l!&8] &7Combat has been &cEnabled &8(&7Sunset&8)"
+      title: "&c&lSUNSET"
+      subtitle: "&7Combat has been &cEnabled"
+  combat_restrictions:
+    daytime_disabled: "&8[&c&l!&8] &7Combat is &cnot allowed &7during the day"
+    player_immune: "&8[&c&l!&8] &7This player is &cimmune &7to combat"
+    self_immune: "&8[&c&l!&8] &7You are &cimmune &7to combat"
 
-# =====================
-#      Feedback
-# =====================
-feedback-lose-money: "&8[&c&l!&8] &7Defeated by &b{0} &8» &cLost ${1}"
-feedback-win-money: "&8[&a&l!&8] &7Defeated &b{0} &8» &aWon ${1}"
-feedback-added-world: "&8[&a&l!&8] &7World &b{0} &7was &aadded"
-feedback-deleted-world: "&8[&c&l!&8] &7World &b{0} &7was &cremoved"
-feedback-world-is-not-in-settings: "&8[&c&l!&8] &7World &b{0} &7is &cnot configured"
-feedback-world-already-exists: "&8[&c&l!&8] &7World &b{0} &7is already &cconfigured"
-feedback-world-does-not-exist: "&8[&c&l!&8] &7World &b{0} &7does &cnot exist"
-feedback-editworld-invalid-setting: "&8[&c&l!&8] &7Setting '&b{0}&7' does &cnot exist"
-feedback-editworld-invalid-value: "&8[&c&l!&8] &7Value '&b{0}&7' is &cinvalid &7for '&b{1}&7'"
-feedback-editworld-success: "&8[&a&l!&8] &7Setting '&b{0}&7' changed to &b{1}"
-feedback-editworld-same-value: "&8[&e&l!&8] &7Setting &b{0} &7is already &b{1}"
-feedback-editworld-title: "&a&lAvailable Settings"
-feedback-editworld-setting-details-title: "&8[&b&l!&8] &7Setting: &b{0}"
-feedback-editworld-setting-description: "&8[&7&l!&8] &7Description: &7{0}"
-feedback-editworld-setting-current-value: "&8[&7&l!&8] &7Current: &b{0}"
-feedback-editworld-setting-type: "&8[&7&l!&8] &7Type: &7{0}"
-feedback-editworld-setting-range: "&8[&7&l!&8] &7Range: &b{0} &7to &b{1}"
-feedback-editworld-setting-suggestions: "&8[&7&l!&8] &7Suggestions: &b{0}"
-feedback-incorrect-command: "&8[&c&l!&8] &7Incorrect command &8» &b{0}"
-feedback-non-existent-command: "&8[&c&l!&8] &7Command not found"
-feedback-error-no-permission: "&8[&c&l!&8] &7You don't have &cpermission"
-feedback-error-language-in-use: "&8[&e&l!&8] &7This language is already in use"
-feedback-lang-changed: "&8[&a&l!&8] &7Language changed to &b{0}"
-feedback-update-available: "&8[&e&lDayNightPvP&8] &7New update available"
-feedback-update-check-failed: "&8[&c&l!&8] &7Failed to check for updates"
-feedback-update-current-version: "&8[&7&l!&8] &7Current: &c{0}"
-feedback-update-latest-version: "&8[&7&l!&8] &7Latest: &b{0}"
-feedback-reload-plugin: "&8[&a&l!&8] &7Plugin reloaded successfully"
-feedback-error: "&c&lERROR"
-feedback-boss-bar-sunset: "&7{0} until &cSunset"
-feedback-boss-bar-sunrise: "&7{0} until &aSunrise"
+combat:
+  economy:
+    lost: "&8[&c&l!&8] &7Defeated by &b{0} &8» &cLost ${1}"
+    won: "&8[&a&l!&8] &7Defeated &b{0} &8» &aWon ${1}"
 
-# =====================
-#      Actions
-# =====================
-action-update-found-click: "&a&nClick here to update"
+worlds:
+  editor:
+    title: "&a&lWorld Settings"
+    settings:
+      details:
+        title: "&8[&b&l!&8] &7Setting: &b{0}"
+        description: "&8[&7&l!&8] &7Description: &7{0}"
+        current_value: "&8[&7&l!&8] &7Current: &b{0}"
+        type: "&8[&7&l!&8] &7Type: &7{0}"
+        range: "&8[&7&l!&8] &7Range: &b{0} &7to &b{1}"
+        suggestions: "&8[&7&l!&8] &7Suggestions: &b{0}"
+    feedback:
+      settings:
+        invalid_setting: "&8[&c&l!&8] &7Setting '&b{0}&7' does not &cexist"
+        invalid_value: "&8[&c&l!&8] &7Value '&b{0}&7' is &cinvalid &7for '&b{1}&7'"
+        success: "&8[&a&l!&8] &7Setting '&b{0}&7' changed to &b{1}"
+        same_value: "&8[&e&l!&8] &7Setting &b{0} &7is already &b{1}"
+      management:
+        success:
+          added: "&8[&a&l!&8] &7World &b{0} &7has been &aadded"
+          deleted: "&8[&c&l!&8] &7World &b{0} &7has been &cremoved"
+        errors:
+          not_configured: "&8[&c&l!&8] &7World &b{0} &7is not &cconfigured"
+          already_exists: "&8[&c&l!&8] &7World &b{0} &7is already &cconfigured"
+          not_exists: "&8[&c&l!&8] &7World &b{0} &7does not &cexist"
 
-# =====================
-#      Placeholders
-# =====================
-placeholder-pvp-enabled: "&cEnabled"
-placeholder-pvp-disabled: "&aDisabled"
+system:
+  commands:
+    incorrect: "&8[&c&l!&8] &7Incorrect command &8» &b{0}"
+    not_found: "&8[&c&l!&8] &7Command not found"
+  permissions:
+    denied: "&8[&c&l!&8] &7You don't have &cpermission"
+  language:
+    already_in_use: "&8[&e&l!&8] &7This language is already in use"
+    changed: "&8[&a&l!&8] &7Language changed to &b{0}"
+  updates:
+    available: "&8[&e&lDayNightPvP&8] &7New update available"
+    check_failed: "&8[&c&l!&8] &7Failed to check for updates"
+    current_version: "&8[&7&l!&8] &7Current: &c{0}"
+    latest_version: "&8[&7&l!&8] &7Latest: &b{0}"
+    click_to_update: "&a&nClick here to update"
+  reload:
+    success: "&8[&a&l!&8] &7Plugin reloaded successfully"
+  error: "&c&lERROR"
+
+bossbar:
+  time:
+    until_sunset: "&7{0} until &cSunset"
+    until_sunrise: "&7{0} until &aSunrise"
+
+placeholders:
+  pvp:
+    enabled: "&cEnabled"
+    disabled: "&aDisabled"

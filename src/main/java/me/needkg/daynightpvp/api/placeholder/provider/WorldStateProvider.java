@@ -1,8 +1,9 @@
 package me.needkg.daynightpvp.api.placeholder.provider;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
-import me.needkg.daynightpvp.configuration.settings.MessageConfiguration;
-import me.needkg.daynightpvp.configuration.settings.WorldConfiguration;
+import me.needkg.daynightpvp.configuration.config.GeneralConfiguration;
+import me.needkg.daynightpvp.configuration.message.PlaceholderMessages;
+import me.needkg.daynightpvp.configuration.message.SystemMessages;
 import me.needkg.daynightpvp.core.di.DependencyContainer;
 import me.needkg.daynightpvp.task.WorldStateController;
 import me.needkg.daynightpvp.util.SearchUtil;
@@ -16,13 +17,15 @@ public class WorldStateProvider extends PlaceholderExpansion {
     private static final String AUTHOR = "needkg";
     private static final String VERSION = "GENERIC";
 
-    private final WorldConfiguration worldConfiguration;
-    private final MessageConfiguration messageConfiguration;
+    private final GeneralConfiguration generalConfiguration;
+    private final SystemMessages systemMessages;
+    private final PlaceholderMessages placeholderMessages;
 
     public WorldStateProvider() {
         DependencyContainer container = DependencyContainer.getInstance();
-        this.worldConfiguration = container.getWorldSettings();
-        this.messageConfiguration = container.getMessageSettings();
+        this.generalConfiguration = container.getConfigurationContainer().getGeneralConfiguration();
+        this.systemMessages = container.getMessageContainer().getSystem();
+        this.placeholderMessages = container.getMessageContainer().getPlaceholders();
     }
 
     @Override
@@ -53,7 +56,7 @@ public class WorldStateProvider extends PlaceholderExpansion {
     @Override
     public String onPlaceholderRequest(Player player, @NotNull String params) {
         if (player == null) {
-            return messageConfiguration.getFeedbackError();
+            return systemMessages.getErrorMessage();
         }
 
         if (params.equalsIgnoreCase("state_pvp_current_world")) {
@@ -69,16 +72,16 @@ public class WorldStateProvider extends PlaceholderExpansion {
             }
         }
 
-        return messageConfiguration.getFeedbackError();
+        return systemMessages.getErrorMessage();
     }
 
     private String getPvpStateForWorld(World world) {
-        if (!SearchUtil.containsWorldName(worldConfiguration.getWorldNames(), world.getName())) {
-            return messageConfiguration.getFeedbackError();
+        if (!SearchUtil.containsWorldName(generalConfiguration.getWorldNames(), world.getName())) {
+            return systemMessages.getErrorMessage();
         }
 
         boolean pvpStatus = isPvpEnabled(world);
-        return pvpStatus ? messageConfiguration.getPlaceholderPvpEnabled() : messageConfiguration.getPlaceholderPvpDisabled();
+        return pvpStatus ? placeholderMessages.getPvpEnabledMessage() : placeholderMessages.getPvpDisabledMessage();
     }
 
     private boolean isPvpEnabled(World world) {
