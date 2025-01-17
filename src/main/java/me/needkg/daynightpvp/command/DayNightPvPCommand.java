@@ -13,12 +13,12 @@ import org.jetbrains.annotations.NotNull;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class DayNightPvpCommand implements CommandExecutor, TabCompleter {
+public class DayNightPvPCommand implements CommandExecutor, TabCompleter {
 
     private final MessageConfiguration messageConfiguration;
     private final Map<String, ISubCommand> subCommands = new HashMap<>();
 
-    public DayNightPvpCommand() {
+    public DayNightPvPCommand() {
         DependencyContainer container = DependencyContainer.getInstance();
         this.messageConfiguration = container.getMessageSettings();
         registerSubCommands();

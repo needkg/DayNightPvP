@@ -9,12 +9,12 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
-public class LoseMoneyOnDeath {
+public class LoseMoney {
 
     private final WorldConfiguration worldConfiguration;
     private final MessageConfiguration messageConfiguration;
 
-    public LoseMoneyOnDeath(WorldConfiguration worldConfiguration, MessageConfiguration messageConfiguration) {
+    public LoseMoney(WorldConfiguration worldConfiguration, MessageConfiguration messageConfiguration) {
         this.worldConfiguration = worldConfiguration;
         this.messageConfiguration = messageConfiguration;
     }
@@ -36,7 +36,7 @@ public class LoseMoneyOnDeath {
             double amount = currentBalance * (parsedPercentage / 100.0);
             double amountRounded = Math.round(amount * 100.0) / 100.0;
 
-            if (worldConfiguration.getVaultLoseMoneyOnDeathOnlyAtNight(world.getName())) {
+            if (worldConfiguration.getIntegrationsVaultLoseMoneyOnlyAtNight(world.getName())) {
                 if (WorldStateController.nightWorlds.contains(world)) {
                     economy.withdrawPlayer(killed, amountRounded);
                     shouldWithdraw = true;
@@ -51,7 +51,7 @@ public class LoseMoneyOnDeath {
                 String killedName = killed.getName();
                 String killerName = killer.getName(); // Corrigido killerName para pegar o nome do killer
                 killed.sendMessage(messageConfiguration.getFeedbackLoseMoney().replace("{0}", killerName).replace("{1}", money));
-                if (worldConfiguration.getVaultLoseMoneyOnDeathKillerRewardMoney(world.getName())) {
+                if (worldConfiguration.getIntegrationsVaultLoseMoneyRewardKiller(world.getName())) {
                     economy.depositPlayer(killer, amountRounded);
                     killer.sendMessage(messageConfiguration.getFeedbackWinMoney().replace("{0}", killedName).replace("{1}", money));
                 }

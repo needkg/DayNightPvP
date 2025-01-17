@@ -65,7 +65,7 @@ public abstract class AbstractDamageListener {
 
     private boolean isPlayerInDayWorld(@NotNull Player victim, @NotNull Player attacker, @NotNull String worldName) {
         if (WorldUtil.isPlayerInDayWorld(victim)) {
-            if (worldConfiguration.getNotifyPlayersChatHitAnotherPlayerDuringDay(worldName)) {
+            if (worldConfiguration.getNotificationsChatNoPvpWarn(worldName)) {
                 attacker.sendMessage(messageConfiguration.getNotifyPvpDisabled());
             }
             return true;
@@ -75,7 +75,7 @@ public abstract class AbstractDamageListener {
 
     private boolean isGriefPreventionBlocking(@NotNull Player victim, @NotNull Player attacker, @NotNull String worldName) {
         return DayNightPvP.isGriefPresent
-                && !worldConfiguration.getGriefPreventionPvpInLand(worldName)
+                && !worldConfiguration.getIntegrationsGriefPreventionPvpInClaims(worldName)
                 && griefPreventionManager.verify(victim, attacker);
     }
 }

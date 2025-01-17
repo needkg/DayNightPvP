@@ -7,103 +7,83 @@
 #   ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═══╝╚═╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝       ╚═══╝  ╚═╝        #
 # ============================================================================================= #
 
-# Configuration file version
-# DO NOT MODIFY THIS VALUE! Used internally by the plugin
-version: 20
+# DayNightPvP - Configuration
+# Configuration version (do not change)
+version: 21
 
-# Enables or disables the update checker
-# Recommended to keep enabled for notification of new versions
+# ===================
+#  General Settings
+# ===================
+# Check for plugin updates
 update-checker: true
 
 # Plugin language
-# Available languages:
-# - en-US (English)
-# - pt-BR (Portuguese Brazil)
-# - es-ES (Spanish)
-# - ru-RU (Russian)
+# Available: en-US, pt-BR, es-ES, ru-RU
 language: en-US
 
-# -----------------------------------------------------------
-# Day/Night Duration Settings
-# -----------------------------------------------------------
-# - day-night-duration:
-#     enabled:               # Enables custom day/night duration. (Default: false)
-#     day-duration:          # Duration of the day in seconds. (Range: 1 - 86400, Default: 600)
-#     night-duration:        # Duration of the night in seconds. (Range: 1 - 86400, Default: 600)
-# -----------------------------------------------------------
-
-# -----------------------------------------------------------
-# Automatic PvP Settings
-# -----------------------------------------------------------
-# - automatic-pvp:
-#     enabled:               # Enables automatic PvP. (Default: true)
-#     day-end:               # Time in ticks when the day ends. (Range: 1 - 24000, Default: 12000)
-# -----------------------------------------------------------
-
-# -----------------------------------------------------------
-# BossBar Settings
-# -----------------------------------------------------------
-# - boss-bar:
-#     time-remaining:        # Shows time remaining until day/night starts. (Default: true)
-# -----------------------------------------------------------
-
-# -----------------------------------------------------------
-# Automatic Difficulty Settings
-# -----------------------------------------------------------
-# - automatic-difficulty:
-#     enabled:               # Enables automatic difficulty change. (Default: false)
-#     day:                   # Difficulty level during the day. (Values: PEACEFUL, EASY, NORMAL, HARD)
-#     night:                 # Difficulty level during the night. (Values: PEACEFUL, EASY, NORMAL, HARD)
-# -----------------------------------------------------------
-
-# -----------------------------------------------------------
-# PvP Settings
-# -----------------------------------------------------------
-# - pvp-settings:
-#     keep-inventory-when-killed-by-player: # Keeps items on death when killed by a player. (Default: false)
-# -----------------------------------------------------------
-
-# -----------------------------------------------------------
-# Notification Settings
-# -----------------------------------------------------------
-# - notify-players:
-#     chat:
-#         day-night-starts:     # Alerts when day or night starts. (Default: true)
-#         hit-another-player-during-day: # Alerts that combat is disabled during the day. (Default: true)
-#     title:
-#         enabled:              # Enables title notifications. (Default: true)
-#         fade-in:              # Duration for the title fade-in effect. (Default: 20 ticks = 1 second)
-#         stay:                 # Duration the title remains on screen.
-#         fade-out:             # Duration for the title fade-out effect. (Default: 20 ticks = 1 second)
-#     sound:
-#         enabled:              # Enables sound notifications. (Default: false)
-#         day:
-#             sound:            # Sound played during the day. (See the sound list)
-#             volume:           # Volume of the sound. (Range: 0.0 - 1.0, Default: 1.0)
-#         night:
-#             sound:            # Sound played during the night. (See the sound list)
-#             volume:           # Volume of the sound. (Range: 0.0 - 1.0, Default: 1.0)
+# ===================
+#  World Settings
+# ===================
+# World Configuration Guide:
+# Use these commands to manage worlds:
+# /dnp addworld <world> - Add a new world
+# /dnp delworld <world> - Remove a world
+# /dnp editworld <world> <setting> <value> - Edit world settings
 #
-# - Complete sound list:
-#   https://github.com/CallVDois/needkg/wiki/Sounds
-# -----------------------------------------------------------
-
-# -----------------------------------------------------------
-# Vault Settings
-# -----------------------------------------------------------
-# - vault:
-#     lose-money-on-death:
-#         enabled:             # Players lose money upon death if they have 'dnp.losemoney.<percentage>' permission.
-#         only-at-night:       # Money is lost only at night. (Default: false)
-#         killer-reward-money: # The killer receives the money lost by the victim. (Default: true)
-# -----------------------------------------------------------
-
-# -----------------------------------------------------------
-# GriefPrevention Settings
-# -----------------------------------------------------------
-# - grief-prevention:
-#     pvp-in-land:           # Allows PvP to continue inside GriefPrevention land if combat started outside. (Default: false)
-# ----------------------------------------------------------
+# Example Configuration with Explanations:
+# worlds:
+#   world: # Replace 'world' with your world name
+#     # Custom Day/Night Duration System
+#     day-night-duration:
+#       enabled: false # Set to true to use custom durations
+#       day-duration: 600 # Day length in seconds (default: 600 = 10 minutes)
+#       night-duration: 600 # Night length in seconds (default: 600 = 10 minutes)
+#
+#     # PvP Control System
+#     pvp:
+#       automatic:
+#         enabled: true # When true, PvP is disabled during day and enabled at night
+#         day-end: 12000 # When night begins (in ticks).
+#       keep-inventory-on-pvp: false # If true, players keep items ONLY when killed by other players. Deaths from mobs, falls, etc. will still drop items
+#
+#     # Progress Bar Display
+#     boss-bar:
+#       enabled: false # Shows day/night cycle progress at screen top
+#
+#     # World Difficulty Control
+#     difficulty:
+#       enabled: false # Automatic difficulty changes between day/night
+#       day: NORMAL # World difficulty during day (PEACEFUL/EASY/NORMAL/HARD)
+#       night: HARD # World difficulty during night
+#
+#     # Player Notifications
+#     notifications:
+#       chat:
+#         day-night-change: true # Announce day/night changes in chat
+#         no-pvp-warn: true # Warn players when PvP is disabled
+#       title:
+#         enabled: true # Show title messages on screen
+#         fade-in: 20 # Time to appear (in ticks, 20 = 1 second)
+#         stay: 20 # Time on screen
+#         fade-out: 20 # Time to disappear
+#       sound:
+#         enabled: true # Play sounds on day/night change
+#         day:
+#           type: ENTITY_CHICKEN_AMBIENT # Sound at sunrise
+#           volume: 1.0 # Sound volume (0.0 to 1.0)
+#         night:
+#           type: ENTITY_GHAST_AMBIENT # Sound at sunset
+#           volume: 1.0
+#
+#     # Plugin Integrations
+#     integrations:
+#       vault:
+#         lose-money:
+#           enabled: false # Economy system for PvP
+#           only-at-night: true # Only lose money during night
+#           reward-killer: true # Give lost money to killer
+#       grief-prevention:
+#         pvp-in-claims: false # Allow PvP in protected areas
 
 worlds:
   world:
@@ -111,21 +91,21 @@ worlds:
       enabled: false
       day-duration: 600
       night-duration: 600
-    automatic-pvp:
-      enabled: true
-      day-end: 12000
+    pvp:
+      automatic:
+        enabled: true
+        day-end: 12000
+      keep-inventory-on-pvp: false
     boss-bar:
-      time-remaining: false
-    automatic-difficulty:
+      enabled: false
+    difficulty:
       enabled: false
       day: NORMAL
       night: HARD
-    pvp-settings:
-      keep-inventory-when-killed-by-player: false
-    notify-players:
+    notifications:
       chat:
-        day-night-starts: true
-        hit-another-player-during-day: true
+        day-night-change: true
+        no-pvp-warn: true
       title:
         enabled: true
         fade-in: 20
@@ -134,15 +114,16 @@ worlds:
       sound:
         enabled: true
         day:
-          sound: ENTITY_CHICKEN_AMBIENT
+          type: ENTITY_CHICKEN_AMBIENT
           volume: 1.0
         night:
-          sound: ENTITY_GHAST_AMBIENT
+          type: ENTITY_GHAST_AMBIENT
           volume: 1.0
-    vault:
-      lose-money-on-death:
-        enabled: false
-        only-at-night: true
-        killer-reward-money: true
-    grief-prevention:
-      pvp-in-land: false
+    integrations:
+      vault:
+        lose-money:
+          enabled: false
+          only-at-night: true
+          reward-killer: true
+      grief-prevention:
+        pvp-in-claims: false

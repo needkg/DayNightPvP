@@ -29,7 +29,7 @@ public class TaskManager {
         this.worldTimeControllers = new HashMap<>();
     }
 
-    public void startAllRunnables() {
+    public void startAllTasks() {
         for (String worldName : worldConfiguration.getWorldNames()) {
             if (WorldUtil.isWorldValid(worldName)) {
                 initializeWorldTasks(worldName);
@@ -45,18 +45,18 @@ public class TaskManager {
             timeDurationController = initializeTimeController(worldName, world);
         }
 
-        if (worldConfiguration.getTimeRemainingBossBarEnabled(worldName)) {
+        if (worldConfiguration.getBossbarEnabled(worldName)) {
             initializeBossBar(worldName, world, timeDurationController);
         }
 
-        if (worldConfiguration.getAutomaticPvpEnabled(worldName)) {
+        if (worldConfiguration.getPvpAutomaticEnabled(worldName)) {
             initializeAutomaticPvP(worldName, world);
         }
     }
 
     private TimeDurationController initializeTimeController(String worldName, World world) {
         TimeDurationController timeDurationController = new TimeDurationController(
-                worldConfiguration.getAutomaticPvpDayEnd(worldName),
+                worldConfiguration.getPvpAutomaticDayEnd(worldName),
                 worldConfiguration.getDayNightDurationDayDuration(worldName),
                 worldConfiguration.getDayNightDurationNightDuration(worldName),
                 world);
@@ -78,7 +78,7 @@ public class TaskManager {
                 worldConfiguration.getDayNightDurationEnabled(worldName),
                 worldConfiguration.getDayNightDurationDayDuration(worldName),
                 worldConfiguration.getDayNightDurationNightDuration(worldName),
-                worldConfiguration.getAutomaticPvpDayEnd(worldName),
+                worldConfiguration.getPvpAutomaticDayEnd(worldName),
                 timeDurationController);
 
         scheduledTasks.add(scheduleRepeatingTask(bossBarTask, 20));
@@ -86,20 +86,20 @@ public class TaskManager {
 
     private void initializeAutomaticPvP(String worldName, World world) {
         WorldStateController pvpTask = new WorldStateController(
-                worldConfiguration.getAutomaticPvpDayEnd(worldName),
-                worldConfiguration.getAutomaticDifficultyEnabled(worldName),
-                worldConfiguration.getNotifyPlayersTitleEnabled(worldName),
-                worldConfiguration.getNotifyPlayersSoundEnabled(worldName),
-                worldConfiguration.getAutomaticDifficultyDay(worldName),
-                worldConfiguration.getAutomaticDifficultyNight(worldName),
-                worldConfiguration.getNotifyPlayersSoundDay(worldName),
-                worldConfiguration.getNotifyPlayersSoundNight(worldName),
-                worldConfiguration.getNotifyPlayersTitleFadeIn(worldName),
-                worldConfiguration.getNotifyPlayersTitleStay(worldName),
-                worldConfiguration.getNotifyPlayersTitleFadeOut(worldName),
-                worldConfiguration.getNotifyPlayersSoundNightVolume(worldName),
-                worldConfiguration.getNotifyPlayersSoundDayVolume(worldName),
-                worldConfiguration.getNotifyPlayersChatDayNightStartsEnabled(worldName),
+                worldConfiguration.getPvpAutomaticDayEnd(worldName),
+                worldConfiguration.getDifficultyEnabled(worldName),
+                worldConfiguration.getNotificationsTitleEnabled(worldName),
+                worldConfiguration.getNotificationsSoundEnabled(worldName),
+                worldConfiguration.getDifficultyDay(worldName),
+                worldConfiguration.getDifficultyNight(worldName),
+                worldConfiguration.getNotificationsSoundDayType(worldName),
+                worldConfiguration.getNotificationsSoundNightType(worldName),
+                worldConfiguration.getNotificationsTitleFadeIn(worldName),
+                worldConfiguration.getNotificationsTitleStay(worldName),
+                worldConfiguration.getNotificationsTitleFadeOut(worldName),
+                worldConfiguration.getNotificationsSoundNightVolume(worldName),
+                worldConfiguration.getNotificationsSoundDayVolume(worldName),
+                worldConfiguration.getNotificationsChatDayNightChangeEnabled(worldName),
                 world);
 
         scheduledTasks.add(scheduleRepeatingTask(pvpTask, 20));
@@ -109,7 +109,7 @@ public class TaskManager {
         return Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(DayNightPvP.getInstance(), task, 0, tickInterval);
     }
 
-    public void stopAllRunnables() {
+    public void stopAllTasks() {
         cancelAllTasks();
         clearWorldStates();
         removeBossBars();
@@ -138,7 +138,7 @@ public class TaskManager {
     }
 
     public void restart() {
-        stopAllRunnables();
-        startAllRunnables();
+        stopAllTasks();
+        startAllTasks();
     }
 }

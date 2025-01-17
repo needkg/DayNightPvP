@@ -3,7 +3,7 @@ package me.needkg.daynightpvp.listeners.player;
 import me.needkg.daynightpvp.DayNightPvP;
 import me.needkg.daynightpvp.configuration.settings.WorldConfiguration;
 import me.needkg.daynightpvp.core.di.DependencyContainer;
-import me.needkg.daynightpvp.feature.vault.LoseMoneyOnDeath;
+import me.needkg.daynightpvp.feature.vault.LoseMoney;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -14,12 +14,12 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 public class PlayerDeathListener implements Listener {
 
     private final WorldConfiguration worldConfiguration;
-    private final LoseMoneyOnDeath loseMoneyOnDeath;
+    private final LoseMoney loseMoney;
 
     public PlayerDeathListener() {
         DependencyContainer container = DependencyContainer.getInstance();
         this.worldConfiguration = container.getWorldSettings();
-        this.loseMoneyOnDeath = container.getLoseMoneyOnDeath();
+        this.loseMoney = container.getLoseMoneyOnDeath();
     }
 
     @EventHandler
@@ -39,7 +39,7 @@ public class PlayerDeathListener implements Listener {
     }
 
     private void handleKeepInventory(PlayerDeathEvent event, String worldName) {
-        if (worldConfiguration.getPvpSettingsKeepInventoryWhenKilledByPlayersEnabled(worldName)) {
+        if (worldConfiguration.getPvpKeepInventoryOnPvp(worldName)) {
             event.setKeepInventory(true);
             event.getDrops().clear();
         }
@@ -53,13 +53,13 @@ public class PlayerDeathListener implements Listener {
         Bukkit.getScheduler().runTaskAsynchronously(DayNightPvP.getInstance(), () -> {
             String loseMoneyPercentage = extractLoseMoneyPercentage(killed);
             if (!loseMoneyPercentage.isEmpty()) {
-                loseMoneyOnDeath.loseMoneyOnDeath(killed, killer, world, loseMoneyPercentage);
+                loseMoney.loseMoneyOnDeath(killed, killer, world, loseMoneyPercentage);
             }
         });
     }
 
     private boolean shouldHandleMoneyLoss(String worldName) {
-        return worldConfiguration.getVaultLoseMoneyOnDeathEnabled(worldName) && DayNightPvP.isVaultPresent;
+        return worldConfiguration.getIntegrationsVaultLoseMoneyEnabled(worldName) && DayNightPvP.isVaultPresent;
     }
 
     private String extractLoseMoneyPercentage(Player player) {

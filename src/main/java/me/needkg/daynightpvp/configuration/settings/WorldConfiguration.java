@@ -20,7 +20,6 @@ public class WorldConfiguration {
         return validator.getConfigSection("worlds");
     }
 
-
     public List<String> getValidWorldNames() {
         Set<String> worldNames = getWorldNames();
         List<String> validWorldNames = new ArrayList<>();
@@ -44,99 +43,99 @@ public class WorldConfiguration {
         return validator.getInt("worlds." + worldName + ".day-night-duration.night-duration", 600, 1, 86400);
     }
 
-    public boolean getAutomaticPvpEnabled(String worldName) {
-        return validator.getBoolean("worlds." + worldName + ".automatic-pvp.enabled", true);
+    public boolean getPvpAutomaticEnabled(String worldName) {
+        return validator.getBoolean("worlds." + worldName + ".pvp.automatic.enabled", true);
     }
 
-    public int getAutomaticPvpDayEnd(String worldName) {
-        return validator.getInt("worlds." + worldName + ".automatic-pvp.day-end", 12000, 1, 24000);
+    public int getPvpAutomaticDayEnd(String worldName) {
+        return validator.getInt("worlds." + worldName + ".pvp.automatic.day-end", 12000, 1, 24000);
     }
 
-    public boolean getTimeRemainingBossBarEnabled(String worldName) {
-        return validator.getBoolean("worlds." + worldName + ".boss-bar.time-remaining", false);
-    }
-
-    public boolean getAutomaticDifficultyEnabled(String worldName) {
-        return validator.getBoolean("worlds." + worldName + ".automatic-difficulty.enabled", false);
-    }
-
-    public Difficulty getAutomaticDifficultyDay(String worldName) {
-        return validator.getDifficulty("worlds." + worldName + ".automatic-difficulty.day", Difficulty.NORMAL);
-    }
-
-    public Difficulty getAutomaticDifficultyNight(String worldName) {
-        return validator.getDifficulty("worlds." + worldName + ".automatic-difficulty.night", Difficulty.HARD);
-    }
-
-    public boolean getPvpSettingsKeepInventoryWhenKilledByPlayersEnabled(String worldName) {
+    public boolean getPvpKeepInventoryOnPvp(String worldName) {
         if (getWorldNames().contains(worldName)) {
-            return validator.getBoolean("worlds." + worldName + ".pvp-settings.keep-inventory-when-killed-by-player", false);
+            return validator.getBoolean("worlds." + worldName + ".pvp.keep-inventory-on-pvp", false);
         }
         return false;
     }
 
-    public boolean getNotifyPlayersChatDayNightStartsEnabled(String worldName) {
-        return validator.getBoolean("worlds." + worldName + ".notify-players.chat.day-night-starts", true);
+    public boolean getBossbarEnabled(String worldName) {
+        return validator.getBoolean("worlds." + worldName + ".boss-bar.enabled", false);
     }
 
-    public boolean getNotifyPlayersChatHitAnotherPlayerDuringDay(String worldName) {
-        return validator.getBoolean("worlds." + worldName + ".notify-players.chat.hit-another-player-during-day", true);
+    public boolean getDifficultyEnabled(String worldName) {
+        return validator.getBoolean("worlds." + worldName + ".difficulty.enabled", false);
     }
 
-    public boolean getNotifyPlayersTitleEnabled(String worldName) {
-        return validator.getBoolean("worlds." + worldName + ".notify-players.title.enabled", true);
+    public Difficulty getDifficultyDay(String worldName) {
+        return validator.getDifficulty("worlds." + worldName + ".difficulty.day", Difficulty.NORMAL);
     }
 
-    public int getNotifyPlayersTitleFadeIn(String worldName) {
-        return validator.getInt("worlds." + worldName + ".notify-players.title.fade-in", 20, 1, 86400);
+    public Difficulty getDifficultyNight(String worldName) {
+        return validator.getDifficulty("worlds." + worldName + ".difficulty.night", Difficulty.HARD);
     }
 
-    public int getNotifyPlayersTitleStay(String worldName) {
-        return validator.getInt("worlds." + worldName + ".notify-players.title.stay", 20, 1, 86400);
+    public boolean getNotificationsChatDayNightChangeEnabled(String worldName) {
+        return validator.getBoolean("worlds." + worldName + ".notifications.chat.day-night-change", true);
     }
 
-    public int getNotifyPlayersTitleFadeOut(String worldName) {
-        return validator.getInt("worlds." + worldName + ".notify-players.title.fade-out", 20, 1, 86400);
+    public boolean getNotificationsChatNoPvpWarn(String worldName) {
+        return validator.getBoolean("worlds." + worldName + ".notifications.chat.no-pvp-warn", true);
     }
 
-    public boolean getNotifyPlayersSoundEnabled(String worldName) {
-        return validator.getBoolean("worlds." + worldName + ".notify-players.sound.enabled", true);
+    public boolean getNotificationsTitleEnabled(String worldName) {
+        return validator.getBoolean("worlds." + worldName + ".notifications.title.enabled", true);
     }
 
-    public Sound getNotifyPlayersSoundDay(String worldName) {
-        return validator.getSound("worlds." + worldName + ".notify-players.sound.day.sound", Sound.ENTITY_CHICKEN_AMBIENT);
+    public int getNotificationsTitleFadeIn(String worldName) {
+        return validator.getInt("worlds." + worldName + ".notifications.title.fade-in", 20, 1, 86400);
     }
 
-    public float getNotifyPlayersSoundDayVolume(String worldName) {
-        return validator.getFloat("worlds." + worldName + ".notify-players.sound.day.volume", 1.0F, 0.0F, 1.0F);
+    public int getNotificationsTitleStay(String worldName) {
+        return validator.getInt("worlds." + worldName + ".notifications.title.stay", 20, 1, 86400);
     }
 
-    public Sound getNotifyPlayersSoundNight(String worldName) {
-        return validator.getSound("worlds." + worldName + ".notify-players.sound.night.sound", Sound.ENTITY_GHAST_AMBIENT);
+    public int getNotificationsTitleFadeOut(String worldName) {
+        return validator.getInt("worlds." + worldName + ".notifications.title.fade-out", 20, 1, 86400);
     }
 
-    public float getNotifyPlayersSoundNightVolume(String worldName) {
-        return validator.getFloat("worlds." + worldName + ".notify-players.sound.night.volume", 1.0F, 0.0F, 1.0F);
+    public boolean getNotificationsSoundEnabled(String worldName) {
+        return validator.getBoolean("worlds." + worldName + ".notifications.sound.enabled", true);
     }
 
-    public boolean getVaultLoseMoneyOnDeathEnabled(String worldName) {
+    public Sound getNotificationsSoundDayType(String worldName) {
+        return validator.getSound("worlds." + worldName + ".notifications.sound.day.type", Sound.ENTITY_CHICKEN_AMBIENT);
+    }
+
+    public float getNotificationsSoundDayVolume(String worldName) {
+        return validator.getFloat("worlds." + worldName + ".notifications.sound.day.volume", 1.0F, 0.0F, 1.0F);
+    }
+
+    public Sound getNotificationsSoundNightType(String worldName) {
+        return validator.getSound("worlds." + worldName + ".notifications.sound.night.type", Sound.ENTITY_GHAST_AMBIENT);
+    }
+
+    public float getNotificationsSoundNightVolume(String worldName) {
+        return validator.getFloat("worlds." + worldName + ".notifications.sound.night.volume", 1.0F, 0.0F, 1.0F);
+    }
+
+    public boolean getIntegrationsVaultLoseMoneyEnabled(String worldName) {
         if (getWorldNames().contains(worldName)) {
-            return validator.getBoolean("worlds." + worldName + ".vault.lose-money-on-death.enabled", false);
+            return validator.getBoolean("worlds." + worldName + ".integrations.vault.lose-money.enabled", false);
         }
         return false;
     }
 
-    public boolean getVaultLoseMoneyOnDeathOnlyAtNight(String worldName) {
-        return validator.getBoolean("worlds." + worldName + ".vault.lose-money-on-death.only-at-night", true);
+    public boolean getIntegrationsVaultLoseMoneyOnlyAtNight(String worldName) {
+        return validator.getBoolean("worlds." + worldName + ".integrations.vault.lose-money.only-at-night", true);
     }
 
-    public boolean getVaultLoseMoneyOnDeathKillerRewardMoney(String worldName) {
-        return validator.getBoolean("worlds." + worldName + ".vault.lose-money-on-death.killer-reward-money", true);
+    public boolean getIntegrationsVaultLoseMoneyRewardKiller(String worldName) {
+        return validator.getBoolean("worlds." + worldName + ".integrations.vault.lose-money.reward-killer", true);
     }
 
-    public boolean getGriefPreventionPvpInLand(String worldName) {
+    public boolean getIntegrationsGriefPreventionPvpInClaims(String worldName) {
         if (getWorldNames().contains(worldName)) {
-            return validator.getBoolean("worlds." + worldName + ".grief-prevention.pvp-in-land", false);
+            return validator.getBoolean("worlds." + worldName + ".integrations.grief-prevention.pvp-in-claims", false);
         }
         return false;
     }

@@ -69,33 +69,38 @@ public class AddWorldSubCommand implements ISubCommand {
     }
 
     private void addWorldToConfig(String worldName) {
+
         configurationManager.setValue("worlds." + worldName + ".day-night-duration.enabled", false);
         configurationManager.setValue("worlds." + worldName + ".day-night-duration.day-duration", 600);
         configurationManager.setValue("worlds." + worldName + ".day-night-duration.night-duration", 600);
-        configurationManager.setValue("worlds." + worldName + ".automatic-pvp.enabled", true);
-        configurationManager.setValue("worlds." + worldName + ".automatic-pvp.day-end", 12000);
-        configurationManager.setValue("worlds." + worldName + ".boss-bar.time-remaining", false);
-        configurationManager.setValue("worlds." + worldName + ".automatic-difficulty.enabled", false);
-        configurationManager.setValue("worlds." + worldName + ".automatic-difficulty.day", "NORMAL");
-        configurationManager.setValue("worlds." + worldName + ".automatic-difficulty.night", "HARD");
-        configurationManager.setValue("worlds." + worldName + ".pvp-settings.keep-inventory-when-killed-by-player", false);
-        configurationManager.setValue("worlds." + worldName + ".notify-players.chat.enabled", true);
-        configurationManager.setValue("worlds." + worldName + ".notify-players.chat.day-night-starts", true);
-        configurationManager.setValue("worlds." + worldName + ".notify-players.chat.hit-another-player-during-day", true);
-        configurationManager.setValue("worlds." + worldName + ".notify-players.title.enabled", true);
-        configurationManager.setValue("worlds." + worldName + ".notify-players.title.fade-in", 20);
-        configurationManager.setValue("worlds." + worldName + ".notify-players.title.stay", 20);
-        configurationManager.setValue("worlds." + worldName + ".notify-players.title.fade-out", 20);
-        configurationManager.setValue("worlds." + worldName + ".notify-players.sound.enabled", true);
-        configurationManager.setValue("worlds." + worldName + ".notify-players.sound.day.sound", "ENTITY_CHICKEN_AMBIENT");
-        configurationManager.setValue("worlds." + worldName + ".notify-players.sound.day.volume", 1.0);
-        configurationManager.setValue("worlds." + worldName + ".notify-players.sound.night.sound", "ENTITY_GHAST_AMBIENT");
-        configurationManager.setValue("worlds." + worldName + ".notify-players.sound.night.volume", 1.0);
-        configurationManager.setValue("worlds." + worldName + ".vault.lose-money-on-death.enabled", false);
-        configurationManager.setValue("worlds." + worldName + ".vault.lose-money-on-death.only-at-night", true);
-        configurationManager.setValue("worlds." + worldName + ".vault.lose-money-on-death.only-in-configured-worlds", true);
-        configurationManager.setValue("worlds." + worldName + ".vault.lose-money-on-death.killer-reward-money", true);
-        configurationManager.setValue("worlds." + worldName + ".grief-prevention.pvp-in-land", false);
+
+        configurationManager.setValue("worlds." + worldName + ".pvp.automatic.enabled", true);
+        configurationManager.setValue("worlds." + worldName + ".pvp.automatic.day-end", 12000);
+        configurationManager.setValue("worlds." + worldName + ".pvp.keep-inventory", false);
+
+        configurationManager.setValue("worlds." + worldName + ".boss-bar.enabled", false);
+
+        configurationManager.setValue("worlds." + worldName + ".difficulty.enabled", false);
+        configurationManager.setValue("worlds." + worldName + ".difficulty.day", "NORMAL");
+        configurationManager.setValue("worlds." + worldName + ".difficulty.night", "HARD");
+
+        configurationManager.setValue("worlds." + worldName + ".notifications.chat.day-night-change", true);
+        configurationManager.setValue("worlds." + worldName + ".notifications.chat.no-pvp-message", true);
+        configurationManager.setValue("worlds." + worldName + ".notifications.title.enabled", true);
+        configurationManager.setValue("worlds." + worldName + ".notifications.title.fade-in", 20);
+        configurationManager.setValue("worlds." + worldName + ".notifications.title.stay", 20);
+        configurationManager.setValue("worlds." + worldName + ".notifications.title.fade-out", 20);
+        configurationManager.setValue("worlds." + worldName + ".notifications.sound.enabled", true);
+        configurationManager.setValue("worlds." + worldName + ".notifications.sound.day.type", "ENTITY_CHICKEN_AMBIENT");
+        configurationManager.setValue("worlds." + worldName + ".notifications.sound.day.volume", 1.0);
+        configurationManager.setValue("worlds." + worldName + ".notifications.sound.night.type", "ENTITY_GHAST_AMBIENT");
+        configurationManager.setValue("worlds." + worldName + ".notifications.sound.night.volume", 1.0);
+
+        configurationManager.setValue("worlds." + worldName + ".integrations.vault.lose-money.enabled", false);
+        configurationManager.setValue("worlds." + worldName + ".integrations.vault.lose-money.only-at-night", true);
+        configurationManager.setValue("worlds." + worldName + ".integrations.vault.lose-money.reward-killer", true);
+        configurationManager.setValue("worlds." + worldName + ".integrations.grief-prevention.pvp-in-claims", false);
+
         configurationManager.saveFile();
     }
 

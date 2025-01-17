@@ -46,7 +46,7 @@ public class DayNightPvP extends JavaPlugin {
         container.getCommandHandler().register();
         container.getListenersHandler().register();
         container.getPlaceholderHandler().register();
-        container.getRunnableHandler().startAllRunnables();
+        container.getRunnableHandler().startAllTasks();
     }
 
     private void verifyCompatibilityPlugins() {

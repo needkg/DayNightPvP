@@ -9,7 +9,7 @@ import me.needkg.daynightpvp.configuration.settings.MessageConfiguration;
 import me.needkg.daynightpvp.configuration.settings.WorldConfiguration;
 import me.needkg.daynightpvp.configuration.validator.ConfigurationValidator;
 import me.needkg.daynightpvp.configuration.validator.LanguageValidator;
-import me.needkg.daynightpvp.feature.vault.LoseMoneyOnDeath;
+import me.needkg.daynightpvp.feature.vault.LoseMoney;
 import me.needkg.daynightpvp.listeners.ListenerManager;
 import me.needkg.daynightpvp.metrics.MetricsManager;
 import me.needkg.daynightpvp.service.PluginService;
@@ -28,7 +28,7 @@ public class DependencyContainer {
     private MessageConfiguration messageConfiguration;
 
     private TaskManager taskManager;
-    private LoseMoneyOnDeath loseMoneyOnDeath;
+    private LoseMoney loseMoney;
     private CommandManager commandManager;
     private ListenerManager listenerManager;
     private PlaceholderManager placeholderManager;
@@ -63,7 +63,7 @@ public class DependencyContainer {
 
         taskManager = new TaskManager(worldConfiguration);
 
-        loseMoneyOnDeath = new LoseMoneyOnDeath(worldConfiguration, messageConfiguration);
+        loseMoney = new LoseMoney(worldConfiguration, messageConfiguration);
 
         listenerManager = new ListenerManager(generalConfiguration);
 
@@ -79,10 +79,6 @@ public class DependencyContainer {
         return configurationManager;
     }
 
-    public ConfigurationValidator getConfigValidator() {
-        return configurationValidator;
-    }
-
     public GeneralConfiguration getGeneralSettings() {
         return generalConfiguration;
     }
@@ -95,10 +91,6 @@ public class DependencyContainer {
         return languageManager;
     }
 
-    public LanguageValidator getLangValidator() {
-        return languageValidator;
-    }
-
     public MessageConfiguration getMessageSettings() {
         return messageConfiguration;
     }
@@ -107,8 +99,8 @@ public class DependencyContainer {
         return taskManager;
     }
 
-    public LoseMoneyOnDeath getLoseMoneyOnDeath() {
-        return loseMoneyOnDeath;
+    public LoseMoney getLoseMoneyOnDeath() {
+        return loseMoney;
     }
 
     public CommandManager getCommandHandler() {
