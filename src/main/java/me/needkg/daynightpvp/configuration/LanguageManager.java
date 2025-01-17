@@ -6,7 +6,7 @@ import me.needkg.daynightpvp.configuration.config.GeneralConfiguration;
 
 public class LanguageManager extends AbstractConfigurationFile {
 
-    private static final int LATEST_FILE_VERSION = 17;
+    private static final int LATEST_FILE_VERSION = 18;
     private final GeneralConfiguration generalConfiguration;
 
     public LanguageManager(ConfigurationContainer configurationContainer) {

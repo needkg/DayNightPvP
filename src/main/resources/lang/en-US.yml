@@ -1,6 +1,6 @@
 # DayNightPvP Language File
 # DO NOT MODIFY THIS VALUE! Used internally by the plugin
-version: 17
+version: 18
 
 notifications:
   combat:

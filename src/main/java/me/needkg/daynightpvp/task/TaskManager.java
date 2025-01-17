@@ -22,8 +22,6 @@ public class TaskManager {
     private final DayNightDurationConfiguration dayNightDurationConfiguration;
     private final BossbarConfiguration bossbarConfiguration;
     private final PvpConfiguration pvpConfiguration;
-    private final DifficultyConfiguration difficultyConfiguration;
-    private final NotificationConfiguration notificationConfiguration;
     private final List<Integer> scheduledTasks;
     private final List<BossBar> activeBossBars;
     private final Map<String, TimeDurationController> worldTimeControllers;
@@ -33,8 +31,6 @@ public class TaskManager {
         this.dayNightDurationConfiguration = configurationContainer.getDayNightDurationConfiguration();
         this.bossbarConfiguration = configurationContainer.getBossbarConfiguration();
         this.pvpConfiguration = configurationContainer.getPvpConfiguration();
-        this.difficultyConfiguration = configurationContainer.getDifficultyConfiguration();
-        this.notificationConfiguration = configurationContainer.getNotificationConfiguration();
         this.scheduledTasks = new ArrayList<>();
         this.activeBossBars = new ArrayList<>();
         this.worldTimeControllers = new HashMap<>();
@@ -66,11 +62,7 @@ public class TaskManager {
     }
 
     private TimeDurationController initializeTimeController(String worldName, World world) {
-        TimeDurationController timeDurationController = new TimeDurationController(
-                pvpConfiguration.getPvpAutomaticDayEnd(worldName),
-                dayNightDurationConfiguration.getDayNightDurationDayDuration(worldName),
-                dayNightDurationConfiguration.getDayNightDurationNightDuration(worldName),
-                world);
+        TimeDurationController timeDurationController = new TimeDurationController(world, worldName);
 
         scheduledTasks.add(scheduleRepeatingTask(timeDurationController, 1));
         world.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
@@ -83,35 +75,13 @@ public class TaskManager {
         BossBar bossBar = Bukkit.createBossBar("bossbar", BarColor.BLUE, BarStyle.SOLID);
         activeBossBars.add(bossBar);
 
-        TimeBossBar bossBarTask = new TimeBossBar(
-                bossBar,
-                world,
-                dayNightDurationConfiguration.getDayNightDurationEnabled(worldName),
-                dayNightDurationConfiguration.getDayNightDurationDayDuration(worldName),
-                dayNightDurationConfiguration.getDayNightDurationNightDuration(worldName),
-                pvpConfiguration.getPvpAutomaticDayEnd(worldName),
-                timeDurationController);
+        TimeBossBar bossBarTask = new TimeBossBar(bossBar, world, worldName, timeDurationController);
 
         scheduledTasks.add(scheduleRepeatingTask(bossBarTask, 20));
     }
 
     private void initializeAutomaticPvP(String worldName, World world) {
-        WorldStateController pvpTask = new WorldStateController(
-                pvpConfiguration.getPvpAutomaticDayEnd(worldName),
-                difficultyConfiguration.getDifficultyEnabled(worldName),
-                notificationConfiguration.getNotificationsTitleEnabled(worldName),
-                notificationConfiguration.getNotificationsSoundEnabled(worldName),
-                difficultyConfiguration.getDifficultyDay(worldName),
-                difficultyConfiguration.getDifficultyNight(worldName),
-                notificationConfiguration.getNotificationsSoundDayType(worldName),
-                notificationConfiguration.getNotificationsSoundNightType(worldName),
-                notificationConfiguration.getNotificationsTitleFadeIn(worldName),
-                notificationConfiguration.getNotificationsTitleStay(worldName),
-                notificationConfiguration.getNotificationsTitleFadeOut(worldName),
-                notificationConfiguration.getNotificationsSoundNightVolume(worldName),
-                notificationConfiguration.getNotificationsSoundDayVolume(worldName),
-                notificationConfiguration.getNotificationsChatDayNightChangeEnabled(worldName),
-                world);
+        WorldStateController pvpTask = new WorldStateController(world, worldName);
 
         scheduledTasks.add(scheduleRepeatingTask(pvpTask, 20));
     }

@@ -1,24 +1,38 @@
 package me.needkg.daynightpvp.task;
 
+import me.needkg.daynightpvp.configuration.config.DayNightDurationConfiguration;
+import me.needkg.daynightpvp.configuration.config.PvpConfiguration;
+import me.needkg.daynightpvp.core.di.DependencyContainer;
 import org.bukkit.World;
 
 public class TimeDurationController implements Runnable {
 
+    private static final double TICKS_PER_DAY = 24000.0;
+    private static final double TICKS_PER_SECOND = 20.0;
+
     private final double dayTickIncrement;
     private final double nightTickIncrement;
-    private final long dayTicks;
     private final World world;
+    private final String worldName;
     private double tickAccumulator;
     private double virtualTime;
     private long lastRealTime;
+    private final PvpConfiguration pvpConfiguration;
+    private final DayNightDurationConfiguration dayNightDurationConfiguration;
+    private final long pvpDayEnd;
 
-    public TimeDurationController(long dayTicks, int dayDuration, int nightDuration, World world) {
-        this.dayTicks = dayTicks;
+    public TimeDurationController(World world, String worldName) {
+        DependencyContainer container = DependencyContainer.getInstance();
+        pvpConfiguration = container.getConfigurationContainer().getPvpConfiguration();
+        dayNightDurationConfiguration = container.getConfigurationContainer().getDayNightDurationConfiguration();
         this.world = world;
+        this.worldName = worldName;
         this.virtualTime = world.getTime();
         this.lastRealTime = world.getTime();
-        this.dayTickIncrement = (double) dayTicks / (dayDuration * 20.0);
-        this.nightTickIncrement = (double) (24000 - dayTicks) / (nightDuration * 20.0);
+        this.pvpDayEnd = pvpConfiguration.getPvpAutomaticDayEnd(worldName);
+        
+        this.dayTickIncrement = pvpDayEnd / (dayNightDurationConfiguration.getDayNightDurationDayDuration(worldName) * TICKS_PER_SECOND);
+        this.nightTickIncrement = (TICKS_PER_DAY - pvpDayEnd) / (dayNightDurationConfiguration.getDayNightDurationNightDuration(worldName) * TICKS_PER_SECOND);
     }
 
     public double getVirtualTime() {
@@ -34,7 +48,7 @@ public class TimeDurationController implements Runnable {
 
     private void handleTimeChange(long currentTime) {
         long timeDifference = Math.abs(currentTime - lastRealTime);
-        if (timeDifference > 20) {
+        if (timeDifference > TICKS_PER_SECOND) {
             virtualTime = currentTime;
             tickAccumulator = 0;
         }
@@ -42,20 +56,20 @@ public class TimeDurationController implements Runnable {
     }
 
     private void updateTime(long currentTime) {
-        double increment = currentTime < dayTicks ? dayTickIncrement : nightTickIncrement;
+        double increment = currentTime < pvpDayEnd ? dayTickIncrement : nightTickIncrement;
         updateVirtualTime(increment);
         updateWorldTime(currentTime, increment);
     }
 
     private void updateVirtualTime(double increment) {
-        virtualTime = (virtualTime + increment) % 24000;
+        virtualTime = (virtualTime + increment) % TICKS_PER_DAY;
     }
 
     private void updateWorldTime(long currentTime, double increment) {
         tickAccumulator += increment;
         if (tickAccumulator >= 1.0) {
             long ticksToAdvance = (long) tickAccumulator;
-            world.setTime((currentTime + ticksToAdvance) % 24000);
+            world.setTime((currentTime + ticksToAdvance) % (long)TICKS_PER_DAY);
             tickAccumulator -= ticksToAdvance;
         }
     }

@@ -1,155 +1,108 @@
 package me.needkg.daynightpvp.task;
 
+import me.needkg.daynightpvp.configuration.config.DifficultyConfiguration;
+import me.needkg.daynightpvp.configuration.config.NotificationConfiguration;
+import me.needkg.daynightpvp.configuration.config.PvpConfiguration;
 import me.needkg.daynightpvp.configuration.message.NotificationMessages;
 import me.needkg.daynightpvp.core.di.DependencyContainer;
 import me.needkg.daynightpvp.util.LoggingUtil;
 import me.needkg.daynightpvp.util.PlayerUtil;
-import org.bukkit.Difficulty;
-import org.bukkit.Sound;
 import org.bukkit.World;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class WorldStateController implements Runnable {
 
-    public static List<World> dayWorlds = new ArrayList<>();
-    public static List<World> nightWorlds = new ArrayList<>();
-    private final long dayEnd;
-    private final boolean automaticDifficultyEnabled;
-    private final boolean notifyPlayersTitleEnabled;
-    private final boolean notifyPlayersSoundEnabled;
-    private final Difficulty automaticDifficultyDay;
-    private final Difficulty automaticDifficultyNight;
-    private final String notifyDayChat;
-    private final String notifyDayTitle;
-    private final String notifyDaySubtitle;
-    private final String notifyNightChat;
-    private final String notifyNightTitle;
-    private final String notifyNightSubtitle;
-    private final Sound notifyPlayersSoundDay;
-    private final Sound notifyPlayersSoundNight;
-    private final int fadeIn;
-    private final int stay;
-    private final int fadeOut;
-    private final float soundNightVolume;
-    private final float soundDayVolume;
-    private final boolean notifyPlayersChatDayNightStarts;
+    public static final CopyOnWriteArrayList<World> dayWorlds = new CopyOnWriteArrayList<>();
+    public static final CopyOnWriteArrayList<World> nightWorlds = new CopyOnWriteArrayList<>();
+    
     private final World world;
+    private final String worldName;
+    private final PvpConfiguration pvpConfiguration;
+    private final DifficultyConfiguration difficultyConfiguration;
+    private final NotificationConfiguration notificationConfiguration;
     private final NotificationMessages notificationMessages;
+    private final long pvpDayEnd;
+    private boolean lastStateWasNight;
 
-    public WorldStateController(
-            long dayEnd,
-            boolean automaticDifficultyEnabled,
-            boolean notifyPlayersTitleEnabled,
-            boolean notifyPlayersSoundEnabled,
-            Difficulty automaticDifficultyDay,
-            Difficulty automaticDifficultyNight,
-            Sound notifyPlayersSoundDay,
-            Sound notifyPlayersSoundNight,
-            int fadeIn,
-            int stay,
-            int fadeOut,
-            float soundNightVolume,
-            float soundDayVolume,
-            boolean notifyPlayersChatDayNightStarts,
-            World world) {
-        DependencyContainer container = DependencyContainer.getInstance();
-        notificationMessages = container.getMessageContainer().getNotifications();
-
-        this.dayEnd = dayEnd;
-        this.automaticDifficultyEnabled = automaticDifficultyEnabled;
-        this.notifyPlayersTitleEnabled = notifyPlayersTitleEnabled;
-        this.notifyPlayersSoundEnabled = notifyPlayersSoundEnabled;
-        this.automaticDifficultyDay = automaticDifficultyDay;
-        this.automaticDifficultyNight = automaticDifficultyNight;
-        this.notifyDayChat = notificationMessages.getDayChatMessage();
-        this.notifyDayTitle = notificationMessages.getDayTitle();
-        this.notifyDaySubtitle = notificationMessages.getDaySubtitle();
-        this.notifyNightChat = notificationMessages.getNightChatMessage();
-        this.notifyNightTitle = notificationMessages.getNightTitle();
-        this.notifyNightSubtitle = notificationMessages.getNightSubtitle();
-        this.notifyPlayersSoundDay = notifyPlayersSoundDay;
-        this.notifyPlayersSoundNight = notifyPlayersSoundNight;
-        this.fadeIn = fadeIn;
-        this.stay = stay;
-        this.fadeOut = fadeOut;
-        this.soundNightVolume = soundNightVolume;
-        this.soundDayVolume = soundDayVolume;
-        this.notifyPlayersChatDayNightStarts = notifyPlayersChatDayNightStarts;
+    public WorldStateController(World world, String worldName) {
         this.world = world;
+        this.worldName = worldName;
+        DependencyContainer container = DependencyContainer.getInstance();
+        pvpConfiguration = container.getConfigurationContainer().getPvpConfiguration();
+        difficultyConfiguration = container.getConfigurationContainer().getDifficultyConfiguration();
+        notificationConfiguration = container.getConfigurationContainer().getNotificationConfiguration();
+        notificationMessages = container.getMessageContainer().getNotifications();
+        this.pvpDayEnd = pvpConfiguration.getPvpAutomaticDayEnd(worldName);
+        this.lastStateWasNight = isNightTime(world.getTime());
     }
 
     @Override
     public void run() {
-        if (checkTime(world)) {
-            handleNight(world);
-        } else {
-            handleDay(world);
+        boolean isNight = isNightTime(world.getTime());
+        
+        if (isNight != lastStateWasNight) {
+            if (isNight) {
+                handleNight();
+            } else {
+                handleDay();
+            }
+            lastStateWasNight = isNight;
+            verifyPvpStatus();
         }
-        verifyPvpStatus(world);
     }
 
-    private void handleNight(World world) {
+    private boolean isNightTime(long time) {
+        return time >= pvpDayEnd;
+    }
+
+    private void handleNight() {
         if (!nightWorlds.contains(world)) {
             nightWorlds.add(world);
-            notifyPlayers(world, true);
-            LoggingUtil.sendInfoMessage("[DayNightPvP] It's night in '" + world.getName() + "'");
+            dayWorlds.remove(world);
+            notifyPlayers(true);
+            LoggingUtil.sendInfoMessage("[DayNightPvP] It's night in '" + worldName + "'");
         }
-        dayWorlds.remove(world);
     }
 
-    private void handleDay(World world) {
+    private void handleDay() {
         if (!dayWorlds.contains(world)) {
             dayWorlds.add(world);
-            notifyPlayers(world, false);
-            LoggingUtil.sendInfoMessage("[DayNightPvP] It's day in '" + world.getName() + "'");
+            nightWorlds.remove(world);
+            notifyPlayers(false);
+            LoggingUtil.sendInfoMessage("[DayNightPvP] It's day in '" + worldName + "'");
         }
-        nightWorlds.remove(world);
     }
 
-    public void verifyPvpStatus(World world) {
+    private void verifyPvpStatus() {
         if (!world.getPVP()) {
-            LoggingUtil.sendWarningMessage("[DayNightPvP] Warning! Another plugin is preventing automatic PvP from working in the world '" + world.getName() + "', attempting to resolve...");
+            LoggingUtil.sendWarningMessage("[DayNightPvP] Warning! Another plugin is preventing automatic PvP from working in the world '" + worldName + "', attempting to resolve...");
             world.setPVP(true);
         }
     }
 
-    public boolean checkTime(World world) {
-        long currentWorldTime = world.getTime();
-        boolean isNight = currentWorldTime >= dayEnd;
-
-        if (isNight) {
-            if (!nightWorlds.contains(world)) {
-                handleNight(world);
-            }
-        } else {
-            if (!dayWorlds.contains(world)) {
-                handleDay(world);
-            }
+    private void notifyPlayers(boolean isNight) {
+        if (difficultyConfiguration.getDifficultyEnabled(worldName)) {
+            world.setDifficulty(isNight ? difficultyConfiguration.getDifficultyNight(worldName) : difficultyConfiguration.getDifficultyDay(worldName));
         }
-
-        return isNight;
-    }
-
-    private void notifyPlayers(World world, boolean isNight) {
-        if (automaticDifficultyEnabled) {
-            world.setDifficulty(isNight ? automaticDifficultyNight : automaticDifficultyDay);
+        
+        if (notificationConfiguration.getNotificationsChatDayNightChangeEnabled(worldName)) {
+            PlayerUtil.sendMessageToAllPlayers(world, isNight ? notificationMessages.getNightChatMessage() : notificationMessages.getDayChatMessage());
         }
-        if (notifyPlayersChatDayNightStarts) {
-            PlayerUtil.sendMessageToAllPlayers(world, isNight ? notifyNightChat : notifyDayChat);
-        }
-        if (notifyPlayersTitleEnabled) {
+        
+        if (notificationConfiguration.getNotificationsTitleEnabled(worldName)) {
             PlayerUtil.sendTitleToAllPlayers(world,
-                    isNight ? notifyNightTitle : notifyDayTitle,
-                    isNight ? notifyNightSubtitle : notifyDaySubtitle,
-                    fadeIn, stay, fadeOut);
+                    isNight ? notificationMessages.getNightTitle() : notificationMessages.getDayTitle(),
+                    isNight ? notificationMessages.getNightSubtitle() : notificationMessages.getDaySubtitle(),
+                    notificationConfiguration.getNotificationsTitleFadeIn(worldName),
+                    notificationConfiguration.getNotificationsTitleStay(worldName),
+                    notificationConfiguration.getNotificationsTitleFadeOut(worldName));
         }
-        if (notifyPlayersSoundEnabled) {
+        
+        if (notificationConfiguration.getNotificationsSoundEnabled(worldName)) {
             PlayerUtil.playSoundToAllPlayers(world,
-                    isNight ? notifyPlayersSoundNight : notifyPlayersSoundDay,
-                    isNight ? soundNightVolume : soundDayVolume);
+                    isNight ? notificationConfiguration.getNotificationsSoundNightType(worldName) : notificationConfiguration.getNotificationsSoundDayType(worldName),
+                    isNight ? notificationConfiguration.getNotificationsSoundNightVolume(worldName) : notificationConfiguration.getNotificationsSoundDayVolume(worldName));
         }
     }
-
 }
