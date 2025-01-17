@@ -4,7 +4,7 @@ import me.needkg.daynightpvp.configuration.base.AbstractConfigurationFile;
 
 public class ConfigurationManager extends AbstractConfigurationFile {
 
-    private static final int LATEST_FILE_VERSION = 21;
+    private static final int LATEST_FILE_VERSION = 22;
 
     @Override
     protected String getFilePath() {

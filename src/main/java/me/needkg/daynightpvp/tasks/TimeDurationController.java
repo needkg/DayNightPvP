@@ -3,7 +3,6 @@ package me.needkg.daynightpvp.tasks;
 import me.needkg.daynightpvp.configuration.config.DayNightDurationConfiguration;
 import me.needkg.daynightpvp.configuration.config.PvpConfiguration;
 import me.needkg.daynightpvp.core.di.DependencyContainer;
-import org.bukkit.Bukkit;
 import org.bukkit.World;
 
 public class TimeDurationController implements Runnable {
@@ -14,7 +13,6 @@ public class TimeDurationController implements Runnable {
     private final double dayTickIncrement;
     private final double nightTickIncrement;
     private final World world;
-    private final String worldName;
     private double tickAccumulator;
     private double virtualTime;
     private long lastRealTime;
@@ -27,7 +25,6 @@ public class TimeDurationController implements Runnable {
         pvpConfiguration = container.getConfigurationContainer().getPvpConfiguration();
         dayNightDurationConfiguration = container.getConfigurationContainer().getDayNightDurationConfiguration();
         this.world = world;
-        this.worldName = worldName;
         this.virtualTime = world.getTime();
         this.lastRealTime = world.getTime();
         this.pvpDayEnd = pvpConfiguration.getPvpAutomaticDayEnd(worldName);

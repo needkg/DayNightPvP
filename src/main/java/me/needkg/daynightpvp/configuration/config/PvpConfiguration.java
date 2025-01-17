@@ -20,11 +20,15 @@ public class PvpConfiguration {
         return validator.getInt("worlds." + worldName + ".pvp.automatic.day-end", 12000, 1, 24000);
     }
 
-    public boolean getPvpKeepInventoryOnPvp(String worldName) {
+    public boolean getPvpKeepInventoryOnPvpEnabled(String worldName) {
         if (generalConfiguration.getWorldNames().contains(worldName)) {
-            return validator.getBoolean("worlds." + worldName + ".pvp.keep-inventory-on-pvp", false);
+            return validator.getBoolean("worlds." + worldName + ".pvp.keep-inventory-on-pvp.enabled", false);
         }
         return false;
+    }
+
+    public boolean getPvpKeepInventoryOnPvpKeepExp(String worldName) {
+        return validator.getBoolean("worlds." + worldName + ".pvp.keep-inventory-on-pvp.keep-exp", true);
     }
 
 }

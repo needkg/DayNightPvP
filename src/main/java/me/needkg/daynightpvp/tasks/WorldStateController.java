@@ -23,7 +23,6 @@ public class WorldStateController implements Runnable {
     private final NotificationConfiguration notificationConfiguration;
     private final NotificationMessages notificationMessages;
     private final long pvpDayEnd;
-    private boolean lastStateWasNight;
 
     public WorldStateController(World world, String worldName) {
         this.world = world;
@@ -34,7 +33,6 @@ public class WorldStateController implements Runnable {
         notificationConfiguration = container.getConfigurationContainer().getNotificationConfiguration();
         notificationMessages = container.getMessageContainer().getNotifications();
         this.pvpDayEnd = pvpConfiguration.getPvpAutomaticDayEnd(worldName);
-        this.lastStateWasNight = isNightTime(world.getTime());
     }
 
     @Override

@@ -42,9 +42,13 @@ public class PlayerDeathListener implements Listener {
     }
 
     private void handleKeepInventory(PlayerDeathEvent event, String worldName) {
-        if (pvpConfiguration.getPvpKeepInventoryOnPvp(worldName)) {
+        if (pvpConfiguration.getPvpKeepInventoryOnPvpEnabled(worldName)) {
             event.setKeepInventory(true);
             event.getDrops().clear();
+        }
+        if (pvpConfiguration.getPvpKeepInventoryOnPvpKeepExp(worldName)) {
+            event.setKeepLevel(true);
+            event.setDroppedExp(0);
         }
     }
 

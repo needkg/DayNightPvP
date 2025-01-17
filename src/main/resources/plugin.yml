@@ -49,3 +49,6 @@ permissions:
   dnp.immune:
     description: "Makes the player immune to PvP at any time"
     default: false
+  dnp.losemoney.*:
+    description: "Defines the percentage (1-100) of money a player loses upon death. Use dnp.losemoney.X where X is the percentage"
+    default: false

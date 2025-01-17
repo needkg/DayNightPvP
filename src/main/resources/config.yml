@@ -9,7 +9,7 @@
 
 # DayNightPvP - Configuration
 # Configuration version (do not change)
-version: 21
+version: 22
 
 # ===================
 #  General Settings
@@ -66,6 +66,7 @@ language: en-US
 #         fade-in: 20 # Time to appear (in ticks, 20 = 1 second)
 #         stay: 20 # Time on screen
 #         fade-out: 20 # Time to disappear
+        # Complete list of available sounds: https://github.com/needkg/DayNightPvP/wiki/Sounds
 #       sound:
 #         enabled: true # Play sounds on day/night change
 #         day:
@@ -95,7 +96,9 @@ worlds:
       automatic:
         enabled: true
         day-end: 12000
-      keep-inventory-on-pvp: false
+      keep-inventory-on-pvp:
+        enabled: false
+        keep-exp: true
     boss-bar:
       enabled: false
     difficulty:
