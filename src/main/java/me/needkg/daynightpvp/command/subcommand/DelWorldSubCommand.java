@@ -1,6 +1,10 @@
 package me.needkg.daynightpvp.command.subcommand;
 
+import me.needkg.daynightpvp.command.subcommand.base.CommandValidator;
 import me.needkg.daynightpvp.command.subcommand.base.ISubCommand;
+import me.needkg.daynightpvp.command.subcommand.validators.ArgsLengthValidator;
+import me.needkg.daynightpvp.command.subcommand.validators.PermissionValidator;
+import me.needkg.daynightpvp.command.subcommand.validators.WorldConfiguredValidator;
 import me.needkg.daynightpvp.configuration.ConfigurationManager;
 import me.needkg.daynightpvp.configuration.config.GeneralConfiguration;
 import me.needkg.daynightpvp.configuration.message.SystemMessages;
@@ -20,6 +24,7 @@ public class DelWorldSubCommand implements ISubCommand {
     private final PluginService pluginService;
     private final WorldEditorMessages worldEditorMessages;
     private final SystemMessages systemMessages;
+    private final List<CommandValidator> validators;
 
     public DelWorldSubCommand() {
         DependencyContainer container = DependencyContainer.getInstance();
@@ -28,26 +33,23 @@ public class DelWorldSubCommand implements ISubCommand {
         this.worldEditorMessages = container.getMessageContainer().getWorldEditor();
         this.systemMessages = container.getMessageContainer().getSystem();
         this.pluginService = container.getPluginServices();
+
+        this.validators = new ArrayList<>();
+        this.validators.add(new PermissionValidator("dnp.admin", systemMessages));
+        this.validators.add(new ArgsLengthValidator(2, "/dnp delworld <worldName>", systemMessages));
+        this.validators.add(new WorldConfiguredValidator(configurationManager, worldEditorMessages, true));
     }
 
     @Override
-    public void executeCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-        if (!sender.hasPermission("dnp.admin")) {
-            sender.sendMessage(systemMessages.getErrorMessage());
-            return;
-        }
+    public void execute(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+        removeWorldFromConfig(args[1]);
+        pluginService.reloadPlugin();
+        sender.sendMessage(worldEditorMessages.getWorldDeletedMessage().replace("{0}", args[1]));
+    }
 
-        if (args.length == 2) {
-            if (configurationManager.hasPath("worlds." + args[1])) {
-                removeWorldFromConfig(args[1]);
-                pluginService.reloadPlugin();
-                sender.sendMessage(worldEditorMessages.getWorldDeletedMessage().replace("{0}", args[1]));
-                return;
-            }
-            sender.sendMessage(worldEditorMessages.getWorldNotConfiguredMessage().replace("{0}", args[1]));
-        } else {
-            sender.sendMessage(systemMessages.getIncorrectCommandMessage().replace("{0}", "/dnp delworld <worldName>"));
-        }
+    @Override
+    public List<CommandValidator> getValidators() {
+        return validators;
     }
 
     @Override
@@ -66,10 +68,7 @@ public class DelWorldSubCommand implements ISubCommand {
     }
 
     private void removeWorldFromConfig(String worldName) {
-        if (configurationManager.hasPath("worlds." + worldName)) {
-            configurationManager.setValue("worlds." + worldName, null);
-            configurationManager.saveFile();
-        }
+        configurationManager.setValue("worlds." + worldName, null);
+        configurationManager.saveFile();
     }
-
 }

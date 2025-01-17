@@ -1,6 +1,9 @@
 package me.needkg.daynightpvp.command.subcommand;
 
+import me.needkg.daynightpvp.command.subcommand.base.CommandValidator;
 import me.needkg.daynightpvp.command.subcommand.base.ISubCommand;
+import me.needkg.daynightpvp.command.subcommand.validators.LanguageValidator;
+import me.needkg.daynightpvp.command.subcommand.validators.PermissionValidator;
 import me.needkg.daynightpvp.configuration.ConfigurationManager;
 import me.needkg.daynightpvp.configuration.config.GeneralConfiguration;
 import me.needkg.daynightpvp.configuration.message.SystemMessages;
@@ -9,6 +12,7 @@ import me.needkg.daynightpvp.service.PluginService;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -20,6 +24,7 @@ public class LangSubCommand implements ISubCommand {
     private final ConfigurationManager configurationManager;
     private final PluginService pluginService;
     private final SystemMessages systemMessages;
+    private final List<CommandValidator> validators;
 
     public LangSubCommand() {
         DependencyContainer container = DependencyContainer.getInstance();
@@ -27,32 +32,30 @@ public class LangSubCommand implements ISubCommand {
         this.configurationManager = container.getConfigManager();
         this.pluginService = container.getPluginServices();
         this.systemMessages = container.getMessageContainer().getSystem();
+
+        this.validators = new ArrayList<>();
+        this.validators.add(new PermissionValidator("dnp.admin", systemMessages));
+        this.validators.add(new LanguageValidator(AVAILABLE_LANGUAGES, systemMessages));
     }
 
     @Override
-    public void executeCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-        if (!sender.hasPermission("dnp.admin")) {
-            sender.sendMessage(systemMessages.getPermissionDeniedMessage());
+    public void execute(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+        String newLang = args[1];
+        String currentLang = generalConfiguration.getLanguage();
+
+        if (currentLang.equals(newLang)) {
+            sender.sendMessage(systemMessages.getLanguageAlreadyInUseMessage());
             return;
         }
 
-        if (args.length == 2) {
-            if (AVAILABLE_LANGUAGES.contains(args[1])) {
-                String currentLang = generalConfiguration.getLanguage();
-                if (currentLang.equals(args[1])) {
-                    sender.sendMessage(systemMessages.getLanguageAlreadyInUseMessage());
-                    return;
-                }
+        configurationManager.setValue("language", newLang);
+        pluginService.reloadFiles();
+        sender.sendMessage(systemMessages.getLanguageChangedMessage().replace("{0}", newLang));
+    }
 
-                configurationManager.setValue("language", args[1]);
-                pluginService.reloadFiles();
-                sender.sendMessage(systemMessages.getLanguageChangedMessage().replace("{0}", args[1]));
-            } else {
-                sender.sendMessage(systemMessages.getIncorrectCommandMessage().replace("{0}", "/dnp lang <" + String.join("/", AVAILABLE_LANGUAGES) + ">"));
-            }
-        } else {
-            sender.sendMessage(systemMessages.getIncorrectCommandMessage().replace("{0}", "/dnp lang <lang>"));
-        }
+    @Override
+    public List<CommandValidator> getValidators() {
+        return validators;
     }
 
     @Override
@@ -67,5 +70,4 @@ public class LangSubCommand implements ISubCommand {
 
         return Collections.emptyList();
     }
-
 }

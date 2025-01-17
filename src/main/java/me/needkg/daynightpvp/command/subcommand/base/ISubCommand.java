@@ -8,8 +8,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public interface ISubCommand {
+    default void executeCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+        for (CommandValidator validator : getValidators()) {
+            if (!validator.validate(sender, args)) {
+                sender.sendMessage(validator.getErrorMessage(sender, args));
+                return;
+            }
+        }
+        execute(sender, cmd, commandLabel, args);
+    }
 
-    void executeCommand(CommandSender sender, Command cmd, String commandLabel, String[] args);
+    void execute(CommandSender sender, Command cmd, String commandLabel, String[] args);
+
+    List<CommandValidator> getValidators();
 
     default List<String> tabComplete(CommandSender sender, Command command, String alias, List<String> args) {
         return new ArrayList<>();

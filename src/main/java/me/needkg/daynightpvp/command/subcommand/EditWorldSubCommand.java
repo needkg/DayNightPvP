@@ -1,13 +1,17 @@
 package me.needkg.daynightpvp.command.subcommand;
 
+import me.needkg.daynightpvp.command.subcommand.base.CommandValidator;
 import me.needkg.daynightpvp.command.subcommand.base.ISubCommand;
+import me.needkg.daynightpvp.command.subcommand.validators.PermissionValidator;
+import me.needkg.daynightpvp.command.subcommand.validators.SettingValidator;
+import me.needkg.daynightpvp.command.subcommand.validators.WorldConfiguredValidator;
+import me.needkg.daynightpvp.command.subcommand.validators.WorldExistsValidator;
 import me.needkg.daynightpvp.configuration.ConfigurationManager;
 import me.needkg.daynightpvp.configuration.config.GeneralConfiguration;
 import me.needkg.daynightpvp.configuration.message.SystemMessages;
 import me.needkg.daynightpvp.configuration.message.WorldEditorMessages;
 import me.needkg.daynightpvp.core.di.DependencyContainer;
 import me.needkg.daynightpvp.service.PluginService;
-import me.needkg.daynightpvp.util.WorldUtil;
 import org.bukkit.Difficulty;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -24,6 +28,7 @@ public class EditWorldSubCommand implements ISubCommand {
     private final SystemMessages systemMessages;
     private final PluginService pluginService;
     private final Map<String, SettingInfo> settingsMap;
+    private final List<CommandValidator> validators;
 
     public EditWorldSubCommand() {
         DependencyContainer container = DependencyContainer.getInstance();
@@ -33,42 +38,24 @@ public class EditWorldSubCommand implements ISubCommand {
         this.systemMessages = container.getMessageContainer().getSystem();
         this.pluginService = container.getPluginServices();
         this.settingsMap = initializeSettingsMap();
+
+        this.validators = new ArrayList<>();
+        this.validators.add(new PermissionValidator("dnp.admin", systemMessages));
+        this.validators.add(new WorldExistsValidator(worldEditorMessages, true, systemMessages));
+        this.validators.add(new WorldConfiguredValidator(configurationManager, worldEditorMessages, true));
+        this.validators.add(new SettingValidator(settingsMap, worldEditorMessages));
     }
 
     @Override
-    public void executeCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-        if (!sender.hasPermission("dnp.admin")) {
-            sender.sendMessage(systemMessages.getPermissionDeniedMessage());
-            return;
-        }
-
-        if (args.length < 2) {
-            showAvailableSettings(sender);
-            return;
-        }
-
-        String worldName = args[1];
-        if (!WorldUtil.isWorldValid(worldName)) {
-            sender.sendMessage(worldEditorMessages.getWorldNotExistsMessage().replace("{0}", worldName));
-            return;
-        }
-
+    public void execute(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         if (args.length == 2) {
             showAvailableSettings(sender);
             return;
         }
 
-        handleSettingEdit(sender, args, worldName);
-    }
-
-    private void handleSettingEdit(CommandSender sender, String[] args, String worldName) {
+        String worldName = args[1];
         String setting = args[2];
         SettingInfo settingInfo = settingsMap.get(setting);
-
-        if (settingInfo == null) {
-            sender.sendMessage(worldEditorMessages.getInvalidSettingMessage().replace("{0}", setting));
-            return;
-        }
 
         if (args.length == 3) {
             showSettingDetails(sender, worldName, setting, settingInfo);
@@ -76,6 +63,36 @@ public class EditWorldSubCommand implements ISubCommand {
         }
 
         updateSettingValue(sender, worldName, setting, settingInfo, args[3]);
+    }
+
+    @Override
+    public List<CommandValidator> getValidators() {
+        return validators;
+    }
+
+    @Override
+    public List<String> tabComplete(CommandSender sender, Command command, String alias, List<String> args) {
+        if (!sender.hasPermission("dnp.admin")) {
+            return new ArrayList<>();
+        }
+
+        if (args.size() == 1) {
+            return filterStartsWith(generalConfiguration.getValidWorldNames(), args.get(0));
+        }
+
+        if (args.size() == 2) {
+            List<String> settings = new ArrayList<>(settingsMap.keySet());
+            return filterByParts(settings, args.get(1));
+        }
+
+        if (args.size() == 3) {
+            SettingInfo settingInfo = settingsMap.get(args.get(1));
+            if (settingInfo != null) {
+                return filterContains(settingInfo.getTabCompleteSuggestions(), args.get(2));
+            }
+        }
+
+        return new ArrayList<>();
     }
 
     private void showAvailableSettings(CommandSender sender) {
@@ -162,31 +179,6 @@ public class EditWorldSubCommand implements ISubCommand {
         sender.sendMessage(worldEditorMessages.getSuccessMessage()
                 .replace("{0}", setting)
                 .replace("{1}", String.valueOf(value)));
-    }
-
-    @Override
-    public List<String> tabComplete(CommandSender sender, Command command, String alias, List<String> args) {
-        if (!sender.hasPermission("dnp.admin")) {
-            return new ArrayList<>();
-        }
-
-        if (args.size() == 1) {
-            return filterStartsWith(generalConfiguration.getValidWorldNames(), args.get(0));
-        }
-
-        if (args.size() == 2) {
-            List<String> settings = new ArrayList<>(settingsMap.keySet());
-            return filterByParts(settings, args.get(1));
-        }
-
-        if (args.size() == 3) {
-            SettingInfo settingInfo = settingsMap.get(args.get(1));
-            if (settingInfo != null) {
-                return filterContains(settingInfo.getTabCompleteSuggestions(), args.get(2));
-            }
-        }
-
-        return new ArrayList<>();
     }
 
     private String formatCategoryName(String category) {

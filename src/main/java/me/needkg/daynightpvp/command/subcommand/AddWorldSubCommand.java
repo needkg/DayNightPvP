@@ -1,6 +1,11 @@
 package me.needkg.daynightpvp.command.subcommand;
 
+import me.needkg.daynightpvp.command.subcommand.base.CommandValidator;
 import me.needkg.daynightpvp.command.subcommand.base.ISubCommand;
+import me.needkg.daynightpvp.command.subcommand.validators.ArgsLengthValidator;
+import me.needkg.daynightpvp.command.subcommand.validators.PermissionValidator;
+import me.needkg.daynightpvp.command.subcommand.validators.WorldConfiguredValidator;
+import me.needkg.daynightpvp.command.subcommand.validators.WorldExistsValidator;
 import me.needkg.daynightpvp.configuration.ConfigurationManager;
 import me.needkg.daynightpvp.configuration.message.SystemMessages;
 import me.needkg.daynightpvp.configuration.message.WorldEditorMessages;
@@ -20,6 +25,7 @@ public class AddWorldSubCommand implements ISubCommand {
     private final PluginService pluginService;
     private final SystemMessages systemMessages;
     private final WorldEditorMessages worldEditorMessages;
+    private final List<CommandValidator> validators;
 
     public AddWorldSubCommand() {
         DependencyContainer container = DependencyContainer.getInstance();
@@ -27,30 +33,24 @@ public class AddWorldSubCommand implements ISubCommand {
         this.pluginService = container.getPluginServices();
         this.systemMessages = container.getMessageContainer().getSystem();
         this.worldEditorMessages = container.getMessageContainer().getWorldEditor();
+
+        this.validators = new ArrayList<>();
+        this.validators.add(new PermissionValidator("dnp.admin", systemMessages));
+        this.validators.add(new ArgsLengthValidator(2, "/dnp addworld <worldName>", systemMessages));
+        this.validators.add(new WorldExistsValidator(worldEditorMessages, true, systemMessages));
+        this.validators.add(new WorldConfiguredValidator(configurationManager, worldEditorMessages, false));
     }
 
     @Override
-    public void executeCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-        if (!sender.hasPermission("dnp.admin")) {
-            sender.sendMessage(systemMessages.getErrorMessage());
-            return;
-        }
+    public void execute(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+        addWorldToConfig(args[1]);
+        pluginService.reloadPlugin();
+        sender.sendMessage(worldEditorMessages.getWorldAddedMessage().replace("{0}", args[1]));
+    }
 
-        if (args.length == 2) {
-            if (Bukkit.getWorlds().contains(Bukkit.getWorld(args[1]))) {
-                if (!configurationManager.hasPath("worlds." + args[1])) {
-                    addWorldToConfig(args[1]);
-                    pluginService.reloadPlugin();
-                    sender.sendMessage(worldEditorMessages.getWorldAddedMessage().replace("{0}", args[1]));
-                    return;
-                }
-                sender.sendMessage(worldEditorMessages.getWorldAlreadyExistsMessage().replace("{0}", args[1]));
-                return;
-            }
-            sender.sendMessage(worldEditorMessages.getWorldNotExistsMessage().replace("{0}", args[1]));
-        } else {
-            sender.sendMessage(systemMessages.getIncorrectCommandMessage().replace("{0}", "/dnp addworld <worldName>"));
-        }
+    @Override
+    public List<CommandValidator> getValidators() {
+        return validators;
     }
 
     @Override
@@ -72,7 +72,6 @@ public class AddWorldSubCommand implements ISubCommand {
     }
 
     private void addWorldToConfig(String worldName) {
-
         configurationManager.setValue("worlds." + worldName + ".day-night-duration.enabled", false);
         configurationManager.setValue("worlds." + worldName + ".day-night-duration.day-duration", 600);
         configurationManager.setValue("worlds." + worldName + ".day-night-duration.night-duration", 600);
@@ -106,5 +105,4 @@ public class AddWorldSubCommand implements ISubCommand {
 
         configurationManager.saveFile();
     }
-
 }
