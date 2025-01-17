@@ -1,7 +1,7 @@
 package me.needkg.daynightpvp.configuration.config;
 
-import me.needkg.daynightpvp.configuration.validator.ConfigurationValidator;
-import me.needkg.daynightpvp.util.WorldUtil;
+import me.needkg.daynightpvp.configuration.validators.ConfigurationValidator;
+import me.needkg.daynightpvp.utils.WorldUtil;
 
 import java.util.ArrayList;
 import java.util.List;

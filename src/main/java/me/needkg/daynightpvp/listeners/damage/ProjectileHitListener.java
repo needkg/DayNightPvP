@@ -1,7 +1,7 @@
 package me.needkg.daynightpvp.listeners.damage;
 
 import me.needkg.daynightpvp.listeners.damage.base.AbstractDamageListener;
-import me.needkg.daynightpvp.util.PlayerUtil;
+import me.needkg.daynightpvp.utils.PlayerUtil;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;

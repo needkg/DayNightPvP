@@ -1,7 +1,7 @@
 package me.needkg.daynightpvp.core.di;
 
 import me.needkg.daynightpvp.configuration.message.*;
-import me.needkg.daynightpvp.configuration.validator.LanguageValidator;
+import me.needkg.daynightpvp.configuration.validators.LanguageValidator;
 
 public class MessageContainer {
     private final NotificationMessages notifications;

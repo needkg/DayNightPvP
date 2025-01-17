@@ -4,7 +4,7 @@ import me.needkg.daynightpvp.DayNightPvP;
 import me.needkg.daynightpvp.configuration.config.IntegrationConfiguration;
 import me.needkg.daynightpvp.configuration.config.PvpConfiguration;
 import me.needkg.daynightpvp.core.di.DependencyContainer;
-import me.needkg.daynightpvp.feature.vault.LoseMoney;
+import me.needkg.daynightpvp.features.vault.LoseMoney;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;

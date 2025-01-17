@@ -1,7 +1,7 @@
 package me.needkg.daynightpvp.listeners.player;
 
 import me.needkg.daynightpvp.DayNightPvP;
-import me.needkg.daynightpvp.service.UpdateService;
+import me.needkg.daynightpvp.services.UpdateService;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

@@ -1,9 +1,9 @@
 package me.needkg.daynightpvp;
 
 import me.needkg.daynightpvp.core.di.DependencyContainer;
-import me.needkg.daynightpvp.feature.worldguard.FlagManager;
-import me.needkg.daynightpvp.util.LoggingUtil;
-import me.needkg.daynightpvp.util.PluginUtil;
+import me.needkg.daynightpvp.features.worldguard.FlagManager;
+import me.needkg.daynightpvp.utils.LoggingUtil;
+import me.needkg.daynightpvp.utils.PluginUtil;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class DayNightPvP extends JavaPlugin {

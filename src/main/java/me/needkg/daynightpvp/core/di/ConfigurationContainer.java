@@ -1,7 +1,7 @@
 package me.needkg.daynightpvp.core.di;
 
 import me.needkg.daynightpvp.configuration.config.*;
-import me.needkg.daynightpvp.configuration.validator.ConfigurationValidator;
+import me.needkg.daynightpvp.configuration.validators.ConfigurationValidator;
 
 public class ConfigurationContainer {
     private final BossbarConfiguration bossbarConfiguration;

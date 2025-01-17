@@ -1,7 +1,7 @@
 package me.needkg.daynightpvp.api.placeholder;
 
 import me.needkg.daynightpvp.DayNightPvP;
-import me.needkg.daynightpvp.api.placeholder.provider.WorldStateProvider;
+import me.needkg.daynightpvp.api.placeholder.providers.WorldStateProvider;
 
 public class PlaceholderManager {
 

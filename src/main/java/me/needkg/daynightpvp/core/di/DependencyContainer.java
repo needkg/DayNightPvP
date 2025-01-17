@@ -1,17 +1,17 @@
 package me.needkg.daynightpvp.core.di;
 
 import me.needkg.daynightpvp.api.placeholder.PlaceholderManager;
-import me.needkg.daynightpvp.command.CommandManager;
+import me.needkg.daynightpvp.commands.CommandManager;
 import me.needkg.daynightpvp.configuration.ConfigurationManager;
 import me.needkg.daynightpvp.configuration.LanguageManager;
-import me.needkg.daynightpvp.configuration.validator.ConfigurationValidator;
-import me.needkg.daynightpvp.configuration.validator.LanguageValidator;
-import me.needkg.daynightpvp.feature.griefprevention.GriefPreventionManager;
-import me.needkg.daynightpvp.feature.vault.LoseMoney;
+import me.needkg.daynightpvp.configuration.validators.ConfigurationValidator;
+import me.needkg.daynightpvp.configuration.validators.LanguageValidator;
+import me.needkg.daynightpvp.features.griefprevention.GriefPreventionManager;
+import me.needkg.daynightpvp.features.vault.LoseMoney;
 import me.needkg.daynightpvp.listeners.ListenerManager;
 import me.needkg.daynightpvp.metrics.MetricsManager;
-import me.needkg.daynightpvp.service.PluginService;
-import me.needkg.daynightpvp.task.TaskManager;
+import me.needkg.daynightpvp.services.PluginService;
+import me.needkg.daynightpvp.tasks.TaskManager;
 
 public class DependencyContainer {
     private static DependencyContainer instance;

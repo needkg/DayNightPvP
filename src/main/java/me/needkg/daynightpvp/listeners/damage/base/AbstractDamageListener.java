@@ -5,9 +5,9 @@ import me.needkg.daynightpvp.configuration.config.IntegrationConfiguration;
 import me.needkg.daynightpvp.configuration.config.NotificationConfiguration;
 import me.needkg.daynightpvp.configuration.message.NotificationMessages;
 import me.needkg.daynightpvp.core.di.DependencyContainer;
-import me.needkg.daynightpvp.feature.griefprevention.GriefPreventionManager;
-import me.needkg.daynightpvp.feature.worldguard.flags.DaytimePvpFlag;
-import me.needkg.daynightpvp.util.WorldUtil;
+import me.needkg.daynightpvp.features.griefprevention.GriefPreventionManager;
+import me.needkg.daynightpvp.features.worldguard.flags.DaytimePvpFlag;
+import me.needkg.daynightpvp.utils.WorldUtil;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 

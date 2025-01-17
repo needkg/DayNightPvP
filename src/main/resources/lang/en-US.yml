@@ -50,7 +50,7 @@ worlds:
 
 system:
   commands:
-    incorrect: "&8[&c&l!&8] &7Incorrect command &8» &b{0}"
+    incorrect: "&8[&c&l!&8] &7Incorrect commands &8» &b{0}"
     not_found: "&8[&c&l!&8] &7Command not found"
   permissions:
     denied: "&8[&c&l!&8] &7You don't have &cpermission"
