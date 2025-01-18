@@ -27,7 +27,13 @@ day.
 
 - **🌍 Multi-World Support**: Works seamlessly across different worlds, allowing specific settings for each one.
 
-- **⚙️ Custom Configuration**: Personalize sounds and messages to notify players about PvP events.
+- **📦 Custom Keep Inventory**: Smart keep inventory system that only works on PvP deaths, maintaining normal item drops for other types of deaths.
+
+- **⏰ Custom Day/Night Cycle**: Configure custom durations for day and night cycles in each world.
+
+- **📊 Boss Bar Progress**: Display day/night cycle progress through an elegant boss bar at the top of the screen.
+
+- **🔔 Advanced Notifications**: Customize chat messages, title displays, and sound effects for day/night transitions.
 
 - **🔌 Integrations**:
     - PlaceholderAPI: Display PvP status on Scoreboard or TAB
@@ -38,8 +44,8 @@ day.
 ## 📌 Placeholders
 
 ```
-%dnp_pvp_status_current_world% → PvP status in player's current world
-%dnp_pvp_status_world:<worldName>% → PvP status of the specified world
+%dnp_state_pvp_current_world% → PvP status in player's current world
+%dnp_state_pvp_world:<worldName>% → PvP status of the specified world
 ```
 
 ## 🛠️ Commands
@@ -56,7 +62,7 @@ day.
 ## 🚩 WorldGuard Flags
 
 ```
-allow-pvp-on-day → Allows PvP during day in specific regions
+daytime-pvp → Allows PvP during day in specific regions
 ```
 
 ## 👮 Permissions
