@@ -1,15 +1,16 @@
 package me.needkg.daynightpvp.configuration;
 
 import me.needkg.daynightpvp.configuration.base.AbstractConfigurationFile;
-import me.needkg.daynightpvp.configuration.settings.GeneralConfiguration;
+import me.needkg.daynightpvp.core.di.ConfigurationContainer;
+import me.needkg.daynightpvp.configuration.config.GeneralConfiguration;
 
 public class LanguageManager extends AbstractConfigurationFile {
 
-    private static final int LATEST_FILE_VERSION = 17;
+    private static final int LATEST_FILE_VERSION = 18;
     private final GeneralConfiguration generalConfiguration;
 
-    public LanguageManager(GeneralConfiguration generalConfiguration) {
-        this.generalConfiguration = generalConfiguration;
+    public LanguageManager(ConfigurationContainer configurationContainer) {
+        this.generalConfiguration = configurationContainer.getGeneralConfiguration();
     }
 
     @Override

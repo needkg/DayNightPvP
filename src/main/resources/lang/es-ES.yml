@@ -1,62 +1,78 @@
 # DayNightPvP Language File
 # DO NOT MODIFY THIS VALUE! Used internally by the plugin
-version: 17
+version: 18
 
-# =====================
-#     Notifications
-# =====================
-notify-day-chat: "&8[&a&l!&8] &7Combate fue &aDesactivado &8(&7Amanecer&8)"
-notify-night-chat: "&8[&c&l!&8] &7Combate fue &cActivado &8(&7Anochecer&8)"
-notify-day-title: "&a&lAMANECER"
-notify-day-subtitle: "&7Combate fue &aDesactivado"
-notify-night-title: "&c&lANOCHECER"
-notify-night-subtitle: "&7Combate fue &cActivado"
-notify-pvp-disabled: "&8[&c&l!&8] &7Combate &cno está permitido &7durante el día"
-notify-player-immune: "&8[&c&l!&8] &7Este jugador está &cinmune &7al combate"
-notify-self-immune: "&8[&c&l!&8] &7Estás &cinmune &7al combate"
+notifications:
+  combat:
+    day:
+      chat: "&8[&a&l!&8] &7Combate ha sido &aDesactivado &8(&7Amanecer&8)"
+      title: "&a&lAMANECER"
+      subtitle: "&7Combate ha sido &aDesactivado"
+    night:
+      chat: "&8[&c&l!&8] &7Combate ha sido &cActivado &8(&7Anochecer&8)"
+      title: "&c&lANOCHECER"
+      subtitle: "&7Combate ha sido &cActivado"
+  combat_restrictions:
+    daytime_disabled: "&8[&c&l!&8] &7Combate &cno está permitido &7durante el día"
+    player_immune: "&8[&c&l!&8] &7Este jugador es &cinmune &7al combate"
+    self_immune: "&8[&c&l!&8] &7Eres &cinmune &7al combate"
 
-# =====================
-#      Feedback
-# =====================
-feedback-lose-money: "&8[&c&l!&8] &7Derrotado por &b{0} &8» &cPerdiste ${1}"
-feedback-win-money: "&8[&a&l!&8] &7Derrotaste a &b{0} &8» &aGanaste ${1}"
-feedback-added-world: "&8[&a&l!&8] &7Mundo &b{0} &7fue &aañadido"
-feedback-deleted-world: "&8[&c&l!&8] &7Mundo &b{0} &7fue &celiminado"
-feedback-world-is-not-in-settings: "&8[&c&l!&8] &7Mundo &b{0} &7no está &cconfigurado"
-feedback-world-already-exists: "&8[&c&l!&8] &7Mundo &b{0} &7ya está &cconfigurado"
-feedback-world-does-not-exist: "&8[&c&l!&8] &7Mundo &b{0} &7no &cexiste"
-feedback-editworld-invalid-setting: "&8[&c&l!&8] &7Configuración '&b{0}&7' no &cexiste"
-feedback-editworld-invalid-value: "&8[&c&l!&8] &7Valor '&b{0}&7' es &cinválido &7para '&b{1}&7'"
-feedback-editworld-success: "&8[&a&l!&8] &7Configuración '&b{0}&7' cambiada a &b{1}"
-feedback-editworld-same-value: "&8[&e&l!&8] &7Configuración &b{0} &7ya está &b{1}"
-feedback-editworld-title: "&a&lConfiguraciones disponibles"
-feedback-editworld-setting-details-title: "&8[&b&l!&8] &7Configuración: &b{0}"
-feedback-editworld-setting-description: "&8[&7&l!&8] &7Descripción: &7{0}"
-feedback-editworld-setting-current-value: "&8[&7&l!&8] &7Actual: &b{0}"
-feedback-editworld-setting-type: "&8[&7&l!&8] &7Tipo: &7{0}"
-feedback-editworld-setting-range: "&8[&7&l!&8] &7Rango: &b{0} &87asta &b{1}"
-feedback-editworld-setting-suggestions: "&8[&7&l!&8] &7Sugerencias: &b{0}"
-feedback-incorrect-command: "&8[&c&l!&8] &7Comando incorrecto &8» &b{0}"
-feedback-non-existent-command: "&8[&c&l!&8] &7Comando no encontrado"
-feedback-error-no-permission: "&8[&c&l!&8] &7No tienes &cpermiso"
-feedback-error-language-in-use: "&8[&e&l!&8] &7Este idioma ya está en uso"
-feedback-lang-changed: "&8[&a&l!&8] &7Idioma cambiado a &b{0}"
-feedback-update-available: "&8[&e&lDayNightPvP&8] &7Nueva actualización disponible"
-feedback-update-check-failed: "&8[&c&l!&8] &7Error al verificar actualizaciones"
-feedback-update-current-version: "&8[&7&l!&8] &7Actual: &c{0}"
-feedback-update-latest-version: "&8[&7&l!&8] &7Nueva: &b{0}"
-feedback-reload-plugin: "&8[&a&l!&8] &7Plugin recargado con éxito"
-feedback-error: "&c&lERROR"
-feedback-boss-bar-sunset: "&7{0} hasta el &cAnochecer"
-feedback-boss-bar-sunrise: "&7{0} hasta el &aAmanecer"
+combat:
+  economy:
+    lost: "&8[&c&l!&8] &7Derrotado por &b{0} &8» &cPerdiste ${1}"
+    won: "&8[&a&l!&8] &7Derrotaste a &b{0} &8» &aGanaste ${1}"
 
-# =====================
-#      Actions
-# =====================
-action-update-found-click: "&a&nHaz clic aquí para actualizar"
+worlds:
+  editor:
+    title: "&a&lAjustes del Mundo"
+    settings:
+      details:
+        title: "&8[&b&l!&8] &7Ajuste: &b{0}"
+        description: "&8[&7&l!&8] &7Descripción: &7{0}"
+        current_value: "&8[&7&l!&8] &7Actual: &b{0}"
+        type: "&8[&7&l!&8] &7Tipo: &7{0}"
+        range: "&8[&7&l!&8] &7Rango: &b{0} &7a &b{1}"
+        suggestions: "&8[&7&l!&8] &7Sugerencias: &b{0}"
+    feedback:
+      settings:
+        invalid_setting: "&8[&c&l!&8] &7Ajuste '&b{0}&7' no &cexiste"
+        invalid_value: "&8[&c&l!&8] &7Valor '&b{0}&7' es &cinválido &7para '&b{1}&7'"
+        success: "&8[&a&l!&8] &7Ajuste '&b{0}&7' cambiado a &b{1}"
+        same_value: "&8[&e&l!&8] &7Ajuste &b{0} &7ya está en &b{1}"
+      management:
+        success:
+          added: "&8[&a&l!&8] &7Mundo &b{0} &7ha sido &aañadido"
+          deleted: "&8[&c&l!&8] &7Mundo &b{0} &7ha sido &celiminado"
+        errors:
+          not_configured: "&8[&c&l!&8] &7Mundo &b{0} &7no está &cconfigurado"
+          already_exists: "&8[&c&l!&8] &7Mundo &b{0} &7ya está &cconfigurado"
+          not_exists: "&8[&c&l!&8] &7Mundo &b{0} &7no &cexiste"
 
-# =====================
-#      Placeholders
-# =====================
-placeholder-pvp-enabled: "&cActivado"
-placeholder-pvp-disabled: "&aDesactivado"
+system:
+  commands:
+    incorrect: "&8[&c&l!&8] &7Comando incorrecto &8» &b{0}"
+    not_found: "&8[&c&l!&8] &7Comando no encontrado"
+  permissions:
+    denied: "&8[&c&l!&8] &7No tienes &cpermisos"
+  language:
+    already_in_use: "&8[&e&l!&8] &7Este idioma ya está en uso"
+    changed: "&8[&a&l!&8] &7Idioma cambiado a &b{0}"
+  updates:
+    available: "&8[&e&lDayNightPvP&8] &7Nueva actualización disponible"
+    check_failed: "&8[&c&l!&8] &7Error al verificar actualizaciones"
+    current_version: "&8[&7&l!&8] &7Actual: &c{0}"
+    latest_version: "&8[&7&l!&8] &7Nueva: &b{0}"
+    click_to_update: "&a&nHaz clic para actualizar"
+  reload:
+    success: "&8[&a&l!&8] &7Plugin recargado con éxito"
+  error: "&c&lERROR"
+
+bossbar:
+  time:
+    until_sunset: "&7{0} hasta el &cAnochecer"
+    until_sunrise: "&7{0} hasta el &aAmanecer"
+
+placeholders:
+  pvp:
+    enabled: "&cActivado"
+    disabled: "&aDesactivado"

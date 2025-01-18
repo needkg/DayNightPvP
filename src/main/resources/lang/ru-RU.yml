@@ -1,62 +1,78 @@
 # DayNightPvP Language File
 # DO NOT MODIFY THIS VALUE! Used internally by the plugin
-version: 17
+version: 18
 
-# =====================
-#     Notifications
-# =====================
-notify-day-chat: "&8[&a&l!&8] &7Бой &aОтключен &8(&7Рассвет&8)"
-notify-night-chat: "&8[&c&l!&8] &7Бой &cВключен &8(&7Закат&8)"
-notify-day-title: "&a&lРАССВЕТ"
-notify-day-subtitle: "&7Бой &aОтключен"
-notify-night-title: "&c&lЗАКАТ"
-notify-night-subtitle: "&7Бой &cВключен"
-notify-pvp-disabled: "&8[&c&l!&8] &7Бой &cне разрешен &7днем"
-notify-player-immune: "&8[&c&l!&8] &7Этот игрок &cиммунен &7к бою"
-notify-self-immune: "&8[&c&l!&8] &7Вы &cиммунны &7к бою"
+notifications:
+  combat:
+    day:
+      chat: "&8[&a&l!&8] &7PvP &aОтключен &8(&7Рассвет&8)"
+      title: "&a&lРАССВЕТ"
+      subtitle: "&7PvP &aОтключен"
+    night:
+      chat: "&8[&c&l!&8] &7PvP &cВключен &8(&7Закат&8)"
+      title: "&c&lЗАКАТ"
+      subtitle: "&7PvP &cВключен"
+  combat_restrictions:
+    daytime_disabled: "&8[&c&l!&8] &7PvP &cзапрещен &7днем"
+    player_immune: "&8[&c&l!&8] &7Этот игрок &cиммунен &7к PvP"
+    self_immune: "&8[&c&l!&8] &7Вы &cиммунны &7к PvP"
 
-# =====================
-#      Feedback
-# =====================
-feedback-lose-money: "&8[&c&l!&8] &7Поражение от &b{0} &8» &cПотеряно ${1}"
-feedback-win-money: "&8[&a&l!&8] &7Победа над &b{0} &8» &aПолучено ${1}"
-feedback-added-world: "&8[&a&l!&8] &7Мир &b{0} &7был &aдобавлен"
-feedback-deleted-world: "&8[&c&l!&8] &7Мир &b{0} &7был &cудален"
-feedback-world-is-not-in-settings: "&8[&c&l!&8] &7Мир &b{0} &7не &cнастроен"
-feedback-world-already-exists: "&8[&c&l!&8] &7Мир &b{0} &7уже &cнастроен"
-feedback-world-does-not-exist: "&8[&c&l!&8] &7Мир &b{0} &7не &cсуществует"
-feedback-editworld-invalid-setting: "&8[&c&l!&8] &7Настройка '&b{0}&7' не &cсуществует"
-feedback-editworld-invalid-value: "&8[&c&l!&8] &7Значение '&b{0}&7' &cнедопустимо &7для '&b{1}&7'"
-feedback-editworld-success: "&8[&a&l!&8] &7Настройка '&b{0}&7' изменена на &b{1}"
-feedback-editworld-same-value: "&8[&e&l!&8] &7Настройка &b{0} &7уже &b{1}"
-feedback-editworld-title: "&a&lДоступные настройки"
-feedback-editworld-setting-details-title: "&8[&b&l!&8] &7Настройка: &b{0}"
-feedback-editworld-setting-description: "&8[&7&l!&8] &7Описание: &7{0}"
-feedback-editworld-setting-current-value: "&8[&7&l!&8] &7Текущее: &b{0}"
-feedback-editworld-setting-type: "&8[&7&l!&8] &7Тип: &7{0}"
-feedback-editworld-setting-range: "&8[&7&l!&8] &7Диапазон: &b{0} &7до &b{1}"
-feedback-editworld-setting-suggestions: "&8[&7&l!&8] &7Предложения: &b{0}"
-feedback-incorrect-command: "&8[&c&l!&8] &7Неверная команда &8» &b{0}"
-feedback-non-existent-command: "&8[&c&l!&8] &7Команда не найдена"
-feedback-error-no-permission: "&8[&c&l!&8] &7У вас нет &cправ"
-feedback-error-language-in-use: "&8[&e&l!&8] &7Этот язык уже используется"
-feedback-lang-changed: "&8[&a&l!&8] &7Язык изменен на &b{0}"
-feedback-update-available: "&8[&e&lDayNightPvP&8] &7Доступно обновление"
-feedback-update-check-failed: "&8[&c&l!&8] &7Ошибка проверки обновлений"
-feedback-update-current-version: "&8[&7&l!&8] &7Текущая: &c{0}"
-feedback-update-latest-version: "&8[&7&l!&8] &7Новая: &b{0}"
-feedback-reload-plugin: "&8[&a&l!&8] &7Плагин успешно перезагружен"
-feedback-error: "&c&lОШИБКА"
-feedback-boss-bar-sunset: "&7{0} до &cЗаката"
-feedback-boss-bar-sunrise: "&7{0} до &aРассвета"
+combat:
+  economy:
+    lost: "&8[&c&l!&8] &7Поражение от &b{0} &8» &cПотеряно ${1}"
+    won: "&8[&a&l!&8] &7Победа над &b{0} &8» &aПолучено ${1}"
 
-# =====================
-#      Actions
-# =====================
-action-update-found-click: "&a&nНажмите здесь для обновления"
+worlds:
+  editor:
+    title: "&a&lНастройки мира"
+    settings:
+      details:
+        title: "&8[&b&l!&8] &7Настройка: &b{0}"
+        description: "&8[&7&l!&8] &7Описание: &7{0}"
+        current_value: "&8[&7&l!&8] &7Текущее: &b{0}"
+        type: "&8[&7&l!&8] &7Тип: &7{0}"
+        range: "&8[&7&l!&8] &7Диапазон: &b{0} &7до &b{1}"
+        suggestions: "&8[&7&l!&8] &7Предложения: &b{0}"
+    feedback:
+      settings:
+        invalid_setting: "&8[&c&l!&8] &7Настройка '&b{0}&7' не &cсуществует"
+        invalid_value: "&8[&c&l!&8] &7Значение '&b{0}&7' &cнедопустимо &7для '&b{1}&7'"
+        success: "&8[&a&l!&8] &7Настройка '&b{0}&7' изменена на &b{1}"
+        same_value: "&8[&e&l!&8] &7Настройка &b{0} &7уже установлена на &b{1}"
+      management:
+        success:
+          added: "&8[&a&l!&8] &7Мир &b{0} &7был &aдобавлен"
+          deleted: "&8[&c&l!&8] &7Мир &b{0} &7был &cудален"
+        errors:
+          not_configured: "&8[&c&l!&8] &7Мир &b{0} &7не &cнастроен"
+          already_exists: "&8[&c&l!&8] &7Мир &b{0} &7уже &cнастроен"
+          not_exists: "&8[&c&l!&8] &7Мир &b{0} &7не &cсуществует"
 
-# =====================
-#      Placeholders
-# =====================
-placeholder-pvp-enabled: "&cВключен"
-placeholder-pvp-disabled: "&aОтключен"
+system:
+  commands:
+    incorrect: "&8[&c&l!&8] &7Неверная команда &8» &b{0}"
+    not_found: "&8[&c&l!&8] &7Команда не найдена"
+  permissions:
+    denied: "&8[&c&l!&8] &7У вас нет &cправ"
+  language:
+    already_in_use: "&8[&e&l!&8] &7Этот язык уже используется"
+    changed: "&8[&a&l!&8] &7Язык изменен на &b{0}"
+  updates:
+    available: "&8[&e&lDayNightPvP&8] &7Доступно обновление"
+    check_failed: "&8[&c&l!&8] &7Ошибка проверки обновлений"
+    current_version: "&8[&7&l!&8] &7Текущая: &c{0}"
+    latest_version: "&8[&7&l!&8] &7Новая: &b{0}"
+    click_to_update: "&a&nНажмите для обновления"
+  reload:
+    success: "&8[&a&l!&8] &7Плагин успешно перезагружен"
+  error: "&c&lОШИБКА"
+
+bossbar:
+  time:
+    until_sunset: "&7{0} до &cзаката"
+    until_sunrise: "&7{0} до &aрассвета"
+
+placeholders:
+  pvp:
+    enabled: "&cВключен"
+    disabled: "&aОтключен"

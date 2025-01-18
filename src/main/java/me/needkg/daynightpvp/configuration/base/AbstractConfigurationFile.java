@@ -1,7 +1,7 @@
 package me.needkg.daynightpvp.configuration.base;
 
 import me.needkg.daynightpvp.DayNightPvP;
-import me.needkg.daynightpvp.util.LoggingUtil;
+import me.needkg.daynightpvp.utils.LoggingUtil;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -31,7 +31,7 @@ public abstract class AbstractConfigurationFile {
 
     protected void validateFileVersion() {
         if (getLatestFileVersion() != getCurrentVersion()) {
-            String backupPath = getFilePath() + ".old";
+            String backupPath = getFilePath() + "_v" + getCurrentVersion();
             File outdatedFile = new File(DayNightPvP.getInstance().getDataFolder(), backupPath);
             if (outdatedFile.exists()) {
                 outdatedFile.delete();
