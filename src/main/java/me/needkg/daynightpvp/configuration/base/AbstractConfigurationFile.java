@@ -31,7 +31,16 @@ public abstract class AbstractConfigurationFile {
 
     protected void validateFileVersion() {
         if (getLatestFileVersion() != getCurrentVersion()) {
-            String backupPath = getFilePath() + "_v" + getCurrentVersion();
+            File backupDir = new File(DayNightPvP.getInstance().getDataFolder(), "backup");
+            File backupLangDir = new File(DayNightPvP.getInstance().getDataFolder(), "backup/lang");
+            if (!backupDir.exists()) {
+                backupDir.mkdir();
+            }
+            if (!backupLangDir.mkdirs()) {
+                backupLangDir.mkdirs();
+            }
+
+            String backupPath = "backup" + File.separator + getFilePath() + "_v" + getCurrentVersion();
             File outdatedFile = new File(DayNightPvP.getInstance().getDataFolder(), backupPath);
             if (outdatedFile.exists()) {
                 outdatedFile.delete();
@@ -40,7 +49,7 @@ public abstract class AbstractConfigurationFile {
             if (success) {
                 LoggingUtil.sendWarningMessage("[DayNightPvP] Outdated configuration file detected - '" + getFilePath() + "' has been backed up as '" + backupPath + "'");
             } else {
-                LoggingUtil.sendWarningMessage("[DayNightPvP] Failed to rename the '" + getFilePath() + "' file.");
+                 LoggingUtil.sendWarningMessage("[DayNightPvP] Failed to rename the '" + getFilePath() + "' file.");
             }
 
             restoreDefaultFile();

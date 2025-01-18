@@ -4,6 +4,8 @@ import me.needkg.daynightpvp.configuration.base.AbstractConfigurationFile;
 import me.needkg.daynightpvp.core.di.ConfigurationContainer;
 import me.needkg.daynightpvp.configuration.config.GeneralConfiguration;
 
+import java.io.File;
+
 public class LanguageManager extends AbstractConfigurationFile {
 
     private static final int LATEST_FILE_VERSION = 18;
@@ -15,7 +17,7 @@ public class LanguageManager extends AbstractConfigurationFile {
 
     @Override
     protected String getFilePath() {
-        return "lang/" + generalConfiguration.getLanguage() + ".yml";
+        return "lang" + File.separator + generalConfiguration.getLanguage() + ".yml";
     }
 
     @Override
