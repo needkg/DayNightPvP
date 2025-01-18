@@ -11,6 +11,7 @@ public class ConfigurationContainer {
     private final IntegrationConfiguration integrationConfiguration;
     private final NotificationConfiguration notificationConfiguration;
     private final PvpConfiguration pvpConfiguration;
+    private final DebugConfiguration debugConfiguration;
 
     public ConfigurationContainer(ConfigurationValidator validator) {
         this.bossbarConfiguration = new BossbarConfiguration(validator);
@@ -20,6 +21,7 @@ public class ConfigurationContainer {
         this.integrationConfiguration = new IntegrationConfiguration(validator, this);
         this.notificationConfiguration = new NotificationConfiguration(validator);
         this.pvpConfiguration = new PvpConfiguration(validator, this);
+        this.debugConfiguration = new DebugConfiguration(validator);
     }
 
     public BossbarConfiguration getBossbarConfiguration() {
@@ -48,5 +50,9 @@ public class ConfigurationContainer {
 
     public PvpConfiguration getPvpConfiguration() {
         return this.pvpConfiguration;
+    }
+
+    public DebugConfiguration getDebugConfiguration() {
+        return this.debugConfiguration;
     }
 }

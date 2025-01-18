@@ -36,16 +36,29 @@ public class DayNightPvP extends JavaPlugin {
     @Override
     public void onEnable() {
         LoggingUtil.sendStartupMessage();
-
         DependencyContainer.initialize();
         DependencyContainer container = DependencyContainer.getInstance();
 
         container.getConfigManager().initializeFile();
+        LoggingUtil.sendDebugMessage("Dependency injection container started.");
+        LoggingUtil.sendDebugMessage("Configuration file loaded.");
+
+        LoggingUtil.sendDebugMessage("Loading language files...");
         container.getLanguageManager().initializeFile();
+        
+        LoggingUtil.sendDebugMessage("Starting metrics...");
         container.getMetricsManager().start();
+        
+        LoggingUtil.sendDebugMessage("Registering commands...");
         container.getCommandManager().register();
+        
+        LoggingUtil.sendDebugMessage("Registering event listeners...");
         container.getListenerManager().register();
+        
+        LoggingUtil.sendDebugMessage("Registering placeholders...");
         container.getPlaceholderHandler().register();
+        
+        LoggingUtil.sendDebugMessage("Starting scheduled tasks...");
         container.getTaskManager().startAllTasks();
     }
 

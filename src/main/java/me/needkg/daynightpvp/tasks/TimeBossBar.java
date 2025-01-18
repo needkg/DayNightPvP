@@ -4,7 +4,6 @@ import me.needkg.daynightpvp.configuration.config.DayNightDurationConfiguration;
 import me.needkg.daynightpvp.configuration.config.PvpConfiguration;
 import me.needkg.daynightpvp.configuration.message.BossBarMessages;
 import me.needkg.daynightpvp.core.di.DependencyContainer;
-import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BossBar;
@@ -19,7 +18,6 @@ public class TimeBossBar implements Runnable {
     private final BossBarMessages bossBarMessages;
     private final BossBar bossBar;
     private final World world;
-    private final String worldName;
     private final int dayDurationSeconds;
     private final int nightDurationSeconds;
     private final TimeDurationController timeDurationController;
@@ -35,7 +33,6 @@ public class TimeBossBar implements Runnable {
         
         this.bossBar = bossbar;
         this.world = world;
-        this.worldName = worldName;
         this.pvpDayEnd = pvpConfiguration.getPvpAutomaticDayEnd(worldName);
         this.dayDurationSeconds = dayNightDurationConfiguration.getDayNightDurationEnabled(worldName) 
             ? dayNightDurationConfiguration.getDayNightDurationDayDuration(worldName) 

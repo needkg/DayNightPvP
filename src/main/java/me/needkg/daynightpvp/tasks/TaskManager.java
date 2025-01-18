@@ -6,6 +6,7 @@ import me.needkg.daynightpvp.configuration.config.DayNightDurationConfiguration;
 import me.needkg.daynightpvp.configuration.config.GeneralConfiguration;
 import me.needkg.daynightpvp.configuration.config.PvpConfiguration;
 import me.needkg.daynightpvp.core.di.ConfigurationContainer;
+import me.needkg.daynightpvp.utils.LoggingUtil;
 import me.needkg.daynightpvp.utils.WorldUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
@@ -52,19 +53,22 @@ public class TaskManager {
         TimeDurationController timeDurationController = null;
 
         if (dayNightDurationConfiguration.getDayNightDurationEnabled(worldName)) {
-            timeDurationController = initializeTimeController(worldName, world);
+            LoggingUtil.sendVerboseMessage("Initializing the TimeDurationController task...");
+            timeDurationController = initializeTimeDurationController(worldName, world);
         }
 
         if (bossbarConfiguration.getBossbarEnabled(worldName)) {
+            LoggingUtil.sendVerboseMessage("Initializing the BossBar task...");
             initializeBossBar(worldName, world, timeDurationController);
         }
 
         if (pvpConfiguration.getPvpAutomaticEnabled(worldName)) {
-            initializeAutomaticPvP(worldName, world);
+            LoggingUtil.sendVerboseMessage("Initializing the WorldStateController task...");
+            initializeWorldStateController(worldName, world);
         }
     }
 
-    private TimeDurationController initializeTimeController(String worldName, World world) {
+    private TimeDurationController initializeTimeDurationController(String worldName, World world) {
         TimeDurationController timeDurationController = new TimeDurationController(world, worldName);
 
         scheduledTasks.add(scheduleRepeatingTask(timeDurationController, 1));
@@ -83,7 +87,7 @@ public class TaskManager {
         scheduledTasks.add(scheduleRepeatingTask(bossBarTask, 20));
     }
 
-    private void initializeAutomaticPvP(String worldName, World world) {
+    private void initializeWorldStateController(String worldName, World world) {
         WorldStateController pvpTask = new WorldStateController(world, worldName);
 
         scheduledTasks.add(scheduleRepeatingTask(pvpTask, 20));

@@ -56,7 +56,8 @@ public class WorldStateController implements Runnable {
             nightWorlds.add(world);
             dayWorlds.remove(world);
             notifyPlayers(true);
-            LoggingUtil.sendInfoMessage("[DayNightPvP] It's night in '" + worldName + "'");
+            LoggingUtil.sendDebugMessage("World '" + worldName + "' entered night period");
+            LoggingUtil.sendVerboseMessage("World '" + worldName + "' details: Difficulty=" + world.getDifficulty() + ", PvP=" + world.getPVP() + ", Players Online=" + world.getPlayers().size() + " | Time: " + world.getTime() + "ticks");
         }
     }
 
@@ -65,7 +66,8 @@ public class WorldStateController implements Runnable {
             dayWorlds.add(world);
             nightWorlds.remove(world);
             notifyPlayers(false);
-            LoggingUtil.sendInfoMessage("[DayNightPvP] It's day in '" + worldName + "'");
+            LoggingUtil.sendDebugMessage("World '" + worldName + "' entered day period");
+            LoggingUtil.sendVerboseMessage("World '" + worldName + "' details: Difficulty=" + world.getDifficulty() + ", PvP=" + world.getPVP() + ", Players Online=" + world.getPlayers().size() + " | Time: " + world.getTime() + "ticks");
         }
     }
 

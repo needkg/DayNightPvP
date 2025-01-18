@@ -5,6 +5,7 @@ import me.needkg.daynightpvp.configuration.ConfigurationManager;
 import me.needkg.daynightpvp.configuration.LanguageManager;
 import me.needkg.daynightpvp.listeners.ListenerManager;
 import me.needkg.daynightpvp.tasks.TaskManager;
+import me.needkg.daynightpvp.utils.LoggingUtil;
 
 public class PluginService {
 
@@ -23,9 +24,13 @@ public class PluginService {
     }
 
     public void reloadPlugin() {
+        LoggingUtil.sendDebugMessage("Reloading files...");
         reloadFiles();
+        LoggingUtil.sendDebugMessage("Restarting scheduled tasks...");
         taskManager.restart();
+        LoggingUtil.sendDebugMessage("Restarting event handlers...");
         listenerManager.restart();
+        LoggingUtil.sendDebugMessage("Restarting PlaceholderAPI...");
         placeholderManager.restart();
     }
 

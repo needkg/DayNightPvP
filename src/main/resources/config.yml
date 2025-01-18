@@ -9,7 +9,12 @@
 
 # DayNightPvP - Configuration
 # Configuration version (do not change)
-version: 22
+version: 23
+
+# Debug Settings
+debug:
+  enabled: false # Enables/disables debug messages in the console
+  verbose: false # Enables/disables detailed debug messages
 
 # ===================
 #  General Settings
