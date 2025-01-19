@@ -1,7 +1,7 @@
 package me.needkg.daynightpvp;
 
 import me.needkg.daynightpvp.core.DependencyContainer;
-import me.needkg.daynightpvp.integration.worldguard.FlagManager;
+import me.needkg.daynightpvp.integration.worldguard.WorldGuardManager;
 import me.needkg.daynightpvp.util.logging.Logger;
 import me.needkg.daynightpvp.util.plugin.PluginValidator;
 import me.needkg.daynightpvp.util.plugin.StartupBanner;
@@ -30,7 +30,7 @@ public class DayNightPvP extends JavaPlugin {
         verifyCompatibilityPlugins();
 
         if (isWorldGuardPresent) {
-            FlagManager.register();
+            WorldGuardManager.register();
         }
     }
 
