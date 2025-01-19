@@ -31,8 +31,8 @@ public class ProjectileHitListener extends AbstractDamageListener implements Lis
     }
 
     private boolean isValidProjectileHit(Entity hitEntity, Projectile projectile) {
-        return PlayerUtil.isRealPlayer(hitEntity)
+        return PlayerUtil.isPlayerInstance(hitEntity)
                 && projectile.getShooter() != null
-                && PlayerUtil.isRealPlayer(projectile.getShooter());
+                && PlayerUtil.isPlayerInstance(projectile.getShooter());
     }
 }

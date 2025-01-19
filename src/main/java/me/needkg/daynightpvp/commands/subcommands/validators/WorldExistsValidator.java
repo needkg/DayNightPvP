@@ -1,20 +1,19 @@
 package me.needkg.daynightpvp.commands.subcommands.validators;
 
-import me.needkg.daynightpvp.commands.subcommands.base.CommandValidator;
-import me.needkg.daynightpvp.configuration.message.SystemMessages;
-import me.needkg.daynightpvp.configuration.message.WorldEditorMessages;
+import me.needkg.daynightpvp.commands.subcommands.core.CommandValidator;
+import me.needkg.daynightpvp.configuration.manager.MessageManager;
+import me.needkg.daynightpvp.configuration.type.MessageType;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 
 public class WorldExistsValidator implements CommandValidator {
-    private final WorldEditorMessages worldEditorMessages;
+    private final MessageManager messageManager;
     private final boolean shouldExist;
-    private final SystemMessages systemMessages;
 
-    public WorldExistsValidator(WorldEditorMessages worldEditorMessages, boolean shouldExist, SystemMessages systemMessages) {
-        this.worldEditorMessages = worldEditorMessages;
+    public WorldExistsValidator(boolean shouldExist, MessageManager messageManager) {
+        this.messageManager = messageManager;
         this.shouldExist = shouldExist;
-        this.systemMessages = systemMessages;
     }
 
     @Override
@@ -27,10 +26,11 @@ public class WorldExistsValidator implements CommandValidator {
     @Override
     public String getErrorMessage(CommandSender sender, String[] args) {
         if (args.length == 1) {
-            return systemMessages.getIncorrectCommandMessage()
+            return messageManager.getMessage(MessageType.SYSTEM_COMMAND_INCORRECT)
                     .replace("{0}", "/dnp editworld <world> <setting> <value>");
         } else {
-            return worldEditorMessages.getWorldNotExistsMessage().replace("{0}", args[1]);
+            return messageManager.getMessage(MessageType.WORLD_EDITOR_ERROR_NOT_EXISTS)
+                    .replace("{0}", args[1]);
         }
 
     }

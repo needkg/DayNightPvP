@@ -1,10 +1,10 @@
 package me.needkg.daynightpvp.listeners.damage.base;
 
 import me.needkg.daynightpvp.DayNightPvP;
-import me.needkg.daynightpvp.configuration.config.IntegrationConfiguration;
-import me.needkg.daynightpvp.configuration.config.NotificationConfiguration;
-import me.needkg.daynightpvp.configuration.message.NotificationMessages;
-import me.needkg.daynightpvp.core.di.DependencyContainer;
+import me.needkg.daynightpvp.configuration.manager.MessageManager;
+import me.needkg.daynightpvp.configuration.manager.WorldConfigurationManager;
+import me.needkg.daynightpvp.configuration.type.MessageType;
+import me.needkg.daynightpvp.core.DependencyContainer;
 import me.needkg.daynightpvp.features.griefprevention.GriefPreventionManager;
 import me.needkg.daynightpvp.features.worldguard.flags.DaytimePvpFlag;
 import me.needkg.daynightpvp.utils.WorldUtil;
@@ -14,16 +14,14 @@ import org.jetbrains.annotations.NotNull;
 public abstract class AbstractDamageListener {
 
     private final GriefPreventionManager griefPreventionManager;
-    private final IntegrationConfiguration integrationConfiguration;
-    private final NotificationConfiguration notificationConfiguration;
-    private final NotificationMessages notificationMessages;
+    private final MessageManager messageManager;
+    private final WorldConfigurationManager worldConfigurationManager;
 
     protected AbstractDamageListener() {
         DependencyContainer container = DependencyContainer.getInstance();
         this.griefPreventionManager = container.getGriefPreventionManager();
-        this.integrationConfiguration = container.getConfigurationContainer().getIntegrationConfiguration();
-        this.notificationConfiguration = container.getConfigurationContainer().getNotificationConfiguration();
-        this.notificationMessages = container.getMessageContainer().getNotifications();
+        this.messageManager = container.getMessageManager();
+        this.worldConfigurationManager = container.getWorldConfigurationManager();
     }
 
     public boolean shouldCancelDamage(@NotNull Player victim, @NotNull Player attacker, @NotNull String worldName) {
@@ -48,12 +46,12 @@ public abstract class AbstractDamageListener {
 
     private boolean isPlayerImmune(@NotNull Player attacker, @NotNull Player victim) {
         if (attacker.hasPermission("dnp.immune")) {
-            attacker.sendMessage(notificationMessages.getSelfImmune());
+            attacker.sendMessage(messageManager.getMessage(MessageType.COMBAT_RESTRICTION_SELF_IMMUNE));
             return true;
         }
 
         if (victim.hasPermission("dnp.immune")) {
-            attacker.sendMessage(notificationMessages.getPlayerImmune());
+            attacker.sendMessage(messageManager.getMessage(MessageType.COMBAT_RESTRICTION_PLAYER_IMMUNE));
             return true;
         }
 
@@ -68,8 +66,8 @@ public abstract class AbstractDamageListener {
 
     private boolean isPlayerInDayWorld(@NotNull Player victim, @NotNull Player attacker, @NotNull String worldName) {
         if (WorldUtil.isPlayerInDayWorld(victim)) {
-            if (notificationConfiguration.getNotificationsChatNoPvpWarn(worldName)) {
-                attacker.sendMessage(notificationMessages.getDaytimeDisabled());
+            if (worldConfigurationManager.isNotificationsChatNoPvpWarn(worldName)) {
+                attacker.sendMessage(messageManager.getMessage(MessageType.COMBAT_RESTRICTION_DAYTIME));
             }
             return true;
         }
@@ -78,7 +76,7 @@ public abstract class AbstractDamageListener {
 
     private boolean isGriefPreventionBlocking(@NotNull Player victim, @NotNull Player attacker, @NotNull String worldName) {
         return DayNightPvP.isGriefPresent
-                && !integrationConfiguration.getIntegrationsGriefPreventionPvpInClaims(worldName)
-                && griefPreventionManager.verify(victim, attacker);
+                && !worldConfigurationManager.isIntegrationsGriefPreventionPvpInClaims(worldName)
+                && griefPreventionManager.isPlayerInClaim(victim, attacker);
     }
 }

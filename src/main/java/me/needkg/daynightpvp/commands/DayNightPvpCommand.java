@@ -1,9 +1,10 @@
 package me.needkg.daynightpvp.commands;
 
 import me.needkg.daynightpvp.commands.subcommands.*;
-import me.needkg.daynightpvp.commands.subcommands.base.ISubCommand;
-import me.needkg.daynightpvp.configuration.message.SystemMessages;
-import me.needkg.daynightpvp.core.di.DependencyContainer;
+import me.needkg.daynightpvp.commands.subcommands.core.ISubCommand;
+import me.needkg.daynightpvp.configuration.manager.MessageManager;
+import me.needkg.daynightpvp.configuration.type.MessageType;
+import me.needkg.daynightpvp.core.DependencyContainer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -15,16 +16,16 @@ import java.util.stream.Collectors;
 
 public class DayNightPvpCommand implements CommandExecutor, TabCompleter {
 
-    private final SystemMessages systemMessages;
+    private final MessageManager messageManager;
     private final Map<String, ISubCommand> subCommands = new HashMap<>();
 
     public DayNightPvpCommand() {
         DependencyContainer container = DependencyContainer.getInstance();
-        this.systemMessages = container.getMessageContainer().getSystem();
-        registerSubCommands();
+        this.messageManager = container.getMessageManager();
+        initializeSubCommands();
     }
 
-    private void registerSubCommands() {
+    private void initializeSubCommands() {
         subCommands.put("reload", new ReloadSubCommand());
         subCommands.put("addworld", new AddWorldSubCommand());
         subCommands.put("delworld", new DelWorldSubCommand());
@@ -52,7 +53,7 @@ public class DayNightPvpCommand implements CommandExecutor, TabCompleter {
         ISubCommand dnpSubCommand = subCommands.get(args[0]);
 
         if (dnpSubCommand == null) {
-            sender.sendMessage(systemMessages.getCommandNotFoundMessage());
+            sender.sendMessage(messageManager.getMessage(MessageType.SYSTEM_COMMAND_NOT_FOUND));
             return true;
         }
 

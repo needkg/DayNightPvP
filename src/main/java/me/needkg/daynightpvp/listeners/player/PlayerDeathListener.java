@@ -1,9 +1,8 @@
 package me.needkg.daynightpvp.listeners.player;
 
 import me.needkg.daynightpvp.DayNightPvP;
-import me.needkg.daynightpvp.configuration.config.IntegrationConfiguration;
-import me.needkg.daynightpvp.configuration.config.PvpConfiguration;
-import me.needkg.daynightpvp.core.di.DependencyContainer;
+import me.needkg.daynightpvp.configuration.manager.WorldConfigurationManager;
+import me.needkg.daynightpvp.core.DependencyContainer;
 import me.needkg.daynightpvp.features.vault.LoseMoney;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -14,14 +13,12 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 
 public class PlayerDeathListener implements Listener {
 
-    private final PvpConfiguration pvpConfiguration;
-    private final IntegrationConfiguration integrationConfiguration;
+    private final WorldConfigurationManager worldConfigurationManager;
     private final LoseMoney loseMoney;
 
     public PlayerDeathListener() {
         DependencyContainer container = DependencyContainer.getInstance();
-        this.pvpConfiguration = container.getConfigurationContainer().getPvpConfiguration();
-        this.integrationConfiguration = container.getConfigurationContainer().getIntegrationConfiguration();
+        this.worldConfigurationManager = container.getWorldConfigurationManager();
         this.loseMoney = container.getLoseMoney();
     }
 
@@ -42,11 +39,11 @@ public class PlayerDeathListener implements Listener {
     }
 
     private void handleKeepInventory(PlayerDeathEvent event, String worldName) {
-        if (pvpConfiguration.getPvpKeepInventoryOnPvpEnabled(worldName)) {
+        if (worldConfigurationManager.isPvpKeepInventoryEnabled(worldName)) {
             event.setKeepInventory(true);
             event.getDrops().clear();
         }
-        if (pvpConfiguration.getPvpKeepInventoryOnPvpKeepExp(worldName)) {
+        if (worldConfigurationManager.isPvpKeepInventoryKeepExp(worldName)) {
             event.setKeepLevel(true);
             event.setDroppedExp(0);
         }
@@ -60,13 +57,13 @@ public class PlayerDeathListener implements Listener {
         Bukkit.getScheduler().runTaskAsynchronously(DayNightPvP.getInstance(), () -> {
             String loseMoneyPercentage = extractLoseMoneyPercentage(killed);
             if (!loseMoneyPercentage.isEmpty()) {
-                loseMoney.loseMoneyOnDeath(killed, killer, world, loseMoneyPercentage);
+                loseMoney.handleDeathMoneyTransaction(killed, killer, world, loseMoneyPercentage);
             }
         });
     }
 
     private boolean shouldHandleMoneyLoss(String worldName) {
-        return integrationConfiguration.getIntegrationsVaultLoseMoneyEnabled(worldName) && DayNightPvP.isVaultPresent;
+        return worldConfigurationManager.isIntegrationsVaultLoseMoneyEnabled(worldName) && DayNightPvP.isVaultPresent;
     }
 
     private String extractLoseMoneyPercentage(Player player) {

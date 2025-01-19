@@ -1,11 +1,8 @@
 package me.needkg.daynightpvp.tasks;
 
 import me.needkg.daynightpvp.DayNightPvP;
-import me.needkg.daynightpvp.configuration.config.BossbarConfiguration;
-import me.needkg.daynightpvp.configuration.config.DayNightDurationConfiguration;
-import me.needkg.daynightpvp.configuration.config.GeneralConfiguration;
-import me.needkg.daynightpvp.configuration.config.PvpConfiguration;
-import me.needkg.daynightpvp.core.di.ConfigurationContainer;
+import me.needkg.daynightpvp.configuration.manager.GlobalConfigurationManager;
+import me.needkg.daynightpvp.configuration.manager.WorldConfigurationManager;
 import me.needkg.daynightpvp.utils.LoggingUtil;
 import me.needkg.daynightpvp.utils.WorldUtil;
 import org.bukkit.Bukkit;
@@ -22,26 +19,22 @@ import java.util.Map;
 
 public class TaskManager {
 
-    private final GeneralConfiguration generalConfiguration;
-    private final DayNightDurationConfiguration dayNightDurationConfiguration;
-    private final BossbarConfiguration bossbarConfiguration;
-    private final PvpConfiguration pvpConfiguration;
+    private final GlobalConfigurationManager globalConfigurationManager;
+    private final WorldConfigurationManager worldConfigurationManager;
     private final List<Integer> scheduledTasks;
     private final List<BossBar> activeBossBars;
     private final Map<String, TimeDurationController> worldTimeControllers;
 
-    public TaskManager(ConfigurationContainer configurationContainer) {
-        this.generalConfiguration = configurationContainer.getGeneralConfiguration();
-        this.dayNightDurationConfiguration = configurationContainer.getDayNightDurationConfiguration();
-        this.bossbarConfiguration = configurationContainer.getBossbarConfiguration();
-        this.pvpConfiguration = configurationContainer.getPvpConfiguration();
+    public TaskManager(GlobalConfigurationManager globalConfigurationManager, WorldConfigurationManager worldConfigurationManager) {
+        this.globalConfigurationManager = globalConfigurationManager;
+        this.worldConfigurationManager = worldConfigurationManager;
         this.scheduledTasks = new ArrayList<>();
         this.activeBossBars = new ArrayList<>();
         this.worldTimeControllers = new HashMap<>();
     }
 
     public void startAllTasks() {
-        for (String worldName : generalConfiguration.getWorldNames()) {
+        for (String worldName : globalConfigurationManager.getWorldNames()) {
             if (WorldUtil.isWorldValid(worldName)) {
                 initializeWorldTasks(worldName);
             }
@@ -52,17 +45,17 @@ public class TaskManager {
         World world = Bukkit.getWorld(worldName);
         TimeDurationController timeDurationController = null;
 
-        if (dayNightDurationConfiguration.getDayNightDurationEnabled(worldName)) {
+        if (worldConfigurationManager.isDayNightDurationEnabled(worldName)) {
             LoggingUtil.sendVerboseMessage("Initializing the TimeDurationController task...");
             timeDurationController = initializeTimeDurationController(worldName, world);
         }
 
-        if (bossbarConfiguration.getBossbarEnabled(worldName)) {
+        if (worldConfigurationManager.isBossbarEnabled(worldName)) {
             LoggingUtil.sendVerboseMessage("Initializing the BossBar task...");
             initializeBossBar(worldName, world, timeDurationController);
         }
 
-        if (pvpConfiguration.getPvpAutomaticEnabled(worldName)) {
+        if (worldConfigurationManager.isPvpAutomaticEnabled(worldName)) {
             LoggingUtil.sendVerboseMessage("Initializing the WorldStateController task...");
             initializeWorldStateController(worldName, world);
         }
@@ -121,7 +114,7 @@ public class TaskManager {
     }
 
     private void restoreWorldSettings() {
-        generalConfiguration.getValidWorldNames().forEach(worldName ->
+        globalConfigurationManager.getValidWorlds().forEach(worldName ->
                 Bukkit.getWorld(worldName).setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true));
     }
 

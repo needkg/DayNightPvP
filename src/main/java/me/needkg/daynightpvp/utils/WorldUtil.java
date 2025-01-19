@@ -8,7 +8,7 @@ public class WorldUtil {
 
     public static boolean isPlayerInDayWorld(Player player) {
         String worldName = player.getWorld().getName();
-        return SearchUtil.containsWorldName(WorldStateController.dayWorlds, worldName);
+        return SearchUtil.isWorldInCollection(WorldStateController.dayWorlds, worldName);
     }
 
     public static boolean isWorldValid(String worldName) {

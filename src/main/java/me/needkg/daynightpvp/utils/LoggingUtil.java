@@ -1,15 +1,10 @@
 package me.needkg.daynightpvp.utils;
 
 import me.needkg.daynightpvp.DayNightPvP;
-import me.needkg.daynightpvp.configuration.config.DebugConfiguration;
-import me.needkg.daynightpvp.core.di.DependencyContainer;
+import me.needkg.daynightpvp.core.DependencyContainer;
 import org.bukkit.Bukkit;
 
 public class LoggingUtil {
-
-    private static DebugConfiguration getDebugConfig() {
-        return DependencyContainer.getInstance().getConfigurationContainer().getDebugConfiguration();
-    }
 
     public static void sendWarningMessage(String message) {
         Bukkit.getLogger().warning(message);
@@ -20,13 +15,13 @@ public class LoggingUtil {
     }
 
     public static void sendDebugMessage(String message) {
-        if (getDebugConfig().isDebugEnabled()) {
+        if (DependencyContainer.getInstance().getGlobalConfigurationManager().isDebugEnabled()) {
             Bukkit.getLogger().info("[DayNightPvP Debug] " + message);
         }
     }
 
     public static void sendVerboseMessage(String message) {
-        if (getDebugConfig().isDebugEnabled() && getDebugConfig().isVerboseEnabled()) {
+        if (DependencyContainer.getInstance().getGlobalConfigurationManager().isDebugEnabled() && DependencyContainer.getInstance().getGlobalConfigurationManager().isDebugVerbose()) {
             Bukkit.getLogger().info("[DayNightPvP Verbose] " + message);
         }
     }

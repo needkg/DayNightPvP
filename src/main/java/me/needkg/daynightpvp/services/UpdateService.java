@@ -1,8 +1,9 @@
 package me.needkg.daynightpvp.services;
 
 import me.needkg.daynightpvp.DayNightPvP;
-import me.needkg.daynightpvp.configuration.message.SystemMessages;
-import me.needkg.daynightpvp.core.di.DependencyContainer;
+import me.needkg.daynightpvp.configuration.manager.MessageManager;
+import me.needkg.daynightpvp.configuration.type.MessageType;
+import me.needkg.daynightpvp.core.DependencyContainer;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Player;
@@ -20,37 +21,37 @@ public class UpdateService {
     private static final String SPIGOT_RESOURCE_ID = "102250";
     private static final String PLUGIN_UPDATE_PAGE = "https://www.spigotmc.org/resources/daynightpvp-dynamic-pvp-for-day-night.102250/updates";
 
-    private final String currentVersion;
-    private final SystemMessages systemMessages;
+    private final String currentPluginVersion;
+    private final MessageManager messageManager;
 
     public UpdateService() {
         DependencyContainer container = DependencyContainer.getInstance();
-        this.currentVersion = DayNightPvP.getInstance().getDescription().getVersion();
-        this.systemMessages = container.getMessageContainer().getSystem();
+        this.currentPluginVersion = DayNightPvP.getInstance().getDescription().getVersion();
+        this.messageManager = container.getMessageManager();
     }
 
     public void checkUpdate(PlayerJoinEvent event) {
         try {
-            String latestVersion = fetchLatestVersion();
-            if (!currentVersion.equals(latestVersion)) {
-                notifyUpdateAvailable(event.getPlayer(), latestVersion);
+            String latestPluginVersion = fetchLatestVersion();
+            if (!currentPluginVersion.equals(latestPluginVersion)) {
+                notifyUpdateAvailable(event.getPlayer(), latestPluginVersion);
             }
         } catch (IOException ex) {
-            event.getPlayer().sendMessage(systemMessages.getUpdateCheckFailedMessage());
+            event.getPlayer().sendMessage(messageManager.getMessage(MessageType.SYSTEM_UPDATE_CHECK_FAILED));
         }
     }
 
     private void notifyUpdateAvailable(Player player, String latestVersion) {
         TextComponent updateLink = createUpdateLink();
 
-        player.sendMessage(systemMessages.getUpdateAvailableMessage());
-        player.sendMessage(systemMessages.getCurrentVersionMessage().replace("{0}", currentVersion));
-        player.sendMessage(systemMessages.getLatestVersionMessage().replace("{0}", latestVersion));
+        player.sendMessage(messageManager.getMessage(MessageType.SYSTEM_UPDATE_AVAILABLE));
+        player.sendMessage(messageManager.getMessage(MessageType.SYSTEM_UPDATE_CURRENT_VERSION).replace("{0}", currentPluginVersion));
+        player.sendMessage(messageManager.getMessage(MessageType.SYSTEM_UPDATE_LATEST_VERSION).replace("{0}", latestVersion));
         player.spigot().sendMessage(updateLink);
     }
 
     private TextComponent createUpdateLink() {
-        TextComponent link = new TextComponent(systemMessages.getClickToUpdateMessage());
+        TextComponent link = new TextComponent(messageManager.getMessage(MessageType.SYSTEM_UPDATE_CLICK_TO_UPDATE));
         link.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, PLUGIN_UPDATE_PAGE));
         return link;
     }

@@ -1,16 +1,16 @@
 package me.needkg.daynightpvp.commands.subcommands;
 
-import me.needkg.daynightpvp.commands.subcommands.base.CommandValidator;
-import me.needkg.daynightpvp.commands.subcommands.base.ISubCommand;
+import me.needkg.daynightpvp.commands.subcommands.core.CommandValidator;
+import me.needkg.daynightpvp.commands.subcommands.core.ISubCommand;
 import me.needkg.daynightpvp.commands.subcommands.validators.PermissionValidator;
 import me.needkg.daynightpvp.commands.subcommands.validators.SettingValidator;
 import me.needkg.daynightpvp.commands.subcommands.validators.WorldConfiguredValidator;
 import me.needkg.daynightpvp.commands.subcommands.validators.WorldExistsValidator;
-import me.needkg.daynightpvp.configuration.ConfigurationManager;
-import me.needkg.daynightpvp.configuration.config.GeneralConfiguration;
-import me.needkg.daynightpvp.configuration.message.SystemMessages;
-import me.needkg.daynightpvp.configuration.message.WorldEditorMessages;
-import me.needkg.daynightpvp.core.di.DependencyContainer;
+import me.needkg.daynightpvp.configuration.file.ConfigurationFile;
+import me.needkg.daynightpvp.configuration.manager.GlobalConfigurationManager;
+import me.needkg.daynightpvp.configuration.manager.MessageManager;
+import me.needkg.daynightpvp.configuration.type.MessageType;
+import me.needkg.daynightpvp.core.DependencyContainer;
 import me.needkg.daynightpvp.services.PluginService;
 import org.bukkit.Difficulty;
 import org.bukkit.Sound;
@@ -22,28 +22,26 @@ import java.util.stream.Collectors;
 
 public class EditWorldSubCommand implements ISubCommand {
 
-    private final ConfigurationManager configurationManager;
-    private final GeneralConfiguration generalConfiguration;
-    private final WorldEditorMessages worldEditorMessages;
-    private final SystemMessages systemMessages;
+    private final ConfigurationFile configurationFile;
+    private final MessageManager messageManager;
+    private final GlobalConfigurationManager globalConfigurationManager;
     private final PluginService pluginService;
     private final Map<String, SettingInfo> settingsMap;
     private final List<CommandValidator> validators;
 
     public EditWorldSubCommand() {
         DependencyContainer container = DependencyContainer.getInstance();
-        this.configurationManager = container.getConfigManager();
-        this.generalConfiguration = container.getConfigurationContainer().getGeneralConfiguration();
-        this.worldEditorMessages = container.getMessageContainer().getWorldEditor();
-        this.systemMessages = container.getMessageContainer().getSystem();
+        this.configurationFile = container.getConfigurationFile();
+        this.messageManager = container.getMessageManager();
+        this.globalConfigurationManager = container.getGlobalConfigurationManager();
         this.pluginService = container.getPluginService();
         this.settingsMap = initializeSettingsMap();
 
         this.validators = new ArrayList<>();
-        this.validators.add(new PermissionValidator("dnp.admin", systemMessages));
-        this.validators.add(new WorldExistsValidator(worldEditorMessages, true, systemMessages));
-        this.validators.add(new WorldConfiguredValidator(configurationManager, worldEditorMessages, true));
-        this.validators.add(new SettingValidator(settingsMap, worldEditorMessages));
+        this.validators.add(new PermissionValidator("dnp.admin", messageManager));
+        this.validators.add(new WorldExistsValidator(true, messageManager));
+        this.validators.add(new WorldConfiguredValidator(configurationFile, messageManager, true));
+        this.validators.add(new SettingValidator(settingsMap, messageManager));
     }
 
     @Override
@@ -77,7 +75,7 @@ public class EditWorldSubCommand implements ISubCommand {
         }
 
         if (args.size() == 1) {
-            return filterStartsWith(generalConfiguration.getValidWorldNames(), args.get(0));
+            return filterStartsWith(globalConfigurationManager.getValidWorlds(), args.get(0));
         }
 
         if (args.size() == 2) {
@@ -97,7 +95,7 @@ public class EditWorldSubCommand implements ISubCommand {
 
     private void showAvailableSettings(CommandSender sender) {
         sender.sendMessage("");
-        sender.sendMessage(worldEditorMessages.getTitle());
+        sender.sendMessage(messageManager.getMessage(MessageType.WORLD_EDITOR_TITLE));
         sender.sendMessage("");
 
         Map<String, List<Map.Entry<String, SettingInfo>>> categorizedSettings = categorizeSetting();
@@ -128,18 +126,18 @@ public class EditWorldSubCommand implements ISubCommand {
     private void showSettingDetails(CommandSender sender, String worldName, String setting, SettingInfo settingInfo) {
         Object currentValue = getCurrentValue(worldName, setting);
         sender.sendMessage("");
-        sender.sendMessage(worldEditorMessages.getSettingDetailsTitle().replace("{0}", setting));
-        sender.sendMessage(worldEditorMessages.getSettingDescription().replace("{0}", settingInfo.description));
-        sender.sendMessage(worldEditorMessages.getSettingCurrentValue().replace("{0}", String.valueOf(currentValue)));
-        sender.sendMessage(worldEditorMessages.getSettingType().replace("{0}", getTypeName(settingInfo.type)));
+        sender.sendMessage(messageManager.getMessage(MessageType.WORLD_EDITOR_SETTING_DETAILS_TITLE).replace("{0}", setting));
+        sender.sendMessage(messageManager.getMessage(MessageType.WORLD_EDITOR_SETTING_DETAILS_DESCRIPTION).replace("{0}", settingInfo.description));
+        sender.sendMessage(messageManager.getMessage(MessageType.WORLD_EDITOR_SETTING_DETAILS_CURRENT).replace("{0}", String.valueOf(currentValue)));
+        sender.sendMessage(messageManager.getMessage(MessageType.WORLD_EDITOR_SETTING_DETAILS_TYPE).replace("{0}", getTypeName(settingInfo.type)));
 
         if (settingInfo.type == Integer.class || settingInfo.type == Double.class) {
-            sender.sendMessage(worldEditorMessages.getSettingRange()
+            sender.sendMessage(messageManager.getMessage(MessageType.WORLD_EDITOR_SETTING_DETAILS_RANGE)
                     .replace("{0}", String.valueOf(settingInfo.minValue))
                     .replace("{1}", String.valueOf(settingInfo.maxValue)));
         }
 
-        sender.sendMessage(worldEditorMessages.getSettingSuggestions()
+        sender.sendMessage(messageManager.getMessage(MessageType.WORLD_EDITOR_SETTING_DETAILS_SUGGESTIONS)
                 .replace("{0}", String.join(", ", settingInfo.suggestions)));
         sender.sendMessage("");
     }
@@ -148,7 +146,7 @@ public class EditWorldSubCommand implements ISubCommand {
         try {
             Object parsedValue = parseValue(newValue, settingInfo.type);
             if (!isValidValue(parsedValue, settingInfo)) {
-                sender.sendMessage(worldEditorMessages.getInvalidValueMessage()
+                sender.sendMessage(messageManager.getMessage(MessageType.WORLD_EDITOR_FEEDBACK_INVALID_VALUE)
                         .replace("{0}", newValue)
                         .replace("{1}", setting));
                 return;
@@ -156,7 +154,7 @@ public class EditWorldSubCommand implements ISubCommand {
 
             Object currentValue = getCurrentValue(worldName, setting);
             if (currentValue != null && currentValue.equals(parsedValue)) {
-                sender.sendMessage(worldEditorMessages.getSameValueMessage()
+                sender.sendMessage(messageManager.getMessage(MessageType.WORLD_EDITOR_FEEDBACK_SAME_VALUE)
                         .replace("{0}", setting)
                         .replace("{1}", String.valueOf(parsedValue)));
                 return;
@@ -165,7 +163,7 @@ public class EditWorldSubCommand implements ISubCommand {
             saveAndReload(worldName, setting, parsedValue, sender);
 
         } catch (Exception e) {
-            sender.sendMessage(worldEditorMessages.getInvalidValueMessage()
+            sender.sendMessage(messageManager.getMessage(MessageType.WORLD_EDITOR_FEEDBACK_INVALID_VALUE)
                     .replace("{0}", newValue)
                     .replace("{1}", setting));
         }
@@ -173,10 +171,10 @@ public class EditWorldSubCommand implements ISubCommand {
 
     private void saveAndReload(String worldName, String setting, Object value, CommandSender sender) {
         String path = "worlds." + worldName + "." + setting;
-        configurationManager.setValue(path, value);
+        configurationFile.setValue(path, value);
         pluginService.reloadPlugin();
 
-        sender.sendMessage(worldEditorMessages.getSuccessMessage()
+        sender.sendMessage(messageManager.getMessage(MessageType.WORLD_EDITOR_FEEDBACK_SUCCESS)
                 .replace("{0}", setting)
                 .replace("{1}", String.valueOf(value)));
     }
@@ -196,7 +194,7 @@ public class EditWorldSubCommand implements ISubCommand {
     }
 
     private Object getCurrentValue(String worldName, String setting) {
-        return configurationManager.getFileContent().get("worlds." + worldName + "." + setting);
+        return configurationFile.getFileContent().get("worlds." + worldName + "." + setting);
     }
 
     private Object parseValue(String value, Class<?> type) {

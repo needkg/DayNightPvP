@@ -27,6 +27,6 @@ public class EntityDamageListener extends AbstractDamageListener implements List
     }
 
     private boolean isValidPvPInteraction(Entity attacker, Entity victim) {
-        return PlayerUtil.isRealPlayer(attacker) && PlayerUtil.isRealPlayer(victim);
+        return PlayerUtil.isPlayerInstance(attacker) && PlayerUtil.isPlayerInstance(victim);
     }
 }

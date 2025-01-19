@@ -40,7 +40,7 @@ public class PotionSplashListener extends AbstractDamageListener implements List
     }
 
     private boolean isValidPotionAttack(ThrownPotion potion) {
-        return potion.getShooter() != null && PlayerUtil.isRealPlayer(potion.getShooter());
+        return potion.getShooter() != null && PlayerUtil.isPlayerInstance(potion.getShooter());
     }
 
     private boolean hasHarmfulEffect(Iterable<PotionEffect> effects) {

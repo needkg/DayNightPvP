@@ -1,34 +1,34 @@
-package me.needkg.daynightpvp.configuration.validators;
+package me.needkg.daynightpvp.configuration.access;
 
-import me.needkg.daynightpvp.configuration.LanguageManager;
+import me.needkg.daynightpvp.configuration.file.LanguageFile;
 import org.bukkit.ChatColor;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class LanguageValidator {
+public class LanguageAccess {
 
-    private final LanguageManager languageManager;
+    private final LanguageFile languageFile;
 
-    public LanguageValidator(LanguageManager languageManager) {
-        this.languageManager = languageManager;
+    public LanguageAccess(LanguageFile languageFile) {
+        this.languageFile = languageFile;
     }
 
     public String getMessage(String path) {
-        String text = languageManager.getFileContent().getString(path);
+        String text = languageFile.getFileContent().getString(path);
         if (text == null) {
             return "Invalid message syntax";
         }
 
-        return processColorCodes(text);
+        return translateColorCodes(text);
     }
 
-    private String processColorCodes(String text) {
-        String hexProcessed = processHexColors(text);
+    private String translateColorCodes(String text) {
+        String hexProcessed = translateHexColors(text);
         return ChatColor.translateAlternateColorCodes('&', hexProcessed);
     }
 
-    private String processHexColors(String text) {
+    private String translateHexColors(String text) {
         Pattern hexPattern = Pattern.compile("<#([A-Fa-f0-9]{6})>");
         Matcher matcher = hexPattern.matcher(text);
         StringBuffer buffer = new StringBuffer();

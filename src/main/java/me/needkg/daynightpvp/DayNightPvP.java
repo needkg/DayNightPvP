@@ -1,6 +1,6 @@
 package me.needkg.daynightpvp;
 
-import me.needkg.daynightpvp.core.di.DependencyContainer;
+import me.needkg.daynightpvp.core.DependencyContainer;
 import me.needkg.daynightpvp.features.worldguard.FlagManager;
 import me.needkg.daynightpvp.utils.LoggingUtil;
 import me.needkg.daynightpvp.utils.PluginUtil;
@@ -36,15 +36,15 @@ public class DayNightPvP extends JavaPlugin {
     @Override
     public void onEnable() {
         LoggingUtil.sendStartupMessage();
-        DependencyContainer.initialize();
+        DependencyContainer.initializeContainer();
         DependencyContainer container = DependencyContainer.getInstance();
 
-        container.getConfigManager().initializeFile();
+        container.getConfigurationFile().initializeFile();
         LoggingUtil.sendDebugMessage("Dependency injection container started.");
         LoggingUtil.sendDebugMessage("Configuration file loaded.");
 
         LoggingUtil.sendDebugMessage("Loading language files...");
-        container.getLanguageManager().initializeFile();
+        container.getLanguageFile().initializeFile();
         
         LoggingUtil.sendDebugMessage("Starting metrics...");
         container.getMetricsManager().start();
@@ -55,11 +55,11 @@ public class DayNightPvP extends JavaPlugin {
         LoggingUtil.sendDebugMessage("Registering event listeners...");
         container.getListenerManager().register();
         
-        LoggingUtil.sendDebugMessage("Registering placeholders...");
-        container.getPlaceholderHandler().register();
-        
         LoggingUtil.sendDebugMessage("Starting scheduled tasks...");
         container.getTaskManager().startAllTasks();
+
+        LoggingUtil.sendDebugMessage("Registering placeholders...");
+        container.getPlaceholderHandler().register();
     }
 
     @Override

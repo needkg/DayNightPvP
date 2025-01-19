@@ -1,4 +1,4 @@
-package me.needkg.daynightpvp.commands.subcommands.base;
+package me.needkg.daynightpvp.commands.subcommands.core;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

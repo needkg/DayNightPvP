@@ -1,15 +1,15 @@
 package me.needkg.daynightpvp.commands.subcommands;
 
-import me.needkg.daynightpvp.commands.subcommands.base.CommandValidator;
-import me.needkg.daynightpvp.commands.subcommands.base.ISubCommand;
+import me.needkg.daynightpvp.commands.subcommands.core.CommandValidator;
+import me.needkg.daynightpvp.commands.subcommands.core.ISubCommand;
 import me.needkg.daynightpvp.commands.subcommands.validators.ArgsLengthValidator;
 import me.needkg.daynightpvp.commands.subcommands.validators.PermissionValidator;
 import me.needkg.daynightpvp.commands.subcommands.validators.WorldConfiguredValidator;
-import me.needkg.daynightpvp.configuration.ConfigurationManager;
-import me.needkg.daynightpvp.configuration.config.GeneralConfiguration;
-import me.needkg.daynightpvp.configuration.message.SystemMessages;
-import me.needkg.daynightpvp.configuration.message.WorldEditorMessages;
-import me.needkg.daynightpvp.core.di.DependencyContainer;
+import me.needkg.daynightpvp.configuration.file.ConfigurationFile;
+import me.needkg.daynightpvp.configuration.manager.GlobalConfigurationManager;
+import me.needkg.daynightpvp.configuration.manager.MessageManager;
+import me.needkg.daynightpvp.configuration.type.MessageType;
+import me.needkg.daynightpvp.core.DependencyContainer;
 import me.needkg.daynightpvp.services.PluginService;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -19,32 +19,30 @@ import java.util.List;
 
 public class DelWorldSubCommand implements ISubCommand {
 
-    private final ConfigurationManager configurationManager;
-    private final GeneralConfiguration generalConfiguration;
+    private final MessageManager messageManager;
+    private final GlobalConfigurationManager globalConfigurationManager;
+    private final ConfigurationFile configurationFile;
     private final PluginService pluginService;
-    private final WorldEditorMessages worldEditorMessages;
-    private final SystemMessages systemMessages;
     private final List<CommandValidator> validators;
 
     public DelWorldSubCommand() {
         DependencyContainer container = DependencyContainer.getInstance();
-        this.configurationManager = container.getConfigManager();
-        this.generalConfiguration = container.getConfigurationContainer().getGeneralConfiguration();
-        this.worldEditorMessages = container.getMessageContainer().getWorldEditor();
-        this.systemMessages = container.getMessageContainer().getSystem();
+        this.messageManager = container.getMessageManager();
+        this.globalConfigurationManager = container.getGlobalConfigurationManager();
         this.pluginService = container.getPluginService();
+        this.configurationFile = container.getConfigurationFile();
 
         this.validators = new ArrayList<>();
-        this.validators.add(new PermissionValidator("dnp.admin", systemMessages));
-        this.validators.add(new ArgsLengthValidator(2, "/dnp delworld <worldName>", systemMessages));
-        this.validators.add(new WorldConfiguredValidator(configurationManager, worldEditorMessages, true));
+        this.validators.add(new PermissionValidator("dnp.admin", messageManager));
+        this.validators.add(new ArgsLengthValidator(2, "/dnp delworld <worldName>", messageManager));
+        this.validators.add(new WorldConfiguredValidator(configurationFile, messageManager, true));
     }
 
     @Override
     public void execute(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         removeWorldFromConfig(args[1]);
         pluginService.reloadPlugin();
-        sender.sendMessage(worldEditorMessages.getWorldDeletedMessage().replace("{0}", args[1]));
+        sender.sendMessage(messageManager.getMessage(MessageType.WORLD_EDITOR_MANAGEMENT_DELETED).replace("{0}", args[1]));
     }
 
     @Override
@@ -58,7 +56,7 @@ public class DelWorldSubCommand implements ISubCommand {
 
         if (args.size() == 1) {
             String prefix = args.get(0).toLowerCase();
-            for (String worldName : generalConfiguration.getWorldNames()) {
+            for (String worldName : globalConfigurationManager.getWorldNames()) {
                 if (worldName.startsWith(prefix)) {
                     suggestions.add(worldName);
                 }
@@ -68,7 +66,7 @@ public class DelWorldSubCommand implements ISubCommand {
     }
 
     private void removeWorldFromConfig(String worldName) {
-        configurationManager.setValue("worlds." + worldName, null);
-        configurationManager.saveFile();
+        configurationFile.setValue("worlds." + worldName, null);
+        configurationFile.saveFile();
     }
 }

@@ -1,18 +1,20 @@
 package me.needkg.daynightpvp.commands.subcommands.validators;
 
-import me.needkg.daynightpvp.commands.subcommands.base.CommandValidator;
-import me.needkg.daynightpvp.configuration.message.WorldEditorMessages;
+import me.needkg.daynightpvp.commands.subcommands.core.CommandValidator;
+import me.needkg.daynightpvp.configuration.manager.MessageManager;
+import me.needkg.daynightpvp.configuration.type.MessageType;
+
 import org.bukkit.command.CommandSender;
 
 import java.util.Map;
 
 public class SettingValidator implements CommandValidator {
     private final Map<String, ?> settingsMap;
-    private final WorldEditorMessages worldEditorMessages;
+    private final MessageManager messageManager;
 
-    public SettingValidator(Map<String, ?> settingsMap, WorldEditorMessages worldEditorMessages) {
+    public SettingValidator(Map<String, ?> settingsMap, MessageManager messageManager) {
         this.settingsMap = settingsMap;
-        this.worldEditorMessages = worldEditorMessages;
+        this.messageManager = messageManager;
     }
 
     @Override
@@ -23,6 +25,6 @@ public class SettingValidator implements CommandValidator {
 
     @Override
     public String getErrorMessage(CommandSender sender, String[] args) {
-        return worldEditorMessages.getInvalidSettingMessage().replace("{0}", args[2]);
+        return messageManager.getMessage(MessageType.WORLD_EDITOR_FEEDBACK_INVALID_SETTING).replace("{0}", args[2]);
     }
 } 

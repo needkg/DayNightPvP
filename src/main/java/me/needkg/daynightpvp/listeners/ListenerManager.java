@@ -1,8 +1,7 @@
 package me.needkg.daynightpvp.listeners;
 
 import me.needkg.daynightpvp.DayNightPvP;
-import me.needkg.daynightpvp.core.di.ConfigurationContainer;
-import me.needkg.daynightpvp.configuration.config.GeneralConfiguration;
+import me.needkg.daynightpvp.configuration.manager.GlobalConfigurationManager;
 import me.needkg.daynightpvp.listeners.damage.EntityDamageListener;
 import me.needkg.daynightpvp.listeners.damage.PotionSplashListener;
 import me.needkg.daynightpvp.listeners.damage.ProjectileHitListener;
@@ -14,10 +13,10 @@ import org.bukkit.event.HandlerList;
 
 public class ListenerManager {
 
-    private final GeneralConfiguration generalConfiguration;
+    private final GlobalConfigurationManager globalConfigurationManager;
 
-    public ListenerManager(ConfigurationContainer configurationContainer) {
-        this.generalConfiguration = configurationContainer.getGeneralConfiguration();
+    public ListenerManager(GlobalConfigurationManager globalConfigurationManager) {
+        this.globalConfigurationManager = globalConfigurationManager;
     }
 
     public void register() {
@@ -38,7 +37,7 @@ public class ListenerManager {
     }
 
     private void registerPlayerJoinListener() {
-        if (generalConfiguration.getUpdateChecker()) {
+        if (globalConfigurationManager.isUpdateCheckerEnabled()) {
             LoggingUtil.sendVerboseMessage("Registering PlayerJoin listener...");
             Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(), DayNightPvP.getInstance());
         }

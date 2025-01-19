@@ -1,10 +1,10 @@
-package me.needkg.daynightpvp.api.placeholder.providers;
+package me.needkg.daynightpvp.features.placeholder.providers;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
-import me.needkg.daynightpvp.configuration.config.GeneralConfiguration;
-import me.needkg.daynightpvp.configuration.message.PlaceholderMessages;
-import me.needkg.daynightpvp.configuration.message.SystemMessages;
-import me.needkg.daynightpvp.core.di.DependencyContainer;
+import me.needkg.daynightpvp.configuration.manager.GlobalConfigurationManager;
+import me.needkg.daynightpvp.configuration.manager.MessageManager;
+import me.needkg.daynightpvp.configuration.type.MessageType;
+import me.needkg.daynightpvp.core.DependencyContainer;
 import me.needkg.daynightpvp.tasks.WorldStateController;
 import me.needkg.daynightpvp.utils.SearchUtil;
 import org.bukkit.Bukkit;
@@ -17,15 +17,13 @@ public class WorldStateProvider extends PlaceholderExpansion {
     private static final String AUTHOR = "needkg";
     private static final String VERSION = "GENERIC";
 
-    private final GeneralConfiguration generalConfiguration;
-    private final SystemMessages systemMessages;
-    private final PlaceholderMessages placeholderMessages;
+    private final MessageManager messageManager;
+    private final GlobalConfigurationManager globalConfigurationManager;
 
     public WorldStateProvider() {
         DependencyContainer container = DependencyContainer.getInstance();
-        this.generalConfiguration = container.getConfigurationContainer().getGeneralConfiguration();
-        this.systemMessages = container.getMessageContainer().getSystem();
-        this.placeholderMessages = container.getMessageContainer().getPlaceholders();
+        this.messageManager = container.getMessageManager();
+        this.globalConfigurationManager = container.getGlobalConfigurationManager();
     }
 
     @Override
@@ -54,17 +52,17 @@ public class WorldStateProvider extends PlaceholderExpansion {
     }
 
     @Override
-    public String onPlaceholderRequest(Player player, @NotNull String params) {
+    public String onPlaceholderRequest(Player player, @NotNull String placeholder) {
         if (player == null) {
-            return systemMessages.getErrorMessage();
+            return messageManager.getMessage(MessageType.SYSTEM_ERROR);
         }
 
-        if (params.equalsIgnoreCase("state_pvp_current_world")) {
+        if (placeholder.equalsIgnoreCase("state_pvp_current_world")) {
             return getPvpStateForWorld(player.getWorld());
         }
 
-        if (params.startsWith("state_pvp_world:")) {
-            String worldName = params.substring("state_pvp_world:".length());
+        if (placeholder.startsWith("state_pvp_world:")) {
+            String worldName = placeholder.substring("state_pvp_world:".length());
             World world = Bukkit.getWorld(worldName);
 
             if (world != null) {
@@ -72,21 +70,19 @@ public class WorldStateProvider extends PlaceholderExpansion {
             }
         }
 
-        return systemMessages.getErrorMessage();
+        return messageManager.getMessage(MessageType.SYSTEM_ERROR);
     }
 
     private String getPvpStateForWorld(World world) {
-        if (!SearchUtil.containsWorldName(generalConfiguration.getWorldNames(), world.getName())) {
-            return systemMessages.getErrorMessage();
+        if (!SearchUtil.isWorldInCollection(globalConfigurationManager.getWorldNames(), world.getName())) {
+            return messageManager.getMessage(MessageType.SYSTEM_ERROR);
         }
 
         boolean pvpStatus = isPvpEnabled(world);
-        return pvpStatus ? placeholderMessages.getPvpEnabledMessage() : placeholderMessages.getPvpDisabledMessage();
+        return pvpStatus ? messageManager.getMessage(MessageType.PLACEHOLDER_PVP_ENABLED) : messageManager.getMessage(MessageType.PLACEHOLDER_PVP_DISABLED);
     }
 
     private boolean isPvpEnabled(World world) {
-        //long time = world.getTime();
-        //return time >= worldSettings.getAutomaticPvpDayEnd(world.getName());
         return WorldStateController.nightWorlds.contains(world);
     }
 }

@@ -1,9 +1,9 @@
 package me.needkg.daynightpvp.tasks;
 
-import me.needkg.daynightpvp.configuration.config.DayNightDurationConfiguration;
-import me.needkg.daynightpvp.configuration.config.PvpConfiguration;
-import me.needkg.daynightpvp.configuration.message.BossBarMessages;
-import me.needkg.daynightpvp.core.di.DependencyContainer;
+import me.needkg.daynightpvp.configuration.manager.MessageManager;
+import me.needkg.daynightpvp.configuration.manager.WorldConfigurationManager;
+import me.needkg.daynightpvp.configuration.type.MessageType;
+import me.needkg.daynightpvp.core.DependencyContainer;
 import org.bukkit.World;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BossBar;
@@ -15,7 +15,8 @@ public class TimeBossBar implements Runnable {
     private static final int SECONDS_PER_HOUR = 3600;
     private static final int SECONDS_PER_MINUTE = 60;
 
-    private final BossBarMessages bossBarMessages;
+    private final WorldConfigurationManager worldConfigurationManager;
+    private final MessageManager messageManager;
     private final BossBar bossBar;
     private final World world;
     private final int dayDurationSeconds;
@@ -27,22 +28,21 @@ public class TimeBossBar implements Runnable {
 
     public TimeBossBar(BossBar bossbar, World world, String worldName, TimeDurationController timeDurationController) {
         DependencyContainer container = DependencyContainer.getInstance();
-        DayNightDurationConfiguration dayNightDurationConfiguration = container.getConfigurationContainer().getDayNightDurationConfiguration();
-        this.bossBarMessages = container.getMessageContainer().getBossBar();
-        PvpConfiguration pvpConfiguration = container.getConfigurationContainer().getPvpConfiguration();
+        this.worldConfigurationManager = container.getWorldConfigurationManager();
+        this.messageManager = container.getMessageManager();
         
         this.bossBar = bossbar;
         this.world = world;
-        this.pvpDayEnd = pvpConfiguration.getPvpAutomaticDayEnd(worldName);
-        this.dayDurationSeconds = dayNightDurationConfiguration.getDayNightDurationEnabled(worldName) 
-            ? dayNightDurationConfiguration.getDayNightDurationDayDuration(worldName) 
+        this.pvpDayEnd = worldConfigurationManager.getPvpAutomaticDayEnd(worldName);
+        this.dayDurationSeconds = worldConfigurationManager.isDayNightDurationEnabled(worldName) 
+            ? worldConfigurationManager.getDayNightDurationDayDuration(worldName) 
             : DEFAULT_DURATION_SECONDS;
-        this.nightDurationSeconds = dayNightDurationConfiguration.getDayNightDurationEnabled(worldName) 
-            ? dayNightDurationConfiguration.getDayNightDurationNightDuration(worldName) 
+        this.nightDurationSeconds = worldConfigurationManager.isDayNightDurationEnabled(worldName) 
+            ? worldConfigurationManager.getDayNightDurationNightDuration(worldName)
             : DEFAULT_DURATION_SECONDS;
         this.timeDurationController = timeDurationController;
-        this.dayMessage = bossBarMessages.getUntilSunsetMessage();
-        this.nightMessage = bossBarMessages.getUntilSunriseMessage();
+        this.dayMessage = messageManager.getMessage(MessageType.BOSSBAR_UNTIL_SUNSET);
+        this.nightMessage = messageManager.getMessage(MessageType.BOSSBAR_UNTIL_SUNRISE);
     }
 
     @Override

@@ -1,8 +1,6 @@
-package me.needkg.daynightpvp.configuration;
+package me.needkg.daynightpvp.configuration.file;
 
-import me.needkg.daynightpvp.configuration.base.AbstractConfigurationFile;
-
-public class ConfigurationManager extends AbstractConfigurationFile {
+public class ConfigurationFile extends YamlFileBase {
 
     private static final int LATEST_FILE_VERSION = 23;
 

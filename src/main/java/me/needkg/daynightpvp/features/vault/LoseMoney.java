@@ -1,9 +1,8 @@
 package me.needkg.daynightpvp.features.vault;
 
-import me.needkg.daynightpvp.configuration.config.IntegrationConfiguration;
-import me.needkg.daynightpvp.configuration.message.CombatMessages;
-import me.needkg.daynightpvp.core.di.ConfigurationContainer;
-import me.needkg.daynightpvp.core.di.MessageContainer;
+import me.needkg.daynightpvp.configuration.manager.MessageManager;
+import me.needkg.daynightpvp.configuration.manager.WorldConfigurationManager;
+import me.needkg.daynightpvp.configuration.type.MessageType;
 import me.needkg.daynightpvp.tasks.WorldStateController;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
@@ -13,49 +12,49 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 
 public class LoseMoney {
 
-    private final IntegrationConfiguration integrationConfiguration;
-    private final CombatMessages combatMessages;
+    private final WorldConfigurationManager worldConfigurationManager;
+    private final MessageManager messageManager;
 
-    public LoseMoney(ConfigurationContainer configurationContainer, MessageContainer messageContainer) {
-        this.integrationConfiguration = configurationContainer.getIntegrationConfiguration();
-        this.combatMessages = messageContainer.getCombat();
+    public LoseMoney(WorldConfigurationManager worldConfigurationManager, MessageManager messageManager) {
+        this.worldConfigurationManager = worldConfigurationManager;
+        this.messageManager = messageManager;
     }
 
-    public void loseMoneyOnDeath(Player killed, Player killer, World world, String percentage) {
+    public void handleDeathMoneyTransaction(Player killed, Player killer, World world, String percentage) {
 
-        RegisteredServiceProvider<Economy> rsp = Bukkit.getServicesManager().getRegistration(Economy.class);
-        if (rsp == null) {
+        RegisteredServiceProvider<Economy> economyProvider = Bukkit.getServicesManager().getRegistration(Economy.class);
+        if (economyProvider == null) {
             Bukkit.getLogger().severe("No Economy providers found! Disabling loseMoneyOnDeath functionality.");
             return;
         }
 
-        Economy economy = rsp.getProvider();
+        Economy economy = economyProvider.getProvider();
 
         if (!percentage.isEmpty() && percentage.matches("[1-9][0-9]?|100")) {
             boolean shouldWithdraw = false;
             double currentBalance = economy.getBalance(killed);
             int parsedPercentage = Integer.parseInt(percentage);
             double amount = currentBalance * (parsedPercentage / 100.0);
-            double amountRounded = Math.round(amount * 100.0) / 100.0;
+            double roundedAmout = Math.round(amount * 100.0) / 100.0;
 
-            if (integrationConfiguration.getIntegrationsVaultLoseMoneyOnlyAtNight(world.getName())) {
+            if (worldConfigurationManager.isIntegrationsVaultLoseMoneyEnabled(world.getName())) {
                 if (WorldStateController.nightWorlds.contains(world)) {
-                    economy.withdrawPlayer(killed, amountRounded);
+                    economy.withdrawPlayer(killed, roundedAmout);
                     shouldWithdraw = true;
                 }
             } else {
-                economy.withdrawPlayer(killed, amountRounded);
+                economy.withdrawPlayer(killed, roundedAmout);
                 shouldWithdraw = true;
             }
 
             if (shouldWithdraw) {
-                String money = Double.toString(amountRounded);
+                String money = Double.toString(roundedAmout);
                 String killedName = killed.getName();
                 String killerName = killer.getName(); // Corrigido killerName para pegar o nome do killer
-                killed.sendMessage(combatMessages.getMoneyLostMessage().replace("{0}", killerName).replace("{1}", money));
-                if (integrationConfiguration.getIntegrationsVaultLoseMoneyRewardKiller(world.getName())) {
-                    economy.depositPlayer(killer, amountRounded);
-                    killer.sendMessage(combatMessages.getMoneyWonMessage().replace("{0}", killedName).replace("{1}", money));
+                killed.sendMessage(messageManager.getMessage(MessageType.COMBAT_MONEY_LOST).replace("{0}", killerName).replace("{1}", money));
+                if (worldConfigurationManager.isIntegrationsVaultLoseMoneyRewardKiller(world.getName())) {
+                    economy.depositPlayer(killer, roundedAmout);
+                    killer.sendMessage(messageManager.getMessage(MessageType.COMBAT_MONEY_WON).replace("{0}", killedName).replace("{1}", money));
                 }
             }
         }

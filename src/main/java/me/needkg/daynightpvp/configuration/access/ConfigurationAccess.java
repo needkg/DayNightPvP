@@ -1,22 +1,22 @@
-package me.needkg.daynightpvp.configuration.validators;
+package me.needkg.daynightpvp.configuration.access;
 
-import me.needkg.daynightpvp.configuration.ConfigurationManager;
+import me.needkg.daynightpvp.configuration.file.ConfigurationFile;
 import me.needkg.daynightpvp.utils.LoggingUtil;
 import org.bukkit.Difficulty;
 import org.bukkit.Sound;
 
 import java.util.Set;
 
-public class ConfigurationValidator {
+public class ConfigurationAccess {
 
-    private final ConfigurationManager configurationManager;
+    private final ConfigurationFile configurationFile;
 
-    public ConfigurationValidator(ConfigurationManager configurationManager) {
-        this.configurationManager = configurationManager;
+    public ConfigurationAccess(ConfigurationFile configurationFile) {
+        this.configurationFile = configurationFile;
     }
 
-    private void resetValueToDefault(String path, Object value) {
-        configurationManager.setValue(path, value);
+    private void restoreDefaultValue(String path, Object value) {
+        configurationFile.setValue(path, value);
         notifyConfigReset(path);
     }
 
@@ -26,9 +26,9 @@ public class ConfigurationValidator {
     }
 
     private String getConfigValue(String path, Object defaultValue) {
-        String configValue = configurationManager.getFileContent().getString(path);
+        String configValue = configurationFile.getFileContent().getString(path);
         if (configValue == null) {
-            configurationManager.restoreDefaultFile();
+            configurationFile.restoreDefaultFile();
             notifyConfigReset(path);
             return defaultValue.toString();
         }
@@ -36,7 +36,7 @@ public class ConfigurationValidator {
     }
 
     public Set<String> getConfigSection(String path) {
-        return configurationManager.getFileContent().getConfigurationSection(path).getKeys(false);
+        return configurationFile.getFileContent().getConfigurationSection(path).getKeys(false);
     }
 
     public int getInt(String path, Integer defaultValue, Integer minValue, Integer maxValue) {
@@ -50,7 +50,7 @@ public class ConfigurationValidator {
         } catch (Exception ignored) {
         }
 
-        resetValueToDefault(path, defaultValue);
+        restoreDefaultValue(path, defaultValue);
         return defaultValue;
     }
 
@@ -65,7 +65,7 @@ public class ConfigurationValidator {
         } catch (Exception ignored) {
         }
 
-        resetValueToDefault(path, defaultValue);
+        restoreDefaultValue(path, defaultValue);
         return defaultValue;
     }
 
@@ -79,7 +79,7 @@ public class ConfigurationValidator {
         try {
             return Difficulty.valueOf(configValue.toUpperCase());
         } catch (Exception e) {
-            resetValueToDefault(path, defaultValue.name());
+            restoreDefaultValue(path, defaultValue.name());
             return defaultValue;
         }
     }
@@ -90,7 +90,7 @@ public class ConfigurationValidator {
         try {
             return Sound.valueOf(configValue.toUpperCase());
         } catch (Exception e) {
-            resetValueToDefault(path, defaultValue.name());
+            restoreDefaultValue(path, defaultValue.name());
             return defaultValue;
         }
     }
@@ -106,7 +106,7 @@ public class ConfigurationValidator {
             return Boolean.parseBoolean(configValue);
         }
 
-        resetValueToDefault(path, defaultValue);
+        restoreDefaultValue(path, defaultValue);
         return defaultValue;
     }
 } 

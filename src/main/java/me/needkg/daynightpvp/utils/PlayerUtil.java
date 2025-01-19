@@ -24,7 +24,7 @@ public class PlayerUtil {
         }
     }
 
-    public static boolean isRealPlayer(Object object) {
+    public static boolean isPlayerInstance(Object object) {
         return object instanceof Player;
     }
 

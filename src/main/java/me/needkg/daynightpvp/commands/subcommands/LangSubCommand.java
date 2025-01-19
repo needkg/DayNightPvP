@@ -1,13 +1,14 @@
 package me.needkg.daynightpvp.commands.subcommands;
 
-import me.needkg.daynightpvp.commands.subcommands.base.CommandValidator;
-import me.needkg.daynightpvp.commands.subcommands.base.ISubCommand;
+import me.needkg.daynightpvp.commands.subcommands.core.CommandValidator;
+import me.needkg.daynightpvp.commands.subcommands.core.ISubCommand;
 import me.needkg.daynightpvp.commands.subcommands.validators.LanguageValidator;
 import me.needkg.daynightpvp.commands.subcommands.validators.PermissionValidator;
-import me.needkg.daynightpvp.configuration.ConfigurationManager;
-import me.needkg.daynightpvp.configuration.config.GeneralConfiguration;
-import me.needkg.daynightpvp.configuration.message.SystemMessages;
-import me.needkg.daynightpvp.core.di.DependencyContainer;
+import me.needkg.daynightpvp.configuration.file.ConfigurationFile;
+import me.needkg.daynightpvp.configuration.manager.GlobalConfigurationManager;
+import me.needkg.daynightpvp.configuration.manager.MessageManager;
+import me.needkg.daynightpvp.configuration.type.MessageType;
+import me.needkg.daynightpvp.core.DependencyContainer;
 import me.needkg.daynightpvp.services.PluginService;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -20,37 +21,37 @@ import java.util.List;
 public class LangSubCommand implements ISubCommand {
 
     private static final List<String> AVAILABLE_LANGUAGES = Arrays.asList("en-US", "pt-BR", "es-ES", "ru-RU");
-    private final GeneralConfiguration generalConfiguration;
-    private final ConfigurationManager configurationManager;
+    private final MessageManager messageManager;
+    private final ConfigurationFile configurationFile;
+    private final GlobalConfigurationManager globalConfigurationManager;
     private final PluginService pluginService;
-    private final SystemMessages systemMessages;
     private final List<CommandValidator> validators;
 
     public LangSubCommand() {
         DependencyContainer container = DependencyContainer.getInstance();
-        this.generalConfiguration = container.getConfigurationContainer().getGeneralConfiguration();
-        this.configurationManager = container.getConfigManager();
+        this.messageManager = container.getMessageManager();
+        this.configurationFile = container.getConfigurationFile();
+        this.globalConfigurationManager = container.getGlobalConfigurationManager();
         this.pluginService = container.getPluginService();
-        this.systemMessages = container.getMessageContainer().getSystem();
 
         this.validators = new ArrayList<>();
-        this.validators.add(new PermissionValidator("dnp.admin", systemMessages));
-        this.validators.add(new LanguageValidator(AVAILABLE_LANGUAGES, systemMessages));
+        this.validators.add(new PermissionValidator("dnp.admin", messageManager));
+        this.validators.add(new LanguageValidator(AVAILABLE_LANGUAGES, messageManager));
     }
 
     @Override
     public void execute(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         String newLang = args[1];
-        String currentLang = generalConfiguration.getLanguage();
+        String currentLang = globalConfigurationManager.getLanguage();
 
         if (currentLang.equals(newLang)) {
-            sender.sendMessage(systemMessages.getLanguageAlreadyInUseMessage());
+            sender.sendMessage(messageManager.getMessage(MessageType.SYSTEM_LANGUAGE_ALREADY_IN_USE));
             return;
         }
 
-        configurationManager.setValue("language", newLang);
+        configurationFile.setValue("language", newLang);
         pluginService.reloadFiles();
-        sender.sendMessage(systemMessages.getLanguageChangedMessage().replace("{0}", newLang));
+        sender.sendMessage(messageManager.getMessage(MessageType.SYSTEM_LANGUAGE_CHANGED).replace("{0}", newLang));
     }
 
     @Override
