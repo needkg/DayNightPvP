@@ -9,32 +9,32 @@ import java.util.List;
 import java.util.Set;
 
 public class GlobalConfigurationManager {
-    private final ConfigurationAccess reader;
+    private final ConfigurationAccess access;
 
-    public GlobalConfigurationManager(ConfigurationAccess reader) {
-        this.reader = reader;
+    public GlobalConfigurationManager(ConfigurationAccess access) {
+        this.access = access;
     }
 
     // Debug Configuration
     public boolean isDebugEnabled() {
-        return Global.DEBUG.isEnabled(reader);
+        return Global.DEBUG.isEnabled(access);
     }
 
     public boolean isDebugVerbose() {
-        return Global.DEBUG.isVerbose(reader);
+        return Global.DEBUG.isVerbose(access);
     }
 
     // General Configuration
     public boolean isUpdateCheckerEnabled() {
-        return Global.GENERAL.isUpdateCheckerEnabled(reader);
+        return Global.GENERAL.isUpdateCheckerEnabled(access);
     }
 
     public String getLanguage() {
-        return Global.GENERAL.getLanguage(reader);
+        return Global.GENERAL.getLanguage(access);
     }
 
     public Set<String> getWorldNames() {
-        return Global.GENERAL.getWorldNames(reader);
+        return Global.GENERAL.getWorldNames(access);
     }
 
     public List<String> getValidWorlds() {
