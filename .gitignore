@@ -37,27 +37,3 @@ dependency-reduced-pom.xml
 
 #vscode
 .vscode
-
-# Servidor de desenvolvimento
-*.bat
-*.sh
-server/
-*.jar
-*.log
-eula.txt
-logs/
-crash-reports/
-world/
-world_nether/
-world_the_end/
-plugins/
-banned-ips.json
-banned-players.json
-ops.json
-usercache.json
-whitelist.json
-spigot.yml
-bukkit.yml
-commands.yml
-permissions.yml
-help.yml
