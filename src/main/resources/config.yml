@@ -26,52 +26,52 @@ update-checker: true
 # Available: en-US, pt-BR, es-ES, ru-RU
 language: en-US
 
-# ===================
-#  World Settings
-# ===================
-# World Configuration Guide:
-# Use these commands to manage worlds:
-# /dnp addworld <world> - Add a new world
-# /dnp delworld <world> - Remove a world
-# /dnp editworld <world> <setting> <value> - Edit world settings
-#
-# Example Configuration with Explanations:
-# worlds:
-#   world: # Replace 'world' with your world name
-#     # Custom Day/Night Duration System
-#     day-night-duration:
-#       enabled: false # Set to true to use custom durations
-#       day-duration: 600 # Day length in seconds (default: 600 = 10 minutes)
-#       night-duration: 600 # Night length in seconds (default: 600 = 10 minutes)
-#
-#     # PvP Control System
-#     pvp:
-#       automatic:
-#         enabled: true # When true, PvP is disabled during day and enabled at night
-#         day-end: 12000 # When night begins (in ticks).
-#       keep-inventory-on-pvp: false # If true, players keep items ONLY when killed by other players. Deaths from mobs, falls, etc. will still drop items
-#
-#     # Progress Bar Display
-#     boss-bar:
-#       enabled: false # Shows day/night cycle progress at screen top
-#
-#     # World Difficulty Control
-#     difficulty:
-#       enabled: false # Automatic difficulty changes between day/night
-#       day: NORMAL # World difficulty during day (PEACEFUL/EASY/NORMAL/HARD)
-#       night: HARD # World difficulty during night
-#
-#     # Player Notifications
-#     notifications:
-#       chat:
-#         day-night-change: true # Announce day/night changes in chat
-#         no-pvp-warn: true # Warn players when PvP is disabled
-#       title:
-#         enabled: true # Show title messages on screen
-#         fade-in: 20 # Time to appear (in ticks, 20 = 1 second)
-#         stay: 20 # Time on screen
-#         fade-out: 20 # Time to disappear
-        # Complete list of available sounds: https://github.com/needkg/DayNightPvP/wiki/Sounds
+  # ===================
+  #  World Settings
+  # ===================
+  # World Configuration Guide:
+  # Use these commands to manage worlds:
+  # /dnp addworld <world> - Add a new world
+  # /dnp delworld <world> - Remove a world
+  # /dnp editworld <world> <setting> <value> - Edit world settings
+  #
+  # Example Configuration with Explanations:
+  # worlds:
+  #   world: # Replace 'world' with your world name
+  #     # Custom Day/Night Duration System
+  #     day-night-duration:
+  #       enabled: false # Set to true to use custom durations
+  #       day-duration: 600 # Day length in seconds (default: 600 = 10 minutes)
+  #       night-duration: 600 # Night length in seconds (default: 600 = 10 minutes)
+  #
+  #     # PvP Control System
+  #     pvp:
+  #       automatic:
+  #         enabled: true # When true, PvP is disabled during day and enabled at night
+  #         day-end: 12000 # When night begins (in ticks).
+  #       keep-inventory-on-pvp: false # If true, players keep items ONLY when killed by other players. Deaths from mobs, falls, etc. will still drop items
+  #
+  #     # Progress Bar Display
+  #     boss-bar:
+  #       enabled: false # Shows day/night cycle progress at screen top
+  #
+  #     # World Difficulty Control
+  #     difficulty:
+  #       enabled: false # Automatic difficulty changes between day/night
+  #       day: NORMAL # World difficulty during day (PEACEFUL/EASY/NORMAL/HARD)
+  #       night: HARD # World difficulty during night
+  #
+  #     # Player Notifications
+  #     notifications:
+  #       chat:
+  #         day-night-change: true # Announce day/night changes in chat
+  #         no-pvp-warn: true # Warn players when PvP is disabled
+  #       title:
+  #         enabled: true # Show title messages on screen
+  #         fade-in: 20 # Time to appear (in ticks, 20 = 1 second)
+  #         stay: 20 # Time on screen
+  #         fade-out: 20 # Time to disappear
+# Complete list of available sounds: https://github.com/needkg/DayNightPvP/wiki/Sounds
 #       sound:
 #         enabled: true # Play sounds on day/night change
 #         day:

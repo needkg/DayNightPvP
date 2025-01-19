@@ -1,6 +1,7 @@
 package me.needkg.daynightpvp.configuration.file;
 
 import me.needkg.daynightpvp.configuration.manager.GlobalConfigurationManager;
+
 import java.io.File;
 
 public class LanguageFile extends YamlFileBase {

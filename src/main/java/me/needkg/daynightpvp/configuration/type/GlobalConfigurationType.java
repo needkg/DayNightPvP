@@ -1,6 +1,7 @@
 package me.needkg.daynightpvp.configuration.type;
 
 import me.needkg.daynightpvp.configuration.access.ConfigurationAccess;
+
 import java.util.Set;
 
 public enum GlobalConfigurationType {

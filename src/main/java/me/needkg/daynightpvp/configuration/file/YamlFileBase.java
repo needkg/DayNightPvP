@@ -50,7 +50,7 @@ public abstract class YamlFileBase {
             if (success) {
                 LoggingUtil.sendWarningMessage("[DayNightPvP] Outdated configuration file detected - '" + getFilePath() + "' has been backed up as '" + backupPath + "'");
             } else {
-                 LoggingUtil.sendWarningMessage("[DayNightPvP] Failed to rename the '" + getFilePath() + "' file.");
+                LoggingUtil.sendWarningMessage("[DayNightPvP] Failed to rename the '" + getFilePath() + "' file.");
             }
 
             restoreDefaultFile();

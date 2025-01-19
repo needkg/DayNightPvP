@@ -14,7 +14,7 @@ public class WorldStateController implements Runnable {
 
     public static final CopyOnWriteArrayList<World> dayWorlds = new CopyOnWriteArrayList<>();
     public static final CopyOnWriteArrayList<World> nightWorlds = new CopyOnWriteArrayList<>();
-    
+
     private final World world;
     private final String worldName;
     private final WorldConfigurationManager worldConfigurationManager;
@@ -77,11 +77,11 @@ public class WorldStateController implements Runnable {
         if (worldConfigurationManager.isDifficultyEnabled(worldName)) {
             world.setDifficulty(isNight ? worldConfigurationManager.getDifficultyNight(worldName) : worldConfigurationManager.getDifficultyDay(worldName));
         }
-        
+
         if (worldConfigurationManager.isNotificationsChatDayNightChange(worldName)) {
             PlayerUtil.sendMessageToAllPlayers(world, isNight ? messageManager.getMessage(MessageType.NOTIFICATION_COMBAT_NIGHT_CHAT) : messageManager.getMessage(MessageType.NOTIFICATION_COMBAT_DAY_CHAT));
         }
-        
+
         if (worldConfigurationManager.isNotificationsTitleEnabled(worldName)) {
             PlayerUtil.sendTitleToAllPlayers(world,
                     isNight ? messageManager.getMessage(MessageType.NOTIFICATION_COMBAT_NIGHT_TITLE) : messageManager.getMessage(MessageType.NOTIFICATION_COMBAT_DAY_TITLE),
@@ -90,7 +90,7 @@ public class WorldStateController implements Runnable {
                     worldConfigurationManager.getNotificationsTitleStay(worldName),
                     worldConfigurationManager.getNotificationsTitleFadeOut(worldName));
         }
-        
+
         if (worldConfigurationManager.isNotificationsSoundEnabled(worldName)) {
             PlayerUtil.playSoundToAllPlayers(world,
                     isNight ? worldConfigurationManager.getNotificationsSoundNightType(worldName) : worldConfigurationManager.getNotificationsSoundDayType(worldName),

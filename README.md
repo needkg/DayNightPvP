@@ -27,7 +27,8 @@ day.
 
 - **🌍 Multi-World Support**: Works seamlessly across different worlds, allowing specific settings for each one.
 
-- **📦 Custom Keep Inventory**: Smart keep inventory system that only works on PvP deaths, maintaining normal item drops for other types of deaths.
+- **📦 Custom Keep Inventory**: Smart keep inventory system that only works on PvP deaths, maintaining normal item drops
+  for other types of deaths.
 
 - **⏰ Custom Day/Night Cycle**: Configure custom durations for day and night cycles in each world.
 

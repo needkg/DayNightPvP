@@ -12,11 +12,11 @@ public class TimeDurationController implements Runnable {
     private final double dayTickIncrement;
     private final double nightTickIncrement;
     private final World world;
+    private final WorldConfigurationManager worldConfigurationManager;
+    private final long pvpDayEnd;
     private double tickAccumulator;
     private double virtualTime;
     private long lastRealTime;
-    private final WorldConfigurationManager worldConfigurationManager;
-    private final long pvpDayEnd;
 
     public TimeDurationController(World world, String worldName) {
         DependencyContainer container = DependencyContainer.getInstance();
@@ -25,7 +25,7 @@ public class TimeDurationController implements Runnable {
         this.virtualTime = world.getTime();
         this.lastRealTime = world.getTime();
         this.pvpDayEnd = worldConfigurationManager.getPvpAutomaticDayEnd(worldName);
-        
+
         this.dayTickIncrement = pvpDayEnd / (worldConfigurationManager.getDayNightDurationDayDuration(worldName) * TICKS_PER_SECOND);
         this.nightTickIncrement = (TICKS_PER_DAY - pvpDayEnd) / (worldConfigurationManager.getDayNightDurationNightDuration(worldName) * TICKS_PER_SECOND);
     }
@@ -64,7 +64,7 @@ public class TimeDurationController implements Runnable {
         tickAccumulator += increment;
         if (tickAccumulator >= 1.0) {
             long ticksToAdvance = (long) tickAccumulator;
-            world.setTime((currentTime + ticksToAdvance) % (long)TICKS_PER_DAY);
+            world.setTime((currentTime + ticksToAdvance) % (long) TICKS_PER_DAY);
             tickAccumulator -= ticksToAdvance;
         }
     }

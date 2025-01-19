@@ -45,16 +45,16 @@ public class DayNightPvP extends JavaPlugin {
 
         LoggingUtil.sendDebugMessage("Loading language files...");
         container.getLanguageFile().initializeFile();
-        
+
         LoggingUtil.sendDebugMessage("Starting metrics...");
         container.getMetricsManager().start();
-        
+
         LoggingUtil.sendDebugMessage("Registering commands...");
         container.getCommandManager().register();
-        
+
         LoggingUtil.sendDebugMessage("Registering event listeners...");
         container.getListenerManager().register();
-        
+
         LoggingUtil.sendDebugMessage("Starting scheduled tasks...");
         container.getTaskManager().startAllTasks();
 

@@ -11,24 +11,24 @@ public enum WorldConfigurationType {
             return access.getBoolean(path + ".enabled", false);
         }
     },
-    
+
     DAY_NIGHT_DURATION("day-night-duration") {
         @Override
         public boolean getDayNightDurationEnabled(String worldName, String path, ConfigurationAccess access) {
             return access.getBoolean(path + ".enabled", false);
         }
-        
+
         @Override
         public int getDayNightDurationDayDuration(String worldName, String path, ConfigurationAccess access) {
             return access.getInt(path + ".day-duration", 600, 1, 86400);
         }
-        
+
         @Override
         public int getDayNightDurationNightDuration(String worldName, String path, ConfigurationAccess access) {
             return access.getInt(path + ".night-duration", 600, 1, 86400);
         }
     },
-    
+
     INTEGRATION("integrations") {
         @Override
         public boolean getIntegrationsVaultLoseMoneyEnabled(String worldName, String path, ConfigurationAccess access) {
@@ -50,29 +50,29 @@ public enum WorldConfigurationType {
             return access.getBoolean(path + ".grief-prevention.pvp-in-claims", false);
         }
     },
-    
+
     PVP("pvp") {
         @Override
         public boolean getPvpAutomaticEnabled(String worldName, String path, ConfigurationAccess access) {
             return access.getBoolean(path + ".automatic.enabled", true);
         }
-        
+
         @Override
         public int getPvpAutomaticDayEnd(String worldName, String path, ConfigurationAccess access) {
             return access.getInt(path + ".automatic.day-end", 12000, 1, 24000);
         }
-        
+
         @Override
         public boolean getPvpKeepInventoryEnabled(String worldName, String path, ConfigurationAccess access) {
             return access.getBoolean(path + ".keep-inventory-on-pvp.enabled", false);
         }
-        
+
         @Override
         public boolean getPvpKeepInventoryKeepExp(String worldName, String path, ConfigurationAccess access) {
             return access.getBoolean(path + ".keep-inventory-on-pvp.keep-exp", true);
         }
     },
-    
+
     DIFFICULTY("difficulty") {
         @Override
         public boolean getDifficultyEnabled(String worldName, String path, ConfigurationAccess access) {
@@ -83,13 +83,13 @@ public enum WorldConfigurationType {
         public Difficulty getDifficultyDay(String worldName, String path, ConfigurationAccess access) {
             return access.getDifficulty(path + ".day", Difficulty.NORMAL);
         }
-        
+
         @Override
         public Difficulty getDifficultyNight(String worldName, String path, ConfigurationAccess access) {
             return access.getDifficulty(path + ".night", Difficulty.HARD);
         }
     },
-    
+
     NOTIFICATION("notifications") {
         @Override
         public boolean getNotificationsChatDayNightChange(String worldName, String path, ConfigurationAccess access) {
@@ -100,7 +100,7 @@ public enum WorldConfigurationType {
         public boolean getNotificationsChatNoPvpWarn(String worldName, String path, ConfigurationAccess access) {
             return access.getBoolean(path + ".chat.no-pvp-warn", true);
         }
-        
+
         @Override
         public boolean getNotificationsTitleEnabled(String worldName, String path, ConfigurationAccess access) {
             return access.getBoolean(path + ".title.enabled", true);
@@ -125,7 +125,7 @@ public enum WorldConfigurationType {
         public boolean getNotificationsSoundEnabled(String worldName, String path, ConfigurationAccess access) {
             return access.getBoolean(path + ".sound.enabled", true);
         }
-        
+
         @Override
         public Sound getNotificationsSoundDayType(String worldName, String path, ConfigurationAccess access) {
             return access.getSound(path + ".sound.day.type", Sound.ENTITY_CHICKEN_AMBIENT);

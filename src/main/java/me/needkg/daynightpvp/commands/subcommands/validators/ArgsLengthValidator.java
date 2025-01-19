@@ -3,7 +3,6 @@ package me.needkg.daynightpvp.commands.subcommands.validators;
 import me.needkg.daynightpvp.commands.subcommands.core.CommandValidator;
 import me.needkg.daynightpvp.configuration.manager.MessageManager;
 import me.needkg.daynightpvp.configuration.type.MessageType;
-
 import org.bukkit.command.CommandSender;
 
 public class ArgsLengthValidator implements CommandValidator {

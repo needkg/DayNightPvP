@@ -1,8 +1,8 @@
 package me.needkg.daynightpvp.configuration.manager;
 
+import me.needkg.daynightpvp.configuration.access.ConfigurationAccess;
 import me.needkg.daynightpvp.configuration.type.GlobalConfigurationType;
 import me.needkg.daynightpvp.utils.WorldUtil;
-import me.needkg.daynightpvp.configuration.access.ConfigurationAccess;
 
 import java.util.ArrayList;
 import java.util.List;

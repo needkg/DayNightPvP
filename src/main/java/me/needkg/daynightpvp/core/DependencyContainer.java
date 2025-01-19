@@ -1,15 +1,15 @@
 package me.needkg.daynightpvp.core;
 
-import me.needkg.daynightpvp.features.placeholder.PlaceholderManager;
 import me.needkg.daynightpvp.commands.CommandManager;
-import me.needkg.daynightpvp.configuration.file.ConfigurationFile;
-import me.needkg.daynightpvp.configuration.file.LanguageFile;
 import me.needkg.daynightpvp.configuration.access.ConfigurationAccess;
 import me.needkg.daynightpvp.configuration.access.LanguageAccess;
+import me.needkg.daynightpvp.configuration.file.ConfigurationFile;
+import me.needkg.daynightpvp.configuration.file.LanguageFile;
 import me.needkg.daynightpvp.configuration.manager.GlobalConfigurationManager;
-import me.needkg.daynightpvp.configuration.manager.WorldConfigurationManager;
 import me.needkg.daynightpvp.configuration.manager.MessageManager;
+import me.needkg.daynightpvp.configuration.manager.WorldConfigurationManager;
 import me.needkg.daynightpvp.features.griefprevention.GriefPreventionManager;
+import me.needkg.daynightpvp.features.placeholder.PlaceholderManager;
 import me.needkg.daynightpvp.features.vault.LoseMoney;
 import me.needkg.daynightpvp.listeners.ListenerManager;
 import me.needkg.daynightpvp.metrics.MetricsManager;

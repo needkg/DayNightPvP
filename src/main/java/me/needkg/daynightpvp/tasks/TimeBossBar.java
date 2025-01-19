@@ -30,16 +30,16 @@ public class TimeBossBar implements Runnable {
         DependencyContainer container = DependencyContainer.getInstance();
         this.worldConfigurationManager = container.getWorldConfigurationManager();
         this.messageManager = container.getMessageManager();
-        
+
         this.bossBar = bossbar;
         this.world = world;
         this.pvpDayEnd = worldConfigurationManager.getPvpAutomaticDayEnd(worldName);
-        this.dayDurationSeconds = worldConfigurationManager.isDayNightDurationEnabled(worldName) 
-            ? worldConfigurationManager.getDayNightDurationDayDuration(worldName) 
-            : DEFAULT_DURATION_SECONDS;
-        this.nightDurationSeconds = worldConfigurationManager.isDayNightDurationEnabled(worldName) 
-            ? worldConfigurationManager.getDayNightDurationNightDuration(worldName)
-            : DEFAULT_DURATION_SECONDS;
+        this.dayDurationSeconds = worldConfigurationManager.isDayNightDurationEnabled(worldName)
+                ? worldConfigurationManager.getDayNightDurationDayDuration(worldName)
+                : DEFAULT_DURATION_SECONDS;
+        this.nightDurationSeconds = worldConfigurationManager.isDayNightDurationEnabled(worldName)
+                ? worldConfigurationManager.getDayNightDurationNightDuration(worldName)
+                : DEFAULT_DURATION_SECONDS;
         this.timeDurationController = timeDurationController;
         this.dayMessage = messageManager.getMessage(MessageType.BOSSBAR_UNTIL_SUNSET);
         this.nightMessage = messageManager.getMessage(MessageType.BOSSBAR_UNTIL_SUNRISE);

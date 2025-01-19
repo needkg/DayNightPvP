@@ -1,8 +1,8 @@
 package me.needkg.daynightpvp.services;
 
-import me.needkg.daynightpvp.features.placeholder.PlaceholderManager;
 import me.needkg.daynightpvp.configuration.file.ConfigurationFile;
 import me.needkg.daynightpvp.configuration.file.LanguageFile;
+import me.needkg.daynightpvp.features.placeholder.PlaceholderManager;
 import me.needkg.daynightpvp.listeners.ListenerManager;
 import me.needkg.daynightpvp.tasks.TaskManager;
 import me.needkg.daynightpvp.utils.LoggingUtil;
