@@ -17,7 +17,7 @@ public class LanguageAccess {
     public String getMessage(String path) {
         String text = languageFile.getFileContent().getString(path);
         if (text == null) {
-            return "Invalid message syntax";
+            return "[DayNightPvP] Invalid message syntax";
         }
 
         return translateColorCodes(text);

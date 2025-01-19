@@ -1,7 +1,7 @@
 package me.needkg.daynightpvp.configuration.access;
 
 import me.needkg.daynightpvp.configuration.file.ConfigurationFile;
-import me.needkg.daynightpvp.utils.LoggingUtil;
+import me.needkg.daynightpvp.util.logging.Logger;
 import org.bukkit.Difficulty;
 import org.bukkit.Sound;
 
@@ -22,7 +22,7 @@ public class ConfigurationAccess {
 
     private void notifyConfigReset(String path) {
         String configPath = path.replace(".", "/");
-        LoggingUtil.sendWarningMessage("[DayNightPvP] The '" + configPath + "' configuration was not found and the file was reset.");
+        Logger.warning("[DayNightPvP] The '" + configPath + "' configuration was not found and the file was reset.");
     }
 
     private String getConfigValue(String path, Object defaultValue) {

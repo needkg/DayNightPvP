@@ -1,9 +1,10 @@
 package me.needkg.daynightpvp;
 
 import me.needkg.daynightpvp.core.DependencyContainer;
-import me.needkg.daynightpvp.features.worldguard.FlagManager;
-import me.needkg.daynightpvp.utils.LoggingUtil;
-import me.needkg.daynightpvp.utils.PluginUtil;
+import me.needkg.daynightpvp.integration.worldguard.FlagManager;
+import me.needkg.daynightpvp.util.logging.Logger;
+import me.needkg.daynightpvp.util.plugin.PluginValidator;
+import me.needkg.daynightpvp.util.plugin.StartupBanner;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class DayNightPvP extends JavaPlugin {
@@ -35,30 +36,31 @@ public class DayNightPvP extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        LoggingUtil.sendStartupMessage();
+        StartupBanner.display();
+
         DependencyContainer.initializeContainer();
         DependencyContainer container = DependencyContainer.getInstance();
 
         container.getConfigurationFile().initializeFile();
-        LoggingUtil.sendDebugMessage("Dependency injection container started.");
-        LoggingUtil.sendDebugMessage("Configuration file loaded.");
+        Logger.debug("Dependency injection container started.");
+        Logger.debug("Configuration file loaded.");
 
-        LoggingUtil.sendDebugMessage("Loading language files...");
+        Logger.debug("Loading language files...");
         container.getLanguageFile().initializeFile();
 
-        LoggingUtil.sendDebugMessage("Starting metrics...");
+        Logger.debug("Starting metrics...");
         container.getMetricsManager().start();
 
-        LoggingUtil.sendDebugMessage("Registering commands...");
+        Logger.debug("Registering commands...");
         container.getCommandManager().register();
 
-        LoggingUtil.sendDebugMessage("Registering event listeners...");
+        Logger.debug("Registering event listeners...");
         container.getListenerManager().register();
 
-        LoggingUtil.sendDebugMessage("Starting scheduled tasks...");
+        Logger.debug("Starting scheduled tasks...");
         container.getTaskManager().startAllTasks();
 
-        LoggingUtil.sendDebugMessage("Registering placeholders...");
+        Logger.debug("Registering placeholders...");
         container.getPlaceholderHandler().register();
     }
 
@@ -72,9 +74,9 @@ public class DayNightPvP extends JavaPlugin {
     }
 
     private void verifyCompatibilityPlugins() {
-        isVaultPresent = PluginUtil.isPluginInstalled("Vault");
-        isWorldGuardPresent = PluginUtil.isPluginInstalled("WorldGuard");
-        isGriefPresent = PluginUtil.isPluginInstalled("GriefPrevention");
-        isPlaceholderPresent = PluginUtil.isPluginInstalled("PlaceholderAPI");
+        isVaultPresent = PluginValidator.exists("Vault");
+        isWorldGuardPresent = PluginValidator.exists("WorldGuard");
+        isGriefPresent = PluginValidator.exists("GriefPrevention");
+        isPlaceholderPresent = PluginValidator.exists("PlaceholderAPI");
     }
 }

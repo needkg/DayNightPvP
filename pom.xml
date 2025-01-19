@@ -59,7 +59,7 @@
                     <relocations>
                         <relocation>
                             <pattern>org.bstats</pattern>
-                            <shadedPattern>${shade.base}.metrics.bstats</shadedPattern>
+                            <shadedPattern>${shade.base}.metric.bstats</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>

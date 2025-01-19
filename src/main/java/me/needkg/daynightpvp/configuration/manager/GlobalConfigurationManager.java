@@ -1,8 +1,8 @@
 package me.needkg.daynightpvp.configuration.manager;
 
 import me.needkg.daynightpvp.configuration.access.ConfigurationAccess;
-import me.needkg.daynightpvp.configuration.type.GlobalConfigurationType;
-import me.needkg.daynightpvp.utils.WorldUtil;
+import me.needkg.daynightpvp.configuration.emun.Global;
+import me.needkg.daynightpvp.util.world.WorldValidator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,31 +17,31 @@ public class GlobalConfigurationManager {
 
     // Debug Configuration
     public boolean isDebugEnabled() {
-        return GlobalConfigurationType.DEBUG.isEnabled(reader);
+        return Global.DEBUG.isEnabled(reader);
     }
 
     public boolean isDebugVerbose() {
-        return GlobalConfigurationType.DEBUG.isVerbose(reader);
+        return Global.DEBUG.isVerbose(reader);
     }
 
     // General Configuration
     public boolean isUpdateCheckerEnabled() {
-        return GlobalConfigurationType.GENERAL.isUpdateCheckerEnabled(reader);
+        return Global.GENERAL.isUpdateCheckerEnabled(reader);
     }
 
     public String getLanguage() {
-        return GlobalConfigurationType.GENERAL.getLanguage(reader);
+        return Global.GENERAL.getLanguage(reader);
     }
 
     public Set<String> getWorldNames() {
-        return GlobalConfigurationType.GENERAL.getWorldNames(reader);
+        return Global.GENERAL.getWorldNames(reader);
     }
 
     public List<String> getValidWorlds() {
         Set<String> worldNames = getWorldNames();
         List<String> validWorlds = new ArrayList<>();
         for (String worldName : worldNames) {
-            if (WorldUtil.isWorldValid(worldName)) {
+            if (WorldValidator.exists(worldName)) {
                 validWorlds.add(worldName);
             }
         }

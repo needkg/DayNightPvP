@@ -1,7 +1,7 @@
 package me.needkg.daynightpvp.configuration.file;
 
 import me.needkg.daynightpvp.DayNightPvP;
-import me.needkg.daynightpvp.utils.LoggingUtil;
+import me.needkg.daynightpvp.util.logging.Logger;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -19,7 +19,7 @@ public abstract class YamlFileBase {
     public void initializeFile() {
         fileLocation = new File(DayNightPvP.getInstance().getDataFolder(), getFilePath());
         if (!fileLocation.exists()) {
-            LoggingUtil.sendWarningMessage("[DayNightPvP] File " + getFilePath() + " not found, creating a new one...");
+            Logger.warning("[DayNightPvP] Configuration file not found - '" + getFilePath() + "', creating...");
             DayNightPvP.getInstance().saveResource(getFilePath(), false);
         }
         loadFileContent();
@@ -48,9 +48,9 @@ public abstract class YamlFileBase {
             }
             boolean success = fileLocation.renameTo(outdatedFile);
             if (success) {
-                LoggingUtil.sendWarningMessage("[DayNightPvP] Outdated configuration file detected - '" + getFilePath() + "' has been backed up as '" + backupPath + "'");
+                Logger.warning("[DayNightPvP] Outdated configuration file detected - '" + getFilePath() + "' has been backed up as '" + backupPath + "'");
             } else {
-                LoggingUtil.sendWarningMessage("[DayNightPvP] Failed to rename the '" + getFilePath() + "' file.");
+                Logger.warning("[DayNightPvP] Failed to rename the '" + getFilePath() + "' file.");
             }
 
             restoreDefaultFile();
@@ -70,7 +70,7 @@ public abstract class YamlFileBase {
         try {
             fileContent.save(fileLocation);
         } catch (Exception e) {
-            LoggingUtil.sendWarningMessage("[DayNightPvP] Error saving file " + getFilePath() + ", resetting...");
+            Logger.warning("[DayNightPvP] Error saving file " + getFilePath() + ", resetting...");
             restoreDefaultFile();
         }
     }

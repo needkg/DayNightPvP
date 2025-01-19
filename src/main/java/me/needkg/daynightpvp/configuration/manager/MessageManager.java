@@ -1,7 +1,7 @@
 package me.needkg.daynightpvp.configuration.manager;
 
 import me.needkg.daynightpvp.configuration.access.LanguageAccess;
-import me.needkg.daynightpvp.configuration.type.MessageType;
+import me.needkg.daynightpvp.configuration.emun.Message;
 
 public class MessageManager {
     private final LanguageAccess reader;
@@ -10,7 +10,7 @@ public class MessageManager {
         this.reader = reader;
     }
 
-    public String getMessage(MessageType type) {
+    public String getMessage(Message type) {
         return reader.getMessage(type.getPath());
     }
 } 
