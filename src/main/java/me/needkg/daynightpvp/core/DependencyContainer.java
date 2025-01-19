@@ -1,6 +1,5 @@
 package me.needkg.daynightpvp.core;
 
-import me.needkg.daynightpvp.DayNightPvP;
 import me.needkg.daynightpvp.command.manager.CommandManager;
 import me.needkg.daynightpvp.configuration.access.ConfigurationAccess;
 import me.needkg.daynightpvp.configuration.access.LanguageAccess;
@@ -16,7 +15,6 @@ import me.needkg.daynightpvp.listener.manager.ListenerManager;
 import me.needkg.daynightpvp.metric.MetricsManager;
 import me.needkg.daynightpvp.service.plugin.PluginService;
 import me.needkg.daynightpvp.task.manager.TaskManager;
-import org.bukkit.plugin.java.JavaPlugin;
 
 public class DependencyContainer {
     private static DependencyContainer instance;
