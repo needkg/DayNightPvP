@@ -29,8 +29,11 @@ public class DayNightPvP extends JavaPlugin {
 
         verifyCompatibilityPlugins();
 
+        Logger.debug("Verifying WorldGuard...");
         if (isWorldGuardPresent) {
             WorldGuardManager.register();
+        } else {
+            Logger.debug("WorldGuard is not present, skipping WorldGuard integration.");
         }
     }
 
