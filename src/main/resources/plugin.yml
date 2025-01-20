@@ -1,5 +1,5 @@
 name: DayNightPvP
-version: '${project.version}'
+version: '${version}'
 author: needkg
 main: me.needkg.daynightpvp.DayNightPvP
 api-version: '1.16'
