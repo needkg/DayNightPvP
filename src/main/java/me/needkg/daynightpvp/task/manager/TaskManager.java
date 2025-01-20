@@ -37,9 +37,9 @@ public class TaskManager {
 
     public void startAllTasks() {
 
-        globalConfigurationManager.getEnabledWorlds().stream()
-                .map(World::getName)
-                .forEach(this::initializeWorldTasks);
+        for (World world : globalConfigurationManager.getEnabledWorlds()) {
+            initializeWorldTasks(world.getName());
+        }
     }
 
     private void initializeWorldTasks(String worldName) {
@@ -115,8 +115,10 @@ public class TaskManager {
     }
 
     private void restoreWorldSettings() {
-        globalConfigurationManager.getEnabledWorlds().forEach(world ->
-                world.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true));
+
+        for (World world : globalConfigurationManager.getEnabledWorlds()) {
+            world.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true);
+        }
     }
 
     public void restart() {

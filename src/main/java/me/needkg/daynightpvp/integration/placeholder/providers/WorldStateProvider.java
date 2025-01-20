@@ -74,7 +74,7 @@ public class WorldStateProvider extends PlaceholderExpansion {
     }
 
     private String getPvpStateForWorld(World world) {
-        if (!WorldCollectionSearcher.containsWorld(globalConfigurationManager.getWorldNames(), world.getName())) {
+        if (!WorldCollectionSearcher.containsWorld(globalConfigurationManager.getEnabledWorlds(), world)) {
             return messageManager.getMessage(Message.SYSTEM_ERROR);
         }
 

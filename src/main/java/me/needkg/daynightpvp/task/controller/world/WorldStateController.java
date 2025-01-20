@@ -8,12 +8,13 @@ import me.needkg.daynightpvp.util.logging.Logger;
 import me.needkg.daynightpvp.util.player.PlayerNotifier;
 import org.bukkit.World;
 
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class WorldStateController implements Runnable {
 
-    public static final CopyOnWriteArrayList<World> dayWorlds = new CopyOnWriteArrayList<>();
-    public static final CopyOnWriteArrayList<World> nightWorlds = new CopyOnWriteArrayList<>();
+    public static final Set<World> dayWorlds = new HashSet<>();
+    public static final Set<World> nightWorlds = new HashSet<>();
 
     private final World world;
     private final String worldName;

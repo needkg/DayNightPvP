@@ -36,7 +36,7 @@ public class EditWorldSubCommand implements SubCommand {
         this.messageManager = container.getMessageManager();
         this.globalConfigurationManager = container.getGlobalConfigurationManager();
         this.pluginService = container.getPluginService();
-        this.settingsMap = initializeSettingsMap();
+        this.settingsMap = Collections.unmodifiableMap(initializeSettingsMap());
 
         this.validators = new ArrayList<>();
         this.validators.add(new PermissionValidator("dnp.admin", messageManager));
