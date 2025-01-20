@@ -14,6 +14,7 @@ import me.needkg.daynightpvp.core.DependencyContainer;
 import me.needkg.daynightpvp.service.plugin.PluginService;
 import org.bukkit.Difficulty;
 import org.bukkit.Sound;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
@@ -75,7 +76,9 @@ public class EditWorldSubCommand implements SubCommand {
         }
 
         if (args.size() == 1) {
-            return filterStartsWith(globalConfigurationManager.getValidWorlds(), args.get(0));
+            return filterStartsWith(globalConfigurationManager.getEnabledWorlds().stream()
+                    .map(World::getName)
+                    .collect(Collectors.toList()), args.get(0));
         }
 
         if (args.size() == 2) {

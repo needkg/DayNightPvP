@@ -3,10 +3,14 @@ package me.needkg.daynightpvp.configuration.manager;
 import me.needkg.daynightpvp.configuration.access.ConfigurationAccess;
 import me.needkg.daynightpvp.configuration.emun.Global;
 import me.needkg.daynightpvp.util.world.WorldValidator;
+import org.bukkit.Bukkit;
+import org.bukkit.World;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class GlobalConfigurationManager {
     private final ConfigurationAccess access;
@@ -37,14 +41,12 @@ public class GlobalConfigurationManager {
         return Global.GENERAL.getWorldNames(access);
     }
 
-    public List<String> getValidWorlds() {
-        Set<String> worldNames = getWorldNames();
-        List<String> validWorlds = new ArrayList<>();
-        for (String worldName : worldNames) {
-            if (WorldValidator.exists(worldName)) {
-                validWorlds.add(worldName);
-            }
-        }
-        return validWorlds;
+    @NotNull
+    public List<World> getEnabledWorlds() {
+        return getWorldNames().stream()
+                .filter(WorldValidator::exists)
+                .map(Bukkit::getWorld)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
     }
 } 

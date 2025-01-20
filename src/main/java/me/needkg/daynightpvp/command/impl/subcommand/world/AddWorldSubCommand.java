@@ -8,6 +8,7 @@ import me.needkg.daynightpvp.command.validator.world.WorldConfiguredValidator;
 import me.needkg.daynightpvp.command.validator.world.WorldExistsValidator;
 import me.needkg.daynightpvp.configuration.emun.Message;
 import me.needkg.daynightpvp.configuration.file.ConfigurationFile;
+import me.needkg.daynightpvp.configuration.manager.GlobalConfigurationManager;
 import me.needkg.daynightpvp.configuration.manager.MessageManager;
 import me.needkg.daynightpvp.core.DependencyContainer;
 import me.needkg.daynightpvp.service.plugin.PluginService;
@@ -18,12 +19,14 @@ import org.bukkit.command.CommandSender;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AddWorldSubCommand implements SubCommand {
 
     private final ConfigurationFile configurationFile;
     private final MessageManager messageManager;
     private final PluginService pluginService;
+    private final GlobalConfigurationManager globalConfigurationManager;
     private final List<CommandValidator> validators;
 
     public AddWorldSubCommand() {
@@ -31,6 +34,7 @@ public class AddWorldSubCommand implements SubCommand {
         this.configurationFile = container.getConfigurationFile();
         this.messageManager = container.getMessageManager();
         this.pluginService = container.getPluginService();
+        this.globalConfigurationManager = container.getGlobalConfigurationManager();
 
         this.validators = new ArrayList<>();
         this.validators.add(new PermissionValidator("dnp.admin", messageManager));
@@ -53,20 +57,15 @@ public class AddWorldSubCommand implements SubCommand {
 
     @Override
     public List<String> tabComplete(CommandSender sender, Command command, String alias, List<String> args) {
-        List<String> suggestions = new ArrayList<>();
 
         if (args.size() == 1) {
-            String prefix = args.get(0).toLowerCase();
-            for (World world : Bukkit.getWorlds()) {
-                if (World.Environment.NORMAL == world.getEnvironment()) {
-                    String worldName = world.getName().toLowerCase();
-                    if (worldName.startsWith(prefix)) {
-                        suggestions.add(world.getName());
-                    }
-                }
-            }
+            return Bukkit.getWorlds().stream()
+                    .filter(world -> !globalConfigurationManager.getEnabledWorlds().contains(world))
+                    .filter(world -> world.getEnvironment() == World.Environment.NORMAL)
+                    .map(World::getName)
+                    .collect(Collectors.toList());
         }
-        return suggestions;
+        return new ArrayList<>();
     }
 
     private void addWorldToConfig(String worldName) {

@@ -11,11 +11,13 @@ import me.needkg.daynightpvp.configuration.manager.GlobalConfigurationManager;
 import me.needkg.daynightpvp.configuration.manager.MessageManager;
 import me.needkg.daynightpvp.core.DependencyContainer;
 import me.needkg.daynightpvp.service.plugin.PluginService;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DelWorldSubCommand implements SubCommand {
 
@@ -52,17 +54,13 @@ public class DelWorldSubCommand implements SubCommand {
 
     @Override
     public List<String> tabComplete(CommandSender sender, Command command, String alias, List<String> args) {
-        List<String> suggestions = new ArrayList<>();
 
         if (args.size() == 1) {
-            String prefix = args.get(0).toLowerCase();
-            for (String worldName : globalConfigurationManager.getWorldNames()) {
-                if (worldName.startsWith(prefix)) {
-                    suggestions.add(worldName);
-                }
-            }
+            return globalConfigurationManager.getEnabledWorlds().stream()
+                    .map(World::getName)
+                    .collect(Collectors.toList());
         }
-        return suggestions;
+        return new ArrayList<>();
     }
 
     private void removeWorldFromConfig(String worldName) {

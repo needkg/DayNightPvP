@@ -7,7 +7,6 @@ import me.needkg.daynightpvp.task.controller.time.TimeDurationController;
 import me.needkg.daynightpvp.task.controller.world.WorldStateController;
 import me.needkg.daynightpvp.task.display.bossbar.TimeBossBar;
 import me.needkg.daynightpvp.util.logging.Logger;
-import me.needkg.daynightpvp.util.world.WorldValidator;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
 import org.bukkit.World;
@@ -37,11 +36,10 @@ public class TaskManager {
     }
 
     public void startAllTasks() {
-        for (String worldName : globalConfigurationManager.getWorldNames()) {
-            if (WorldValidator.exists(worldName)) {
-                initializeWorldTasks(worldName);
-            }
-        }
+
+        globalConfigurationManager.getEnabledWorlds().stream()
+                .map(World::getName)
+                .forEach(this::initializeWorldTasks);
     }
 
     private void initializeWorldTasks(String worldName) {
@@ -117,8 +115,8 @@ public class TaskManager {
     }
 
     private void restoreWorldSettings() {
-        globalConfigurationManager.getValidWorlds().forEach(worldName ->
-                Bukkit.getWorld(worldName).setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true));
+        globalConfigurationManager.getEnabledWorlds().forEach(world ->
+                world.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true));
     }
 
     public void restart() {

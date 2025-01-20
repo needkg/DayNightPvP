@@ -61,14 +61,9 @@ public class LangSubCommand implements SubCommand {
 
     @Override
     public List<String> tabComplete(CommandSender sender, Command command, String alias, List<String> args) {
-        if (!sender.hasPermission("dnp.admin")) {
-            return Collections.emptyList();
-        }
-
         if (args.size() == 1) {
             return filterContains(AVAILABLE_LANGUAGES, args.get(0));
         }
-
         return Collections.emptyList();
     }
 } 
