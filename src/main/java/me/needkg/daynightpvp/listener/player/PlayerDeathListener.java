@@ -2,7 +2,6 @@ package me.needkg.daynightpvp.listener.player;
 
 import me.needkg.daynightpvp.DayNightPvP;
 import me.needkg.daynightpvp.configuration.manager.WorldConfigurationManager;
-import me.needkg.daynightpvp.core.DependencyContainer;
 import me.needkg.daynightpvp.integration.vault.LoseMoney;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -16,10 +15,9 @@ public class PlayerDeathListener implements Listener {
     private final WorldConfigurationManager worldConfigurationManager;
     private final LoseMoney loseMoney;
 
-    public PlayerDeathListener() {
-        DependencyContainer container = DependencyContainer.getInstance();
-        this.worldConfigurationManager = container.getWorldConfigurationManager();
-        this.loseMoney = container.getLoseMoney();
+    public PlayerDeathListener(WorldConfigurationManager worldConfigurationManager, LoseMoney loseMoney) {
+        this.worldConfigurationManager = worldConfigurationManager;
+        this.loseMoney = loseMoney;
     }
 
     @EventHandler

@@ -3,7 +3,6 @@ package me.needkg.daynightpvp.task.controller.world;
 import me.needkg.daynightpvp.configuration.emun.Message;
 import me.needkg.daynightpvp.configuration.manager.MessageManager;
 import me.needkg.daynightpvp.configuration.manager.WorldConfigurationManager;
-import me.needkg.daynightpvp.core.DependencyContainer;
 import me.needkg.daynightpvp.util.logging.Logger;
 import me.needkg.daynightpvp.util.player.PlayerNotifier;
 import org.bukkit.World;
@@ -22,12 +21,11 @@ public class WorldStateController implements Runnable {
     private final MessageManager messageManager;
     private final long pvpDayEnd;
 
-    public WorldStateController(World world, String worldName) {
-        DependencyContainer container = DependencyContainer.getInstance();
+    public WorldStateController(World world, String worldName, WorldConfigurationManager worldConfigurationManager, MessageManager messageManager) {
         this.world = world;
         this.worldName = worldName;
-        this.worldConfigurationManager = container.getWorldConfigurationManager();
-        this.messageManager = container.getMessageManager();
+        this.worldConfigurationManager = worldConfigurationManager;
+        this.messageManager = messageManager;
         this.pvpDayEnd = worldConfigurationManager.getPvpAutomaticDayEnd(worldName);
     }
 

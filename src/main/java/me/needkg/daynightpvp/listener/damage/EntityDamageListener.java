@@ -1,5 +1,9 @@
 package me.needkg.daynightpvp.listener.damage;
 
+    
+import me.needkg.daynightpvp.configuration.manager.MessageManager;
+import me.needkg.daynightpvp.configuration.manager.WorldConfigurationManager;
+import me.needkg.daynightpvp.integration.griefprevention.GriefPreventionManager;
 import me.needkg.daynightpvp.listener.base.AbstractDamageListener;
 import me.needkg.daynightpvp.util.player.PlayerValidator;
 import org.bukkit.entity.Entity;
@@ -10,6 +14,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 public class EntityDamageListener extends AbstractDamageListener implements Listener {
+
+
+    public EntityDamageListener(GriefPreventionManager griefPreventionManager, MessageManager messageManager, WorldConfigurationManager worldConfigurationManager) {
+        super(griefPreventionManager, messageManager, worldConfigurationManager);
+
+    }
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {

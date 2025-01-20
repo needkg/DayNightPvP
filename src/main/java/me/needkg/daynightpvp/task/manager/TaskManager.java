@@ -2,6 +2,7 @@ package me.needkg.daynightpvp.task.manager;
 
 import me.needkg.daynightpvp.DayNightPvP;
 import me.needkg.daynightpvp.configuration.manager.GlobalConfigurationManager;
+import me.needkg.daynightpvp.configuration.manager.MessageManager;
 import me.needkg.daynightpvp.configuration.manager.WorldConfigurationManager;
 import me.needkg.daynightpvp.task.controller.time.TimeDurationController;
 import me.needkg.daynightpvp.task.controller.world.WorldStateController;
@@ -26,10 +27,12 @@ public class TaskManager {
     private final List<Integer> scheduledTasks;
     private final List<BossBar> activeBossBars;
     private final Map<String, TimeDurationController> worldTimeControllers;
+    private final MessageManager messageManager;
 
-    public TaskManager(GlobalConfigurationManager globalConfigurationManager, WorldConfigurationManager worldConfigurationManager) {
+    public TaskManager(GlobalConfigurationManager globalConfigurationManager, WorldConfigurationManager worldConfigurationManager, MessageManager messageManager) {
         this.globalConfigurationManager = globalConfigurationManager;
         this.worldConfigurationManager = worldConfigurationManager;
+        this.messageManager = messageManager;
         this.scheduledTasks = new ArrayList<>();
         this.activeBossBars = new ArrayList<>();
         this.worldTimeControllers = new HashMap<>();
@@ -63,7 +66,7 @@ public class TaskManager {
     }
 
     private TimeDurationController initializeTimeDurationController(String worldName, World world) {
-        TimeDurationController timeDurationController = new TimeDurationController(world, worldName);
+        TimeDurationController timeDurationController = new TimeDurationController(world, worldName, worldConfigurationManager);
 
         scheduledTasks.add(scheduleRepeatingTask(timeDurationController, 1));
         world.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
@@ -76,13 +79,13 @@ public class TaskManager {
         BossBar bossBar = Bukkit.createBossBar("bossbar", BarColor.BLUE, BarStyle.SOLID);
         activeBossBars.add(bossBar);
 
-        TimeBossBar bossBarTask = new TimeBossBar(bossBar, world, worldName, timeDurationController);
+        TimeBossBar bossBarTask = new TimeBossBar(bossBar, world, worldName, timeDurationController, worldConfigurationManager, messageManager);
 
         scheduledTasks.add(scheduleRepeatingTask(bossBarTask, 20));
     }
 
     private void initializeWorldStateController(String worldName, World world) {
-        WorldStateController pvpTask = new WorldStateController(world, worldName);
+        WorldStateController pvpTask = new WorldStateController(world, worldName, worldConfigurationManager, messageManager);
 
         scheduledTasks.add(scheduleRepeatingTask(pvpTask, 20));
     }

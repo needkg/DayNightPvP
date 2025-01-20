@@ -7,8 +7,12 @@ import me.needkg.daynightpvp.command.impl.subcommand.world.AddWorldSubCommand;
 import me.needkg.daynightpvp.command.impl.subcommand.world.DelWorldSubCommand;
 import me.needkg.daynightpvp.command.impl.subcommand.world.EditWorldSubCommand;
 import me.needkg.daynightpvp.configuration.emun.Message;
+import me.needkg.daynightpvp.configuration.file.ConfigurationFile;
 import me.needkg.daynightpvp.configuration.manager.MessageManager;
-import me.needkg.daynightpvp.core.DependencyContainer;
+import me.needkg.daynightpvp.service.plugin.PluginService;
+import me.needkg.daynightpvp.configuration.manager.GlobalConfigurationManager;
+
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -21,20 +25,25 @@ import java.util.stream.Collectors;
 public class DayNightPvpCommand implements CommandExecutor, TabCompleter {
 
     private final MessageManager messageManager;
+    private final PluginService pluginService;
+    private final GlobalConfigurationManager globalConfigurationManager;
+    private final ConfigurationFile configurationFile;
     private final Map<String, SubCommand> subCommands = new HashMap<>();
 
-    public DayNightPvpCommand() {
-        DependencyContainer container = DependencyContainer.getInstance();
-        this.messageManager = container.getMessageManager();
+    public DayNightPvpCommand(MessageManager messageManager, PluginService pluginService, GlobalConfigurationManager globalConfigurationManager, ConfigurationFile configurationFile) {
+        this.messageManager = messageManager;
+        this.pluginService = pluginService;
+        this.globalConfigurationManager = globalConfigurationManager;
+        this.configurationFile = configurationFile;
         initializeSubCommands();
     }
 
     private void initializeSubCommands() {
-        subCommands.put("reload", new ReloadSubCommand());
-        subCommands.put("addworld", new AddWorldSubCommand());
-        subCommands.put("delworld", new DelWorldSubCommand());
-        subCommands.put("editworld", new EditWorldSubCommand());
-        subCommands.put("lang", new LangSubCommand());
+        subCommands.put("reload", new ReloadSubCommand(pluginService, messageManager));
+        subCommands.put("addworld", new AddWorldSubCommand(configurationFile, messageManager, pluginService, globalConfigurationManager));
+        subCommands.put("delworld", new DelWorldSubCommand( messageManager,  globalConfigurationManager,  configurationFile,  pluginService));
+        subCommands.put("editworld", new EditWorldSubCommand( configurationFile,  messageManager,  globalConfigurationManager,  pluginService));
+        subCommands.put("lang", new LangSubCommand(messageManager, configurationFile, globalConfigurationManager, pluginService));
     }
 
     @Override

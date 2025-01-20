@@ -3,7 +3,6 @@ package me.needkg.daynightpvp.task.display.bossbar;
 import me.needkg.daynightpvp.configuration.emun.Message;
 import me.needkg.daynightpvp.configuration.manager.MessageManager;
 import me.needkg.daynightpvp.configuration.manager.WorldConfigurationManager;
-import me.needkg.daynightpvp.core.DependencyContainer;
 import me.needkg.daynightpvp.task.controller.time.TimeDurationController;
 import org.bukkit.World;
 import org.bukkit.boss.BarColor;
@@ -16,8 +15,6 @@ public class TimeBossBar implements Runnable {
     private static final int SECONDS_PER_HOUR = 3600;
     private static final int SECONDS_PER_MINUTE = 60;
 
-    private final WorldConfigurationManager worldConfigurationManager;
-    private final MessageManager messageManager;
     private final BossBar bossBar;
     private final World world;
     private final int dayDurationSeconds;
@@ -28,11 +25,7 @@ public class TimeBossBar implements Runnable {
     private final String nightMessage;
 
 
-    public TimeBossBar(BossBar bossbar, World world, String worldName, TimeDurationController timeDurationController) {
-        DependencyContainer container = DependencyContainer.getInstance();
-        this.worldConfigurationManager = container.getWorldConfigurationManager();
-        this.messageManager = container.getMessageManager();
-
+    public TimeBossBar(BossBar bossbar, World world, String worldName, TimeDurationController timeDurationController, WorldConfigurationManager worldConfigurationManager, MessageManager messageManager) {
         this.bossBar = bossbar;
         this.world = world;
         this.pvpDayEnd = worldConfigurationManager.getPvpAutomaticDayEnd(worldName);

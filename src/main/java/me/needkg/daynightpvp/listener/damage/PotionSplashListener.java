@@ -1,5 +1,8 @@
 package me.needkg.daynightpvp.listener.damage;
 
+import me.needkg.daynightpvp.configuration.manager.MessageManager;
+import me.needkg.daynightpvp.configuration.manager.WorldConfigurationManager;
+import me.needkg.daynightpvp.integration.griefprevention.GriefPreventionManager;
 import me.needkg.daynightpvp.listener.base.AbstractDamageListener;
 import me.needkg.daynightpvp.util.player.PlayerValidator;
 import org.bukkit.entity.LivingEntity;
@@ -15,6 +18,10 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.Set;
 
 public class PotionSplashListener extends AbstractDamageListener implements Listener {
+
+    public PotionSplashListener(GriefPreventionManager griefPreventionManager, MessageManager messageManager, WorldConfigurationManager worldConfigurationManager) {
+        super(griefPreventionManager, messageManager, worldConfigurationManager);
+    }
 
     private static final Set<PotionEffectType> HARMFUL_EFFECTS = Set.of(
             PotionEffectType.HARM,

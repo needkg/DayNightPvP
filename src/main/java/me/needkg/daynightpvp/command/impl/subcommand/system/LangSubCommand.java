@@ -8,7 +8,6 @@ import me.needkg.daynightpvp.configuration.emun.Message;
 import me.needkg.daynightpvp.configuration.file.ConfigurationFile;
 import me.needkg.daynightpvp.configuration.manager.GlobalConfigurationManager;
 import me.needkg.daynightpvp.configuration.manager.MessageManager;
-import me.needkg.daynightpvp.core.DependencyContainer;
 import me.needkg.daynightpvp.service.plugin.PluginService;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -27,12 +26,11 @@ public class LangSubCommand implements SubCommand {
     private final PluginService pluginService;
     private final List<CommandValidator> validators;
 
-    public LangSubCommand() {
-        DependencyContainer container = DependencyContainer.getInstance();
-        this.messageManager = container.getMessageManager();
-        this.configurationFile = container.getConfigurationFile();
-        this.globalConfigurationManager = container.getGlobalConfigurationManager();
-        this.pluginService = container.getPluginService();
+    public LangSubCommand(MessageManager messageManager, ConfigurationFile configurationFile, GlobalConfigurationManager globalConfigurationManager, PluginService pluginService) {
+        this.messageManager = messageManager;
+        this.configurationFile = configurationFile;
+        this.globalConfigurationManager = globalConfigurationManager;
+        this.pluginService = pluginService;
 
         this.validators = new ArrayList<>();
         this.validators.add(new PermissionValidator("dnp.admin", messageManager));

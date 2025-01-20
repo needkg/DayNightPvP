@@ -4,7 +4,6 @@ import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import me.needkg.daynightpvp.configuration.emun.Message;
 import me.needkg.daynightpvp.configuration.manager.GlobalConfigurationManager;
 import me.needkg.daynightpvp.configuration.manager.MessageManager;
-import me.needkg.daynightpvp.core.DependencyContainer;
 import me.needkg.daynightpvp.task.controller.world.WorldStateController;
 import me.needkg.daynightpvp.util.search.WorldCollectionSearcher;
 import org.bukkit.Bukkit;
@@ -20,10 +19,9 @@ public class WorldStateProvider extends PlaceholderExpansion {
     private final MessageManager messageManager;
     private final GlobalConfigurationManager globalConfigurationManager;
 
-    public WorldStateProvider() {
-        DependencyContainer container = DependencyContainer.getInstance();
-        this.messageManager = container.getMessageManager();
-        this.globalConfigurationManager = container.getGlobalConfigurationManager();
+    public WorldStateProvider(MessageManager messageManager, GlobalConfigurationManager globalConfigurationManager) {
+        this.messageManager = messageManager;
+        this.globalConfigurationManager = globalConfigurationManager;
     }
 
     @Override

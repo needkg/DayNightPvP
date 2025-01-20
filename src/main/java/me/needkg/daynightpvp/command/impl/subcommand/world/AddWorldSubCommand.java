@@ -10,7 +10,6 @@ import me.needkg.daynightpvp.configuration.emun.Message;
 import me.needkg.daynightpvp.configuration.file.ConfigurationFile;
 import me.needkg.daynightpvp.configuration.manager.GlobalConfigurationManager;
 import me.needkg.daynightpvp.configuration.manager.MessageManager;
-import me.needkg.daynightpvp.core.DependencyContainer;
 import me.needkg.daynightpvp.service.plugin.PluginService;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -29,12 +28,11 @@ public class AddWorldSubCommand implements SubCommand {
     private final GlobalConfigurationManager globalConfigurationManager;
     private final List<CommandValidator> validators;
 
-    public AddWorldSubCommand() {
-        DependencyContainer container = DependencyContainer.getInstance();
-        this.configurationFile = container.getConfigurationFile();
-        this.messageManager = container.getMessageManager();
-        this.pluginService = container.getPluginService();
-        this.globalConfigurationManager = container.getGlobalConfigurationManager();
+    public AddWorldSubCommand(ConfigurationFile configurationFile, MessageManager messageManager, PluginService pluginService, GlobalConfigurationManager globalConfigurationManager) {
+        this.configurationFile = configurationFile;
+        this.messageManager = messageManager;
+        this.pluginService = pluginService;
+        this.globalConfigurationManager = globalConfigurationManager;
 
         this.validators = new ArrayList<>();
         this.validators.add(new PermissionValidator("dnp.admin", messageManager));

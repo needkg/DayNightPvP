@@ -10,7 +10,6 @@ import me.needkg.daynightpvp.configuration.emun.Message;
 import me.needkg.daynightpvp.configuration.file.ConfigurationFile;
 import me.needkg.daynightpvp.configuration.manager.GlobalConfigurationManager;
 import me.needkg.daynightpvp.configuration.manager.MessageManager;
-import me.needkg.daynightpvp.core.DependencyContainer;
 import me.needkg.daynightpvp.service.plugin.PluginService;
 import org.bukkit.Difficulty;
 import org.bukkit.Sound;
@@ -30,12 +29,11 @@ public class EditWorldSubCommand implements SubCommand {
     private final Map<String, SettingInfo> settingsMap;
     private final List<CommandValidator> validators;
 
-    public EditWorldSubCommand() {
-        DependencyContainer container = DependencyContainer.getInstance();
-        this.configurationFile = container.getConfigurationFile();
-        this.messageManager = container.getMessageManager();
-        this.globalConfigurationManager = container.getGlobalConfigurationManager();
-        this.pluginService = container.getPluginService();
+    public EditWorldSubCommand(ConfigurationFile configurationFile, MessageManager messageManager, GlobalConfigurationManager globalConfigurationManager, PluginService pluginService) {
+        this.configurationFile = configurationFile;
+        this.messageManager = messageManager;
+        this.globalConfigurationManager = globalConfigurationManager;
+        this.pluginService = pluginService;
         this.settingsMap = Collections.unmodifiableMap(initializeSettingsMap());
 
         this.validators = new ArrayList<>();

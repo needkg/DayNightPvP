@@ -4,7 +4,6 @@ import me.needkg.daynightpvp.DayNightPvP;
 import me.needkg.daynightpvp.configuration.emun.Message;
 import me.needkg.daynightpvp.configuration.manager.MessageManager;
 import me.needkg.daynightpvp.configuration.manager.WorldConfigurationManager;
-import me.needkg.daynightpvp.core.DependencyContainer;
 import me.needkg.daynightpvp.integration.griefprevention.GriefPreventionManager;
 import me.needkg.daynightpvp.integration.worldguard.flags.DaytimePvpFlag;
 import me.needkg.daynightpvp.util.world.WorldStateChecker;
@@ -17,11 +16,10 @@ public abstract class AbstractDamageListener {
     private final MessageManager messageManager;
     private final WorldConfigurationManager worldConfigurationManager;
 
-    protected AbstractDamageListener() {
-        DependencyContainer container = DependencyContainer.getInstance();
-        this.griefPreventionManager = container.getGriefPreventionManager();
-        this.messageManager = container.getMessageManager();
-        this.worldConfigurationManager = container.getWorldConfigurationManager();
+    protected AbstractDamageListener(GriefPreventionManager griefPreventionManager, MessageManager messageManager, WorldConfigurationManager worldConfigurationManager) {
+        this.griefPreventionManager = griefPreventionManager;
+        this.messageManager = messageManager;
+        this.worldConfigurationManager = worldConfigurationManager;
     }
 
     public boolean shouldCancelDamage(@NotNull Player victim, @NotNull Player attacker, @NotNull String worldName) {

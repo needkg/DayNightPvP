@@ -3,7 +3,6 @@ package me.needkg.daynightpvp.service.update;
 import me.needkg.daynightpvp.DayNightPvP;
 import me.needkg.daynightpvp.configuration.emun.Message;
 import me.needkg.daynightpvp.configuration.manager.MessageManager;
-import me.needkg.daynightpvp.core.DependencyContainer;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Player;
@@ -24,9 +23,8 @@ public class UpdateService {
     private final String currentPluginVersion;
     private final MessageManager messageManager;
 
-    public UpdateService() {
-        DependencyContainer container = DependencyContainer.getInstance();
-        this.messageManager = container.getMessageManager();
+    public UpdateService(MessageManager messageManager) {
+        this.messageManager = messageManager;
         this.currentPluginVersion = DayNightPvP.getInstance().getDescription().getVersion();
     }
 

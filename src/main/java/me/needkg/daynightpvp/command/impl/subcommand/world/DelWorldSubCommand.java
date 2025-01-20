@@ -9,7 +9,6 @@ import me.needkg.daynightpvp.configuration.emun.Message;
 import me.needkg.daynightpvp.configuration.file.ConfigurationFile;
 import me.needkg.daynightpvp.configuration.manager.GlobalConfigurationManager;
 import me.needkg.daynightpvp.configuration.manager.MessageManager;
-import me.needkg.daynightpvp.core.DependencyContainer;
 import me.needkg.daynightpvp.service.plugin.PluginService;
 import org.bukkit.World;
 import org.bukkit.command.Command;
@@ -27,12 +26,11 @@ public class DelWorldSubCommand implements SubCommand {
     private final PluginService pluginService;
     private final List<CommandValidator> validators;
 
-    public DelWorldSubCommand() {
-        DependencyContainer container = DependencyContainer.getInstance();
-        this.messageManager = container.getMessageManager();
-        this.globalConfigurationManager = container.getGlobalConfigurationManager();
-        this.pluginService = container.getPluginService();
-        this.configurationFile = container.getConfigurationFile();
+    public DelWorldSubCommand(MessageManager messageManager, GlobalConfigurationManager globalConfigurationManager, ConfigurationFile configurationFile, PluginService pluginService) {
+        this.messageManager = messageManager;
+        this.globalConfigurationManager = globalConfigurationManager;
+        this.pluginService = pluginService;
+        this.configurationFile = configurationFile;
 
         this.validators = new ArrayList<>();
         this.validators.add(new PermissionValidator("dnp.admin", messageManager));
