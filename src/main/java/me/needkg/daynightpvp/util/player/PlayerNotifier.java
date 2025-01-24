@@ -1,5 +1,7 @@
 package me.needkg.daynightpvp.util.player;
 
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -21,6 +23,12 @@ public class PlayerNotifier {
     public static void broadcastTitle(World world, String title, String subTitle, int fadeIn, int stay, int fadeOut) {
         for (Player player : world.getPlayers()) {
             player.sendTitle(title, subTitle, fadeIn, stay, fadeOut);
+        }
+    }
+
+    public static void broadcastActionBar(World world, String message) {
+        for (Player player : world.getPlayers()) {
+            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(message));
         }
     }
 

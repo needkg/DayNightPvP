@@ -30,6 +30,16 @@ public class TimeDurationController implements Runnable {
         return virtualTime;
     }
 
+    public double getTickIncrement() {
+        return tickAccumulator;
+    }
+
+    public void setTickIncrement(double tickIncrement) {
+        this.tickAccumulator = tickIncrement;
+    }
+
+
+
     @Override
     public void run() {
         long currentTime = world.getTime();

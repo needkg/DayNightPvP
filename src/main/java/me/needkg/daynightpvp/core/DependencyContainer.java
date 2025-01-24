@@ -13,6 +13,7 @@ import me.needkg.daynightpvp.integration.placeholder.PlaceholderManager;
 import me.needkg.daynightpvp.integration.vault.LoseMoney;
 import me.needkg.daynightpvp.listener.manager.ListenerManager;
 import me.needkg.daynightpvp.metric.MetricsManager;
+import me.needkg.daynightpvp.service.player.SleepService;
 import me.needkg.daynightpvp.service.plugin.PluginService;
 import me.needkg.daynightpvp.service.update.UpdateService;
 import me.needkg.daynightpvp.task.manager.TaskManager;
@@ -38,6 +39,7 @@ public class DependencyContainer {
     private GriefPreventionManager griefPreventionManager;
     private MetricsManager metricsManager;
     private PluginService pluginService;
+    private SleepService sleepService;
 
     private DependencyContainer() {
         initializeDependencies();
@@ -73,7 +75,9 @@ public class DependencyContainer {
 
         updateService = new UpdateService(messageManager);
 
-        listenerManager = new ListenerManager(messageManager, griefPreventionManager, globalConfigurationManager, updateService, worldConfigurationManager, loseMoney);
+        sleepService = new SleepService();
+
+        listenerManager = new ListenerManager(messageManager, griefPreventionManager, globalConfigurationManager, updateService, worldConfigurationManager, loseMoney, sleepService, taskManager);
 
         placeholderManager = new PlaceholderManager(messageManager, globalConfigurationManager);
 
@@ -110,10 +114,6 @@ public class DependencyContainer {
         return taskManager;
     }
 
-    public LoseMoney getLoseMoney() {
-        return loseMoney;
-    }
-
     public CommandManager getCommandManager() {
         return commandManager;
     }
@@ -126,15 +126,7 @@ public class DependencyContainer {
         return placeholderManager;
     }
 
-    public GriefPreventionManager getGriefPreventionManager() {
-        return griefPreventionManager;
-    }
-
     public MetricsManager getMetricsManager() {
         return metricsManager;
-    }
-
-    public PluginService getPluginService() {
-        return pluginService;
     }
 } 

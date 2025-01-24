@@ -41,6 +41,8 @@ src/**/plugin.yml
 
 # Maven
 target/
+*.iml
+dependency-reduced-pom.xml
 
 # CMake
 cmake-build-*/
@@ -127,5 +129,4 @@ local.properties
 .apt_generated/
 .project
 .classpath
-gradle.properties
 .vscode/

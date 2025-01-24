@@ -9,9 +9,13 @@ import me.needkg.daynightpvp.integration.griefprevention.GriefPreventionManager;
 import me.needkg.daynightpvp.listener.damage.EntityDamageListener;
 import me.needkg.daynightpvp.listener.damage.PotionSplashListener;
 import me.needkg.daynightpvp.listener.damage.ProjectileHitListener;
+import me.needkg.daynightpvp.listener.player.PlayerBadEnterListener;
+import me.needkg.daynightpvp.listener.player.PlayerBadLeaveListener;
 import me.needkg.daynightpvp.listener.player.PlayerDeathListener;
 import me.needkg.daynightpvp.listener.player.PlayerJoinListener;
+import me.needkg.daynightpvp.service.player.SleepService;
 import me.needkg.daynightpvp.service.update.UpdateService;
+import me.needkg.daynightpvp.task.manager.TaskManager;
 import me.needkg.daynightpvp.util.logging.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
@@ -24,14 +28,18 @@ public class ListenerManager {
     private final LoseMoney loseMoney;
     private final GriefPreventionManager griefPreventionManager; 
     private final MessageManager messageManager;
+    private final SleepService sleepService;
+    private final TaskManager taskManager;
 
-    public ListenerManager(MessageManager messageManager,GriefPreventionManager griefPreventionManager,GlobalConfigurationManager globalConfigurationManager, UpdateService updateService, WorldConfigurationManager worldConfigurationManager, LoseMoney loseMoney) {
+    public ListenerManager(MessageManager messageManager,GriefPreventionManager griefPreventionManager,GlobalConfigurationManager globalConfigurationManager, UpdateService updateService, WorldConfigurationManager worldConfigurationManager, LoseMoney loseMoney, SleepService sleepService, TaskManager taskManager) {
         this.messageManager = messageManager;
         this.griefPreventionManager = griefPreventionManager;
         this.globalConfigurationManager = globalConfigurationManager;
         this.updateService = updateService;
         this.worldConfigurationManager = worldConfigurationManager;
         this.loseMoney = loseMoney;
+        this.sleepService = sleepService;
+        this.taskManager = taskManager;
     }
 
     public void register() {
@@ -40,6 +48,7 @@ public class ListenerManager {
         registerPotionSplashListener();
         registerProjectileHitListener();
         registerPlayerDeathListener();
+        registerPlayerBadListener();
     }
 
     public void unregisterAll() {
@@ -76,6 +85,12 @@ public class ListenerManager {
     private void registerPlayerDeathListener() {
         Logger.verbose("Registering PlayerDeath listener...");
         Bukkit.getPluginManager().registerEvents(new PlayerDeathListener(worldConfigurationManager, loseMoney), DayNightPvP.getInstance());
+    }
+
+    private void registerPlayerBadListener() {
+        Logger.verbose("Registering PlayerBad listener...");
+        Bukkit.getPluginManager().registerEvents(new PlayerBadEnterListener(sleepService, taskManager, worldConfigurationManager), DayNightPvP.getInstance());
+        Bukkit.getPluginManager().registerEvents(new PlayerBadLeaveListener(sleepService), DayNightPvP.getInstance());
     }
 
 }

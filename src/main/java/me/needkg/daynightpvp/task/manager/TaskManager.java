@@ -81,7 +81,7 @@ public class TaskManager {
 
         TimeBossBar bossBarTask = new TimeBossBar(bossBar, world, worldName, timeDurationController, worldConfigurationManager, messageManager);
 
-        scheduledTasks.add(scheduleRepeatingTask(bossBarTask, 20));
+        scheduledTasks.add(scheduleRepeatingTask(bossBarTask, 1));
     }
 
     private void initializeWorldStateController(String worldName, World world) {
@@ -128,4 +128,13 @@ public class TaskManager {
         stopAllTasks();
         startAllTasks();
     }
+
+    public double getTickIncrement(String worldName) {
+        return worldTimeControllers.get(worldName).getTickIncrement();
+    }
+
+    public void setTickIncrement(String worldName, double tickIncrement) {
+        worldTimeControllers.get(worldName).setTickIncrement(tickIncrement);
+    }
+
 }
