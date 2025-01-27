@@ -1,7 +1,7 @@
 package me.needkg.daynightpvp.service.update;
 
 import me.needkg.daynightpvp.DayNightPvP;
-import me.needkg.daynightpvp.configuration.emun.Message;
+import me.needkg.daynightpvp.configuration.enums.Message;
 import me.needkg.daynightpvp.configuration.manager.MessageManager;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;

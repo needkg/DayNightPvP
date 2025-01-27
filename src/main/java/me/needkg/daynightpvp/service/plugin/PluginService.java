@@ -5,7 +5,7 @@ import me.needkg.daynightpvp.configuration.file.LanguageFile;
 import me.needkg.daynightpvp.integration.placeholder.PlaceholderManager;
 import me.needkg.daynightpvp.listener.manager.ListenerManager;
 import me.needkg.daynightpvp.task.manager.TaskManager;
-import me.needkg.daynightpvp.util.logging.Logger;
+import me.needkg.daynightpvp.utis.logging.Logger;
 
 public class PluginService {
 

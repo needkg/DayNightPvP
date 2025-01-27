@@ -1,6 +1,6 @@
 package me.needkg.daynightpvp.integration.vault;
 
-import me.needkg.daynightpvp.configuration.emun.Message;
+import me.needkg.daynightpvp.configuration.enums.Message;
 import me.needkg.daynightpvp.configuration.manager.MessageManager;
 import me.needkg.daynightpvp.configuration.manager.WorldConfigurationManager;
 import me.needkg.daynightpvp.task.controller.world.WorldStateController;

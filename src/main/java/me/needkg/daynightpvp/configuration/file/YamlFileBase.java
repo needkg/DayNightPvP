@@ -1,7 +1,7 @@
 package me.needkg.daynightpvp.configuration.file;
 
 import me.needkg.daynightpvp.DayNightPvP;
-import me.needkg.daynightpvp.util.logging.Logger;
+import me.needkg.daynightpvp.utis.logging.Logger;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 

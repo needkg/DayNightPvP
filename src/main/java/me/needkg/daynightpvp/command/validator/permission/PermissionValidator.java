@@ -1,7 +1,7 @@
 package me.needkg.daynightpvp.command.validator.permission;
 
 import me.needkg.daynightpvp.command.base.CommandValidator;
-import me.needkg.daynightpvp.configuration.emun.Message;
+import me.needkg.daynightpvp.configuration.enums.Message;
 import me.needkg.daynightpvp.configuration.manager.MessageManager;
 import org.bukkit.command.CommandSender;
 

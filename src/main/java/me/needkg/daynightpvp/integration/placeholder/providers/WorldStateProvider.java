@@ -1,11 +1,11 @@
 package me.needkg.daynightpvp.integration.placeholder.providers;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
-import me.needkg.daynightpvp.configuration.emun.Message;
+import me.needkg.daynightpvp.configuration.enums.Message;
 import me.needkg.daynightpvp.configuration.manager.GlobalConfigurationManager;
 import me.needkg.daynightpvp.configuration.manager.MessageManager;
 import me.needkg.daynightpvp.task.controller.world.WorldStateController;
-import me.needkg.daynightpvp.util.search.WorldCollectionSearcher;
+import me.needkg.daynightpvp.utis.search.WorldCollectionSearcher;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;

@@ -4,19 +4,19 @@ import me.needkg.daynightpvp.DayNightPvP;
 import me.needkg.daynightpvp.configuration.manager.GlobalConfigurationManager;
 import me.needkg.daynightpvp.configuration.manager.MessageManager;
 import me.needkg.daynightpvp.configuration.manager.WorldConfigurationManager;
-import me.needkg.daynightpvp.integration.vault.LoseMoney;
 import me.needkg.daynightpvp.integration.griefprevention.GriefPreventionManager;
+import me.needkg.daynightpvp.integration.vault.LoseMoney;
 import me.needkg.daynightpvp.listener.damage.EntityDamageListener;
 import me.needkg.daynightpvp.listener.damage.PotionSplashListener;
 import me.needkg.daynightpvp.listener.damage.ProjectileHitListener;
-import me.needkg.daynightpvp.listener.player.PlayerBadEnterListener;
-import me.needkg.daynightpvp.listener.player.PlayerBadLeaveListener;
+import me.needkg.daynightpvp.listener.player.PlayerBedEnterListener;
+import me.needkg.daynightpvp.listener.player.PlayerBedLeaveListener;
 import me.needkg.daynightpvp.listener.player.PlayerDeathListener;
 import me.needkg.daynightpvp.listener.player.PlayerJoinListener;
 import me.needkg.daynightpvp.service.player.SleepService;
 import me.needkg.daynightpvp.service.update.UpdateService;
 import me.needkg.daynightpvp.task.manager.TaskManager;
-import me.needkg.daynightpvp.util.logging.Logger;
+import me.needkg.daynightpvp.utis.logging.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 
@@ -48,7 +48,7 @@ public class ListenerManager {
         registerPotionSplashListener();
         registerProjectileHitListener();
         registerPlayerDeathListener();
-        registerPlayerBadListener();
+        registerPlayerBedListener();
     }
 
     public void unregisterAll() {
@@ -87,10 +87,12 @@ public class ListenerManager {
         Bukkit.getPluginManager().registerEvents(new PlayerDeathListener(worldConfigurationManager, loseMoney), DayNightPvP.getInstance());
     }
 
-    private void registerPlayerBadListener() {
-        Logger.verbose("Registering PlayerBad listener...");
-        Bukkit.getPluginManager().registerEvents(new PlayerBadEnterListener(sleepService, taskManager, worldConfigurationManager), DayNightPvP.getInstance());
-        Bukkit.getPluginManager().registerEvents(new PlayerBadLeaveListener(sleepService), DayNightPvP.getInstance());
+    private void registerPlayerBedListener() {
+        Logger.verbose("Registering PlayerBed listener...");
+        Bukkit.getPluginManager().registerEvents(new PlayerBedEnterListener(sleepService, taskManager, worldConfigurationManager), DayNightPvP.getInstance());
+        Bukkit.getPluginManager().registerEvents(new PlayerBedLeaveListener(sleepService), DayNightPvP.getInstance());
+
+
     }
 
 }

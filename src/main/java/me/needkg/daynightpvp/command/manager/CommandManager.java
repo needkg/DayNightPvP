@@ -1,12 +1,12 @@
 package me.needkg.daynightpvp.command.manager;
 
+import me.needkg.daynightpvp.DayNightPvP;
+import me.needkg.daynightpvp.command.command.DayNightPvpCommand;
+import me.needkg.daynightpvp.configuration.file.ConfigurationFile;
+import me.needkg.daynightpvp.configuration.manager.GlobalConfigurationManager;
 import me.needkg.daynightpvp.configuration.manager.MessageManager;
 import me.needkg.daynightpvp.service.plugin.PluginService;
-import me.needkg.daynightpvp.configuration.manager.GlobalConfigurationManager;
-import me.needkg.daynightpvp.configuration.file.ConfigurationFile;
-import me.needkg.daynightpvp.DayNightPvP;
-import me.needkg.daynightpvp.command.impl.DayNightPvpCommand;
-import me.needkg.daynightpvp.util.logging.Logger;
+import me.needkg.daynightpvp.utis.logging.Logger;
 
 public class CommandManager {
 

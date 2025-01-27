@@ -1,7 +1,7 @@
 package me.needkg.daynightpvp.configuration.manager;
 
 import me.needkg.daynightpvp.configuration.access.ConfigurationAccess;
-import me.needkg.daynightpvp.configuration.emun.World;
+import me.needkg.daynightpvp.configuration.enums.World;
 import org.bukkit.Difficulty;
 import org.bukkit.Sound;
 

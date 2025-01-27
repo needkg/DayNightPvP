@@ -3,8 +3,8 @@ package me.needkg.daynightpvp.listener.damage;
 import me.needkg.daynightpvp.configuration.manager.MessageManager;
 import me.needkg.daynightpvp.configuration.manager.WorldConfigurationManager;
 import me.needkg.daynightpvp.integration.griefprevention.GriefPreventionManager;
-import me.needkg.daynightpvp.listener.base.AbstractDamageListener;
-import me.needkg.daynightpvp.util.player.PlayerValidator;
+import me.needkg.daynightpvp.listener.base.DamageFilter;
+import me.needkg.daynightpvp.utis.player.PlayerValidator;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.ThrownPotion;
@@ -17,7 +17,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.Set;
 
-public class PotionSplashListener extends AbstractDamageListener implements Listener {
+public class PotionSplashListener extends DamageFilter implements Listener {
 
     public PotionSplashListener(GriefPreventionManager griefPreventionManager, MessageManager messageManager, WorldConfigurationManager worldConfigurationManager) {
         super(griefPreventionManager, messageManager, worldConfigurationManager);

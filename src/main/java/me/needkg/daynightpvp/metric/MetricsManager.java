@@ -1,7 +1,7 @@
 package me.needkg.daynightpvp.metric;
 
 import me.needkg.daynightpvp.DayNightPvP;
-import me.needkg.daynightpvp.util.logging.Logger;
+import me.needkg.daynightpvp.utis.logging.Logger;
 import org.bstats.bukkit.Metrics;
 
 public class MetricsManager {

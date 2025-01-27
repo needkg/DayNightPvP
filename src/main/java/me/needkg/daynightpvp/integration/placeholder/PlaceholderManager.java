@@ -4,7 +4,7 @@ import me.needkg.daynightpvp.DayNightPvP;
 import me.needkg.daynightpvp.configuration.manager.GlobalConfigurationManager;
 import me.needkg.daynightpvp.configuration.manager.MessageManager;
 import me.needkg.daynightpvp.integration.placeholder.providers.WorldStateProvider;
-import me.needkg.daynightpvp.util.logging.Logger;
+import me.needkg.daynightpvp.utis.logging.Logger;
 
 public class PlaceholderManager {
 

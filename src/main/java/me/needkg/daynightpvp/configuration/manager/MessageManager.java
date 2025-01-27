@@ -1,7 +1,7 @@
 package me.needkg.daynightpvp.configuration.manager;
 
 import me.needkg.daynightpvp.configuration.access.LanguageAccess;
-import me.needkg.daynightpvp.configuration.emun.Message;
+import me.needkg.daynightpvp.configuration.enums.Message;
 
 public class MessageManager {
     private final LanguageAccess access;

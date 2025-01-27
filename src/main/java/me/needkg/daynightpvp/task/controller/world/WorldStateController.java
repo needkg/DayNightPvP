@@ -1,10 +1,10 @@
 package me.needkg.daynightpvp.task.controller.world;
 
-import me.needkg.daynightpvp.configuration.emun.Message;
+import me.needkg.daynightpvp.configuration.enums.Message;
 import me.needkg.daynightpvp.configuration.manager.MessageManager;
 import me.needkg.daynightpvp.configuration.manager.WorldConfigurationManager;
-import me.needkg.daynightpvp.util.logging.Logger;
-import me.needkg.daynightpvp.util.player.PlayerNotifier;
+import me.needkg.daynightpvp.utis.logging.Logger;
+import me.needkg.daynightpvp.utis.player.PlayerNotifier;
 import org.bukkit.World;
 
 import java.util.HashSet;
