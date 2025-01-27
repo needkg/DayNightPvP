@@ -2,7 +2,7 @@ package me.needkg.daynightpvp.command.subcommand.system;
 
 import me.needkg.daynightpvp.command.base.CommandValidator;
 import me.needkg.daynightpvp.command.base.SubCommand;
-import me.needkg.daynightpvp.command.validator.permission.PermissionValidator;
+import me.needkg.daynightpvp.command.validation.permission.PermissionValidator;
 import me.needkg.daynightpvp.configuration.enums.Message;
 import me.needkg.daynightpvp.configuration.manager.MessageManager;
 import me.needkg.daynightpvp.service.plugin.PluginService;

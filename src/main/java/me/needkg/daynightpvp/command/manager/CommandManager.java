@@ -1,7 +1,7 @@
 package me.needkg.daynightpvp.command.manager;
 
 import me.needkg.daynightpvp.DayNightPvP;
-import me.needkg.daynightpvp.command.command.DayNightPvpCommand;
+import me.needkg.daynightpvp.command.DayNightPvpCommand;
 import me.needkg.daynightpvp.configuration.file.ConfigurationFile;
 import me.needkg.daynightpvp.configuration.manager.GlobalConfigurationManager;
 import me.needkg.daynightpvp.configuration.manager.MessageManager;

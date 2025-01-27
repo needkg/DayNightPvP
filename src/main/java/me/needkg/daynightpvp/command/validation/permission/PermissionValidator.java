@@ -1,4 +1,4 @@
-package me.needkg.daynightpvp.command.validator.permission;
+package me.needkg.daynightpvp.command.validation.permission;
 
 import me.needkg.daynightpvp.command.base.CommandValidator;
 import me.needkg.daynightpvp.configuration.enums.Message;

@@ -2,9 +2,9 @@ package me.needkg.daynightpvp.command.subcommand.world;
 
 import me.needkg.daynightpvp.command.base.CommandValidator;
 import me.needkg.daynightpvp.command.base.SubCommand;
-import me.needkg.daynightpvp.command.validator.args.ArgsLengthValidator;
-import me.needkg.daynightpvp.command.validator.permission.PermissionValidator;
-import me.needkg.daynightpvp.command.validator.world.WorldConfiguredValidator;
+import me.needkg.daynightpvp.command.validation.args.ArgsLengthValidator;
+import me.needkg.daynightpvp.command.validation.permission.PermissionValidator;
+import me.needkg.daynightpvp.command.validation.world.WorldConfiguredValidator;
 import me.needkg.daynightpvp.configuration.enums.Message;
 import me.needkg.daynightpvp.configuration.file.ConfigurationFile;
 import me.needkg.daynightpvp.configuration.manager.GlobalConfigurationManager;

@@ -1,4 +1,4 @@
-package me.needkg.daynightpvp.command.command;
+package me.needkg.daynightpvp.command;
 
 import me.needkg.daynightpvp.command.base.SubCommand;
 import me.needkg.daynightpvp.command.subcommand.system.LangSubCommand;
