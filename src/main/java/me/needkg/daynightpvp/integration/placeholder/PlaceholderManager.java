@@ -1,10 +1,10 @@
 package me.needkg.daynightpvp.integration.placeholder;
 
-import me.needkg.daynightpvp.DayNightPvP;
 import me.needkg.daynightpvp.configuration.manager.GlobalConfigurationManager;
 import me.needkg.daynightpvp.configuration.manager.MessageManager;
 import me.needkg.daynightpvp.integration.placeholder.providers.WorldStateProvider;
 import me.needkg.daynightpvp.utis.logging.Logger;
+import me.needkg.daynightpvp.utis.plugin.PluginValidator;
 
 public class PlaceholderManager {
 
@@ -17,7 +17,7 @@ public class PlaceholderManager {
     }
 
     public void register() {
-        if (DayNightPvP.isPlaceholderPresent) {
+        if (PluginValidator.isPlaceholderPresent()) {
             Logger.verbose("Registering WorldStateProvider...");
             new WorldStateProvider(messageManager, globalConfigurationManager).register();
         } else {
@@ -26,7 +26,7 @@ public class PlaceholderManager {
     }
 
     public void unregister() {
-        if (DayNightPvP.isPlaceholderPresent) {
+        if (PluginValidator.isPlaceholderPresent()) {
             new WorldStateProvider(messageManager, globalConfigurationManager).unregister();
         }
     }

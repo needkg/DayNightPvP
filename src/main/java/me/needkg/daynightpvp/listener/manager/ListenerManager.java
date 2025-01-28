@@ -88,11 +88,9 @@ public class ListenerManager {
     }
 
     private void registerPlayerBedListener() {
-        Logger.verbose("Registering PlayerBed listener...");
+        Logger.verbose("Registering PlayerBed Enter/Leave listener...");
         Bukkit.getPluginManager().registerEvents(new PlayerBedEnterListener(sleepService, taskManager, worldConfigurationManager), DayNightPvP.getInstance());
         Bukkit.getPluginManager().registerEvents(new PlayerBedLeaveListener(sleepService), DayNightPvP.getInstance());
-
-
     }
 
 }

@@ -1,11 +1,11 @@
 package me.needkg.daynightpvp.listener.base;
 
-import me.needkg.daynightpvp.DayNightPvP;
 import me.needkg.daynightpvp.configuration.enums.Message;
 import me.needkg.daynightpvp.configuration.manager.MessageManager;
 import me.needkg.daynightpvp.configuration.manager.WorldConfigurationManager;
 import me.needkg.daynightpvp.integration.griefprevention.GriefPreventionManager;
 import me.needkg.daynightpvp.integration.worldguard.flags.DaytimePvpFlag;
+import me.needkg.daynightpvp.utis.plugin.PluginValidator;
 import me.needkg.daynightpvp.utis.world.WorldStateChecker;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -57,7 +57,7 @@ public abstract class DamageFilter {
     }
 
     private boolean isWorldGuardAllowingPvP(@NotNull Player victim, @NotNull Player attacker) {
-        return DayNightPvP.isWorldGuardPresent
+        return PluginValidator.isWorldGuardPresent()
                 && DaytimePvpFlag.checkStateOnPosition(victim)
                 && DaytimePvpFlag.checkStateOnPosition(attacker);
     }
@@ -73,7 +73,7 @@ public abstract class DamageFilter {
     }
 
     private boolean isGriefPreventionBlocking(@NotNull Player victim, @NotNull Player attacker, @NotNull String worldName) {
-        return DayNightPvP.isGriefPresent
+        return PluginValidator.isGriefPresent()
                 && !worldConfigurationManager.isIntegrationsGriefPreventionPvpInClaims(worldName)
                 && griefPreventionManager.isPlayerInClaim(victim, attacker);
     }

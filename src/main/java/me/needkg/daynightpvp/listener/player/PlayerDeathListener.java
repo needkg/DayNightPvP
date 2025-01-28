@@ -3,6 +3,7 @@ package me.needkg.daynightpvp.listener.player;
 import me.needkg.daynightpvp.DayNightPvP;
 import me.needkg.daynightpvp.configuration.manager.WorldConfigurationManager;
 import me.needkg.daynightpvp.integration.vault.LoseMoney;
+import me.needkg.daynightpvp.utis.plugin.PluginValidator;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -61,7 +62,7 @@ public class PlayerDeathListener implements Listener {
     }
 
     private boolean shouldHandleMoneyLoss(String worldName) {
-        return worldConfigurationManager.isIntegrationsVaultLoseMoneyEnabled(worldName) && DayNightPvP.isVaultPresent;
+        return worldConfigurationManager.isIntegrationsVaultLoseMoneyEnabled(worldName) && PluginValidator.isVaultPresent();
     }
 
     private String extractLoseMoneyPercentage(Player player) {

@@ -5,10 +5,25 @@ import org.bukkit.plugin.Plugin;
 
 public class PluginValidator {
 
-    public static boolean exists(String pluginName) {
+    private static boolean exists(String pluginName) {
         Plugin plugin = Bukkit.getPluginManager().getPlugin(pluginName);
         return plugin != null;
     }
 
+    public static boolean isVaultPresent() {
+        return exists("Vault");
+    }
+
+    public static boolean isWorldGuardPresent() {
+        return exists("WorldGuard");
+    }
+
+    public static boolean isGriefPresent() {
+        return exists("GriefPrevention");
+    }
+
+    public static boolean isPlaceholderPresent() {
+        return exists("PlaceholderAPI");
+    }
 
 }

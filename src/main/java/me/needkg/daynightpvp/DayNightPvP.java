@@ -9,11 +9,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class DayNightPvP extends JavaPlugin {
 
-    public static boolean isVaultPresent;
-    public static boolean isGriefPresent;
-    public static boolean isWorldGuardPresent;
-    public static boolean isPlaceholderPresent;
-
     private static DayNightPvP instance;
 
     public DayNightPvP() {
@@ -27,9 +22,7 @@ public class DayNightPvP extends JavaPlugin {
     @Override
     public void onLoad() {
 
-        verifyCompatibilityPlugins();
-
-        if (isWorldGuardPresent) {
+        if (PluginValidator.isWorldGuardPresent()) {
             WorldGuardManager.register();
         }
     }
@@ -73,10 +66,4 @@ public class DayNightPvP extends JavaPlugin {
         container.getTaskManager().stopAllTasks();
     }
 
-    private void verifyCompatibilityPlugins() {
-        isVaultPresent = PluginValidator.exists("Vault");
-        isWorldGuardPresent = PluginValidator.exists("WorldGuard");
-        isGriefPresent = PluginValidator.exists("GriefPrevention");
-        isPlaceholderPresent = PluginValidator.exists("PlaceholderAPI");
-    }
 }
