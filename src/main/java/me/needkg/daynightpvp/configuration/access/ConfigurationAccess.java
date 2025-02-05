@@ -1,7 +1,7 @@
 package me.needkg.daynightpvp.configuration.access;
 
 import me.needkg.daynightpvp.configuration.file.ConfigurationFile;
-import me.needkg.daynightpvp.util.logging.Logger;
+import me.needkg.daynightpvp.utils.logging.Logger;
 import org.bukkit.Difficulty;
 import org.bukkit.Sound;
 

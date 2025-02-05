@@ -4,7 +4,7 @@ import me.needkg.daynightpvp.configuration.manager.GlobalConfigurationManager;
 
 import java.io.File;
 
-public class LanguageFile extends YamlFileBase {
+public class LanguageFile extends ResourceFile {
 
     private static final int LATEST_FILE_VERSION = 18;
     private final GlobalConfigurationManager globalConfigurationManager;

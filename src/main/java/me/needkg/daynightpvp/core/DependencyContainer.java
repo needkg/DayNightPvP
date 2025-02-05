@@ -14,7 +14,9 @@ import me.needkg.daynightpvp.integration.vault.LoseMoney;
 import me.needkg.daynightpvp.listener.manager.ListenerManager;
 import me.needkg.daynightpvp.metric.MetricsManager;
 import me.needkg.daynightpvp.service.plugin.PluginService;
-import me.needkg.daynightpvp.task.manager.TaskManager;
+import me.needkg.daynightpvp.service.update.UpdateService;
+import me.needkg.daynightpvp.tasks.manager.TaskManager;
+import me.needkg.daynightpvp.tasks.manager.WorldStateManager;
 
 public class DependencyContainer {
     private static DependencyContainer instance;
@@ -28,6 +30,7 @@ public class DependencyContainer {
     private LanguageAccess languageAccess;
     private MessageManager messageManager;
 
+    private UpdateService updateService;
     private TaskManager taskManager;
     private LoseMoney loseMoney;
     private CommandManager commandManager;
@@ -36,7 +39,7 @@ public class DependencyContainer {
     private GriefPreventionManager griefPreventionManager;
     private MetricsManager metricsManager;
     private PluginService pluginService;
-
+    private WorldStateManager worldStateManager;
     private DependencyContainer() {
         initializeDependencies();
     }
@@ -65,13 +68,24 @@ public class DependencyContainer {
         messageManager = new MessageManager(languageAccess);
 
         // Outros Serviços
-        taskManager = new TaskManager(globalConfigurationManager, worldConfigurationManager);
-        loseMoney = new LoseMoney(worldConfigurationManager, messageManager);
-        listenerManager = new ListenerManager(globalConfigurationManager);
-        placeholderManager = new PlaceholderManager();
-        pluginService = new PluginService(configurationFile, languageFile, taskManager, listenerManager, placeholderManager);
+        worldStateManager = new WorldStateManager(globalConfigurationManager, worldConfigurationManager);
+
+        taskManager = new TaskManager(globalConfigurationManager, worldConfigurationManager, messageManager, worldStateManager);
+
+        loseMoney = new LoseMoney(worldConfigurationManager, messageManager, worldStateManager);
+
+        updateService = new UpdateService(messageManager);
+
+        listenerManager = new ListenerManager(messageManager, griefPreventionManager, globalConfigurationManager, updateService, worldConfigurationManager, loseMoney, taskManager, worldStateManager);
+
+        placeholderManager = new PlaceholderManager(messageManager, globalConfigurationManager, worldStateManager);
+
+        pluginService = new PluginService(configurationFile, languageFile, taskManager, listenerManager, placeholderManager, worldStateManager);
+
         griefPreventionManager = new GriefPreventionManager();
-        commandManager = new CommandManager();
+
+        commandManager = new CommandManager(messageManager, pluginService, globalConfigurationManager, configurationFile);
+
         metricsManager = new MetricsManager();
     }
 
@@ -95,12 +109,12 @@ public class DependencyContainer {
         return messageManager;
     }
 
-    public TaskManager getTaskManager() {
-        return taskManager;
+    public WorldStateManager getWorldStateManager() {
+        return worldStateManager;
     }
 
-    public LoseMoney getLoseMoney() {
-        return loseMoney;
+    public TaskManager getTaskManager() {
+        return taskManager;
     }
 
     public CommandManager getCommandManager() {
@@ -115,15 +129,7 @@ public class DependencyContainer {
         return placeholderManager;
     }
 
-    public GriefPreventionManager getGriefPreventionManager() {
-        return griefPreventionManager;
-    }
-
     public MetricsManager getMetricsManager() {
         return metricsManager;
-    }
-
-    public PluginService getPluginService() {
-        return pluginService;
     }
 } 

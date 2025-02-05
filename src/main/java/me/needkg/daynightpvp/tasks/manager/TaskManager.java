@@ -1,0 +1,141 @@
+package me.needkg.daynightpvp.tasks.manager;
+
+import me.needkg.daynightpvp.DayNightPvP;
+import me.needkg.daynightpvp.configuration.manager.GlobalConfigurationManager;
+import me.needkg.daynightpvp.configuration.manager.MessageManager;
+import me.needkg.daynightpvp.configuration.manager.WorldConfigurationManager;
+import me.needkg.daynightpvp.tasks.runnable.TimeBossBarController;
+import me.needkg.daynightpvp.tasks.runnable.TimeDurationController;
+import me.needkg.daynightpvp.tasks.runnable.WorldStateController;
+import me.needkg.daynightpvp.utils.logging.Logger;
+import org.bukkit.Bukkit;
+import org.bukkit.GameRule;
+import org.bukkit.World;
+import org.bukkit.boss.BarColor;
+import org.bukkit.boss.BarStyle;
+import org.bukkit.boss.BossBar;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class TaskManager {
+
+    private final GlobalConfigurationManager globalConfigurationManager;
+    private final WorldConfigurationManager worldConfigurationManager;
+    private final List<Integer> scheduledTasks;
+    private final List<BossBar> activeBossBars;
+    private final Map<String, TimeDurationController> worldTimeControllers;
+    private final MessageManager messageManager;
+    private final WorldStateManager worldStateManager;
+
+    public TaskManager(GlobalConfigurationManager globalConfigurationManager, WorldConfigurationManager worldConfigurationManager, MessageManager messageManager, WorldStateManager worldStateManager) {
+        this.globalConfigurationManager = globalConfigurationManager;
+        this.worldConfigurationManager = worldConfigurationManager;
+        this.messageManager = messageManager;
+        this.worldStateManager = worldStateManager;
+        this.scheduledTasks = new ArrayList<>();
+        this.activeBossBars = new ArrayList<>();
+        this.worldTimeControllers = new HashMap<>();
+    }
+
+    public void startAllTasks() {
+
+        for (World world : globalConfigurationManager.getEnabledWorlds()) {
+            initializeWorldTasks(world.getName());
+        }
+    }
+
+    private void initializeWorldTasks(String worldName) {
+        World world = Bukkit.getWorld(worldName);
+        TimeDurationController timeDurationController = null;
+
+        if (worldConfigurationManager.isDayNightDurationEnabled(worldName)) {
+            Logger.verbose("Initializing the TimeDurationController task...");
+            timeDurationController = initializeTimeDurationController(worldName, world);
+        }
+
+        if (worldConfigurationManager.isBossbarEnabled(worldName)) {
+            Logger.verbose("Initializing the BossBar task...");
+            initializeBossBar(worldName, world, timeDurationController);
+        }
+
+        if (worldConfigurationManager.isPvpAutomaticEnabled(worldName)) {
+            Logger.verbose("Initializing the WorldStateController task...");
+            initializeWorldStateController(worldName, world);
+        }
+    }
+
+    private TimeDurationController initializeTimeDurationController(String worldName, World world) {
+        TimeDurationController timeDurationController = new TimeDurationController(world, worldName, worldConfigurationManager);
+
+        scheduledTasks.add(scheduleRepeatingTask(timeDurationController, 1));
+        world.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
+        worldTimeControllers.put(worldName, timeDurationController);
+
+        return timeDurationController;
+    }
+
+    private void initializeBossBar(String worldName, World world, TimeDurationController timeDurationController) {
+        BossBar bossBar = Bukkit.createBossBar("bossbar", BarColor.BLUE, BarStyle.SOLID);
+        activeBossBars.add(bossBar);
+
+        TimeBossBarController bossBarTask = new TimeBossBarController(bossBar, world, worldName, timeDurationController, worldConfigurationManager, messageManager);
+
+        scheduledTasks.add(scheduleRepeatingTask(bossBarTask, 1));
+    }
+
+    private void initializeWorldStateController(String worldName, World world) {
+        WorldStateController pvpTask = new WorldStateController(world, worldName, worldConfigurationManager, messageManager, worldStateManager);
+
+        scheduledTasks.add(scheduleRepeatingTask(pvpTask, 20));
+    }
+
+    private int scheduleRepeatingTask(Runnable task, int tickInterval) {
+        return Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(DayNightPvP.getInstance(), task, 0, tickInterval);
+    }
+
+    public void stopAllTasks() {
+        cancelAllTasks();
+        clearWorldStates();
+        removeBossBars();
+        restoreWorldSettings();
+    }
+
+    private void cancelAllTasks() {
+        scheduledTasks.forEach(Bukkit.getScheduler()::cancelTask);
+        scheduledTasks.clear();
+        worldTimeControllers.clear();
+    }
+
+    private void clearWorldStates() {
+        worldStateManager.clearWorldStates();
+    }
+
+    private void removeBossBars() {
+        activeBossBars.forEach(BossBar::removeAll);
+        activeBossBars.clear();
+    }
+
+    private void restoreWorldSettings() {
+
+        for (World world : globalConfigurationManager.getEnabledWorlds()) {
+            world.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true);
+        }
+    }
+
+    public void restart() {
+        stopAllTasks();
+        startAllTasks();
+    }
+
+    public double getTickIncrement(String worldName) {
+        return worldTimeControllers.get(worldName).getTickIncrement();
+    }
+
+    public void setTickIncrement(String worldName, double tickIncrement) {
+        worldTimeControllers.get(worldName).setTickIncrement(tickIncrement);
+    }
+
+}

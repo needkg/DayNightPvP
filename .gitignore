@@ -1,39 +1,132 @@
-# Default ignored files
-/shelf/
-/workspace.xml
-
-# Eclipse stuff
-/.classpath
-/.project
-/.settings
-
-# netbeans
-/nbproject
-
-# we use maven!
-/build.xml
-
-# maven
-/target
-
-# vim
-.*.sw[a-p]
-
-# various other potential build files
-/build
-/bin
-/dist
-/manifest.mf
-
-# Mac filesystem dust
-.DS_Store
-
-# intellij
-dependency-reduced-pom.xml
-*.iml
-*.ipr
+# IntelliJ IDEA
+/.idea/
+/.idea/dictionaries/
+/.idea/libraries/
+/.idea/*.xml
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/dictionaries
+.idea/**/shelf
+.idea/**/contentModel.xml
+.idea/**/dataSources/
+.idea/**/dataSources.ids
+.idea/**/dataSources.local.xml
+.idea/**/sqlDataSources.xml
+.idea/**/dynamic.xml
+.idea/**/uiDesigner.xml
+.idea/**/dbnavigator.xml
+.idea/**/gradle.xml
+.idea/**/libraries
+.idea_modules/
+.idea/httpRequests
+.idea/caches/build_file_checksums.ser
+.idea/replstate.xml
+.idea/artifacts
+.idea/compiler.xml
+.idea/jarRepositories.xml
+.idea/modules.xml
+.idea/*.iml
+.idea/modules
 *.iws
-.idea/
+out/
 
-#vscode
-.vscode
+# Gradle
+.gradle
+build/
+working/*
+**/debug/**/*
+!working/server.properties
+src/**/plugin.yml
+
+# Maven
+target/
+*.iml
+dependency-reduced-pom.xml
+
+# CMake
+cmake-build-*/
+
+# JetBrains IDEs (IntelliJ, RubyMine, PhpStorm, etc.)
+atlassian-ide-plugin.xml
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+
+# Logs and Diagnostic reports
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage and Dependency Folders
+lib-cov
+coverage
+*.lcov
+.nyc_output
+.grunt
+bower_components
+.lock-wscript
+build/Release
+node_modules/
+jspm_packages/
+web_modules/
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+.npm
+.eslintcache
+.node_repl_history
+*.tgz
+.yarn-integrity
+
+# Environment and Build files
+.env
+.env.test
+.cache
+.parcel-cache
+.next
+out
+.nuxt
+dist
+.vuepress/dist
+.serverless/
+.fusebox/
+.dynamodb/
+.tern-port
+.vscode-test
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.pnp.*
+
+# Eclipse
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
+.externalToolBuilders/
+*.launch
+.factorypath
+.apt_generated/
+.project
+.classpath
+.vscode/

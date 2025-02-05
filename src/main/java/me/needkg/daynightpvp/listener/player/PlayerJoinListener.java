@@ -12,8 +12,8 @@ public class PlayerJoinListener implements Listener {
 
     private final UpdateService updateService;
 
-    public PlayerJoinListener() {
-        updateService = new UpdateService();
+    public PlayerJoinListener(UpdateService updateService) {
+        this.updateService = updateService;
     }
 
     @EventHandler

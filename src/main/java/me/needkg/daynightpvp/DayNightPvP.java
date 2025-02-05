@@ -2,17 +2,12 @@ package me.needkg.daynightpvp;
 
 import me.needkg.daynightpvp.core.DependencyContainer;
 import me.needkg.daynightpvp.integration.worldguard.WorldGuardManager;
-import me.needkg.daynightpvp.util.logging.Logger;
-import me.needkg.daynightpvp.util.plugin.PluginValidator;
-import me.needkg.daynightpvp.util.plugin.StartupBanner;
+import me.needkg.daynightpvp.utils.logging.Logger;
+import me.needkg.daynightpvp.utils.plugin.PluginValidator;
+import me.needkg.daynightpvp.utils.plugin.StartupBanner;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class DayNightPvP extends JavaPlugin {
-
-    public static boolean isVaultPresent;
-    public static boolean isGriefPresent;
-    public static boolean isWorldGuardPresent;
-    public static boolean isPlaceholderPresent;
 
     private static DayNightPvP instance;
 
@@ -27,13 +22,8 @@ public class DayNightPvP extends JavaPlugin {
     @Override
     public void onLoad() {
 
-        verifyCompatibilityPlugins();
-
-        Logger.debug("Verifying WorldGuard...");
-        if (isWorldGuardPresent) {
+        if (PluginValidator.isWorldGuardPresent()) {
             WorldGuardManager.register();
-        } else {
-            Logger.debug("WorldGuard is not present, skipping WorldGuard integration.");
         }
     }
 
@@ -50,6 +40,9 @@ public class DayNightPvP extends JavaPlugin {
 
         Logger.debug("Loading language files...");
         container.getLanguageFile().initializeFile();
+
+        Logger.debug("Setting up initial world states...");
+        container.getWorldStateManager().initializeWorldStates();
 
         Logger.debug("Starting metrics...");
         container.getMetricsManager().start();
@@ -76,10 +69,4 @@ public class DayNightPvP extends JavaPlugin {
         container.getTaskManager().stopAllTasks();
     }
 
-    private void verifyCompatibilityPlugins() {
-        isVaultPresent = PluginValidator.exists("Vault");
-        isWorldGuardPresent = PluginValidator.exists("WorldGuard");
-        isGriefPresent = PluginValidator.exists("GriefPrevention");
-        isPlaceholderPresent = PluginValidator.exists("PlaceholderAPI");
-    }
 }

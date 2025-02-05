@@ -1,12 +1,12 @@
 package me.needkg.daynightpvp.integration.placeholder.providers;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
-import me.needkg.daynightpvp.configuration.emun.Message;
+import me.needkg.daynightpvp.configuration.enums.Message;
 import me.needkg.daynightpvp.configuration.manager.GlobalConfigurationManager;
 import me.needkg.daynightpvp.configuration.manager.MessageManager;
-import me.needkg.daynightpvp.core.DependencyContainer;
-import me.needkg.daynightpvp.task.controller.world.WorldStateController;
-import me.needkg.daynightpvp.util.search.WorldCollectionSearcher;
+import me.needkg.daynightpvp.tasks.enums.WorldState;
+import me.needkg.daynightpvp.tasks.manager.WorldStateManager;
+import me.needkg.daynightpvp.utils.search.WorldCollectionSearcher;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -19,11 +19,12 @@ public class WorldStateProvider extends PlaceholderExpansion {
 
     private final MessageManager messageManager;
     private final GlobalConfigurationManager globalConfigurationManager;
+    private final WorldStateManager worldStateManager;
 
-    public WorldStateProvider() {
-        DependencyContainer container = DependencyContainer.getInstance();
-        this.messageManager = container.getMessageManager();
-        this.globalConfigurationManager = container.getGlobalConfigurationManager();
+    public WorldStateProvider(MessageManager messageManager, GlobalConfigurationManager globalConfigurationManager, WorldStateManager worldStateManager) {
+        this.messageManager = messageManager;
+        this.globalConfigurationManager = globalConfigurationManager;
+        this.worldStateManager = worldStateManager;
     }
 
     @Override
@@ -74,7 +75,7 @@ public class WorldStateProvider extends PlaceholderExpansion {
     }
 
     private String getPvpStateForWorld(World world) {
-        if (!WorldCollectionSearcher.containsWorld(globalConfigurationManager.getWorldNames(), world.getName())) {
+        if (!WorldCollectionSearcher.containsWorld(globalConfigurationManager.getEnabledWorlds(), world)) {
             return messageManager.getMessage(Message.SYSTEM_ERROR);
         }
 
@@ -83,6 +84,6 @@ public class WorldStateProvider extends PlaceholderExpansion {
     }
 
     private boolean isPvpEnabled(World world) {
-        return WorldStateController.nightWorlds.contains(world);
+        return worldStateManager.getWorldState(world) == WorldState.NIGHT;
     }
 }

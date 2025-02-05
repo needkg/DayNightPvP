@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public interface SubCommand {
+
     default void executeCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         for (CommandValidator validator : getValidators()) {
             if (!validator.validate(sender, args)) {

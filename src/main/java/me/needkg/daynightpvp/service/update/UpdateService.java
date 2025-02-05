@@ -1,9 +1,8 @@
 package me.needkg.daynightpvp.service.update;
 
 import me.needkg.daynightpvp.DayNightPvP;
-import me.needkg.daynightpvp.configuration.emun.Message;
+import me.needkg.daynightpvp.configuration.enums.Message;
 import me.needkg.daynightpvp.configuration.manager.MessageManager;
-import me.needkg.daynightpvp.core.DependencyContainer;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Player;
@@ -13,6 +12,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
 
 public class UpdateService {
@@ -24,9 +24,8 @@ public class UpdateService {
     private final String currentPluginVersion;
     private final MessageManager messageManager;
 
-    public UpdateService() {
-        DependencyContainer container = DependencyContainer.getInstance();
-        this.messageManager = container.getMessageManager();
+    public UpdateService(MessageManager messageManager) {
+        this.messageManager = messageManager;
         this.currentPluginVersion = DayNightPvP.getInstance().getDescription().getVersion();
     }
 
@@ -76,7 +75,7 @@ public class UpdateService {
     }
 
     private HttpURLConnection createConnection(String urlString) throws IOException {
-        URL url = new URL(urlString);
+        URL url = URI.create(urlString).toURL();
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
         return connection;
