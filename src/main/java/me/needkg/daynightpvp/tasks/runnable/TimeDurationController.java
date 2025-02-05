@@ -1,4 +1,4 @@
-package me.needkg.daynightpvp.task.controller.time;
+package me.needkg.daynightpvp.tasks.runnable;
 
 import me.needkg.daynightpvp.configuration.manager.WorldConfigurationManager;
 import org.bukkit.World;

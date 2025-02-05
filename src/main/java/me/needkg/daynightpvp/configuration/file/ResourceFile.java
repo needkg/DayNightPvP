@@ -1,13 +1,13 @@
 package me.needkg.daynightpvp.configuration.file;
 
 import me.needkg.daynightpvp.DayNightPvP;
-import me.needkg.daynightpvp.utis.logging.Logger;
+import me.needkg.daynightpvp.utils.logging.Logger;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 
-public abstract class YamlFileBase {
+public abstract class ResourceFile {
 
     protected File fileLocation;
     protected FileConfiguration fileContent;

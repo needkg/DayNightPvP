@@ -1,4 +1,4 @@
-package me.needkg.daynightpvp.utis.plugin;
+package me.needkg.daynightpvp.utils.plugin;
 
 import me.needkg.daynightpvp.DayNightPvP;
 import org.bukkit.Bukkit;

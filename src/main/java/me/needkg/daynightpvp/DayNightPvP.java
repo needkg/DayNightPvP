@@ -2,9 +2,9 @@ package me.needkg.daynightpvp;
 
 import me.needkg.daynightpvp.core.DependencyContainer;
 import me.needkg.daynightpvp.integration.worldguard.WorldGuardManager;
-import me.needkg.daynightpvp.utis.logging.Logger;
-import me.needkg.daynightpvp.utis.plugin.PluginValidator;
-import me.needkg.daynightpvp.utis.plugin.StartupBanner;
+import me.needkg.daynightpvp.utils.logging.Logger;
+import me.needkg.daynightpvp.utils.plugin.PluginValidator;
+import me.needkg.daynightpvp.utils.plugin.StartupBanner;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class DayNightPvP extends JavaPlugin {
@@ -40,6 +40,9 @@ public class DayNightPvP extends JavaPlugin {
 
         Logger.debug("Loading language files...");
         container.getLanguageFile().initializeFile();
+
+        Logger.debug("Setting up initial world states...");
+        container.getWorldStateManager().initializeWorldStates();
 
         Logger.debug("Starting metrics...");
         container.getMetricsManager().start();

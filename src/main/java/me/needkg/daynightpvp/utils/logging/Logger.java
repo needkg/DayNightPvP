@@ -1,4 +1,4 @@
-package me.needkg.daynightpvp.utis.logging;
+package me.needkg.daynightpvp.utils.logging;
 
 import me.needkg.daynightpvp.core.DependencyContainer;
 import org.bukkit.Bukkit;

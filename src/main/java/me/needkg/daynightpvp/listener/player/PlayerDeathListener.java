@@ -3,7 +3,7 @@ package me.needkg.daynightpvp.listener.player;
 import me.needkg.daynightpvp.DayNightPvP;
 import me.needkg.daynightpvp.configuration.manager.WorldConfigurationManager;
 import me.needkg.daynightpvp.integration.vault.LoseMoney;
-import me.needkg.daynightpvp.utis.plugin.PluginValidator;
+import me.needkg.daynightpvp.utils.plugin.PluginValidator;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;

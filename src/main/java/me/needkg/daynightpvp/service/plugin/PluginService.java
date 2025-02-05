@@ -4,8 +4,9 @@ import me.needkg.daynightpvp.configuration.file.ConfigurationFile;
 import me.needkg.daynightpvp.configuration.file.LanguageFile;
 import me.needkg.daynightpvp.integration.placeholder.PlaceholderManager;
 import me.needkg.daynightpvp.listener.manager.ListenerManager;
-import me.needkg.daynightpvp.task.manager.TaskManager;
-import me.needkg.daynightpvp.utis.logging.Logger;
+import me.needkg.daynightpvp.tasks.manager.TaskManager;
+import me.needkg.daynightpvp.tasks.manager.WorldStateManager;
+import me.needkg.daynightpvp.utils.logging.Logger;
 
 public class PluginService {
 
@@ -14,13 +15,15 @@ public class PluginService {
     private final ListenerManager listenerManager;
     private final PlaceholderManager placeholderManager;
     private final TaskManager taskManager;
+    private final WorldStateManager worldStateManager;
 
-    public PluginService(ConfigurationFile configurationFile, LanguageFile languageFile, TaskManager taskManager, ListenerManager listenerManager, PlaceholderManager placeholderManager) {
+    public PluginService(ConfigurationFile configurationFile, LanguageFile languageFile, TaskManager taskManager, ListenerManager listenerManager, PlaceholderManager placeholderManager, WorldStateManager worldStateManager) {
         this.configurationFile = configurationFile;
         this.languageFile = languageFile;
         this.taskManager = taskManager;
         this.listenerManager = listenerManager;
         this.placeholderManager = placeholderManager;
+        this.worldStateManager = worldStateManager;
     }
 
     public void reloadPlugin() {
@@ -32,6 +35,8 @@ public class PluginService {
         listenerManager.restart();
         Logger.debug("Restarting PlaceholderAPI...");
         placeholderManager.restart();
+        Logger.debug("Restarting WorldStateManager...");
+        worldStateManager.initializeWorldStates();
     }
 
     public void reloadFiles() {

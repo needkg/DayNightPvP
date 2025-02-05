@@ -1,11 +1,13 @@
 package me.needkg.daynightpvp.listener.damage;
 
-    
+
 import me.needkg.daynightpvp.configuration.manager.MessageManager;
 import me.needkg.daynightpvp.configuration.manager.WorldConfigurationManager;
 import me.needkg.daynightpvp.integration.griefprevention.GriefPreventionManager;
 import me.needkg.daynightpvp.listener.base.DamageFilter;
-import me.needkg.daynightpvp.utis.player.PlayerValidator;
+import me.needkg.daynightpvp.tasks.manager.WorldStateManager;
+import me.needkg.daynightpvp.utils.player.PlayerValidator;
+import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,8 +18,8 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 public class EntityDamageListener extends DamageFilter implements Listener {
 
 
-    public EntityDamageListener(GriefPreventionManager griefPreventionManager, MessageManager messageManager, WorldConfigurationManager worldConfigurationManager) {
-        super(griefPreventionManager, messageManager, worldConfigurationManager);
+    public EntityDamageListener(GriefPreventionManager griefPreventionManager, MessageManager messageManager, WorldConfigurationManager worldConfigurationManager, WorldStateManager worldStateManager) {
+        super(griefPreventionManager, messageManager, worldConfigurationManager, worldStateManager);
 
     }
 
@@ -29,9 +31,10 @@ public class EntityDamageListener extends DamageFilter implements Listener {
 
         Player attacker = (Player) event.getDamager();
         Player victim = (Player) event.getEntity();
-        String worldName = victim.getWorld().getName();
+        World world = victim.getWorld();
+        String worldName = world.getName();
 
-        if (shouldCancelDamage(victim, attacker, worldName)) {
+        if (shouldCancelDamage(victim, attacker, worldName, world)) {
             event.setCancelled(true);
         }
     }

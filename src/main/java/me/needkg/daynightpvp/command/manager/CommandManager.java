@@ -6,7 +6,7 @@ import me.needkg.daynightpvp.configuration.file.ConfigurationFile;
 import me.needkg.daynightpvp.configuration.manager.GlobalConfigurationManager;
 import me.needkg.daynightpvp.configuration.manager.MessageManager;
 import me.needkg.daynightpvp.service.plugin.PluginService;
-import me.needkg.daynightpvp.utis.logging.Logger;
+import me.needkg.daynightpvp.utils.logging.Logger;
 
 public class CommandManager {
 

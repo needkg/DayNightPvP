@@ -1,4 +1,4 @@
-package me.needkg.daynightpvp.utis.search;
+package me.needkg.daynightpvp.utils.search;
 
 import org.bukkit.World;
 

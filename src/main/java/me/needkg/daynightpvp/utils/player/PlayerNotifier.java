@@ -1,4 +1,4 @@
-package me.needkg.daynightpvp.utis.player;
+package me.needkg.daynightpvp.utils.player;
 
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;

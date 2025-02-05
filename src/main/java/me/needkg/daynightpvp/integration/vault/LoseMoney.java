@@ -3,7 +3,8 @@ package me.needkg.daynightpvp.integration.vault;
 import me.needkg.daynightpvp.configuration.enums.Message;
 import me.needkg.daynightpvp.configuration.manager.MessageManager;
 import me.needkg.daynightpvp.configuration.manager.WorldConfigurationManager;
-import me.needkg.daynightpvp.task.controller.world.WorldStateController;
+import me.needkg.daynightpvp.tasks.enums.WorldState;
+import me.needkg.daynightpvp.tasks.manager.WorldStateManager;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -14,10 +15,12 @@ public class LoseMoney {
 
     private final WorldConfigurationManager worldConfigurationManager;
     private final MessageManager messageManager;
+    private final WorldStateManager worldStateManager;
 
-    public LoseMoney(WorldConfigurationManager worldConfigurationManager, MessageManager messageManager) {
+    public LoseMoney(WorldConfigurationManager worldConfigurationManager, MessageManager messageManager, WorldStateManager worldStateManager) {
         this.worldConfigurationManager = worldConfigurationManager;
         this.messageManager = messageManager;
+        this.worldStateManager = worldStateManager;
     }
 
     public void handleDeathMoneyTransaction(Player killed, Player killer, World world, String percentage) {
@@ -38,7 +41,7 @@ public class LoseMoney {
             double roundedAmout = Math.round(amount * 100.0) / 100.0;
 
             if (worldConfigurationManager.isIntegrationsVaultLoseMoneyEnabled(world.getName())) {
-                if (WorldStateController.nightWorlds.contains(world)) {
+                if (worldStateManager.getWorldState(world) == WorldState.NIGHT) {
                     economy.withdrawPlayer(killed, roundedAmout);
                     shouldWithdraw = true;
                 }
@@ -50,7 +53,7 @@ public class LoseMoney {
             if (shouldWithdraw) {
                 String money = Double.toString(roundedAmout);
                 String killedName = killed.getName();
-                String killerName = killer.getName(); // Corrigido killerName para pegar o nome do killer
+                String killerName = killer.getName();
                 killed.sendMessage(messageManager.getMessage(Message.COMBAT_MONEY_LOST).replace("{0}", killerName).replace("{1}", money));
                 if (worldConfigurationManager.isIntegrationsVaultLoseMoneyRewardKiller(world.getName())) {
                     economy.depositPlayer(killer, roundedAmout);

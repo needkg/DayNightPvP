@@ -2,7 +2,7 @@ package me.needkg.daynightpvp.configuration.manager;
 
 import me.needkg.daynightpvp.configuration.access.ConfigurationAccess;
 import me.needkg.daynightpvp.configuration.enums.Global;
-import me.needkg.daynightpvp.utis.world.WorldValidator;
+import me.needkg.daynightpvp.utils.world.WorldValidator;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.jetbrains.annotations.NotNull;

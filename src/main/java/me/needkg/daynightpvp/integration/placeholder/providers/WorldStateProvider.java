@@ -4,8 +4,9 @@ import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import me.needkg.daynightpvp.configuration.enums.Message;
 import me.needkg.daynightpvp.configuration.manager.GlobalConfigurationManager;
 import me.needkg.daynightpvp.configuration.manager.MessageManager;
-import me.needkg.daynightpvp.task.controller.world.WorldStateController;
-import me.needkg.daynightpvp.utis.search.WorldCollectionSearcher;
+import me.needkg.daynightpvp.tasks.enums.WorldState;
+import me.needkg.daynightpvp.tasks.manager.WorldStateManager;
+import me.needkg.daynightpvp.utils.search.WorldCollectionSearcher;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -18,10 +19,12 @@ public class WorldStateProvider extends PlaceholderExpansion {
 
     private final MessageManager messageManager;
     private final GlobalConfigurationManager globalConfigurationManager;
+    private final WorldStateManager worldStateManager;
 
-    public WorldStateProvider(MessageManager messageManager, GlobalConfigurationManager globalConfigurationManager) {
+    public WorldStateProvider(MessageManager messageManager, GlobalConfigurationManager globalConfigurationManager, WorldStateManager worldStateManager) {
         this.messageManager = messageManager;
         this.globalConfigurationManager = globalConfigurationManager;
+        this.worldStateManager = worldStateManager;
     }
 
     @Override
@@ -81,6 +84,6 @@ public class WorldStateProvider extends PlaceholderExpansion {
     }
 
     private boolean isPvpEnabled(World world) {
-        return WorldStateController.nightWorlds.contains(world);
+        return worldStateManager.getWorldState(world) == WorldState.NIGHT;
     }
 }

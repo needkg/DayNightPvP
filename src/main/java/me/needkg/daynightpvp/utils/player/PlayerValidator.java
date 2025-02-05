@@ -1,4 +1,4 @@
-package me.needkg.daynightpvp.utis.player;
+package me.needkg.daynightpvp.utils.player;
 
 import org.bukkit.entity.Player;
 

@@ -5,8 +5,10 @@ import me.needkg.daynightpvp.configuration.manager.MessageManager;
 import me.needkg.daynightpvp.configuration.manager.WorldConfigurationManager;
 import me.needkg.daynightpvp.integration.griefprevention.GriefPreventionManager;
 import me.needkg.daynightpvp.integration.worldguard.flags.DaytimePvpFlag;
-import me.needkg.daynightpvp.utis.plugin.PluginValidator;
-import me.needkg.daynightpvp.utis.world.WorldStateChecker;
+import me.needkg.daynightpvp.tasks.enums.WorldState;
+import me.needkg.daynightpvp.tasks.manager.WorldStateManager;
+import me.needkg.daynightpvp.utils.plugin.PluginValidator;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -15,14 +17,16 @@ public abstract class DamageFilter {
     private final GriefPreventionManager griefPreventionManager;
     private final MessageManager messageManager;
     private final WorldConfigurationManager worldConfigurationManager;
+    private final WorldStateManager worldStateManager;
 
-    protected DamageFilter(GriefPreventionManager griefPreventionManager, MessageManager messageManager, WorldConfigurationManager worldConfigurationManager) {
+    protected DamageFilter(GriefPreventionManager griefPreventionManager, MessageManager messageManager, WorldConfigurationManager worldConfigurationManager, WorldStateManager worldStateManager) {
         this.griefPreventionManager = griefPreventionManager;
         this.messageManager = messageManager;
         this.worldConfigurationManager = worldConfigurationManager;
+        this.worldStateManager = worldStateManager;
     }
 
-    public boolean shouldCancelDamage(@NotNull Player victim, @NotNull Player attacker, @NotNull String worldName) {
+    public boolean shouldCancelDamage(@NotNull Player victim, @NotNull Player attacker, @NotNull String worldName, @NotNull World world) {
         if (attacker.hasPermission("dnp.bypass")) {
             return false;
         }
@@ -35,7 +39,7 @@ public abstract class DamageFilter {
             return false;
         }
 
-        if (isPlayerInDayWorld(victim, attacker, worldName)) {
+        if (isPlayerInDayWorld(world, attacker, worldName)) {
             return true;
         }
 
@@ -62,8 +66,8 @@ public abstract class DamageFilter {
                 && DaytimePvpFlag.checkStateOnPosition(attacker);
     }
 
-    private boolean isPlayerInDayWorld(@NotNull Player victim, @NotNull Player attacker, @NotNull String worldName) {
-        if (WorldStateChecker.isInDayWorld(victim)) {
+    private boolean isPlayerInDayWorld(@NotNull World world, @NotNull Player attacker, @NotNull String worldName) {
+        if (worldStateManager.getWorldState(world) == WorldState.DAY) {
             if (worldConfigurationManager.isNotificationsChatNoPvpWarn(worldName)) {
                 attacker.sendMessage(messageManager.getMessage(Message.COMBAT_RESTRICTION_DAYTIME));
             }

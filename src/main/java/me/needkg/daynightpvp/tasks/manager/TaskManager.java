@@ -1,13 +1,13 @@
-package me.needkg.daynightpvp.task.manager;
+package me.needkg.daynightpvp.tasks.manager;
 
 import me.needkg.daynightpvp.DayNightPvP;
 import me.needkg.daynightpvp.configuration.manager.GlobalConfigurationManager;
 import me.needkg.daynightpvp.configuration.manager.MessageManager;
 import me.needkg.daynightpvp.configuration.manager.WorldConfigurationManager;
-import me.needkg.daynightpvp.task.bossbar.TimeBossBar;
-import me.needkg.daynightpvp.task.controller.time.TimeDurationController;
-import me.needkg.daynightpvp.task.controller.world.WorldStateController;
-import me.needkg.daynightpvp.utis.logging.Logger;
+import me.needkg.daynightpvp.tasks.runnable.TimeBossBarController;
+import me.needkg.daynightpvp.tasks.runnable.TimeDurationController;
+import me.needkg.daynightpvp.tasks.runnable.WorldStateController;
+import me.needkg.daynightpvp.utils.logging.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
 import org.bukkit.World;
@@ -28,11 +28,13 @@ public class TaskManager {
     private final List<BossBar> activeBossBars;
     private final Map<String, TimeDurationController> worldTimeControllers;
     private final MessageManager messageManager;
+    private final WorldStateManager worldStateManager;
 
-    public TaskManager(GlobalConfigurationManager globalConfigurationManager, WorldConfigurationManager worldConfigurationManager, MessageManager messageManager) {
+    public TaskManager(GlobalConfigurationManager globalConfigurationManager, WorldConfigurationManager worldConfigurationManager, MessageManager messageManager, WorldStateManager worldStateManager) {
         this.globalConfigurationManager = globalConfigurationManager;
         this.worldConfigurationManager = worldConfigurationManager;
         this.messageManager = messageManager;
+        this.worldStateManager = worldStateManager;
         this.scheduledTasks = new ArrayList<>();
         this.activeBossBars = new ArrayList<>();
         this.worldTimeControllers = new HashMap<>();
@@ -79,13 +81,13 @@ public class TaskManager {
         BossBar bossBar = Bukkit.createBossBar("bossbar", BarColor.BLUE, BarStyle.SOLID);
         activeBossBars.add(bossBar);
 
-        TimeBossBar bossBarTask = new TimeBossBar(bossBar, world, worldName, timeDurationController, worldConfigurationManager, messageManager);
+        TimeBossBarController bossBarTask = new TimeBossBarController(bossBar, world, worldName, timeDurationController, worldConfigurationManager, messageManager);
 
         scheduledTasks.add(scheduleRepeatingTask(bossBarTask, 1));
     }
 
     private void initializeWorldStateController(String worldName, World world) {
-        WorldStateController pvpTask = new WorldStateController(world, worldName, worldConfigurationManager, messageManager);
+        WorldStateController pvpTask = new WorldStateController(world, worldName, worldConfigurationManager, messageManager, worldStateManager);
 
         scheduledTasks.add(scheduleRepeatingTask(pvpTask, 20));
     }
@@ -108,8 +110,7 @@ public class TaskManager {
     }
 
     private void clearWorldStates() {
-        WorldStateController.dayWorlds.clear();
-        WorldStateController.nightWorlds.clear();
+        worldStateManager.clearWorldStates();
     }
 
     private void removeBossBars() {
