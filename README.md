@@ -46,7 +46,7 @@ DayNightPvP is a plugin that adds a unique and thrilling PvP experience to your 
 /dnp reload → Reload the plugin
 /dnp addworld <worldName> → Add a world to configuration
 /dnp delworld <worldName> → Remove a world from configuration
-/dnp editworld <worldName> → Edit specific world settings
+/dnp editworld <worldName> <setting> <value> → Edit specific world settings
 /dnp lang <language> → Change plugin language
 ```
 
