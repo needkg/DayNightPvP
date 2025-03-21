@@ -9,16 +9,21 @@ import me.needkg.daynightpvp.utils.plugin.PluginValidator;
 
 public class PlaceholderManager {
 
-    private final WorldStateProvider worldStateProvider;
+    private final MessageManager messageManager;
+    private final GlobalConfigurationManager globalConfigurationManager;
+    private final WorldStateManager worldStateManager;
+
 
     public PlaceholderManager(MessageManager messageManager, GlobalConfigurationManager globalConfigurationManager, WorldStateManager worldStateManager) {
-        this.worldStateProvider = new WorldStateProvider(messageManager, globalConfigurationManager, worldStateManager);
+        this.messageManager = messageManager;
+        this.globalConfigurationManager = globalConfigurationManager;
+        this.worldStateManager = worldStateManager;
     }
 
     public void register() {
         if (PluginValidator.isPlaceholderPresent()) {
             Logger.verbose("Registering WorldStateProvider...");
-            worldStateProvider.register();
+            new WorldStateProvider(messageManager, globalConfigurationManager, worldStateManager).register();
         } else {
             Logger.debug("PlaceholderAPI is not installed, skipping registration...");
         }
@@ -26,7 +31,7 @@ public class PlaceholderManager {
 
     public void unregister() {
         if (PluginValidator.isPlaceholderPresent()) {
-            worldStateProvider.unregister();
+            new WorldStateProvider(messageManager, globalConfigurationManager, worldStateManager).unregister();
         }
     }
 
