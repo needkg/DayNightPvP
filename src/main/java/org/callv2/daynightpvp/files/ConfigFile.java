@@ -330,7 +330,7 @@ public class ConfigFile {
 
     public boolean getGriefPreventionPvpInLand(String worldName) {
         if (getWorldNames().contains(worldName)) {
-            return getBoolean("worlds." + worldName + ".grief-prevention.pvp-in-land", false);
+            return getBoolean("worlds." + worldName + ".claims.pvp-in-land", false);
         } else {
             return false;
         }

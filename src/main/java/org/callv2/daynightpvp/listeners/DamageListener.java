@@ -11,23 +11,24 @@ import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.callv2.daynightpvp.DayNightPvP;
+import org.callv2.daynightpvp.claims.ClaimHandler;
+import org.callv2.daynightpvp.claims.ClaimVerifier;
 import org.callv2.daynightpvp.files.ConfigFile;
 import org.callv2.daynightpvp.files.LangFile;
-import org.callv2.daynightpvp.griefprevention.GriefPreventionHandler;
 import org.callv2.daynightpvp.utils.PlayerUtils;
 import org.callv2.daynightpvp.utils.WorldUtils;
 import org.callv2.daynightpvp.worldguard.AllowDaytimePvpFlag;
 
 public class DamageListener implements Listener {
 
-    private final GriefPreventionHandler griefPreventionHandler;
+    private final ClaimVerifier claimVerifier;
     private final ConfigFile configFile;
     private final String notifyPvpDisabled;
     private final String notifyPlayerImmune;
     private final String notifySelfImmune;
 
     public DamageListener(ConfigFile configFile, LangFile langFile) {
-        this.griefPreventionHandler = new GriefPreventionHandler();
+        this.claimVerifier = new ClaimVerifier();
         this.configFile = configFile;
         this.notifyPvpDisabled = langFile.getNotifyPvpDisabled();
         this.notifyPlayerImmune = langFile.getNotifyPlayerImmune();
@@ -120,10 +121,8 @@ public class DamageListener implements Listener {
             }
             return true;
         }
-        if (DayNightPvP.griefIsPresent && !configFile.getGriefPreventionPvpInLand(worldName) && griefPreventionHandler.verify(damagedPlayer, damager)) {
-            return true;
-        }
-        return false;
+
+        return !configFile.getGriefPreventionPvpInLand(worldName) && claimVerifier.verify(damagedPlayer, damager);
     }
 
 }

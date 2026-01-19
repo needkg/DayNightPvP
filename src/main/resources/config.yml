@@ -144,5 +144,5 @@ worlds:
         enabled: false
         only-at-night: true
         killer-reward-money: true
-    grief-prevention:
+    claims:
       pvp-in-land: false

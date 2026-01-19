@@ -92,6 +92,10 @@
             <id>sk89q-repo</id>
             <url>https://maven.enginehub.org/repo/</url>
         </repository>
+        <repository>
+            <id>william278.net</id>
+            <url>https://repo.william278.net/releases</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -124,6 +128,14 @@
             <groupId>com.github.GriefPrevention</groupId>
             <artifactId>GriefPrevention</artifactId>
             <version>16.18.2</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- HuskClaims -->
+        <dependency>
+            <groupId>net.william278.huskclaims</groupId>
+            <artifactId>huskclaims-bukkit</artifactId>
+            <version>1.5.2</version>
             <scope>provided</scope>
         </dependency>
 

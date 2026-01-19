@@ -16,7 +16,6 @@ import org.callv2.daynightpvp.worldguard.FlagHandler;
 public class DayNightPvP extends JavaPlugin {
 
     public static boolean vaultIsPresent;
-    public static boolean griefIsPresent;
     public static boolean worldGuardIsPresent;
     public static boolean placeHolderIsPresent;
 
@@ -87,7 +86,6 @@ public class DayNightPvP extends JavaPlugin {
     private void verifyCompatibilityPlugins() {
         vaultIsPresent = PluginUtils.isPluginInstalled("Vault");
         worldGuardIsPresent = PluginUtils.isPluginInstalled("WorldGuard");
-        griefIsPresent = PluginUtils.isPluginInstalled("GriefPrevention");
         placeHolderIsPresent = PluginUtils.isPluginInstalled("PlaceholderAPI");
     }
 
