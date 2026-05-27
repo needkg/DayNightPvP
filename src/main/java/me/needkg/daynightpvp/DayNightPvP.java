@@ -1,72 +1,32 @@
 package me.needkg.daynightpvp;
 
-import me.needkg.daynightpvp.core.DependencyContainer;
-import me.needkg.daynightpvp.integration.worldguard.WorldGuardManager;
-import me.needkg.daynightpvp.utils.logging.Logger;
-import me.needkg.daynightpvp.utils.plugin.PluginValidator;
-import me.needkg.daynightpvp.utils.plugin.StartupBanner;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class DayNightPvP extends JavaPlugin {
+import me.needkg.daynightpvp.feature.config.loader.ConfigLoader;
+import me.needkg.daynightpvp.feature.config.models.ResourceFile;
+import me.needkg.daynightpvp.feature.config.services.GlobalSettingsService;
+import me.needkg.daynightpvp.feature.config.services.MessagesConfigService;
 
-    private static DayNightPvP instance;
+public final class DayNightPvp extends JavaPlugin {
 
-    public DayNightPvP() {
-        instance = this;
-    }
-
-    public static DayNightPvP getInstance() {
-        return instance;
-    }
-
-    @Override
-    public void onLoad() {
-
-        if (PluginValidator.isWorldGuardPresent()) {
-            WorldGuardManager.register();
-        }
-    }
+    private GlobalSettingsService globalSettingsService;
+    private MessagesConfigService messagesConfigService;
 
     @Override
     public void onEnable() {
-        StartupBanner.display();
 
-        DependencyContainer.initializeContainer();
-        DependencyContainer container = DependencyContainer.getInstance();
+        ConfigLoader configLoader = new ConfigLoader(this);
 
-        container.getConfigurationFile().initializeFile();
-        Logger.debug("Dependency injection container started.");
-        Logger.debug("Configuration file loaded.");
+        ResourceFile configResource = configLoader.initializeFile("config.yml");
+        globalSettingsService = new GlobalSettingsService(configResource);
 
-        Logger.debug("Loading language files...");
-        container.getLanguageFile().initializeFile();
+        ResourceFile messagesResource = configLoader.initializeFile("lang/" + globalSettingsService.get().language() + ".yml");
+        messagesConfigService = new MessagesConfigService(messagesResource);
 
-        Logger.debug("Setting up initial world states...");
-        container.getWorldStateManager().initializeWorldStates();
-
-        Logger.debug("Starting metrics...");
-        container.getMetricsManager().start();
-
-        Logger.debug("Registering commands...");
-        container.getCommandManager().register();
-
-        Logger.debug("Registering event listeners...");
-        container.getListenerManager().register();
-
-        Logger.debug("Starting scheduled tasks...");
-        container.getTaskManager().startAllTasks();
-
-        Logger.debug("Registering placeholders...");
-        container.getPlaceholderHandler().register();
     }
 
     @Override
     public void onDisable() {
-        DependencyContainer container = DependencyContainer.getInstance();
-
-        container.getListenerManager().unregisterAll();
-        container.getPlaceholderHandler().unregister();
-        container.getTaskManager().stopAllTasks();
+        // Plugin shutdown logic
     }
-
 }

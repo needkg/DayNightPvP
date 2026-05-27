@@ -1,54 +1,6 @@
 name: DayNightPvP
 version: '${version}'
+main: me.needkg.daynightpvp.DayNightPvp
+api-version: '1.21'
 author: needkg
-main: me.needkg.daynightpvp.DayNightPvP
-api-version: '1.16'
 website: https://github.com/needkg/DayNightPvP
-softdepend: [ PlaceholderAPI, GriefPrevention, Vault, WorldGuard ]
-load: POSTWORLD
-
-commands:
-  daynightpvp:
-    description: "Shows all available commands"
-    usage: "/dnp"
-    aliases: [ dnp ]
-    permission: dnp.admin
-  daynightpvp reload:
-    description: "Reloads all plugin configurations"
-    usage: "/dnp reload"
-    aliases: [ dnp reload ]
-    permission: dnp.admin
-  daynightpvp addworld:
-    description: "Adds a world to plugin configuration"
-    usage: "/dnp addworld <world>"
-    aliases: [ dnp addworld ]
-    permission: dnp.admin
-  daynightpvp delworld:
-    description: "Removes a world from plugin configuration"
-    usage: "/dnp delworld <world>"
-    aliases: [ dnp delworld ]
-    permission: dnp.admin
-  daynightpvp editworld:
-    description: "Edit specific world settings"
-    usage: "/dnp editworld <world> <setting> <value>"
-    aliases: [ dnp editworld ]
-    permission: dnp.admin
-  daynightpvp lang:
-    description: "Change plugin language"
-    usage: "/dnp lang <language>"
-    aliases: [ dnp lang ]
-    permission: dnp.admin
-
-permissions:
-  dnp.admin:
-    description: "Ensures access to all plugin commands"
-    default: op
-  dnp.bypass:
-    description: "Allows the player to engage in combat even during daytime"
-    default: false
-  dnp.immune:
-    description: "Makes the player immune to PvP at any time"
-    default: false
-  dnp.losemoney.*:
-    description: "Defines the percentage (1-100) of money a player loses upon death. Use dnp.losemoney.X where X is the percentage"
-    default: false
