@@ -1,193 +1,94 @@
-### Universal ###
-# Common files that should be ignored in all projects
+# =====================================================
+# Gradle
+# =====================================================
+.gradle/
+build/
+out/
+!gradle/wrapper/gradle-wrapper.jar
 
 # Logs
 *.log
-# Temporary files
-*.tmp
-*~
 
-*.bak
-# Environment files (containing secrets, API keys, credentials)
-.env
-*.env
-.env.*
-
-# Local configuration that shouldn't be shared
-*.local
-
-### Java ###
-# Java compiled files, build directories, and IDE files
-
-*.class
-*.log
-*.ctxt
-.mtj.tmp/
-*.jar
-
-*.war
-*.nar
-*.ear
-*.zip
-*.tar.gz
-
-*.rar
-hs_err_pid*
-replay_pid*
-.classpath
-.project
-
-.settings/
-target/
-bin/
-build/
-.settings/
-
-*.launch
-.apt_generated/
-.factorypath
-.springBeans
-
-### Vscode ###
-# Visual Studio Code editor settings and workspace files
-
-# Visual Studio Code
-.vscode/*
-/.vscode
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-
-!.vscode/extensions.json
-!.vscode/*.code-snippets
-.history/
-*.vsix
-.ionide
-
-.vs/
-*.code-workspace
-.vscode-test
-.vscodeignore
-.vscode/chrome
-
-.vscode-server/
-.vscode/sftp.json
-.vscode/tags
-.devcontainer/
-
-### Gradle ###
-# Gradle build tool files and directories
-
-# Gradle
-.gradle/
-build/
-gradle/
-gradlew
-
-gradlew.bat
-*.gradle
-gradle-app.setting
-.gradletasknamecache
-gradle.properties
-
-gradle-wrapper.jar
-gradle-wrapper.properties
-.gradle-cache/
-gradle-build/
-out/
-
-classes/
-*.class
-build-cache/
-.gradle/buildOutputCleanup/
-.gradle/configuration-cache/
-
-gradle/wrapper/
-gradle/caches/
-gradle/daemon/
-gradle/native/
-gradle/wrapper/dists/
-
-!gradle-wrapper.jar
-.gradle/kotlin-profile/
-.gradle/workspace-id.txt
-.gradle/notifications/
-gradle/verification-metadata.xml
-
-!src/**/build/
-*.hprof
-
-### Intellij ###
-# IntelliJ IDEA editor files and settings
-
-# IntelliJ IDEA and Other JetBrains IDEs
+# =====================================================
+# IntelliJ IDEA
+# =====================================================
 .idea/
 *.iml
-*.iws
 *.ipr
+*.iws
 
-.idea_modules/
-out/
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/dictionaries
+# =====================================================
+# VS Code
+# =====================================================
+.vscode/
+.history/
 
-.idea/shelf/
-.idea/contentModel.xml
-.idea/dataSources/
-.idea/dataSources.xml
-.idea/dataSources.ids
+# =====================================================
+# Eclipse
+# =====================================================
+.project
+.classpath
+.settings/
+bin/
 
-.idea/dataSources.local.xml
-.idea/sqlDataSources.xml
-.idea/dynamic.xml
-.idea/uiDesigner.xml
-.idea/gradle.xml
+# =====================================================
+# NetBeans
+# =====================================================
+nbproject/private/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
 
-.idea/libraries
-.idea/deployment.xml
-.idea/mongoSettings.xml
-.idea/httpRequests
-.idea/caches/
+# =====================================================
+# Java
+# =====================================================
+*.class
+hs_err_pid*
+replay_pid*
 
-.idea/modules.xml
-.idea/compiler.xml
-.idea/jarRepositories.xml
-.idea/artifacts
-.idea/sonarlint/
+# =====================================================
+# OS
+# =====================================================
 
-*.iml.bak
-*.ipr.bak
-*.iws.bak
-.idea_backup/
-.idea/replstate.xml
+# Windows
+Thumbs.db
+Desktop.ini
 
-.idea/checkstyle-idea.xml
-.idea/encodings.xml
-.idea/misc.xml
-.idea/vcs.xml
-.idea/jsLibraryMappings.xml
+# macOS
+.DS_Store
 
-.idea/assetWizardSettings.xml
-.idea/kotlinc.xml
-.idea/inspectionProfiles/
-.idea/codestream.xml
-.idea/aws.xml
+# Linux
+*~
 
-.idea/sonarIssues.xml
-.idea/.gitignore
-.idea/remote-mappings.xml
-.idea/**/usage.statistics.xml
-.idea/**/contentModel.xml
+# =====================================================
+# Temporary files
+# =====================================================
+*.tmp
+*.temp
+*.swp
+*.swo
 
-.idea/**/dbnavigator.xml
-.idea/**/markdown-navigator.xml
-.idea/**/markdown-navigator-enh.xml
-.idea/**/markdown-navigator/
-.idea/$CACHE_FILE$
+# =====================================================
+# Minecraft test server (opcional)
+# =====================================================
+run/
+server/
+plugins/
+world/
+world_nether/
+world_the_end/
+logs/
+cache/
+libraries/
+versions/
+usercache.json
+banned-ips.json
+banned-players.json
+ops.json
+whitelist.json
 
-.idea/**/azureSettings.xml
-com_crashlytics_export_strings.xml
-crashlytics.properties
-crashlytics-build.properties
-fabric.properties
+# =====================================================
+# Generated JARs
+# =====================================================
+*.jar
