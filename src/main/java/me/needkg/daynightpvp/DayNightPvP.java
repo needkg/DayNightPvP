@@ -27,6 +27,5 @@ public final class DayNightPvp extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
     }
 }
