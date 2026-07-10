@@ -21,3 +21,14 @@ dependencies {
 java {
     toolchain.languageVersion = JavaLanguageVersion.of(21)
 }
+
+processResources {
+    def props = [version: rootProject.version]
+    inputs.properties props
+    filteringCharset 'UTF-8'
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+
+    filesNotMatching("**/*.zip") {
+        expand props
+    }
+}
