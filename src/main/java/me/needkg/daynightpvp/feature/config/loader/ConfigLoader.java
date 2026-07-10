@@ -14,10 +14,13 @@ public class ConfigLoader {
 
     public ConfigLoader(JavaPlugin plugin) {
         this.plugin = plugin;
-
     }
 
     public ResourceFile initializeFile(String filePath) {
+
+        if (filePath.isEmpty() || filePath == null) {
+            filePath = "config.yml";
+        }
 
         File file = new File(plugin.getDataFolder(), filePath);
 
