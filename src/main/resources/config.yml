@@ -7,7 +7,10 @@
 #   ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═══╝╚═╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝       ╚═══╝  ╚═╝        #
 # ============================================================================================= #
 
-# Global settings
-global:
-    # Language (en, pt-br)
-    language: en
+# Language (en)
+language: en
+
+# Worlds configurations
+worlds:
+    world:
+        enabled: true

@@ -16,7 +16,8 @@ public class GlobalSettingsService implements ConfigProvider<GlobalSettings> {
 
     private void load() {
         this.settings = new GlobalSettings(
-                resourceFile.configuration().getString("global.language"));
+                resourceFile.configuration().getString("language"),
+                resourceFile.configuration().getConfigurationSection("worlds").getKeys(false));
     }
 
     public GlobalSettings get() {
