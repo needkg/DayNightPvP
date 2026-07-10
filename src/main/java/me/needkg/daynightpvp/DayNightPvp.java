@@ -6,10 +6,11 @@ import me.needkg.daynightpvp.feature.config.loader.ConfigLoader;
 import me.needkg.daynightpvp.feature.config.models.ResourceFile;
 import me.needkg.daynightpvp.feature.config.services.GlobalSettingsService;
 import me.needkg.daynightpvp.feature.config.services.MessagesConfigService;
+import me.needkg.daynightpvp.integration.bstats.MetricsInitializer;
 import me.needkg.daynightpvp.shared.logging.Logger;
 
 public final class DayNightPvp extends JavaPlugin {
-    
+
     private Logger logger;
     private GlobalSettingsService globalSettingsService;
     private MessagesConfigService messagesConfigService;
@@ -29,6 +30,10 @@ public final class DayNightPvp extends JavaPlugin {
         logger.info("Loading language file (2/2)");
         ResourceFile messagesResource = configLoader.initializeFile("lang/" + globalSettingsService.get().language() + ".yml");
         messagesConfigService = new MessagesConfigService(messagesResource);
+
+        logger.info("Loading metrics...");
+        MetricsInitializer metricsInitializer = new MetricsInitializer(this);
+        metricsInitializer.initialize();
 
         logger.info("DayNightPvP enabled!");
 

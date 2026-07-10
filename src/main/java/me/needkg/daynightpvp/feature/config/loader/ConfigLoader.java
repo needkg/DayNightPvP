@@ -18,7 +18,7 @@ public class ConfigLoader {
 
     public ResourceFile initializeFile(String filePath) {
 
-        if (filePath.isEmpty() || filePath == null) {
+        if (filePath.isEmpty()) {
             filePath = "config.yml";
         }
 
