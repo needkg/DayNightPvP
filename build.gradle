@@ -1,8 +1,9 @@
 plugins {
     id("java")
+    id("com.gradleup.shadow") version "9.3.1"
 }
 
-group = "me.needkg"
+group = "me.needkg.daynightpvp"
 version = "2.0.0"
 
 repositories {
@@ -16,6 +17,7 @@ repositories {
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT")
+    implementation("org.bstats:bstats-bukkit:3.2.1")
 }
 
 java {
@@ -32,3 +34,11 @@ processResources {
         expand props
     }
 }
+
+shadowJar {
+    // 3. Groovy drops the parentheses for method calls like relocate
+    relocate 'org.bstats', "${project.group}.integration.bstats" 
+    archiveClassifier.set('')
+}
+
+build.dependsOn shadowJar
