@@ -2,6 +2,7 @@ package me.needkg.daynightpvp;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import me.needkg.daynightpvp.feature.command.CommandInitializer;
 import me.needkg.daynightpvp.feature.config.ResourceLoader;
 import me.needkg.daynightpvp.feature.config.models.ResourceFile;
 import me.needkg.daynightpvp.feature.config.providers.GlobalSettingsProvider;
@@ -20,6 +21,7 @@ public final class DayNightPvp extends JavaPlugin {
     private MessagesConfigProvider messagesConfigProvider;
     private MetricsInitializer metricsInitializer;
     private WorldInitializer worldInitializer;
+    private CommandInitializer commandInitializer;
 
 
     @Override
@@ -47,6 +49,11 @@ public final class DayNightPvp extends JavaPlugin {
         logger.info("Initializing worlds...");
         worldInitializer = new WorldInitializer(logger, configResource, globalSettingsProvider);
         worldInitializer.init();
+
+        logger.info("Registring commands...");
+        commandInitializer = new CommandInitializer(logger, messagesConfigProvider);
+        commandInitializer.init();
+        logger.info("Commands registred.");
 
         logger.info("DayNightPvP enabled!");
 
