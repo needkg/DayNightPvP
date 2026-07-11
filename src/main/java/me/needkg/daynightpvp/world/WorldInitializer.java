@@ -9,10 +9,12 @@ import org.bukkit.World;
 import me.needkg.daynightpvp.feature.config.models.ResourceFile;
 import me.needkg.daynightpvp.feature.config.services.GlobalSettingsService;
 import me.needkg.daynightpvp.feature.config.services.WorldSettingsService;
+import me.needkg.daynightpvp.shared.lifecycle.Initializable;
+import me.needkg.daynightpvp.shared.lifecycle.Reloadable;
 import me.needkg.daynightpvp.shared.logging.Logger;
 import me.needkg.daynightpvp.world.models.DnpWorld;
 
-public class WorldInitializer {
+public class WorldInitializer implements Initializable, Reloadable {
 
     private final Logger logger;
     private final ResourceFile resourceFile;
@@ -25,7 +27,8 @@ public class WorldInitializer {
         this.globalSettingsService = globalSettingsService;
     }
 
-    public void initialize() {
+    @Override
+    public void init() {
 
         Set<String> configuredWorlds = globalSettingsService.get().worlds();
         int configuredWorldsSize = configuredWorlds.size();
@@ -54,6 +57,12 @@ public class WorldInitializer {
             logger.info("Successfully initialized (" + avaliableWorlds.size() + "/" + configuredWorldsSize + ") worlds");
         }
         
+    }
+
+    @Override
+    public void reload() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'reload'");
     }
     
 }
