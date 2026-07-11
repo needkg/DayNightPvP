@@ -13,21 +13,21 @@ public class WorldSettingsProvider implements ConfigProvider<WorldSettings> {
     public WorldSettingsProvider(ResourceFile resourceFile, String worldName) {
         this.resourceFile = resourceFile;
         this.worldName = worldName;
-        load();
     }
 
-    private void load() {
+    @Override
+    public void init() {
         this.settings = new WorldSettings(
                 resourceFile.configuration().getBoolean("worlds." + worldName + ".enabled", true));
     }
 
-    public WorldSettings get() {
-        return settings;
-    }
-
     @Override
     public void reload() {
-        load();
+        init();
+    }
+
+    public WorldSettings get() {
+        return settings;
     }
 
 }
