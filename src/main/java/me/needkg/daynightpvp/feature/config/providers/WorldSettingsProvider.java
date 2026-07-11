@@ -18,7 +18,7 @@ public class WorldSettingsProvider implements ConfigProvider<WorldSettings> {
 
     private void load() {
         this.settings = new WorldSettings(
-                resourceFile.configuration().getBoolean("worlds." + worldName + ".enabled"));
+                resourceFile.configuration().getBoolean("worlds." + worldName + ".enabled", true));
     }
 
     public WorldSettings get() {

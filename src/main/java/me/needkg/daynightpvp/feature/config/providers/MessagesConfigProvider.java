@@ -16,9 +16,9 @@ public class MessagesConfigProvider implements ConfigProvider<MessagesConfig> {
 
     private void load() {
         this.messages = new MessagesConfig(
-                resourceFile.configuration().getString("messages.prefix"),
-                resourceFile.configuration().getString("messages.noPermission"),
-                resourceFile.configuration().getString("messages.commandUsage"));
+                resourceFile.configuration().getString("messages.prefix", "&6DayNightPvP &8»"),
+                resourceFile.configuration().getString("messages.noPermission", "You don't have permission to use this command."),
+                resourceFile.configuration().getString("messages.commandUsage", "Usage: %usage%"));
     }
 
     public MessagesConfig get() {
