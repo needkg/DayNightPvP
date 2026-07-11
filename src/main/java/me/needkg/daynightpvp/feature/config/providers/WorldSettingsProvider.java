@@ -1,16 +1,16 @@
-package me.needkg.daynightpvp.feature.config.services;
+package me.needkg.daynightpvp.feature.config.providers;
 
 import me.needkg.daynightpvp.feature.config.interfaces.ConfigProvider;
 import me.needkg.daynightpvp.feature.config.models.ResourceFile;
 import me.needkg.daynightpvp.feature.config.models.WorldSettings;
 
-public class WorldSettingsService implements ConfigProvider<WorldSettings> {
+public class WorldSettingsProvider implements ConfigProvider<WorldSettings> {
 
     private final ResourceFile resourceFile;
     private WorldSettings settings;
     private String worldName;
 
-    public WorldSettingsService(ResourceFile resourceFile, String worldName) {
+    public WorldSettingsProvider(ResourceFile resourceFile, String worldName) {
         this.resourceFile = resourceFile;
         this.worldName = worldName;
         load();

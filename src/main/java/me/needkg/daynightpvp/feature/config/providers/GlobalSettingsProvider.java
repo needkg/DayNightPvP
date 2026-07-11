@@ -1,15 +1,15 @@
-package me.needkg.daynightpvp.feature.config.services;
+package me.needkg.daynightpvp.feature.config.providers;
 
 import me.needkg.daynightpvp.feature.config.interfaces.ConfigProvider;
 import me.needkg.daynightpvp.feature.config.models.GlobalSettings;
 import me.needkg.daynightpvp.feature.config.models.ResourceFile;
 
-public class GlobalSettingsService implements ConfigProvider<GlobalSettings> {
+public class GlobalSettingsProvider implements ConfigProvider<GlobalSettings> {
 
     private final ResourceFile resourceFile;
     private GlobalSettings settings;
 
-    public GlobalSettingsService(ResourceFile resourceFile) {
+    public GlobalSettingsProvider(ResourceFile resourceFile) {
         this.resourceFile = resourceFile;
         load();
     }

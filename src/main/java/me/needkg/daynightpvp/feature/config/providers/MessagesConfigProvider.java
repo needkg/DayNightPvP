@@ -1,15 +1,15 @@
-package me.needkg.daynightpvp.feature.config.services;
+package me.needkg.daynightpvp.feature.config.providers;
 
 import me.needkg.daynightpvp.feature.config.interfaces.ConfigProvider;
 import me.needkg.daynightpvp.feature.config.models.MessagesConfig;
 import me.needkg.daynightpvp.feature.config.models.ResourceFile;
 
-public class MessagesConfigService implements ConfigProvider<MessagesConfig> {
+public class MessagesConfigProvider implements ConfigProvider<MessagesConfig> {
 
     private final ResourceFile resourceFile;
     private MessagesConfig messages;
 
-    public MessagesConfigService(ResourceFile resourceFile) {
+    public MessagesConfigProvider(ResourceFile resourceFile) {
         this.resourceFile = resourceFile;
         load();
     }

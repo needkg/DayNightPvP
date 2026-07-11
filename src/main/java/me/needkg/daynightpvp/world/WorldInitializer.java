@@ -7,8 +7,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 
 import me.needkg.daynightpvp.feature.config.models.ResourceFile;
-import me.needkg.daynightpvp.feature.config.services.GlobalSettingsService;
-import me.needkg.daynightpvp.feature.config.services.WorldSettingsService;
+import me.needkg.daynightpvp.feature.config.providers.GlobalSettingsProvider;
+import me.needkg.daynightpvp.feature.config.providers.WorldSettingsProvider;
 import me.needkg.daynightpvp.shared.lifecycle.Initializable;
 import me.needkg.daynightpvp.shared.lifecycle.Reloadable;
 import me.needkg.daynightpvp.shared.logging.Logger;
@@ -18,10 +18,10 @@ public class WorldInitializer implements Initializable, Reloadable {
 
     private final Logger logger;
     private final ResourceFile resourceFile;
-    private final GlobalSettingsService globalSettingsService;
+    private final GlobalSettingsProvider globalSettingsService;
     private Set<DnpWorld> avaliableWorlds = new HashSet<>();
 
-    public WorldInitializer(Logger logger, ResourceFile resourceFile, GlobalSettingsService globalSettingsService) {
+    public WorldInitializer(Logger logger, ResourceFile resourceFile, GlobalSettingsProvider globalSettingsService) {
         this.logger = logger;
         this.resourceFile = resourceFile;
         this.globalSettingsService = globalSettingsService;
@@ -46,7 +46,7 @@ public class WorldInitializer implements Initializable, Reloadable {
 
             logger.warn("Initializing world '" + worldName + "' (" + currentWorld + "/" + configuredWorldsSize + ")");
             currentWorld++;
-            DnpWorld dnpWorld = new DnpWorld(worldName, world.getEnvironment(), new WorldSettingsService(resourceFile, worldName));
+            DnpWorld dnpWorld = new DnpWorld(worldName, world.getEnvironment(), new WorldSettingsProvider(resourceFile, worldName));
             avaliableWorlds.add(dnpWorld);
 
         }
