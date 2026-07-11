@@ -54,7 +54,7 @@ public class WorldInitializer implements Initializable, Reloadable {
         if (avaliableWorlds.size() == 0) {
             logger.warn("No worlds were initialized");
         } else {
-            logger.info("Successfully initialized (" + avaliableWorlds.size() + "/" + configuredWorldsSize + ") worlds");
+            logger.info("Successfully initialized worlds");
         }
         
     }
