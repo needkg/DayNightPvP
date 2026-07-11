@@ -2,7 +2,7 @@ package me.needkg.daynightpvp;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-import me.needkg.daynightpvp.feature.config.loader.ConfigLoader;
+import me.needkg.daynightpvp.feature.config.ResourceLoader;
 import me.needkg.daynightpvp.feature.config.models.ResourceFile;
 import me.needkg.daynightpvp.feature.config.services.GlobalSettingsService;
 import me.needkg.daynightpvp.feature.config.services.MessagesConfigService;
@@ -13,34 +13,40 @@ import me.needkg.daynightpvp.world.WorldInitializer;
 public final class DayNightPvp extends JavaPlugin {
 
     private Logger logger;
+    private ResourceLoader resourceLoader;
+    private ResourceFile configResource;
     private GlobalSettingsService globalSettingsService;
+    private ResourceFile messageResource;
     private MessagesConfigService messagesConfigService;
+    private MetricsInitializer metricsInitializer;
+    private WorldInitializer worldInitializer;
+
 
     @Override
     public void onEnable() {
 
         logger = new Logger(this);
 
-        logger.info("Loading resource...");
-        ConfigLoader configLoader = new ConfigLoader(this);
+        logger.info("Loading resources...");
+        resourceLoader = new ResourceLoader(this);
 
         logger.info("Loading config file (1/2)");
-        ResourceFile configResource = configLoader.initializeFile("config.yml");
+        configResource = resourceLoader.load("config.yml");
         globalSettingsService = new GlobalSettingsService(configResource);
 
         logger.info("Loading language file (2/2)");
-        ResourceFile messagesResource = configLoader.initializeFile("lang/" + globalSettingsService.get().language() + ".yml");
-        messagesConfigService = new MessagesConfigService(messagesResource);
+        messageResource = resourceLoader.load("lang/" + globalSettingsService.get().language() + ".yml");
+        messagesConfigService = new MessagesConfigService(messageResource);
         logger.info("Resources loaded.");
 
         logger.info("Loading metrics...");
-        MetricsInitializer metricsInitializer = new MetricsInitializer(this);
+        metricsInitializer = new MetricsInitializer(this);
         metricsInitializer.initialize();
         logger.info("Metrics loaded.");
 
         logger.info("Initializing worlds...");
-        WorldInitializer worldInitializer = new WorldInitializer(logger, configResource, globalSettingsService);
-        worldInitializer.initialize();
+        worldInitializer = new WorldInitializer(logger, configResource, globalSettingsService);
+        worldInitializer.init();
 
         logger.info("DayNightPvP enabled!");
 
