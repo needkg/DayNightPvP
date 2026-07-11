@@ -1,4 +1,4 @@
-package me.needkg.daynightpvp.feature.config.loader;
+package me.needkg.daynightpvp.feature.config;
 
 import java.io.File;
 
@@ -7,16 +7,17 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import me.needkg.daynightpvp.feature.config.models.ResourceFile;
+import me.needkg.daynightpvp.shared.lifecycle.Reloadable;
 
-public class ConfigLoader {
+public class ResourceLoader implements Reloadable {
 
     private final JavaPlugin plugin;
 
-    public ConfigLoader(JavaPlugin plugin) {
+    public ResourceLoader(JavaPlugin plugin) {
         this.plugin = plugin;
     }
 
-    public ResourceFile initializeFile(String filePath) {
+    public ResourceFile load(String filePath) {
 
         if (filePath.isEmpty()) {
             filePath = "config.yml";
@@ -33,6 +34,10 @@ public class ConfigLoader {
         return new ResourceFile(file.toPath(), configuration);
     }
 
-
+    @Override
+    public void reload() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'reload'");
+    }
 
 }
