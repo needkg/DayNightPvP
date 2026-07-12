@@ -38,17 +38,17 @@ public final class DayNightPvp extends JavaPlugin {
         logger.info("Loading resources...");
         resourceLoader = new ResourceLoader(this);
 
-        logger.info("Loading 'config.yml' file");
+        logger.info("Loading 'config.yml' file...");
         globalResource = resourceLoader.load("config.yml");
         globalRepository = new GlobalRepository(globalResource);
         globalSettings = globalRepository.findGlobalSettings();
 
-        logger.info("Loading '" + globalSettings.language() + ".yml' file");
+        logger.info("Loading '" + globalSettings.language() + ".yml' file...");
         messagesResource = resourceLoader.load("lang/" + globalSettings.language() + ".yml");
         messagesRepository = new MessagesRepository(messagesResource);
         messagesSettings = messagesRepository.findMessagesSettings();
 
-        logger.info("Loading 'worlds.yml' file (3/3)");
+        logger.info("Loading 'worlds.yml' file...");
         worldResource = resourceLoader.load("worlds.yml");
         worldRepository = new WorldRepository(worldResource);
 
