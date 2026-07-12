@@ -15,10 +15,10 @@ public class GlobalSettingsProvider implements ConfigProvider<GlobalSettings> {
 
     public GlobalSettingsProvider(ResourceFile resourceFile) {
         this.resourceFile = resourceFile;
-        load();
     }
 
-    private void load() {
+    @Override
+    public void init() {
 
         ConfigurationSection worldsSection = resourceFile.configuration().getConfigurationSection("worlds");
 
@@ -27,13 +27,13 @@ public class GlobalSettingsProvider implements ConfigProvider<GlobalSettings> {
                 worldsSection != null ? worldsSection.getKeys(false) : Collections.emptySet());
     }
 
-    public GlobalSettings get() {
-        return settings;
-    }
-
     @Override
     public void reload() {
-        load();
+        init();
+    }
+
+    public GlobalSettings get() {
+        return settings;
     }
 
 }
