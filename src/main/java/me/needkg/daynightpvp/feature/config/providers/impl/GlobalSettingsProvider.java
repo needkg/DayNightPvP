@@ -1,12 +1,12 @@
-package me.needkg.daynightpvp.feature.config.providers;
+package me.needkg.daynightpvp.feature.config.providers.impl;
 
 import java.util.Collections;
 
 import org.bukkit.configuration.ConfigurationSection;
 
-import me.needkg.daynightpvp.feature.config.interfaces.ConfigProvider;
-import me.needkg.daynightpvp.feature.config.models.GlobalSettings;
-import me.needkg.daynightpvp.feature.config.models.ResourceFile;
+import me.needkg.daynightpvp.feature.config.providers.ConfigProvider;
+import me.needkg.daynightpvp.feature.config.providers.models.GlobalSettings;
+import me.needkg.daynightpvp.feature.config.providers.models.ResourceFile;
 
 public class GlobalSettingsProvider implements ConfigProvider<GlobalSettings> {
 

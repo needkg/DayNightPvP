@@ -1,7 +1,7 @@
 package me.needkg.daynightpvp.feature.command;
 
-import me.needkg.daynightpvp.feature.config.providers.MessagesConfigProvider;
 import me.needkg.daynightpvp.shared.logging.Logger;
+import me.needkg.daynightpvp.feature.config.providers.impl.MessagesConfigProvider;
 import me.needkg.daynightpvp.shared.lifecycle.Initializable;
 
 public class CommandInitializer implements Initializable {

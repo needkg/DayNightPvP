@@ -1,4 +1,4 @@
-package me.needkg.daynightpvp.feature.config.interfaces;
+package me.needkg.daynightpvp.feature.config.providers;
 
 public interface ConfigProvider<T> {
     T get();

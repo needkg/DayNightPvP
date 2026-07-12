@@ -6,9 +6,9 @@ import java.util.Set;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 
-import me.needkg.daynightpvp.feature.config.models.ResourceFile;
-import me.needkg.daynightpvp.feature.config.providers.GlobalSettingsProvider;
-import me.needkg.daynightpvp.feature.config.providers.WorldSettingsProvider;
+import me.needkg.daynightpvp.feature.config.providers.impl.GlobalSettingsProvider;
+import me.needkg.daynightpvp.feature.config.providers.impl.WorldSettingsProvider;
+import me.needkg.daynightpvp.feature.config.providers.models.ResourceFile;
 import me.needkg.daynightpvp.shared.lifecycle.Initializable;
 import me.needkg.daynightpvp.shared.lifecycle.Reloadable;
 import me.needkg.daynightpvp.shared.logging.Logger;

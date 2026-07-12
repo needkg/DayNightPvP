@@ -4,9 +4,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import me.needkg.daynightpvp.feature.command.CommandInitializer;
 import me.needkg.daynightpvp.feature.config.ResourceLoader;
-import me.needkg.daynightpvp.feature.config.models.ResourceFile;
-import me.needkg.daynightpvp.feature.config.providers.GlobalSettingsProvider;
-import me.needkg.daynightpvp.feature.config.providers.MessagesConfigProvider;
+import me.needkg.daynightpvp.feature.config.providers.impl.GlobalSettingsProvider;
+import me.needkg.daynightpvp.feature.config.providers.impl.MessagesConfigProvider;
+import me.needkg.daynightpvp.feature.config.providers.models.ResourceFile;
 import me.needkg.daynightpvp.integration.bstats.MetricsInitializer;
 import me.needkg.daynightpvp.shared.logging.Logger;
 import me.needkg.daynightpvp.world.WorldInitializer;
@@ -53,7 +53,7 @@ public final class DayNightPvp extends JavaPlugin {
         logger.info("Registring commands...");
         commandInitializer = new CommandInitializer(logger, messagesConfigProvider);
         commandInitializer.init();
-        logger.info("Commands registred.");
+        logger.info("Commands registered.");
 
         logger.info("DayNightPvP enabled!");
 

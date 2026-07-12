@@ -6,7 +6,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import me.needkg.daynightpvp.feature.config.models.ResourceFile;
+import me.needkg.daynightpvp.feature.config.providers.models.ResourceFile;
 import me.needkg.daynightpvp.shared.lifecycle.Reloadable;
 
 public class ResourceLoader implements Reloadable {

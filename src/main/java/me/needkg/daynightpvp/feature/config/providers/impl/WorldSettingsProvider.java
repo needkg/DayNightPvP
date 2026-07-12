@@ -1,8 +1,8 @@
-package me.needkg.daynightpvp.feature.config.providers;
+package me.needkg.daynightpvp.feature.config.providers.impl;
 
-import me.needkg.daynightpvp.feature.config.interfaces.ConfigProvider;
-import me.needkg.daynightpvp.feature.config.models.ResourceFile;
-import me.needkg.daynightpvp.feature.config.models.WorldSettings;
+import me.needkg.daynightpvp.feature.config.providers.ConfigProvider;
+import me.needkg.daynightpvp.feature.config.providers.models.ResourceFile;
+import me.needkg.daynightpvp.feature.config.providers.models.WorldSettings;
 
 public class WorldSettingsProvider implements ConfigProvider<WorldSettings> {
 
