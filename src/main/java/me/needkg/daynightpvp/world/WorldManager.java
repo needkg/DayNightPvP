@@ -8,6 +8,10 @@ public class WorldManager {
 
     private Set<DnpWorld> worlds;
 
+    public WorldManager() {
+        this.worlds = new java.util.HashSet<>();
+    }
+
     public void setWorlds(Set<DnpWorld> worlds) {
         this.worlds = worlds;
     }
