@@ -11,6 +11,8 @@ import me.needkg.daynightpvp.feature.config.repository.WorldRepository;
 import me.needkg.daynightpvp.integration.bstats.MetricsInitializer;
 import me.needkg.daynightpvp.shared.logging.Logger;
 import me.needkg.daynightpvp.world.WorldLoader;
+import me.needkg.daynightpvp.world.WorldManager;
+
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class DayNightPvp extends JavaPlugin {
@@ -26,6 +28,7 @@ public final class DayNightPvp extends JavaPlugin {
     private ResourceFile worldResource;
     private WorldRepository worldRepository;
     private MetricsInitializer metricsInitializer;
+    private WorldManager worldManager;
     private WorldLoader worldLoader;
     private CommandInitializer commandInitializer;
 
@@ -54,16 +57,18 @@ public final class DayNightPvp extends JavaPlugin {
 
         logger.info("Resources loaded.");
 
-        logger.info("Loading metrics...");
+        logger.info("Initializing metrics...");
         metricsInitializer = new MetricsInitializer(this);
         metricsInitializer.init();
-        logger.info("Metrics loaded.");
+        logger.info("Metrics initialized.");
 
         logger.info("Initializing worlds...");
-        worldLoader = new WorldLoader(logger, worldRepository);
-        worldLoader.load(worldRepository.findConfiguredWorlds());
+        worldManager = new WorldManager();
+        worldLoader = new WorldLoader(logger, worldManager, worldRepository);
+        worldLoader.init();
+        logger.info("Finished initializing worlds.");
 
-        logger.info("Registring commands...");
+        logger.info("Registering commands...");
         commandInitializer = new CommandInitializer(logger, messagesSettings);
         commandInitializer.init();
         logger.info("Commands registered.");
