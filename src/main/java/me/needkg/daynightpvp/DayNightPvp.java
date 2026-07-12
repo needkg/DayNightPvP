@@ -2,12 +2,12 @@ package me.needkg.daynightpvp;
 
 import me.needkg.daynightpvp.feature.command.CommandInitializer;
 import me.needkg.daynightpvp.feature.config.ResourceLoader;
+import me.needkg.daynightpvp.feature.config.models.GlobalSettings;
+import me.needkg.daynightpvp.feature.config.models.MessagesSettings;
+import me.needkg.daynightpvp.feature.config.models.ResourceFile;
 import me.needkg.daynightpvp.feature.config.repository.GlobalRepository;
 import me.needkg.daynightpvp.feature.config.repository.MessagesRepository;
 import me.needkg.daynightpvp.feature.config.repository.WorldRepository;
-import me.needkg.daynightpvp.feature.config.repository.models.GlobalSettings;
-import me.needkg.daynightpvp.feature.config.repository.models.MessagesSettings;
-import me.needkg.daynightpvp.feature.config.repository.models.ResourceFile;
 import me.needkg.daynightpvp.integration.bstats.MetricsInitializer;
 import me.needkg.daynightpvp.shared.logging.Logger;
 import me.needkg.daynightpvp.world.WorldLoader;

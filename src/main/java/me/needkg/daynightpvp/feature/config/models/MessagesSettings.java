@@ -1,4 +1,4 @@
-package me.needkg.daynightpvp.feature.config.repository.models;
+package me.needkg.daynightpvp.feature.config.models;
 
 public record MessagesSettings(
         String prefix,

@@ -1,7 +1,7 @@
 package me.needkg.daynightpvp.feature.config.repository;
 
-import me.needkg.daynightpvp.feature.config.repository.models.ResourceFile;
-import me.needkg.daynightpvp.feature.config.repository.models.WorldSettings;
+import me.needkg.daynightpvp.feature.config.models.ResourceFile;
+import me.needkg.daynightpvp.feature.config.models.WorldSettings;
 import me.needkg.daynightpvp.world.models.DnpWorld;
 import org.bukkit.Bukkit;
 

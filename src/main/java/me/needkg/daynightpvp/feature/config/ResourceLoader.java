@@ -1,6 +1,6 @@
 package me.needkg.daynightpvp.feature.config;
 
-import me.needkg.daynightpvp.feature.config.repository.models.ResourceFile;
+import me.needkg.daynightpvp.feature.config.models.ResourceFile;
 import me.needkg.daynightpvp.shared.lifecycle.Loadable;
 import me.needkg.daynightpvp.shared.lifecycle.Reloadable;
 import org.bukkit.configuration.file.FileConfiguration;

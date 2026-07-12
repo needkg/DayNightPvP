@@ -1,8 +1,9 @@
 package me.needkg.daynightpvp.world.models;
 
-import me.needkg.daynightpvp.feature.config.repository.models.WorldSettings;
 import org.bukkit.World;
 import org.bukkit.World.Environment;
+
+import me.needkg.daynightpvp.feature.config.models.WorldSettings;
 
 public class DnpWorld {
 

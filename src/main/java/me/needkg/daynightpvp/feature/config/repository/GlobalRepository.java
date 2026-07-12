@@ -1,7 +1,7 @@
 package me.needkg.daynightpvp.feature.config.repository;
 
-import me.needkg.daynightpvp.feature.config.repository.models.GlobalSettings;
-import me.needkg.daynightpvp.feature.config.repository.models.ResourceFile;
+import me.needkg.daynightpvp.feature.config.models.GlobalSettings;
+import me.needkg.daynightpvp.feature.config.models.ResourceFile;
 
 public class GlobalRepository {
 

@@ -1,4 +1,4 @@
-package me.needkg.daynightpvp.feature.config.repository.models;
+package me.needkg.daynightpvp.feature.config.models;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
