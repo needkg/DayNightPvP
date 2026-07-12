@@ -1,19 +1,19 @@
 package me.needkg.daynightpvp.world.models;
 
+import me.needkg.daynightpvp.feature.config.repository.models.WorldSettings;
+import org.bukkit.World;
 import org.bukkit.World.Environment;
-
-import me.needkg.daynightpvp.feature.config.providers.impl.WorldSettingsProvider;
 
 public class DnpWorld {
 
     private final String name;
     private Environment environment;
-    private WorldSettingsProvider worldSettingsService;
+    private WorldSettings settings;
 
-    public DnpWorld(String name, Environment environment, WorldSettingsProvider worldSettingsService) {
-        this.name = name;
-        this.environment = environment;
-        this.worldSettingsService = worldSettingsService;
+    public DnpWorld(World world, WorldSettings settings) {
+        this.name = world.getName();
+        this.environment = world.getEnvironment();
+        this.settings = settings;
     }
 
     public String getName() {
@@ -24,10 +24,8 @@ public class DnpWorld {
         return environment;
     }
 
-    public WorldSettingsProvider settings() {
-        return worldSettingsService;
+    public WorldSettings getSettings() {
+        return settings;
     }
 
 }
-
-

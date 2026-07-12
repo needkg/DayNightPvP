@@ -1,15 +1,15 @@
 package me.needkg.daynightpvp.feature.config;
 
-import java.io.File;
-
+import me.needkg.daynightpvp.feature.config.repository.models.ResourceFile;
+import me.needkg.daynightpvp.shared.lifecycle.Loadable;
+import me.needkg.daynightpvp.shared.lifecycle.Reloadable;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import me.needkg.daynightpvp.feature.config.providers.models.ResourceFile;
-import me.needkg.daynightpvp.shared.lifecycle.Reloadable;
+import java.io.File;
 
-public class ResourceLoader implements Reloadable {
+public class ResourceLoader implements Loadable<ResourceFile, String>, Reloadable {
 
     private final JavaPlugin plugin;
 
@@ -17,6 +17,7 @@ public class ResourceLoader implements Reloadable {
         this.plugin = plugin;
     }
 
+    @Override
     public ResourceFile load(String filePath) {
 
         if (filePath.isEmpty()) {
