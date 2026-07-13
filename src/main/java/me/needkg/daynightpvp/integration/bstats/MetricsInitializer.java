@@ -8,10 +8,11 @@ public class MetricsInitializer implements Initializable {
 
     private final JavaPlugin plugin;
     private final int pluginId;
+    private static final int PLUGIN_ID = 17990;
 
     public MetricsInitializer(JavaPlugin plugin) {
         this.plugin = plugin;
-        this.pluginId = 17990;
+        this.pluginId = PLUGIN_ID;
     }
 
     @Override
