@@ -27,9 +27,9 @@ public class WorldLoader implements Initializable, Reloadable {
             configuredWorlds.forEach(worldName -> {
                 Optional<DnpWorld> dnpWorldOptional = worldRepository.findDnpWorld(worldName);
                 dnpWorldOptional.ifPresentOrElse(dnpWorld -> {
-                    logger.info("Initializing world '" + worldName + "'");
+                    logger.info("Initializing '" + worldName + "' world...");
                     worldManager.addWorld(dnpWorld);
-                }, () -> logger.warn("Skipping world '" + worldName + "', world was not found"));
+                }, () -> logger.warn("Skipping '" + worldName + "' world initialization because it, world was not found"));
             });
         });
 
