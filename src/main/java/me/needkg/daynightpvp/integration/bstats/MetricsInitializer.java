@@ -1,6 +1,7 @@
 package me.needkg.daynightpvp.integration.bstats;
 
 import me.needkg.daynightpvp.shared.lifecycle.Initializable;
+
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 

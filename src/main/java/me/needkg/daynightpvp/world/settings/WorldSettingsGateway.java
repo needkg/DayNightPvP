@@ -1,18 +1,18 @@
-package me.needkg.daynightpvp.feature.config.repository;
+package me.needkg.daynightpvp.world.settings;
 
-import me.needkg.daynightpvp.feature.config.models.ResourceFile;
-import me.needkg.daynightpvp.feature.config.models.WorldSettings;
-import me.needkg.daynightpvp.world.models.DnpWorld;
+import me.needkg.daynightpvp.feature.config.ResourceFile;
+import me.needkg.daynightpvp.world.DnpWorld;
+
 import org.bukkit.Bukkit;
 
 import java.util.Optional;
 import java.util.Set;
 
-public class WorldRepository {
+public class WorldSettingsGateway {
 
     private final ResourceFile resourceFile;
 
-    public WorldRepository(ResourceFile resourceFile) {
+    public WorldSettingsGateway(ResourceFile resourceFile) {
         this.resourceFile = resourceFile;
     }
 

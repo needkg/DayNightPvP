@@ -1,4 +1,4 @@
-package me.needkg.daynightpvp.feature.config.models;
+package me.needkg.daynightpvp.world.settings;
 
 public record WorldSettings(
         boolean enabled
