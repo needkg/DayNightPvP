@@ -13,67 +13,37 @@ import me.needkg.daynightpvp.shared.logging.Logger;
 import me.needkg.daynightpvp.world.WorldLoader;
 import me.needkg.daynightpvp.world.WorldManager;
 
+import java.util.Set;
+
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.needkg.daynightpvp.event.listener.EntityDamageByEntityEventListener;
+import com.needkg.daynightpvp.event.listener.PlayerDeathEventListener;
+import com.needkg.daynightpvp.event.listener.PotionSplashEventListener;
+import com.needkg.daynightpvp.event.listener.ProjectileHitEventListener;
+import com.needkg.daynightpvp.feature.DayNightFeature;
+import com.needkg.daynightpvp.feature.TestFeature;
+
 public final class DayNightPvp extends JavaPlugin {
-
-    private Logger logger;
-    private ResourceLoader resourceLoader;
-    private ResourceFile globalResource;
-    private GlobalRepository globalRepository;
-    private GlobalSettings globalSettings;
-    private ResourceFile messagesResource;
-    private MessagesRepository messagesRepository;
-    private MessagesSettings messagesSettings;
-    private ResourceFile worldResource;
-    private WorldRepository worldRepository;
-    private MetricsInitializer metricsInitializer;
-    private WorldManager worldManager;
-    private WorldLoader worldLoader;
-    private CommandInitializer commandInitializer;
-
 
     @Override
     public void onEnable() {
 
-        logger = new Logger(this);
+        DayNightFeature dayNightFeature = new DayNightFeature();
 
-        logger.info("Loading resources...");
-        resourceLoader = new ResourceLoader(this);
+        TestFeature testFeature = new TestFeature();
 
-        logger.info("Loading 'config.yml' file...");
-        globalResource = resourceLoader.load("config.yml");
-        globalRepository = new GlobalRepository(globalResource);
-        globalSettings = globalRepository.findGlobalSettings();
+        var playerDeathEventListener = new PlayerDeathEventListener(Set.of());
 
-        logger.info("Loading '" + globalSettings.language() + ".yml' file...");
-        messagesResource = resourceLoader.load("lang/" + globalSettings.language() + ".yml");
-        messagesRepository = new MessagesRepository(messagesResource);
-        messagesSettings = messagesRepository.findMessagesSettings();
+        var entityDamageByEntityEventListener = new EntityDamageByEntityEventListener(Set.of(dayNightFeature));
+        var projectileHitEventListener = new ProjectileHitEventListener(Set.of(dayNightFeature));
+        var potionSplashEventListener = new PotionSplashEventListener(Set.of(dayNightFeature));
 
-        logger.info("Loading 'worlds.yml' file...");
-        worldResource = resourceLoader.load("worlds.yml");
-        worldRepository = new WorldRepository(worldResource);
-
-        logger.info("Resources loaded.");
-
-        logger.info("Initializing metrics...");
-        metricsInitializer = new MetricsInitializer(this);
-        metricsInitializer.init();
-        logger.info("Metrics initialized.");
-
-        logger.info("Initializing worlds...");
-        worldManager = new WorldManager();
-        worldLoader = new WorldLoader(logger, worldManager, worldRepository);
-        worldLoader.init();
-        logger.info("Finished initializing worlds.");
-
-        logger.info("Registering commands...");
-        commandInitializer = new CommandInitializer(logger, messagesSettings);
-        commandInitializer.init();
-        logger.info("Commands registered.");
-
-        logger.info("DayNightPvP enabled!");
+        Bukkit.getPluginManager().registerEvents(potionSplashEventListener, this);
+        Bukkit.getPluginManager().registerEvents(projectileHitEventListener, this);
+        Bukkit.getPluginManager().registerEvents(entityDamageByEntityEventListener, this);
+        Bukkit.getPluginManager().registerEvents(playerDeathEventListener, this);
 
     }
 

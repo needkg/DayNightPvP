@@ -1,5 +1,7 @@
 package com.needkg.daynightpvp;
 
-public record DnpWorld(Boolean enabled) {
+import java.util.Optional;
+
+public record DnpWorld(Boolean enabled, Optional<String> ahh) {
 
 }

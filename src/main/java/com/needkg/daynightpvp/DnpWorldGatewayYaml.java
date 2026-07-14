@@ -10,13 +10,15 @@ import java.util.Set;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 
 public class DnpWorldGatewayYaml implements DnpWorldGateway {
 
     private final File yamlFile;
 
     private static final ObjectMapper mapper = new ObjectMapper(new YAMLFactory())
-            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);;
+            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+            .registerModule(new Jdk8Module());
 
     public DnpWorldGatewayYaml(URI yamlFileUri) {
         this.yamlFile = new File(yamlFileUri);
