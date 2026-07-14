@@ -1,4 +1,4 @@
-package me.needkg.daynightpvp.world.settings;
+package me.needkg.daynightpvp.world.configuration;
 
 import me.needkg.daynightpvp.feature.config.ResourceFile;
 import me.needkg.daynightpvp.world.DnpWorld;

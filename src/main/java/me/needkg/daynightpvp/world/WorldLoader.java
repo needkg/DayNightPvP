@@ -3,7 +3,7 @@ package me.needkg.daynightpvp.world;
 import me.needkg.daynightpvp.shared.lifecycle.Initializable;
 import me.needkg.daynightpvp.shared.lifecycle.Reloadable;
 import me.needkg.daynightpvp.shared.logging.Logger;
-import me.needkg.daynightpvp.world.settings.WorldSettingsGateway;
+import me.needkg.daynightpvp.world.configuration.WorldSettingsGateway;
 
 import java.util.HashSet;
 import java.util.Optional;

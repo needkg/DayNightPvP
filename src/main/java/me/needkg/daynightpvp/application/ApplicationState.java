@@ -29,6 +29,4 @@ public class ApplicationState {
         this.messagesSettings = messagesSettings;
     }
 
-
-    //
 }
