@@ -24,7 +24,7 @@ public class ResourceLoader implements Loadable<ResourceFile, String>, Reloadabl
     @Override
     public ResourceFile load(String filePath) {
 
-        logger.info("Loading resource file '" + filePath + "'...");
+        logger.info("Loading '" + filePath + "'...");
 
         if (filePath.isEmpty()) {
             logger.warn("File path is empty. Using default file path: '" + DEFAULT_FILE_PATH + "'");

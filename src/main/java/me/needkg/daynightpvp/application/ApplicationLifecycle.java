@@ -9,7 +9,7 @@ import me.needkg.daynightpvp.feature.config.settings.MessagesSettings;
 import me.needkg.daynightpvp.feature.config.settings.MessagesSettingsGateway;
 import me.needkg.daynightpvp.feature.config.settings.PluginSettings;
 import me.needkg.daynightpvp.feature.config.settings.PluginSettingsGateway;
-import me.needkg.daynightpvp.integration.bstats.MetricsInitializer;
+import me.needkg.daynightpvp.integrations.bstats.BStatsInitializer;
 import me.needkg.daynightpvp.shared.lifecycle.Initializable;
 import me.needkg.daynightpvp.shared.lifecycle.Reloadable;
 import me.needkg.daynightpvp.shared.lifecycle.Stoppable;
@@ -31,7 +31,7 @@ public class ApplicationLifecycle implements Initializable, Reloadable, Stoppabl
     private ResourceFile worldResource;
     private WorldSettingsGateway worldSettingsGateway;
     private WorldLoader worldLoader;
-    private MetricsInitializer metricsInitializer;
+    private BStatsInitializer metricsInitializer;
     private CommandInitializer commandInitializer;
     
     public ApplicationLifecycle(JavaPlugin plugin, Logger logger) {
@@ -50,7 +50,7 @@ public class ApplicationLifecycle implements Initializable, Reloadable, Stoppabl
 
     private void loadResources() {
 
-        logger.info("Loading plugin resources...");
+        logger.info("Loading resources...");
 
         resourceLoader = new ResourceLoader(plugin, logger);
 
@@ -62,33 +62,27 @@ public class ApplicationLifecycle implements Initializable, Reloadable, Stoppabl
         messagesSettingsGateway = new MessagesSettingsGateway(messagesResource);
         messagesSettings = messagesSettingsGateway.findMessagesSettings();
 
-        logger.info("Plugin resources loaded!");
+        worldResource = resourceLoader.load("worlds.yml");
+        worldSettingsGateway = new WorldSettingsGateway(worldResource);
     }
 
     private void initWorlds() {
         logger.info("Initializing worlds...");
 
-        worldResource = resourceLoader.load("worlds.yml");
-        worldSettingsGateway = new WorldSettingsGateway(worldResource);
-
         worldLoader = new WorldLoader(logger, worldSettingsGateway);
         worldLoader.init();
-
-        logger.info("Worlds initialized!");
     }
 
     private void initMetrics() {
         logger.info("Initializing metrics...");
-        metricsInitializer = new MetricsInitializer(plugin);
+        metricsInitializer = new BStatsInitializer(plugin);
         metricsInitializer.init();
-        logger.info("Metrics initialized!");
     }
 
     private void initCommands() {
         logger.info("Initializing commands...");
-        commandInitializer = new CommandInitializer();
+        commandInitializer = new CommandInitializer(plugin);
         commandInitializer.init();
-        logger.info("Commands initialized!");
     }
 
     @Override

@@ -5,3 +5,9 @@ api-version: '1.21'
 authors: [needkg]
 website: https://github.com/needkg/DayNightPvP
 load: POSTWORLD
+
+commands:
+  daynightpvp:
+    usage: "/dnp"
+    aliases: [ dnp ]
+    permission: dnp.admin
