@@ -24,7 +24,7 @@ import com.needkg.daynightpvp.event.listener.EntityDamageByEntityEventListener;
 import com.needkg.daynightpvp.event.listener.PlayerDeathEventListener;
 import com.needkg.daynightpvp.event.listener.PotionSplashEventListener;
 import com.needkg.daynightpvp.event.listener.ProjectileHitEventListener;
-import com.needkg.daynightpvp.feature.DayNightFeature;
+import com.needkg.daynightpvp.feature.AutoPvpFeature;
 import com.needkg.daynightpvp.feature.TestFeature;
 
 public final class DayNightPvp extends JavaPlugin {
@@ -34,7 +34,7 @@ public final class DayNightPvp extends JavaPlugin {
 
         final var worldGateway = new DnpWorldGatewayYaml(new File(getDataFolder(), "worlds.yml").toURI());
 
-        DayNightFeature dayNightFeature = new DayNightFeature(worldGateway);
+        AutoPvpFeature dayNightFeature = new AutoPvpFeature(worldGateway);
 
         TestFeature testFeature = new TestFeature();
 

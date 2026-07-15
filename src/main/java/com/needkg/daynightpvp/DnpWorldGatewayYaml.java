@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+import com.needkg.daynightpvp.config.WorldConfig;
 
 public class DnpWorldGatewayYaml implements DnpWorldGateway {
 
@@ -25,20 +26,20 @@ public class DnpWorldGatewayYaml implements DnpWorldGateway {
     }
 
     @Override
-    public Optional<DnpWorld> findByName(String name) {
+    public Optional<WorldConfig> findByName(String name) {
         return Optional.ofNullable(readWorldsFromYaml().get(name));
     }
 
     @Override
-    public Set<DnpWorld> findAll() {
+    public Set<WorldConfig> findAll() {
         return readWorldsFromYaml().values().stream().collect(java.util.stream.Collectors.toSet());
     }
 
-    private Map<String, DnpWorld> readWorldsFromYaml() {
+    private Map<String, WorldConfig> readWorldsFromYaml() {
         try {
             return mapper.readValue(
                     yamlFile,
-                    mapper.getTypeFactory().constructMapType(Map.class, String.class, DnpWorld.class));
+                    mapper.getTypeFactory().constructMapType(Map.class, String.class, WorldConfig.class));
         } catch (IOException e) {
             // e.printStackTrace(); //TODO logar erro como aviso
             return Map.of();
