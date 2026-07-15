@@ -1,4 +1,4 @@
-package com.needkg.daynightpvp.event.listener;
+package com.needkg.daynightpvp.util;
 
 import org.bukkit.entity.Entity;
 
