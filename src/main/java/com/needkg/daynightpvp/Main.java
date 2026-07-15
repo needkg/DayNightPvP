@@ -1,12 +1,8 @@
-package me.needkg.daynightpvp;
+package com.needkg.daynightpvp;
 
 import java.io.File;
 import java.util.Set;
 
-import org.bukkit.Bukkit;
-import org.bukkit.plugin.java.JavaPlugin;
-
-import com.needkg.daynightpvp.config.world.WorldConfigGatewayYaml;
 import com.needkg.daynightpvp.event.listener.EntityDamageByEntityEventListener;
 import com.needkg.daynightpvp.event.listener.PlayerDeathEventListener;
 import com.needkg.daynightpvp.event.listener.PotionSplashEventListener;
@@ -14,15 +10,13 @@ import com.needkg.daynightpvp.event.listener.ProjectileHitEventListener;
 import com.needkg.daynightpvp.feature.AutoPvpFeature;
 import com.needkg.daynightpvp.feature.TestFeature;
 
-public final class DayNightPvp extends JavaPlugin {
+public class Main {
 
-    @Override
-    public void onEnable() {
+    public static void main(String[] args) {
 
-        final var worldGateway = new WorldConfigGatewayYaml(new File(getDataFolder(), "worlds.yml").toURI());
+        // final var worldGateway = new DnpWorldGatewayYaml(new File(getDataFolder(), "worlds.yml").toURI());
 
-        AutoPvpFeature dayNightFeature = new AutoPvpFeature(worldGateway);
-
+        AutoPvpFeature dayNightFeature = null;
         TestFeature testFeature = new TestFeature();
 
         var playerDeathEventListener = new PlayerDeathEventListener(Set.of());
@@ -31,14 +25,12 @@ public final class DayNightPvp extends JavaPlugin {
         var projectileHitEventListener = new ProjectileHitEventListener(Set.of(dayNightFeature));
         var potionSplashEventListener = new PotionSplashEventListener(Set.of(dayNightFeature));
 
-        Bukkit.getPluginManager().registerEvents(potionSplashEventListener, this);
-        Bukkit.getPluginManager().registerEvents(projectileHitEventListener, this);
-        Bukkit.getPluginManager().registerEvents(entityDamageByEntityEventListener, this);
-        Bukkit.getPluginManager().registerEvents(playerDeathEventListener, this);
+        System.out.println("This is a Minecraft plugin and cannot be run as a standalone application.");
+
+        // new DnpWorldGatewayYaml(
+        //         new java.io.File("/home/jhonatapers/needkg/DayNightPvP/src/main/resources/worlds.yml").toURI())
+        //         .findByName("world");
 
     }
 
-    @Override
-    public void onDisable() {
-    }
 }

@@ -8,8 +8,8 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PotionSplashEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 
-import com.needkg.daynightpvp.DnpWorldGateway;
-import com.needkg.daynightpvp.config.WorldConfig;
+import com.needkg.daynightpvp.config.world.WorldConfigGateway;
+import com.needkg.daynightpvp.config.world.WorldConfig;
 import com.needkg.daynightpvp.event.handler.EntityDamageByEntityEventHandler;
 import com.needkg.daynightpvp.event.handler.PotionSplashEventHandler;
 import com.needkg.daynightpvp.event.handler.ProjectileHitEventHandler;
@@ -20,16 +20,16 @@ public class AutoPvpFeature implements
         PotionSplashEventHandler,
         ProjectileHitEventHandler {
 
-    private final DnpWorldGateway dnpWorldGateway;
+    private final WorldConfigGateway dnpWorldGateway;
 
-    public AutoPvpFeature(DnpWorldGateway dnpWorldGateway) {
+    public AutoPvpFeature(WorldConfigGateway dnpWorldGateway) {
         this.dnpWorldGateway = dnpWorldGateway;
     }
 
     @Override
     public void handle(ProjectileHitEvent event) {
 
-        getAutoPvpEnabled(EntityUtils.getWorldName(event.getEntity()))
+        getConfig(EntityUtils.getWorldName(event.getEntity()))
                 .filter(Config::enabled)
                 .ifPresent(config -> {
                     if (event.getEntity().getShooter() instanceof Player player
@@ -44,7 +44,7 @@ public class AutoPvpFeature implements
     @Override
     public void handle(PotionSplashEvent event) {
 
-        getAutoPvpEnabled(EntityUtils.getWorldName(event.getEntity()))
+        getConfig(EntityUtils.getWorldName(event.getEntity()))
                 .filter(Config::enabled)
                 .ifPresent(config -> {
                     if (event.getPotion().getShooter() instanceof Player)
@@ -61,7 +61,7 @@ public class AutoPvpFeature implements
     @Override
     public void handle(EntityDamageByEntityEvent event) {
 
-        getAutoPvpEnabled(EntityUtils.getWorldName(event.getEntity()))
+        getConfig(EntityUtils.getWorldName(event.getEntity()))
                 .filter(Config::enabled)
                 .ifPresent(config -> {
                     if (isPvp(event.getDamager(), event.getEntity())
@@ -82,7 +82,7 @@ public class AutoPvpFeature implements
         return entity.getWorld().getTime() < dayEnd;
     }
 
-    private Optional<AutoPvpFeature.Config> getAutoPvpEnabled(String worldName) {
+    private Optional<AutoPvpFeature.Config> getConfig(String worldName) {
         return dnpWorldGateway.findByName(worldName).flatMap(WorldConfig::pvp);
     }
 

@@ -1,11 +1,9 @@
-package com.needkg.daynightpvp;
+package com.needkg.daynightpvp.config.world;
 
 import java.util.Optional;
 import java.util.Set;
 
-import com.needkg.daynightpvp.config.WorldConfig;
-
-public interface DnpWorldGateway {
+public interface WorldConfigGateway {
 
     public Set<WorldConfig> findAll();
 

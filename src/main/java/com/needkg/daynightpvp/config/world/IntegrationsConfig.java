@@ -1,4 +1,4 @@
-package com.needkg.daynightpvp.config;
+package com.needkg.daynightpvp.config.world;
 
 import java.util.Optional;
 

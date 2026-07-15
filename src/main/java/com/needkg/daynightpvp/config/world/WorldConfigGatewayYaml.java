@@ -1,8 +1,8 @@
-package com.needkg.daynightpvp;
+package com.needkg.daynightpvp.config.world;
 
-import java.net.URI;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -11,9 +11,8 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
-import com.needkg.daynightpvp.config.WorldConfig;
 
-public class DnpWorldGatewayYaml implements DnpWorldGateway {
+public class WorldConfigGatewayYaml implements WorldConfigGateway {
 
     private final File yamlFile;
 
@@ -21,7 +20,7 @@ public class DnpWorldGatewayYaml implements DnpWorldGateway {
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
             .registerModule(new Jdk8Module());
 
-    public DnpWorldGatewayYaml(URI yamlFileUri) {
+    public WorldConfigGatewayYaml(URI yamlFileUri) {
         this.yamlFile = new File(yamlFileUri);
     }
 
