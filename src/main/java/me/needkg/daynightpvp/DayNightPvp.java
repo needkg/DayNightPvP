@@ -13,11 +13,13 @@ import me.needkg.daynightpvp.shared.logging.Logger;
 import me.needkg.daynightpvp.world.WorldLoader;
 import me.needkg.daynightpvp.world.WorldManager;
 
+import java.io.File;
 import java.util.Set;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.needkg.daynightpvp.DnpWorldGatewayYaml;
 import com.needkg.daynightpvp.event.listener.EntityDamageByEntityEventListener;
 import com.needkg.daynightpvp.event.listener.PlayerDeathEventListener;
 import com.needkg.daynightpvp.event.listener.PotionSplashEventListener;
@@ -30,7 +32,9 @@ public final class DayNightPvp extends JavaPlugin {
     @Override
     public void onEnable() {
 
-        DayNightFeature dayNightFeature = new DayNightFeature();
+        final var worldGateway = new DnpWorldGatewayYaml(new File(getDataFolder(), "worlds.yml").toURI());
+
+        DayNightFeature dayNightFeature = new DayNightFeature(worldGateway);
 
         TestFeature testFeature = new TestFeature();
 
