@@ -6,39 +6,49 @@ import java.util.Set;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.needkg.daynightpvp.config.world.WorldConfigGatewayYaml;
+import com.needkg.daynightpvp.config.ResourceLoaderYaml;
 import com.needkg.daynightpvp.event.listener.EntityDamageByEntityEventListener;
-import com.needkg.daynightpvp.event.listener.PlayerDeathEventListener;
 import com.needkg.daynightpvp.event.listener.PotionSplashEventListener;
 import com.needkg.daynightpvp.event.listener.ProjectileHitEventListener;
+import com.needkg.daynightpvp.factory.AutoPvpFactory;
+import com.needkg.daynightpvp.factory.TitleNotificationFactory;
 import com.needkg.daynightpvp.feature.AutoPvpFeature;
-import com.needkg.daynightpvp.feature.TestFeature;
+import com.needkg.daynightpvp.feature.TitleNotificationFeature;
 
 public final class DayNightPvp extends JavaPlugin {
 
     @Override
     public void onEnable() {
 
-        final var worldGateway = new WorldConfigGatewayYaml(new File(getDataFolder(), "worlds.yml").toURI());
+        final var configuratedLang = "en";
+        final var resourceResourceLanguage = new ResourceLoaderYaml(
+                new File(getDataFolder(), "lang" + File.separator + configuratedLang + ".yml"));
+        final var defaultResourceResourceLanguage = new ResourceLoaderYaml(
+                new File(getDataFolder(), "lang" + File.separator + "en.yml"));
+        final var resourceLoaderConfig = new ResourceLoaderYaml(new File(getDataFolder(), "worlds.yml"));
 
-        AutoPvpFeature dayNightFeature = new AutoPvpFeature(worldGateway);
+        TitleNotificationFeature titleNotificationFeature = TitleNotificationFactory.create(
+                resourceLoaderConfig,
+                resourceResourceLanguage,
+                defaultResourceResourceLanguage);
 
-        TestFeature testFeature = new TestFeature();
+        AutoPvpFeature autoPvpFeature = AutoPvpFactory.create(
+                resourceLoaderConfig,
+                resourceResourceLanguage,
+                defaultResourceResourceLanguage);
 
-        var playerDeathEventListener = new PlayerDeathEventListener(Set.of());
+        var entityDamageByEntityEventListener = new EntityDamageByEntityEventListener(Set.of(autoPvpFeature));
+        var projectileHitEventListener = new ProjectileHitEventListener(Set.of(autoPvpFeature));
+        var potionSplashEventListener = new PotionSplashEventListener(Set.of(autoPvpFeature));
 
-        var entityDamageByEntityEventListener = new EntityDamageByEntityEventListener(Set.of(dayNightFeature));
-        var projectileHitEventListener = new ProjectileHitEventListener(Set.of(dayNightFeature));
-        var potionSplashEventListener = new PotionSplashEventListener(Set.of(dayNightFeature));
-
-        Bukkit.getPluginManager().registerEvents(potionSplashEventListener, this);
-        Bukkit.getPluginManager().registerEvents(projectileHitEventListener, this);
         Bukkit.getPluginManager().registerEvents(entityDamageByEntityEventListener, this);
-        Bukkit.getPluginManager().registerEvents(playerDeathEventListener, this);
+        Bukkit.getPluginManager().registerEvents(projectileHitEventListener, this);
+        Bukkit.getPluginManager().registerEvents(potionSplashEventListener, this);
 
     }
 
     @Override
     public void onDisable() {
     }
+
 }

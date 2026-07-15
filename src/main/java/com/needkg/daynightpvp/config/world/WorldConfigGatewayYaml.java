@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -30,8 +29,8 @@ public class WorldConfigGatewayYaml implements WorldConfigGateway {
     }
 
     @Override
-    public Set<WorldConfig> findAll() {
-        return readWorldsFromYaml().values().stream().collect(java.util.stream.Collectors.toSet());
+    public Map<String, WorldConfig> findAll() {
+        return readWorldsFromYaml();
     }
 
     private Map<String, WorldConfig> readWorldsFromYaml() {

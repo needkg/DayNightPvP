@@ -5,3 +5,14 @@ api-version: '1.21'
 authors: [needkg]
 website: https://github.com/needkg/DayNightPvP
 load: POSTWORLD
+
+permissions:
+  dnp.admin:
+    description: "Ensures access to all plugin commands"
+    default: op
+  dnp.bypass:
+    description: "Allows the player to engage in combat even during daytime"
+    default: false
+  dnp.immune:
+    description: "Makes the player immune to PvP at any time"
+    default: false

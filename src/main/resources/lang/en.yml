@@ -1,3 +1,14 @@
-prefix: "&6DayNightPvP &8»"
-no_permission: "You don't have permission to use this command."
-command_usage: "Usage: %usage%"
+autopvp:
+  combat-disabled: "It's daytime! PvP is disabled."
+  player-immune: "This player is immune to damage."
+  self-immune: "You are immune to combat and cannot engage in PvP."
+
+notification:
+  title:
+    day-title: "Day has begun!"
+    day-subtitle: "Daytime!"
+    night-title: "Night has fallen!"
+    night-subtitle: "Nighttime!"
+  chat:
+    day: "Day has begun!"
+    night: "Night has fallen!"

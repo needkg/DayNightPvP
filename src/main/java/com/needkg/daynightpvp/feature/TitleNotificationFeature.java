@@ -1,15 +1,14 @@
 package com.needkg.daynightpvp.feature;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
-import com.needkg.daynightpvp.config.world.WorldConfigGateway;
-import com.needkg.daynightpvp.config.world.NotificationsConfig;
-import com.needkg.daynightpvp.config.world.WorldConfig;
 import com.needkg.daynightpvp.event.DayStartEvent;
 import com.needkg.daynightpvp.event.NightStartEvent;
 import com.needkg.daynightpvp.event.handler.DayStartEventHandler;
@@ -19,42 +18,38 @@ public class TitleNotificationFeature implements
         DayStartEventHandler,
         NightStartEventHandler {
 
-    private final WorldConfigGateway dnpWorldGateway;
-
-    private final String titleDay = "OLA OLAD DEI";
-    private final String subTitleDay = "OLA OLAD DEI";
-    private final String titleNight = "OLA OLA NaiTi";
-    private final String subTitleNight = "OLA OLA NaiTi";
+    private final Map<String, Config> worldConfigs = new ConcurrentHashMap<>();
+    private final Language languageConfigs;
 
     public TitleNotificationFeature(
-            WorldConfigGateway dnpWorldGateway,
-            String titleDay,
-            String titleNight) {
-        this.dnpWorldGateway = dnpWorldGateway;
+            Map<String, Config> worldConfigs,
+            Language languageConfigs) {
+        this.worldConfigs.putAll(worldConfigs);
+        this.languageConfigs = languageConfigs;
     }
 
     @Override
     public void handle(DayStartEvent event) {
-        getConfig(event.getWorldName())
+        Optional.ofNullable(worldConfigs.get(event.getWorldName()))
                 .filter(Config::enabled)
                 .ifPresent(config -> {
                     sendTitleToPlayers(
                             Bukkit.getWorld(event.getWorldName()),
-                            titleDay,
-                            "",
+                            languageConfigs.dayTitle(),
+                            languageConfigs.daySubtitle(),
                             config);
                 });
     }
 
     @Override
     public void handle(NightStartEvent event) {
-        getConfig(event.getWorldName())
+        Optional.ofNullable(worldConfigs.get(event.getWorldName()))
                 .filter(Config::enabled)
                 .ifPresent(config -> {
                     sendTitleToPlayers(
                             Bukkit.getWorld(event.getWorldName()),
-                            titleNight,
-                            "",
+                            languageConfigs.nightTitle(),
+                            languageConfigs.nightSubtitle(),
                             config);
                 });
     }
@@ -71,10 +66,12 @@ public class TitleNotificationFeature implements
             int fadeOut) {
     }
 
-    private Optional<TitleNotificationFeature.Config> getConfig(String worldName) {
-        return dnpWorldGateway
-                .findByName(worldName)
-                .flatMap(WorldConfig::notifications)
-                .flatMap(NotificationsConfig::title);
+    public record Language(
+            String dayTitle,
+            String daySubtitle,
+            String nightTitle,
+            String nightSubtitle) {
+
     }
+
 }

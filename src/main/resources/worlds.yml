@@ -10,4 +10,16 @@
 # Worlds configurations
 
 world:
-  enabled: true
+  auto-pvp:
+    enabled: true
+    day-end: 12900
+  notifications:
+    title:
+      enabled: true
+    sound:
+      enabled: true
+    chat:
+      enabled: true
+  integrations:
+    vault:
+      enabled: true
