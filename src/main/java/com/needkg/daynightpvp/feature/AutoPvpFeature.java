@@ -1,14 +1,10 @@
 package com.needkg.daynightpvp.feature;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.TNTPrimed;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.PotionSplashEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
@@ -123,10 +119,6 @@ public class AutoPvpFeature implements
 
     private static Boolean isDay(Entity entity, Long dayEnd) {
         return entity.getWorld().getTime() < dayEnd;
-    }
-
-    private static Boolean isPlayer(Entity entity) {
-        return entity instanceof Player;
     }
 
     private Optional<AutoPvpFeature.Config> getAutoPvpEnabled(String worldName) {
