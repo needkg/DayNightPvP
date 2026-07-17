@@ -8,11 +8,11 @@ import org.bukkit.event.Listener;
 import com.needkg.daynightpvp.event.PluginReloadEvent;
 import com.needkg.daynightpvp.event.handler.PluginReloadEventHandler;
 
-public class PluginReloadListener implements Listener {
+public class PluginReloadEventListener implements Listener {
 
     private final Set<PluginReloadEventHandler> pluginReloadEventHandlers;
 
-    public PluginReloadListener(Set<PluginReloadEventHandler> pluginReloadEventHandlers) {
+    public PluginReloadEventListener(Set<PluginReloadEventHandler> pluginReloadEventHandlers) {
         this.pluginReloadEventHandlers = pluginReloadEventHandlers;
     }
 
