@@ -30,7 +30,7 @@ public class ApplicationLifecycle {
         final var worldsResource = resourceManager.load(plugin, "worlds.yml", false);
 
         featureManager.initialize(
-                pluginResource,
+                worldsResource,
                 languageResource,
                 defaultLanguageResource);
 

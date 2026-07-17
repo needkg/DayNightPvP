@@ -2,6 +2,9 @@ package com.needkg.daynightpvp;
 
 import java.util.Set;
 
+import com.needkg.daynightpvp.event.listener.PlayerDeathEventListener;
+import com.needkg.daynightpvp.feature.KeepXpInPvpFeature;
+import com.needkg.daynightpvp.feature.factory.KeepXpInPvpFactory;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -24,29 +27,36 @@ public class FeatureManager {
     }
 
     public void initialize(
-            ResourceLoader resourceLoaderConfig,
+            ResourceLoader resourceLoaderWorld,
             ResourceLoader resourceLoaderLanguage,
             ResourceLoader defaultResourceLoaderLanguage) {
 
         HandlerList.unregisterAll(plugin);
 
         TitleNotificationFeature titleNotificationFeature = TitleNotificationFactory.create(
-                resourceLoaderConfig,
+                resourceLoaderWorld,
                 resourceLoaderLanguage,
                 defaultResourceLoaderLanguage);
 
         AutoPvpFeature autoPvpFeature = AutoPvpFactory.create(
-                resourceLoaderConfig,
+                resourceLoaderWorld,
+                resourceLoaderLanguage,
+                defaultResourceLoaderLanguage);
+
+        KeepXpInPvpFeature keepXpInPvpFeature = KeepXpInPvpFactory.create(
+                resourceLoaderWorld,
                 resourceLoaderLanguage,
                 defaultResourceLoaderLanguage);
 
         var entityDamageByEntityEventListener = new EntityDamageByEntityEventListener(Set.of(autoPvpFeature));
         var projectileHitEventListener = new ProjectileHitEventListener(Set.of(autoPvpFeature));
         var potionSplashEventListener = new PotionSplashEventListener(Set.of(autoPvpFeature));
+        var playerDeathEventListener = new PlayerDeathEventListener(Set.of(keepXpInPvpFeature));
 
         Bukkit.getPluginManager().registerEvents(entityDamageByEntityEventListener, plugin);
         Bukkit.getPluginManager().registerEvents(projectileHitEventListener, plugin);
         Bukkit.getPluginManager().registerEvents(potionSplashEventListener, plugin);
+        Bukkit.getPluginManager().registerEvents(playerDeathEventListener, plugin);
 
     }
 
