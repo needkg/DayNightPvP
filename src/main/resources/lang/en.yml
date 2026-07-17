@@ -12,3 +12,7 @@ notification:
   chat:
     day: "Day has begun!"
     night: "Night has fallen!"
+
+command:
+  reload:
+    success: "Plugin reloaded successfully"

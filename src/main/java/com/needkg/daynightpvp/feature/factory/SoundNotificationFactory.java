@@ -1,4 +1,4 @@
-package com.needkg.daynightpvp.factory;
+package com.needkg.daynightpvp.feature.factory;
 
 import com.needkg.daynightpvp.feature.TitleNotificationFeature;
 

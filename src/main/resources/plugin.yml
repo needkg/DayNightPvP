@@ -6,6 +6,12 @@ authors: [needkg]
 website: https://github.com/needkg/DayNightPvP
 load: POSTWORLD
 
+commands:
+  daynightpvp:
+    usage: "/dnp"
+    aliases: [ dnp ]
+    permission: dnp.admin
+
 permissions:
   dnp.admin:
     description: "Ensures access to all plugin commands"

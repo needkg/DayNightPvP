@@ -1,4 +1,4 @@
-package com.needkg.daynightpvp.factory;
+package com.needkg.daynightpvp.feature.factory;
 
 public final class ChatNotificationFactory {
 

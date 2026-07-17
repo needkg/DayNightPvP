@@ -10,8 +10,6 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PotionSplashEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 
-import com.needkg.daynightpvp.config.world.WorldConfig;
-import com.needkg.daynightpvp.config.world.WorldConfigGateway;
 import com.needkg.daynightpvp.event.handler.EntityDamageByEntityEventHandler;
 import com.needkg.daynightpvp.event.handler.PotionSplashEventHandler;
 import com.needkg.daynightpvp.event.handler.ProjectileHitEventHandler;
