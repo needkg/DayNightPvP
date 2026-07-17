@@ -10,12 +10,16 @@ public abstract class AbstractCommand implements CommandExecutor {
 
         var command = plugin.getCommand(getName());
 
+        setExecutor(command);
+
         if (command != null) {
-            command.setExecutor(this);
+            setExecutor(command);
         }
 
     }
 
     protected abstract String getName();
+
+    protected abstract void setExecutor(PluginCommand command);
 
 }
