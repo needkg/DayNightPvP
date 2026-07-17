@@ -38,24 +38,24 @@ public final class KeepXpInPvpFactory {
 
         final String whenString = resourceLoader.getValue(
                 String.class,
-                worldName + ".pvp.on-death.when",
+                worldName + ".pvp.keep-on-death.exp.when",
                 "night");
 
         KeepXpInPvpFeature.Config.When when = KeepXpInPvpFeature.Config.When.valueOf(whenString.toUpperCase());
 
         final var enabled = resourceLoader.getValue(
                 Boolean.class,
-                worldName + ".pvp.on-death.exp.enabled",
+                worldName + ".pvp.keep-on-death.exp.enabled",
                 false);
 
         final var defaultLosePercent = resourceLoader.getValue(
                 Integer.class,
-                worldName + ".pvp.on-death.exp.lose-percent.default",
+                worldName + ".pvp.keep-on-death.exp.lose-percent.default",
                 0);
 
         final Map<String, Integer> losePercentGroups = resourceLoader.getValue(
                 Map.class,
-                worldName + ".pvp.on-death.exp.lose-percent.groups",
+                worldName + ".pvp.keep-on-death.exp.lose-percent.groups",
                 Map.of());
 
         return new KeepXpInPvpFeature.Config(

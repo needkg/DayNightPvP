@@ -40,19 +40,26 @@ public class KeepXpInPvpFeature implements PlayerDeathEventHandler {
             return;
         }
 
-        if (!shouldLose(event.getEntity(), worldConfig.when, worldConfig.dayEnd)) {
+        if (!shouldKeep(event.getEntity(), worldConfig.when, worldConfig.dayEnd)) {
             return;
         }
+
+        event.setKeepLevel(true);
 
         Player victim = event.getEntity();
 
         int loseAmountPorcent = getGroupLosePercent(victim, worldConfig.groupLosePercents)
                 .orElse(worldConfig.defaultLosePercent);
 
-        Float loseAmount = loseAmount(victim.getExp(), loseAmountPorcent);
-        Float remaingXp = victim.getExp() - loseAmount;
+        Integer loseAmount = loseAmount(victim.getLevel(), loseAmountPorcent);
+        Integer remaingLevel = victim.getLevel() - loseAmount;
 
-        event.getEntity().setExp(remaingXp);
+        victim.setLevel(remaingLevel);
+
+        if (loseAmount > 0) {
+            victim.setExp(0);
+        }
+
         event.setDroppedExp(loseAmount.intValue());
     }
 
@@ -64,8 +71,11 @@ public class KeepXpInPvpFeature implements PlayerDeathEventHandler {
         return entity.getWorld().getTime() < dayEnd ? Config.When.DAY : Config.When.NIGHT;
     }
 
-    private static Boolean shouldLose(Entity entity, Config.When configTime, Long dayEnd) {
-        return KeepXpInPvpFeature.Config.When.ALL.equals(configTime) && !worldTime(entity, dayEnd).equals(configTime);
+    private static Boolean shouldKeep(Entity entity, Config.When configTime, Long dayEnd) {
+
+        return KeepXpInPvpFeature.Config.When.ALL.equals(configTime)
+                || worldTime(entity, dayEnd).equals(configTime);
+
     }
 
     private static Optional<Integer> getGroupLosePercent(Player victim, Map<String, Integer> worldGroupLosePercents) {
@@ -78,9 +88,9 @@ public class KeepXpInPvpFeature implements PlayerDeathEventHandler {
 
     }
 
-    private static Float loseAmount(Float actualXp, Integer losePercent) {
+    private static Integer loseAmount(Integer actualXp, Integer losePercent) {
         if (actualXp <= 0 || losePercent <= 0) {
-            return 0f;
+            return 0;
         }
         return actualXp * losePercent / 100;
     }

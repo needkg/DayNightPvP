@@ -14,12 +14,13 @@ world:
     day-end: 12900
     auto:
       enabled: true
-    on-death:
-      when: night #(day|night|all)
+    keep-on-death:
       inventory:
         enabled: true
+        when: night #(day|night|all)
       exp:
         enabled: true
+        when: night #(day|night|all)
         lose-percent:
           default: 30
           groups:
@@ -35,3 +36,40 @@ world:
   integrations:
     vault:
       enabled: true
+
+
+exp:
+  enabled: true
+  lose-percent: 
+    groups: 
+      default: 30 # dnp.lose-xp-percent.default
+      admin: 40 # dnp.lose-xp-percent.admin
+
+
+exp:
+  enabled: true
+  lose-percent:
+    permissions:
+      dnp.lose-xp-percent.default: 30
+      dnp.lose-xp-percent.admin: 40
+
+
+  # pvp:
+  #   day-end: 12900
+  #   auto-pvp:
+  #     enabled: true
+  #   on-death:
+  #     when: night #(day|night|all)
+  #     inventory:
+  #       blacklist:
+  #         - DIAMOND
+  #         - NETHER-STAR
+  #       hotbar:
+  #         enabled: true
+  #         lose-percent: 20
+  #       main:
+  #         enabled: true
+  #         lose-percent: 20
+  #       armor:
+  #         enabled: true
+  #         lose-percent: 20
