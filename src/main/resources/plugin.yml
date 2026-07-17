@@ -1,6 +1,6 @@
 name: DayNightPvP
 version: '${version}'
-main: me.needkg.daynightpvp.DayNightPvp
+main: com.needkg.daynightpvp.DayNightPvp
 api-version: '1.21'
 authors: [needkg]
 website: https://github.com/needkg/DayNightPvP
@@ -8,9 +8,16 @@ load: POSTWORLD
 
 commands:
   daynightpvp:
+    description: "Shows all available commands"
     usage: "/dnp"
     aliases: [ dnp ]
     permission: dnp.admin
+  daynightpvp reload:
+    description: "Reloads all plugin configurations"
+    usage: "/dnp reload"
+    aliases: [ dnp reload ]
+    permission: dnp.admin
+
 
 permissions:
   dnp.admin:
