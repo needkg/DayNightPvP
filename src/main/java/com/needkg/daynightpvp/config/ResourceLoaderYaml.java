@@ -1,6 +1,8 @@
 package com.needkg.daynightpvp.config;
 
 import java.io.File;
+import java.io.Reader;
+import java.util.Optional;
 import java.util.Set;
 
 import org.bukkit.configuration.file.FileConfiguration;
@@ -9,21 +11,24 @@ import org.bukkit.configuration.file.YamlConfiguration;
 public class ResourceLoaderYaml implements ResourceLoader {
 
     private final FileConfiguration configuration;
+    private final Optional<ResourceLoader> defaultResourceLoader;
 
-    public ResourceLoaderYaml(File yamlFile) {
-        configuration = YamlConfiguration.loadConfiguration(yamlFile);
+    public ResourceLoaderYaml(Reader yamlReader) {
+        configuration = YamlConfiguration.loadConfiguration(yamlReader);
+        defaultResourceLoader = Optional.empty();
+    }
+
+    public ResourceLoaderYaml(Reader yamlReader, ResourceLoader defaultResourceLoader) {
+        configuration = YamlConfiguration.loadConfiguration(yamlReader);
+        this.defaultResourceLoader = Optional.ofNullable(defaultResourceLoader);
     }
 
     @Override
     public <T> T getValue(Class<T> type, String path) {
-        return configuration.getObject(path, type);
-    }
-
-    @Override
-    public <T> T getValue(Class<T> type, String path, T defaultValue) {
 
         final var value = getValue(type, path);
-        if (value == null) {
+        if (value == null && defaultResourceLoader.isPresent()) {
+            final var defaultValue = defaultResourceLoader.get().getValue(type, path);
             logDefaultValue(path, defaultValue);
             return defaultValue;
         }
@@ -32,8 +37,15 @@ public class ResourceLoaderYaml implements ResourceLoader {
     }
 
     @Override
-    public <T> T getValue(Class<T> type, String path, ResourceLoader defaultResourceLoader) {
-        return getValue(type, path, defaultResourceLoader.getValue(type, path));
+    public <T> T getValue(Class<T> type, String path, T defaultValue) {
+
+        final var value = getValue(type, path);
+        if (value == null && defaultResourceLoader.isPresent()) {
+            logDefaultValue(path, defaultValue);
+            return defaultValue;
+        }
+
+        return value;
     }
 
     public Set<String> getKeys(boolean deep) {

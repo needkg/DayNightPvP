@@ -29,3 +29,6 @@ permissions:
   dnp.immune:
     description: "Makes the player immune to PvP at any time"
     default: false
+  dnp.lose-exp-group.<group>:
+    description: "Allows the player to retain a percentage of their EXP upon killed by another player"
+    default: false

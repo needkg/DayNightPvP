@@ -28,25 +28,21 @@ public class FeatureManager {
 
     public void initialize(
             ResourceLoader resourceLoaderWorld,
-            ResourceLoader resourceLoaderLanguage,
-            ResourceLoader defaultResourceLoaderLanguage) {
+            ResourceLoader resourceLoaderLanguage) {
 
         HandlerList.unregisterAll(plugin);
 
         TitleNotificationFeature titleNotificationFeature = TitleNotificationFactory.create(
                 resourceLoaderWorld,
-                resourceLoaderLanguage,
-                defaultResourceLoaderLanguage);
+                resourceLoaderLanguage);
 
         AutoPvpFeature autoPvpFeature = AutoPvpFactory.create(
                 resourceLoaderWorld,
-                resourceLoaderLanguage,
-                defaultResourceLoaderLanguage);
+                resourceLoaderLanguage);
 
         KeepXpInPvpFeature keepXpInPvpFeature = KeepXpInPvpFactory.create(
                 resourceLoaderWorld,
-                resourceLoaderLanguage,
-                defaultResourceLoaderLanguage);
+                resourceLoaderLanguage);
 
         var entityDamageByEntityEventListener = new EntityDamageByEntityEventListener(Set.of(autoPvpFeature));
         var projectileHitEventListener = new ProjectileHitEventListener(Set.of(autoPvpFeature));

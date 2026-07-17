@@ -7,31 +7,27 @@ import java.util.stream.Collectors;
 import com.needkg.daynightpvp.ApplicationLifecycle;
 import com.needkg.daynightpvp.command.ReloadPluginCommand;
 import com.needkg.daynightpvp.config.ResourceLoader;
-import com.needkg.daynightpvp.feature.AutoPvpFeature;
-import com.needkg.daynightpvp.feature.AutoPvpFeature.Config;
 
 public final class ReloadPluginFactory {
 
-    public static ReloadPluginCommand create(
-            ApplicationLifecycle lifecycle,
-            ResourceLoader languageResourceLoader,
-            ResourceLoader defaultLanguageResourceLoader) {
+    // public static ReloadPluginCommand create(
+    //         ApplicationLifecycle lifecycle,
+    //         ResourceLoader languageResourceLoader,
+    //         ResourceLoader defaultLanguageResourceLoader) {
 
-        return new ReloadPluginCommand(
-                lifecycle,
-                getLanguageConfig(languageResourceLoader, defaultLanguageResourceLoader));
-    }
+    //     return new ReloadPluginCommand(
+    //             getLanguageConfig(languageResourceLoader),
+    //             null,
+    //             lifecycle);
+    // }
 
-    private static ReloadPluginCommand.Language getLanguageConfig(
-            ResourceLoader resourceLoader,
-            ResourceLoader defaultResourceLoader) {
+    public static ReloadPluginCommand.Language getLanguageConfig(ResourceLoader resourceLoader) {
 
-        final var combatDisabled = resourceLoader.getValue(
+        final var reloaded = resourceLoader.getValue(
                 String.class,
-                "command.reload.success",
-                defaultResourceLoader);
+                "command.reload.success");
 
-        return new ReloadPluginCommand.Language(combatDisabled);
+        return new ReloadPluginCommand.Language(reloaded);
     }
 
 }

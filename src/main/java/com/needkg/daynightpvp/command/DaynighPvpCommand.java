@@ -13,17 +13,15 @@ import com.needkg.daynightpvp.ApplicationLifecycle;
 import com.needkg.daynightpvp.event.PluginReloadEvent;
 import com.needkg.daynightpvp.event.handler.PluginReloadEventHandler;
 
-public class ReloadPluginCommand extends AbstractCommand implements PluginReloadEventHandler {
+public class DaynighPvpCommand extends AbstractCommand {
 
-    private static final String NAME = "reload";
+    private static final String NAME = "daynightpvp";
 
-    private final ApplicationLifecycle applicationLifecycle;
-    private final ReloadPluginCommand.Language language;
+    private final DaynighPvpCommand.Language language;
 
-    public ReloadPluginCommand(ReloadPluginCommand.Language language, ApplicationLifecycle applicationLifecycle) {
+    public DaynighPvpCommand(DaynighPvpCommand.Language language) {
         super(NAME);
         this.language = language;
-        this.applicationLifecycle = applicationLifecycle;
     }
 
     @Override
@@ -33,15 +31,9 @@ public class ReloadPluginCommand extends AbstractCommand implements PluginReload
             @NotNull String label,
             @NotNull String @NotNull [] args) {
 
-        applicationLifecycle.reload();
-        Bukkit.getPluginManager().callEvent(new PluginReloadEvent(sender));
+        /// TODO futura gui
 
         return true;
-    }
-
-    @Override
-    public void handle(PluginReloadEvent event) {
-        event.getSender().sendMessage(language.success());
     }
 
     @Override
@@ -49,7 +41,7 @@ public class ReloadPluginCommand extends AbstractCommand implements PluginReload
         command.setExecutor(this);
     }
 
-    public record Language(String success) {
+    public record Language() {
     }
 
 }

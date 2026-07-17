@@ -15,28 +15,25 @@ public class ApplicationLifecycle {
         this.featureManager = new FeatureManager(plugin);
         this.commandManager = new CommandManager(plugin, this);
     }
-    
 
     public void startup() {
 
-        final var resourceManager = new ResourceManager();
+        final var resourceManager = new ResourceManager(plugin);
 
-        final var pluginResource = resourceManager.load(plugin, "config.yml", false);
-        final var languageResource = resourceManager.load(
-                plugin,
-                "lang/" + pluginResource.getValue(String.class, "lang", "en") + ".yml",
-                false);
-        final var defaultLanguageResource = resourceManager.load(plugin, "lang/en.yml", false);
-        final var worldsResource = resourceManager.load(plugin, "worlds.yml", false);
+        final var configResource = resourceManager.initializeConfigYml();
+        final var languageResource = resourceManager.initializeLanguageYml(
+            configResource.getValue(
+                String.class, 
+                "lang", 
+                "en"));
+
+        final var worldsResource = resourceManager.initializeWorldsYml();
 
         featureManager.initialize(
                 worldsResource,
-                languageResource,
-                defaultLanguageResource);
+                languageResource);
 
-        commandManager.initialize(
-            languageResource,
-            defaultLanguageResource);
+        commandManager.initialize(languageResource);
 
     }
 

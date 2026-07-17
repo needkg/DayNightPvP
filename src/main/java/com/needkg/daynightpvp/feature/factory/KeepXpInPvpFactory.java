@@ -15,8 +15,7 @@ public final class KeepXpInPvpFactory {
 
     public static KeepXpInPvpFeature create(
             ResourceLoader worldResourceLoader,
-            ResourceLoader languageResourceLoader,
-            ResourceLoader defaultLanguageResourceLoader) {
+            ResourceLoader languageResourceLoader) {
 
         final var worldConfigs = worldResourceLoader
                 .getKeys(false)
@@ -26,7 +25,7 @@ public final class KeepXpInPvpFactory {
 
         return new KeepXpInPvpFeature(
                 worldConfigs,
-                getLanguageConfig(languageResourceLoader, defaultLanguageResourceLoader));
+                getLanguageConfig(languageResourceLoader));
     }
 
     private static KeepXpInPvpFeature.Config getConfig(ResourceLoader resourceLoader, String worldName) {
@@ -67,13 +66,11 @@ public final class KeepXpInPvpFactory {
     }
 
     private static KeepXpInPvpFeature.Language getLanguageConfig(
-            ResourceLoader resourceLoader,
-            ResourceLoader defaultResourceLoader) {
+            ResourceLoader resourceLoader) {
 
         final var combatDisabled = resourceLoader.getValue(
                 String.class,
-                "keep-xp-in-pvp.combat-disabled",
-                defaultResourceLoader);
+                "keep-xp-in-pvp.combat-disabled");
 
         return new KeepXpInPvpFeature.Language();
     }

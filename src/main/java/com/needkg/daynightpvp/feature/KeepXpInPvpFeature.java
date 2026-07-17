@@ -18,7 +18,7 @@ public class KeepXpInPvpFeature implements PlayerDeathEventHandler {
     private final Map<String, KeepXpInPvpFeature.Config> worldConfigs = new ConcurrentHashMap<>();
     private final KeepXpInPvpFeature.Language languageConfigs;
 
-    private static final String PERMISSION_LOSE_XP_PERCENT = "dnp.lose-exp-percent.";
+    private static final String PERMISSION_LOSE_XP_PERCENT = "dnp.lose-exp-group.";
 
     public KeepXpInPvpFeature(
             Map<String, KeepXpInPvpFeature.Config> worldConfigs,

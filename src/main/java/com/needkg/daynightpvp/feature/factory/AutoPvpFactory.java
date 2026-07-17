@@ -15,8 +15,7 @@ public final class AutoPvpFactory {
 
     public static AutoPvpFeature create(
             ResourceLoader worldResourceLoader,
-            ResourceLoader languageResourceLoader,
-            ResourceLoader defaultLanguageResourceLoader) {
+            ResourceLoader languageResourceLoader) {
 
         final var worldConfigs = worldResourceLoader
                 .getKeys(false)
@@ -26,7 +25,7 @@ public final class AutoPvpFactory {
 
         return new AutoPvpFeature(
                 worldConfigs,
-                getLanguageConfig(languageResourceLoader, defaultLanguageResourceLoader));
+                getLanguageConfig(languageResourceLoader));
     }
 
     private static AutoPvpFeature.Config getConfig(ResourceLoader resourceLoader, String worldName) {
@@ -47,23 +46,19 @@ public final class AutoPvpFactory {
     }
 
     private static AutoPvpFeature.Language getLanguageConfig(
-            ResourceLoader resourceLoader,
-            ResourceLoader defaultResourceLoader) {
+            ResourceLoader resourceLoader) {
 
         final var combatDisabled = resourceLoader.getValue(
                 String.class,
-                "auto-pvp.combat-disabled",
-                defaultResourceLoader);
+                "auto-pvp.combat-disabled");
 
         final var playerImmune = resourceLoader.getValue(
                 String.class,
-                "auto-pvp.player-immune",
-                defaultResourceLoader);
+                "auto-pvp.player-immune");
 
         final var selfImmune = resourceLoader.getValue(
                 String.class,
-                "auto-pvp.self-immune",
-                defaultResourceLoader);
+                "auto-pvp.self-immune");
 
         return new AutoPvpFeature.Language(
                 combatDisabled,

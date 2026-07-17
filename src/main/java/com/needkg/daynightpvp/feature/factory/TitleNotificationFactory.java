@@ -14,8 +14,7 @@ public final class TitleNotificationFactory {
 
     public static TitleNotificationFeature create(
             ResourceLoader worldResourceLoader,
-            ResourceLoader languageResourceLoader,
-            ResourceLoader defaultLanguageResourceLoader) {
+            ResourceLoader languageResourceLoader) {
 
         final var worldConfigs = worldResourceLoader
                 .getKeys(false)
@@ -25,7 +24,7 @@ public final class TitleNotificationFactory {
 
         return new TitleNotificationFeature(
                 worldConfigs,
-                getLanguageConfig(languageResourceLoader, defaultLanguageResourceLoader));
+                getLanguageConfig(languageResourceLoader));
     }
 
     private static TitleNotificationFeature.Config getConfig(ResourceLoader resourceLoader, String worldName) {
@@ -58,28 +57,23 @@ public final class TitleNotificationFactory {
     }
 
     private static TitleNotificationFeature.Language getLanguageConfig(
-            ResourceLoader resourceLoader,
-            ResourceLoader defaultResourceLoader) {
+            ResourceLoader resourceLoader) {
 
         final var dayTitle = resourceLoader.getValue(
                 String.class,
-                "title.day-title",
-                defaultResourceLoader);
+                "title.day-title");
 
         final var daySubtitle = resourceLoader.getValue(
                 String.class,
-                "title.day-subtitle",
-                defaultResourceLoader);
+                "title.day-subtitle");
 
         final var nightTitle = resourceLoader.getValue(
                 String.class,
-                "title.day-night-title",
-                defaultResourceLoader);
+                "title.day-night-title");
 
         final var nightSubtitl = resourceLoader.getValue(
                 String.class,
-                "title.night-subtitle",
-                defaultResourceLoader);
+                "title.night-subtitle");
 
         return new TitleNotificationFeature.Language(
                 dayTitle,
