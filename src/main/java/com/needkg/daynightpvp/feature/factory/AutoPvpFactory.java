@@ -33,12 +33,12 @@ public final class AutoPvpFactory {
 
         final var enabled = resourceLoader.getValue(
                 Boolean.class,
-                worldName + ".autopvp.enabled",
+                worldName + ".pvp.auto.enabled",
                 false);
 
         final var dayEnd = resourceLoader.getValue(
                 Long.class,
-                worldName + ".autopvp.day-end",
+                worldName + ".pvp.day-end",
                 12900L);
 
         return new AutoPvpFeature.Config(

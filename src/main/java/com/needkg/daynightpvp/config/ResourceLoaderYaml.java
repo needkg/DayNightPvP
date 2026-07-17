@@ -21,16 +21,31 @@ public class ResourceLoaderYaml implements ResourceLoader {
 
     @Override
     public <T> T getValue(Class<T> type, String path, T defaultValue) {
-        return configuration.getObject(path, type, defaultValue);
+
+        final var value = getValue(type, path);
+        if (value == null) {
+            logDefaultValue(path, defaultValue);
+            return defaultValue;
+        }
+
+        return value;
     }
 
     @Override
     public <T> T getValue(Class<T> type, String path, ResourceLoader defaultResourceLoader) {
-        return configuration.getObject(path, type, defaultResourceLoader.getValue(type, path));
+        return getValue(type, path, defaultResourceLoader.getValue(type, path));
     }
 
     public Set<String> getKeys(boolean deep) {
         return configuration.getKeys(deep);
+    }
+
+    private void logDefaultValue(String path, Object defaultValue) {
+
+        // TODO implementar log de aviso para defaultValue usado, mas não encontrado no
+        // logger.warn("It seems that the value for path '" + path + "' is missing or
+        // invalid. Using default value: " + defaultValue + "consider checking your
+        // configuration file.");
     }
 
 }

@@ -10,9 +10,21 @@
 # Worlds configurations
 
 world:
-  auto-pvp:
-    enabled: true
+  pvp:
     day-end: 12900
+    auto:
+      enabled: true
+    on-death:
+      when: night #(day|night|all)
+      inventory:
+        enabled: true
+      exp:
+        enabled: true
+        lose-percent:
+          default: 30
+          groups:
+            another-permission: 40 # dnp.lose-exp-percent.another-permission
+            another-another-permission: 20 # dnp.lose-exp-percent.another-another-permission
   notifications:
     title:
       enabled: true

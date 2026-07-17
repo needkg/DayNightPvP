@@ -1,7 +1,15 @@
-autopvp:
-  combat-disabled: "It's daytime! PvP is disabled."
-  player-immune: "This player is immune to damage."
-  self-immune: "You are immune to combat and cannot engage in PvP."
+pvp:
+  auto:
+    combat-disabled: "It's daytime! PvP is disabled."
+    player-immune: "This player is immune to damage."
+    self-immune: "You are immune to combat and cannot engage in PvP."
+  keep-on-death:
+    message-start: "You died, but your"
+    message-end-singular: "was preserved."
+    message-end-plural: "were preserved."
+    inventory: "inventory"
+    xp: "XP"
+    connector: "and"
 
 notification:
   title:
