@@ -28,24 +28,20 @@ public class ResourceManager {
     }
 
     public ResourceLoader initializeConfigYml() {
-        return loadYaml(plugin, Path.of(CONFIG_YML), false, null);
+        return initializeYamlLoader(plugin, Path.of(CONFIG_YML), false, null);
     }
 
     public ResourceLoader initializeLanguageYml(String lang) {
         Path langPath = Path.of("lang", lang + ".yml");
-
         final var defaultLang = new ResourceLoaderYaml(new InputStreamReader(plugin.getResource(DEFAULT_LANG_YML)));
-
-        return loadYaml(plugin, langPath, false, defaultLang);
-
+        return initializeYamlLoader(plugin, langPath, false, defaultLang);
     }
 
     public ResourceLoader initializeWorldsYml() {
-        return loadYaml(plugin, Path.of(WORLDS), false, null);
-
+        return initializeYamlLoader(plugin, Path.of(WORLDS), false, null);
     }
 
-    private ResourceLoader loadYaml(
+    private ResourceLoader initializeYamlLoader(
             JavaPlugin plugin,
             Path resourcePath,
             boolean reset,
@@ -57,8 +53,8 @@ public class ResourceManager {
             plugin.saveResource(resourcePath.toString(), reset);
         }
 
-
-        return new ResourceLoaderYaml(FileUtils.openReader(plugin.getDataPath().resolve(resourcePath)),
+        return new ResourceLoaderYaml(
+                FileUtils.openReader(plugin.getDataPath().resolve(resourcePath)),
                 defaultResourceLoader);
 
     }
