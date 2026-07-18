@@ -12,11 +12,6 @@ commands:
     usage: "/dnp"
     aliases: [ dnp ]
     permission: dnp.admin
-  daynightpvp reload:
-    description: "Reloads all plugin configurations"
-    usage: "/dnp reload"
-    aliases: [ dnp reload ]
-    permission: dnp.admin
 
 
 permissions:

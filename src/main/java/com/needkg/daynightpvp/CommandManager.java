@@ -5,9 +5,7 @@ import java.util.Set;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.needkg.daynightpvp.command.DaynighPvpCommand;
 import com.needkg.daynightpvp.command.ReloadPluginCommand;
-import com.needkg.daynightpvp.command.factory.DaynighPvpFactory;
 import com.needkg.daynightpvp.command.factory.ReloadPluginFactory;
 import com.needkg.daynightpvp.config.ResourceLoader;
 import com.needkg.daynightpvp.event.listener.PluginReloadEventListener;
@@ -25,15 +23,10 @@ public class CommandManager {
     public void initialize(
             ResourceLoader resourceLoaderLanguage) {
 
-        DaynighPvpCommand daynighPvpCommand = new DaynighPvpCommand(
-                DaynighPvpFactory.getLanguageConfig(resourceLoaderLanguage));
-        daynighPvpCommand.register(plugin);
-
         ReloadPluginCommand reloadPluginCommand = new ReloadPluginCommand(
                 ReloadPluginFactory.getLanguageConfig(resourceLoaderLanguage),
                 applicationLifecycle);
 
-        daynighPvpCommand.addSubCommand(reloadPluginCommand);
         reloadPluginCommand.register(plugin);
 
         var pluginReloadEventListener = new PluginReloadEventListener(Set.of(reloadPluginCommand));

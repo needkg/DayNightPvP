@@ -15,7 +15,7 @@ import com.needkg.daynightpvp.event.handler.PluginReloadEventHandler;
 
 public class ReloadPluginCommand extends AbstractCommand implements PluginReloadEventHandler {
 
-    private static final String NAME = "reload";
+    private static final String NAME = "daynightpvp";
 
     private final ApplicationLifecycle applicationLifecycle;
     private final ReloadPluginCommand.Language language;
@@ -42,11 +42,6 @@ public class ReloadPluginCommand extends AbstractCommand implements PluginReload
     @Override
     public void handle(PluginReloadEvent event) {
         event.getSender().sendMessage(language.success());
-    }
-
-    @Override
-    protected void setExecutor(PluginCommand command) {
-        command.setExecutor(this);
     }
 
     public record Language(String success) {

@@ -10,17 +10,6 @@ import com.needkg.daynightpvp.config.ResourceLoader;
 
 public final class ReloadPluginFactory {
 
-    // public static ReloadPluginCommand create(
-    //         ApplicationLifecycle lifecycle,
-    //         ResourceLoader languageResourceLoader,
-    //         ResourceLoader defaultLanguageResourceLoader) {
-
-    //     return new ReloadPluginCommand(
-    //             getLanguageConfig(languageResourceLoader),
-    //             null,
-    //             lifecycle);
-    // }
-
     public static ReloadPluginCommand.Language getLanguageConfig(ResourceLoader resourceLoader) {
 
         final var reloaded = resourceLoader.getValue(
