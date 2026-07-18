@@ -33,15 +33,27 @@ public abstract class AbstractCommand implements CommandExecutor {
 
     }
 
+    // public void setParentCommand(AbstractCommand parentCommand) {
+
+    //     if (this.parentCommand.isPresent()) {
+    //         throw new CommandHierarchyException(this, parentCommand);
+    //     }
+        
+    //     this.parentCommand = Optional.of(parentCommand);
+    // }
+
     public void register(JavaPlugin plugin) {
 
         var command = plugin.getCommand(getName());
 
-        setExecutor(command);
+        //setExecutor(command);
 
         if (command != null) {
             setExecutor(command);
+            return;
         }
+
+        throw new IllegalStateException("Command " + getName() + " not found in plugin.yml");
 
     }
 

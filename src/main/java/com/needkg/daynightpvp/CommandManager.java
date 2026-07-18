@@ -32,11 +32,13 @@ public class CommandManager {
         ReloadPluginCommand reloadPluginCommand = new ReloadPluginCommand(
                 ReloadPluginFactory.getLanguageConfig(resourceLoaderLanguage),
                 applicationLifecycle);
-        reloadPluginCommand.register(plugin);
-        var pluginReloadEventListener = new PluginReloadEventListener(Set.of(reloadPluginCommand));
-        Bukkit.getPluginManager().registerEvents(pluginReloadEventListener, plugin);
 
         daynighPvpCommand.addSubCommand(reloadPluginCommand);
+        reloadPluginCommand.register(plugin);
+
+        var pluginReloadEventListener = new PluginReloadEventListener(Set.of(reloadPluginCommand));
+
+        Bukkit.getPluginManager().registerEvents(pluginReloadEventListener, plugin);
 
     }
 

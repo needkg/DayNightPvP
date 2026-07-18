@@ -24,7 +24,7 @@ public class ApplicationLifecycle {
         final var languageResource = resourceManager.initializeLanguageYml(
             configResource.getValue(
                 String.class, 
-                "lang", 
+                "language",
                 "en"));
 
         final var worldsResource = resourceManager.initializeWorldsYml();

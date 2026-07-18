@@ -26,7 +26,7 @@ public class ResourceLoaderYaml implements ResourceLoader {
     @Override
     public <T> T getValue(Class<T> type, String path) {
 
-        final var value = getValue(type, path);
+        final var value = configuration.getObject(path, type);
         if (value == null && defaultResourceLoader.isPresent()) {
             final var defaultValue = defaultResourceLoader.get().getValue(type, path);
             logDefaultValue(path, defaultValue);
@@ -40,7 +40,7 @@ public class ResourceLoaderYaml implements ResourceLoader {
     public <T> T getValue(Class<T> type, String path, T defaultValue) {
 
         final var value = getValue(type, path);
-        if (value == null && defaultResourceLoader.isPresent()) {
+        if (value == null) {
             logDefaultValue(path, defaultValue);
             return defaultValue;
         }
