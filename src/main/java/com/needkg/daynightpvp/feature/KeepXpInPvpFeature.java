@@ -40,7 +40,7 @@ public class KeepXpInPvpFeature implements PlayerDeathEventHandler {
             return;
         }
 
-        if (!shouldKeep(event.getEntity(), worldConfig.when, worldConfig.dayEnd)) {
+        if (!timeMatch(event.getEntity(), worldConfig.when, worldConfig.dayEnd)) {
             return;
         }
 
@@ -58,6 +58,9 @@ public class KeepXpInPvpFeature implements PlayerDeathEventHandler {
 
         if (loseAmount > 0) {
             victim.setExp(0);
+            victim.sendMessage(languageConfigs.lose());
+        } else {
+            victim.sendMessage(languageConfigs.noLose());
         }
 
         event.setDroppedExp(loseAmount.intValue());
@@ -71,7 +74,7 @@ public class KeepXpInPvpFeature implements PlayerDeathEventHandler {
         return entity.getWorld().getTime() < dayEnd ? Config.When.DAY : Config.When.NIGHT;
     }
 
-    private static Boolean shouldKeep(Entity entity, Config.When configTime, Long dayEnd) {
+    private static Boolean timeMatch(Entity entity, Config.When configTime, Long dayEnd) {
 
         return KeepXpInPvpFeature.Config.When.ALL.equals(configTime)
                 || worldTime(entity, dayEnd).equals(configTime);
@@ -92,6 +95,7 @@ public class KeepXpInPvpFeature implements PlayerDeathEventHandler {
         if (actualXp <= 0 || losePercent <= 0) {
             return 0;
         }
+
         return actualXp * losePercent / 100;
     }
 
@@ -120,8 +124,8 @@ public class KeepXpInPvpFeature implements PlayerDeathEventHandler {
     }
 
     public record Language(
-
-    ) {
+            String lose,
+            String noLose) {
 
     }
 

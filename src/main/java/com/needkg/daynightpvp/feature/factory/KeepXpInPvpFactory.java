@@ -68,11 +68,15 @@ public final class KeepXpInPvpFactory {
     private static KeepXpInPvpFeature.Language getLanguageConfig(
             ResourceLoader resourceLoader) {
 
-        final var combatDisabled = resourceLoader.getValue(
+        final var lose = resourceLoader.getValue(
                 String.class,
-                "keep-xp-in-pvp.combat-disabled");
+                "keep-on-death.xp.lose");
 
-        return new KeepXpInPvpFeature.Language();
+        final var noLose = resourceLoader.getValue(
+                String.class,
+                "keep-on-death.xp.no-lose");
+
+        return new KeepXpInPvpFeature.Language(lose, noLose);
     }
 
 }

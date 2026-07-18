@@ -4,12 +4,12 @@ pvp:
     player-immune: "This player is immune to damage."
     self-immune: "You are immune to combat and cannot engage in PvP."
   keep-on-death:
-    message-start: "You died, but your"
-    message-end-singular: "was preserved."
-    message-end-plural: "were preserved."
-    inventory: "inventory"
-    xp: "XP"
-    connector: "and"
+    xp:
+      no-lose: "You did not lose any XP."
+      lose: "You died and lost some XP."
+    inventory:
+      no-lose: "You did not lose any items."
+      lose: "You died and lost some items."
 
 notification:
   title:

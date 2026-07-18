@@ -16,8 +16,22 @@ world:
       enabled: true
     keep-on-death:
       inventory: # TODO implementar
-        enabled: true
         when: night #(day|night|all)
+        hotbar:
+          enabled: true
+        main-inventory:
+         enabled: true
+        armor:
+         enabled: true
+        lose-percent:
+          default: 30
+          groups:
+            another-permission: 40
+            another-another-permission: 20
+          filter:
+            whitelist:
+              - DIAMOND
+              - NETHER-STAR
       exp:
         enabled: true
         when: night #(day|night|all)
